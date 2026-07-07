@@ -8,7 +8,11 @@ import {
   Briefcase,
   LogOut,
   Menu,
-  X
+  X,
+  ImageIcon,
+  FileText,
+  Star,
+  Layout
 } from 'lucide-react';
 
 const sidebarItems = [
@@ -16,6 +20,10 @@ const sidebarItems = [
   { path: '/admin/projects', label: 'Dự án', icon: FolderKanban },
   { path: '/admin/products', label: 'Sản phẩm', icon: Box },
   { path: '/admin/services', label: 'Dịch vụ', icon: Briefcase },
+  { path: '/admin/banners', label: 'Banner', icon: Layout },
+  { path: '/admin/articles', label: 'Bài viết', icon: FileText },
+  { path: '/admin/reviews', label: 'Đánh giá', icon: Star },
+  { path: '/admin/images', label: 'Hình ảnh', icon: ImageIcon },
 ];
 
 export function useAdminAuth() {

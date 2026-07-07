@@ -57,3 +57,50 @@ export interface DbService {
   is_published: boolean;
   created_at: string;
 }
+
+export interface DbBanner {
+  id: string;
+  title: string;
+  subtitle: string;
+  image_url: string;
+  link_url: string;
+  position: string;
+  sort_order: number;
+  is_active: boolean;
+  created_at: string;
+}
+
+export interface DbArticle {
+  id: string;
+  slug: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  cover_image: string;
+  author: string;
+  category: string;
+  tags: string[];
+  is_published: boolean;
+  published_at: string | null;
+  created_at: string;
+}
+
+export interface DbReview {
+  id: string;
+  name: string;
+  role: string;
+  avatar: string;
+  rating: number;
+  text: string;
+  project: string;
+  is_published: boolean;
+  sort_order: number;
+  created_at: string;
+}
+
+export interface StorageImage {
+  name: string;
+  url: string;
+  size: number;
+  created_at: string;
+}

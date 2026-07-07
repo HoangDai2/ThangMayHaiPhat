@@ -17,6 +17,10 @@ import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminProjects from './pages/admin/AdminProjects';
 import AdminProducts from './pages/admin/AdminProducts';
 import AdminServices from './pages/admin/AdminServices';
+import AdminBanners from './pages/admin/AdminBanners';
+import AdminArticles from './pages/admin/AdminArticles';
+import AdminReviews from './pages/admin/AdminReviews';
+import AdminImages from './pages/admin/AdminImages';
 
 function HomePage() {
   return (
@@ -64,6 +68,10 @@ function App() {
           <Route path="projects" element={<AdminProjects />} />
           <Route path="products" element={<AdminProducts />} />
           <Route path="services" element={<AdminServices />} />
+          <Route path="banners" element={<AdminBanners />} />
+          <Route path="articles" element={<AdminArticles />} />
+          <Route path="reviews" element={<AdminReviews />} />
+          <Route path="images" element={<AdminImages />} />
         </Route>
       </Routes>
     </BrowserRouter>

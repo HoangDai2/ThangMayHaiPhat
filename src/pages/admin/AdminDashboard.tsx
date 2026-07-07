@@ -1,25 +1,31 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { LayoutDashboard, FolderKanban, Box, Briefcase, Loader2 } from 'lucide-react';
+import { LayoutDashboard, FolderKanban, Box, Briefcase, Loader2, Layout, FileText, Star, ImageIcon } from 'lucide-react';
 import { supabase, DbProject } from '../../lib/supabase';
 
 export default function AdminDashboard() {
-  const [counts, setCounts] = useState({ projects: 0, products: 0, services: 0 });
+  const [counts, setCounts] = useState({ projects: 0, products: 0, services: 0, banners: 0, articles: 0, reviews: 0 });
   const [recentProjects, setRecentProjects] = useState<DbProject[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     (async () => {
-      const [proj, prod, svc, recent] = await Promise.all([
+      const [proj, prod, svc, ban, art, rev, recent] = await Promise.all([
         supabase.from('projects').select('id', { count: 'exact', head: true }),
         supabase.from('products').select('id', { count: 'exact', head: true }),
         supabase.from('services').select('id', { count: 'exact', head: true }),
+        supabase.from('banners').select('id', { count: 'exact', head: true }),
+        supabase.from('articles').select('id', { count: 'exact', head: true }),
+        supabase.from('reviews').select('id', { count: 'exact', head: true }),
         supabase.from('projects').select('*').order('created_at', { ascending: false }).limit(4),
       ]);
       setCounts({
         projects: proj.count ?? 0,
         products: prod.count ?? 0,
         services: svc.count ?? 0,
+        banners: ban.count ?? 0,
+        articles: art.count ?? 0,
+        reviews: rev.count ?? 0,
       });
       if (!recent.error && recent.data) setRecentProjects(recent.data);
       setLoading(false);
@@ -30,6 +36,9 @@ export default function AdminDashboard() {
     { title: 'Dự án', count: counts.projects, icon: FolderKanban, color: 'bg-blue-500', href: '/admin/projects' },
     { title: 'Sản phẩm', count: counts.products, icon: Box, color: 'bg-green-500', href: '/admin/products' },
     { title: 'Dịch vụ', count: counts.services, icon: Briefcase, color: 'bg-purple-500', href: '/admin/services' },
+    { title: 'Banner', count: counts.banners, icon: Layout, color: 'bg-pink-500', href: '/admin/banners' },
+    { title: 'Bài viết', count: counts.articles, icon: FileText, color: 'bg-amber-500', href: '/admin/articles' },
+    { title: 'Đánh giá', count: counts.reviews, icon: Star, color: 'bg-red-500', href: '/admin/reviews' },
   ];
 
   return (
@@ -40,7 +49,7 @@ export default function AdminDashboard() {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         {statCards.map((stat) => {
           const Icon = stat.icon;
           return (
@@ -68,7 +77,7 @@ export default function AdminDashboard() {
       {/* Quick Actions */}
       <div className="bg-white rounded-xl p-6 shadow-sm mb-8">
         <h2 className="text-xl font-semibold text-slate-800 mb-4">Thao tác nhanh</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <Link to="/admin/projects" className="flex items-center gap-3 p-4 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors">
             <FolderKanban className="w-5 h-5 text-orange-500" />
             <span className="text-slate-700">Quản lý dự án</span>
@@ -80,6 +89,22 @@ export default function AdminDashboard() {
           <Link to="/admin/services" className="flex items-center gap-3 p-4 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors">
             <Briefcase className="w-5 h-5 text-orange-500" />
             <span className="text-slate-700">Quản lý dịch vụ</span>
+          </Link>
+          <Link to="/admin/banners" className="flex items-center gap-3 p-4 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors">
+            <Layout className="w-5 h-5 text-orange-500" />
+            <span className="text-slate-700">Quản lý banner</span>
+          </Link>
+          <Link to="/admin/articles" className="flex items-center gap-3 p-4 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors">
+            <FileText className="w-5 h-5 text-orange-500" />
+            <span className="text-slate-700">Quản lý bài viết</span>
+          </Link>
+          <Link to="/admin/reviews" className="flex items-center gap-3 p-4 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors">
+            <Star className="w-5 h-5 text-orange-500" />
+            <span className="text-slate-700">Quản lý đánh giá</span>
+          </Link>
+          <Link to="/admin/images" className="flex items-center gap-3 p-4 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors">
+            <ImageIcon className="w-5 h-5 text-orange-500" />
+            <span className="text-slate-700">Quản lý hình ảnh</span>
           </Link>
         </div>
       </div>
