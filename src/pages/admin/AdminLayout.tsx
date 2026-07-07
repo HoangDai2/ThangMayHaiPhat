@@ -25,7 +25,7 @@ export function useAdminAuth() {
 
   const login = (password: string): boolean => {
     // Simple password check - in production use Supabase auth
-    if (password === 'vietlift2024') {
+    if (password === 'haiphat2024') {
       localStorage.setItem('adminAuth', 'true');
       setIsAuthenticated(true);
       return true;
@@ -74,7 +74,7 @@ export function AdminLayout() {
       >
         <div className="p-6 border-b border-slate-700">
           <Link to="/" className="text-xl font-bold text-orange-500">
-            VietLift Admin
+            Hải Phát Admin
           </Link>
         </div>
         <nav className="p-4">

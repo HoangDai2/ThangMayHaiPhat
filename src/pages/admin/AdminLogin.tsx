@@ -33,7 +33,7 @@ export default function AdminLogin() {
             <Lock className="w-8 h-8 text-white" />
           </div>
           <h1 className="text-2xl font-bold text-slate-800">Đăng nhập Admin</h1>
-          <p className="text-slate-500 mt-2">VietLift Quản trị</p>
+          <p className="text-slate-500 mt-2">Hải Phát Quản trị</p>
         </div>
 
         <form onSubmit={handleSubmit}>

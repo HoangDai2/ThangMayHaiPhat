@@ -14,7 +14,8 @@ import {
   Settings,
   ChevronRight,
 } from 'lucide-react';
-import { serviceItems } from '../data/services';
+import { useServicesData } from '../hooks/useServicesData';
+import { Loader2 } from 'lucide-react';
 
 const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
   'clipboard-search': Search,
@@ -24,6 +25,8 @@ const iconMap: Record<string, React.ComponentType<{ size?: number; className?: s
 };
 
 export function ServicesList() {
+  const { services: serviceItems, loading } = useServicesData();
+  if (loading) return <div className="min-h-screen flex items-center justify-center"><Loader2 className="w-8 h-8 animate-spin text-[#285c9a]" /></div>;
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Header */}
@@ -116,7 +119,7 @@ export function ServicesList() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">
-              Tại sao chọn VietLift?
+              Tại sao chọn Hải Phát?
             </h2>
             <p className="text-gray-500 max-w-xl mx-auto text-sm">
               Chúng tôi cam kết mang đến dịch vụ thang máy tốt nhất với đội ngũ chuyên nghiệp

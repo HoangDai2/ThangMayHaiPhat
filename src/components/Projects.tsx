@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { MapPin, ArrowRight } from 'lucide-react';
-import { projects, ProjectCategory } from '../data/projects';
+import { ProjectCategory } from '../data/projects';
+import { useProjectsData } from '../hooks/useProjectsData';
 
 const categories: ProjectCategory[] = ['Gia đình', 'Tải khách', 'Thương mại'];
 
 export default function Projects() {
   const [active, setActive] = useState<ProjectCategory | 'Tất cả'>('Tất cả');
+  const { projects } = useProjectsData();
 
   const filtered = active === 'Tất cả' ? projects : projects.filter((p) => p.category === active);
 

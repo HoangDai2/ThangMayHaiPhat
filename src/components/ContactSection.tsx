@@ -41,7 +41,7 @@ export default function ContactSection() {
               {
                 icon: Mail,
                 title: 'Email',
-                lines: ['info@vietlift.vn', 'sales@vietlift.vn'],
+                lines: ['info@haiphat.vn', 'sales@haiphat.vn'],
               },
               {
                 icon: MapPin,

@@ -65,7 +65,7 @@ export default function AboutPage() {
               <div className="relative">
                 <img
                   src="https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=800&q=80"
-                  alt="VietLift team"
+                  alt="Hải Phát team"
                   className="rounded-2xl shadow-2xl"
                 />
                 <div className="absolute -bottom-5 -left-5 bg-white rounded-xl p-4 shadow-lg">
@@ -168,7 +168,7 @@ export default function AboutPage() {
           <div className="text-center mb-12">
             <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">Giá trị cốt lõi</h2>
             <p className="text-white/60 text-sm max-w-xl mx-auto">
-              Những nguyên tắc định hướng mọi hoạt động của VietLift
+              Những nguyên tắc định hướng mọi hoạt động của Hải Phát
             </p>
           </div>
 
@@ -198,7 +198,7 @@ export default function AboutPage() {
           <div className="text-center mb-12">
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">Đội ngũ lãnh đạo</h2>
             <p className="text-gray-500 text-sm max-w-xl mx-auto">
-              Những người đã xây dựng và phát triển VietLift trong suốt chặng đường
+              Những người đã xây dựng và phát triển Hải Phát trong suốt chặng đường
             </p>
           </div>
 

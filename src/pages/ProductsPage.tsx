@@ -21,7 +21,9 @@ import {
   Settings,
   AlertCircle,
 } from 'lucide-react';
-import { getProductById, getRelatedProducts, products, Product } from '../data/products';
+import { Product } from '../data/products';
+import { useProductsData } from '../hooks/useProductsData';
+import { Loader2 } from 'lucide-react';
 
 const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
   home: Home,
@@ -33,6 +35,8 @@ const iconMap: Record<string, React.ComponentType<{ size?: number; className?: s
 
 // Products List Page
 export function ProductsList() {
+  const { products, loading } = useProductsData();
+  if (loading) return <div className="min-h-screen flex items-center justify-center"><Loader2 className="w-8 h-8 animate-spin text-[#285c9a]" /></div>;
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Header */}
@@ -116,7 +120,7 @@ export function ProductsList() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">
-              Tại sao chọn VietLift?
+              Tại sao chọn Hải Phát?
             </h2>
             <p className="text-gray-500 max-w-xl mx-auto text-sm">
               Chúng tôi cam kết mang đến sản phẩm thang máy tốt nhất với đội ngũ chuyên nghiệp
@@ -180,10 +184,13 @@ export function ProductsList() {
 // Product Detail Page
 function ProductDetail() {
   const { id } = useParams<{ id: string }>();
-  const product = getProductById(id || '');
-  const related = getRelatedProducts(id || '', 3);
+  const { loading, getById, getRelated } = useProductsData();
+  const product = getById(id || '');
+  const related = getRelated(id || '', 3);
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
   const [activeImage, setActiveImage] = useState(0);
+
+  if (loading) return <div className="min-h-screen flex items-center justify-center"><Loader2 className="w-8 h-8 animate-spin text-[#285c9a]" /></div>;
 
   if (!product) {
     return (

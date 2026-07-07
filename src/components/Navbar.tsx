@@ -45,17 +45,12 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 group">
-          <div className="w-9 h-9 rounded-lg bg-[#285c9a] flex items-center justify-center flex-shrink-0">
-            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="3" y="2" width="6" height="18" rx="1.5" fill="white" fillOpacity="0.9"/>
-              <rect x="13" y="2" width="6" height="18" rx="1.5" fill="white" fillOpacity="0.5"/>
-              <path d="M6 7L6 10M6 12L6 15" stroke="#285c9a" strokeWidth="1.5" strokeLinecap="round"/>
-            </svg>
-          </div>
-          <span className={`font-bold text-xl tracking-tight transition-colors duration-300 ${scrolled || !isHome ? 'text-[#285c9a]' : 'text-white'}`}>
-            Viet<span className={scrolled || !isHome ? 'text-gray-800' : 'text-blue-200'}>Lift</span>
-          </span>
+        <Link to="/" className="flex items-center group">
+          <img
+            src="/image.png"
+            alt="Thang Máy Hải Phát"
+            className="h-12 w-auto object-contain"
+          />
         </Link>
 
         {/* Desktop nav */}

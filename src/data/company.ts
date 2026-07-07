@@ -27,14 +27,14 @@ export interface Certificate {
 }
 
 export const companyInfo = {
-  name: 'VietLift',
-  fullName: 'Công Ty Cổ Phần Thang Máy Việt',
+  name: 'Hải Phát',
+  fullName: 'Công Ty TNHH Thang Máy Hải Phát',
   founded: 2009,
   yearsExperience: 15,
-  slogan: 'Nâng tầm cuộc sống Việt',
-  description: `VietLift là đơn vị chuyên lắp đặt, bảo trì và cung cấp giải pháp thang máy hàng đầu Việt Nam với hơn 15 năm kinh nghiệm. Chúng tôi tự hào đã hoàn thành hơn 500 công trình trên toàn quốc, từ biệt thự gia đình đến các tòa nhà văn phòng cao tầng, trung tâm thương mại lớn.
+  slogan: 'Chất lượng khẳng định thương hiệu',
+  description: `Thang Máy Hải Phát là đơn vị chuyên lắp đặt, bảo trì và cung cấp giải pháp thang máy hàng đầu Việt Nam với hơn 15 năm kinh nghiệm. Chúng tôi tự hào đã hoàn thành hơn 500 công trình trên toàn quốc, từ biệt thự gia đình đến các tòa nhà văn phòng cao tầng, trung tâm thương mại lớn.
 
-Với đội ngũ kỹ sư giàu kinh nghiệm, được đào tạo bài bản từ các nhà sản xuất thang máy hàng đầu thế giới, VietLift cam kết mang đến sản phẩm chất lượng cao với dịch vụ hậu mãi chuyên nghiệp 24/7.`,
+Với đội ngũ kỹ sư giàu kinh nghiệm, được đào tạo bài bản từ các nhà sản xuất thang máy hàng đầu thế giới, Hải Phát cam kết mang đến sản phẩm chất lượng cao với dịch vụ hậu mãi chuyên nghiệp 24/7.`,
   mission: 'Cung cấp giải pháp thang máy an toàn, hiện đại và tiện nghi, nâng tầm chất lượng sống cho khách hàng.',
   vision: 'Trở thành thương hiệu thang máy uy tín nhất Việt Nam, Top 5 doanh nghiệp hàng đầu trong ngành thang máy Đông Nam Á vào năm 2030.',
   stats: [
@@ -47,7 +47,7 @@ Với đội ngũ kỹ sư giàu kinh nghiệm, được đào tạo bài bản 
     address: '123 Đường Láng, Quận Đống Đa, Hà Nội',
     phone: '024 1234 5678',
     hotline: '0800 123 456',
-    email: 'info@vietlift.vn',
+    email: 'info@haiphat.vn',
     workingHours: 'Thứ 2 - Thứ 7: 7:30 - 17:30',
   },
   branches: [
@@ -154,7 +154,7 @@ export const teamMembers: TeamMember[] = [
     id: 'nguyen-van-hung',
     name: 'Nguyễn Văn Hùng',
     role: 'CEO & Founder',
-    bio: 'Với hơn 20 năm kinh nghiệm trong ngành thang máy, ông Hùng đã sáng lập VietLift với tầm nhìn đưa thang máy chất lượng cao đại trà cho các gia đình Việt.',
+    bio: 'Với hơn 20 năm kinh nghiệm trong ngành thang máy, ông Hùng đã sáng lập Hải Phát với tầm nhìn đưa thang máy chất lượng cao đại trà cho các gia đình Việt.',
     image: 'https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=400&q=80',
     linkedin: '#',
     experience: '20+ năm',
@@ -172,7 +172,7 @@ export const teamMembers: TeamMember[] = [
     id: 'le-van-tuan',
     name: 'Lê Văn Tuấn',
     role: 'Giám đốc Kinh doanh',
-    bio: 'Ông Tuấn có 15 năm kinh nghiệm trong lĩnh vực B2B, đã mở rộng mạng lưới khách hàng của VietLift trên 63 tỉnh thành.',
+    bio: 'Ông Tuấn có 15 năm kinh nghiệm trong lĩnh vực B2B, đã mở rộng mạng lưới khách hàng của Hải Phát trên 63 tỉnh thành.',
     image: 'https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=400&q=80',
     linkedin: '#',
     experience: '15 năm',

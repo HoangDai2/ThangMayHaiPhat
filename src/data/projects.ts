@@ -53,7 +53,7 @@ export const projects: Project[] = [
     testimonial: {
       name: 'Nguyễn Văn Minh',
       role: 'Chủ hộ',
-      text: 'VietLift đã làm việc rất chuyên nghiệp. Thang máy không chỉ tiện ích mà còn là điểm nhấn kiến trúc của ngôi nhà. Cả gia đình tôi đều rất hài lòng.',
+      text: 'Hải Phát đã làm việc rất chuyên nghiệp. Thang máy không chỉ tiện ích mà còn là điểm nhấn kiến trúc của ngôi nhà. Cả gia đình tôi đều rất hài lòng.',
       avatar: 'https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=150&q=80',
     },
   },
@@ -137,7 +137,7 @@ export const projects: Project[] = [
     testimonial: {
       name: 'Phạm Thị Lan',
       role: 'Chủ hộ',
-      text: 'Nhà tôi diện tích nhỏ nhưng VietLift vẫn tìm được giải pháp thang máy phù hợp. Ba mẹ già di chuyển dễ dàng hơn rất nhiều.',
+      text: 'Nhà tôi diện tích nhỏ nhưng Hải Phát vẫn tìm được giải pháp thang máy phù hợp. Ba mẹ già di chuyển dễ dàng hơn rất nhiều.',
       avatar: 'https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg?auto=compress&cs=tinysrgb&w=150&q=80',
     },
   },

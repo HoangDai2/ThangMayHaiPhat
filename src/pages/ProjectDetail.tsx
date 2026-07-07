@@ -1,13 +1,22 @@
 import { useParams, Link } from 'react-router-dom';
-import { MapPin, Building2, Zap, Calendar, Shield, ChevronLeft, ArrowRight, Star, Phone, Clock, Layers, Ruler, Gauge } from 'lucide-react';
-import { getProjectById, getRelatedProjects, projects } from '../data/projects';
+import { MapPin, Building2, Zap, Calendar, Shield, ChevronLeft, ArrowRight, Star, Phone, Clock, Layers, Ruler, Gauge, Loader2 } from 'lucide-react';
 import { useState } from 'react';
+import { useProjectsData } from '../hooks/useProjectsData';
 
 function ProjectDetail() {
   const { id } = useParams<{ id: string }>();
-  const project = getProjectById(id || '');
-  const related = getRelatedProjects(id || '', 3);
+  const { loading, getById, getRelated } = useProjectsData();
+  const project = getById(id || '');
+  const related = getRelated(id || '', 3);
   const [activeImage, setActiveImage] = useState(0);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="w-8 h-8 animate-spin text-[#285c9a]" />
+      </div>
+    );
+  }
 
   if (!project) {
     return (
@@ -247,6 +256,7 @@ function ProjectDetail() {
 // Projects List Page
 function ProjectsList() {
   const [category, setCategory] = useState<string>('Tất cả');
+  const { projects, loading } = useProjectsData();
   const categories = ['Tất cả', ...new Set(projects.map((p) => p.category))];
 
   const filtered = category === 'Tất cả' ? projects : projects.filter((p) => p.category === category);

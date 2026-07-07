@@ -17,7 +17,7 @@ const serviceLinks = [
 ];
 
 const companyLinks = [
-  { label: 'Về VietLift', href: '/ve-chung-toi' },
+  { label: 'Về Hải Phát', href: '/ve-chung-toi' },
   { label: 'Đội ngũ chuyên gia', href: '/ve-chung-toi' },
   { label: 'Chứng nhận & giải thưởng', href: '/ve-chung-toi' },
   { label: 'Tuyển dụng', href: '#' },
@@ -63,14 +63,8 @@ export default function Footer() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-9 h-9 rounded-lg bg-[#285c9a] flex items-center justify-center">
-                <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-                  <rect x="3" y="2" width="6" height="18" rx="1.5" fill="white" fillOpacity="0.9"/>
-                  <rect x="13" y="2" width="6" height="18" rx="1.5" fill="white" fillOpacity="0.5"/>
-                </svg>
-              </div>
-              <span className="font-bold text-xl text-white">VietLift</span>
+            <div className="mb-4">
+              <img src="/image.png" alt="Thang Máy Hải Phát" className="h-12 w-auto object-contain" />
             </div>
             <p className="text-gray-400 text-sm leading-relaxed mb-5">
               Chuyên lắp đặt thang máy gia đình và thang máy tải khách cao cấp. Hơn 15 năm
@@ -189,11 +183,11 @@ export default function Footer() {
               <li className="flex gap-3">
                 <Mail size={15} className="text-[#285c9a] mt-0.5 flex-shrink-0" />
                 <div>
-                  <a href="mailto:info@vietlift.vn" className="text-gray-400 text-sm hover:text-white transition-colors block">
-                    info@vietlift.vn
+                  <a href="mailto:info@haiphat.vn" className="text-gray-400 text-sm hover:text-white transition-colors block">
+                    info@haiphat.vn
                   </a>
-                  <a href="mailto:sales@vietlift.vn" className="text-gray-400 text-sm hover:text-white transition-colors block">
-                    sales@vietlift.vn
+                  <a href="mailto:sales@haiphat.vn" className="text-gray-400 text-sm hover:text-white transition-colors block">
+                    sales@haiphat.vn
                   </a>
                 </div>
               </li>
@@ -215,7 +209,7 @@ export default function Footer() {
       <div className="border-t border-white/8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-gray-500 text-xs">
-            &copy; {new Date().getFullYear()} VietLift. All rights reserved. · MST: 0123456789
+            &copy; {new Date().getFullYear()} Thang Máy Hải Phát. All rights reserved. · MST: 0123456789
           </p>
           <div className="flex items-center gap-5">
             <a href="#" className="text-gray-500 text-xs hover:text-gray-300 transition-colors">

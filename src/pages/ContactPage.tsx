@@ -72,7 +72,7 @@ export default function ContactPage() {
             Kết Nối Với Chúng Tôi
           </h1>
           <p className="text-white/70 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
-            Đội ngũ VietLift luôn sẵn sàng lắng nghe và hỗ trợ bạn. Liên hệ ngay để nhận tư vấn
+            Đội ngũ Hải Phát luôn sẵn sàng lắng nghe và hỗ trợ bạn. Liên hệ ngay để nhận tư vấn
             miễn phí về giải pháp thang máy phù hợp nhất.
           </p>
         </div>
@@ -119,7 +119,7 @@ export default function ContactPage() {
                   </div>
                   <h3 className="text-xl font-bold text-gray-900 mb-2">Gửi thành công!</h3>
                   <p className="text-gray-500 text-sm mb-6">
-                    Cảm ơn bạn đã liên hệ. Đội ngũ VietLift sẽ phản hồi trong thời gian sớm nhất.
+                    Cảm ơn bạn đã liên hệ. Đội ngũ Hải Phát sẽ phản hồi trong thời gian sớm nhất.
                   </p>
                   <button
                     onClick={() => {
@@ -235,7 +235,7 @@ export default function ContactPage() {
                     <a href="#" className="text-[#285c9a] hover:underline">
                       chính sách bảo mật
                     </a>{' '}
-                    của VietLift.
+                    của Hải Phát.
                   </p>
                 </form>
               )}
@@ -298,8 +298,8 @@ export default function ContactPage() {
                     <a href={`mailto:${companyInfo.headquarters.email}`} className="text-gray-500 text-xs hover:text-[#285c9a] block">
                       {companyInfo.headquarters.email}
                     </a>
-                    <a href="mailto:sales@vietlift.vn" className="text-gray-500 text-xs hover:text-[#285c9a] block">
-                      sales@vietlift.vn
+                    <a href="mailto:sales@haiphat.vn" className="text-gray-500 text-xs hover:text-[#285c9a] block">
+                      sales@haiphat.vn
                     </a>
                   </div>
                 </div>
@@ -356,7 +356,7 @@ export default function ContactPage() {
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              title="VietLift Office"
+              title="Hải Phát Office"
             />
           </div>
         </div>
@@ -427,7 +427,7 @@ export default function ContactPage() {
               },
               {
                 q: 'Có dịch vụ tại tỉnh thành nào?',
-                a: 'VietLift phục vụ khách hàng trên toàn quốc 63 tỉnh thành với mạng lưới văn phòng và đối tác trải dài.',
+                a: 'Hải Phát phục vụ khách hàng trên toàn quốc 63 tỉnh thành với mạng lưới văn phòng và đối tác trải dài.',
               },
             ].map((faq, idx) => (
               <details

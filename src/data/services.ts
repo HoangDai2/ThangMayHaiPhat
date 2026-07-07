@@ -20,7 +20,7 @@ export const serviceItems: ServiceItem[] = [
     subtitle: 'Khảo sát hiện trạng và báo giá minh bạch',
     icon: 'clipboard-search',
     shortDescription: 'Đội ngũ kỹ sư đến tận công trình khảo sát, đo đạc, đánh giá hiện trạng và cung cấp báo giá chi tiết, minh bạch trong 24 giờ.',
-    fullDescription: `Dịch vụ khảo sát và báo giá của VietLift là bước đầu tiên trong quy trình cung cấp giải pháp thang máy. Đội ngũ kỹ sư giàu kinh nghiệm sẽ đến tận công trình để khảo sát hiện trạng, đo đạc không gian, đánh giá kết cấu và đề xuất giải pháp phù hợp nhất.
+    fullDescription: `Dịch vụ khảo sát và báo giá của Hải Phát là bước đầu tiên trong quy trình cung cấp giải pháp thang máy. Đội ngũ kỹ sư giàu kinh nghiệm sẽ đến tận công trình để khảo sát hiện trạng, đo đạc không gian, đánh giá kết cấu và đề xuất giải pháp phù hợp nhất.
 
 Sau khi khảo sát, chúng tôi cung cấp báo giá chi tiết trong vòng 24 giờ, minh bạch từng hạng mục: thiết bị, vật tư, nhân công, vận hành thử và bảo hành. Không phát sinh chi phí ẩn, cam kết giá tốt nhất thị trường.`,
     highlights: [
@@ -44,7 +44,7 @@ Sau khi khảo sát, chúng tôi cung cấp báo giá chi tiết trong vòng 24 
     subtitle: 'Tư vấn giải pháp và thiết kế kỹ thuật chuyên sâu',
     icon: 'ruler',
     shortDescription: 'Tư vấn lựa chọn loại thang phù hợp, thiết kế bản vẽ kỹ thuật 2D/3D, phối cảnh cabin và bố trí giếng thang tối ưu.',
-    fullDescription: `Dịch vụ tư vấn và thiết kế của VietLift giúp khách hàng lựa chọn giải pháp thang máy tối ưu cho công trình. Đội ngũ kỹ sư và kiến trúc sư sẽ tư vấn về loại thang, tải trọng, tốc độ, cabin và nội thất phù hợp với nhu cầu và ngân sách.
+    fullDescription: `Dịch vụ tư vấn và thiết kế của Hải Phát giúp khách hàng lựa chọn giải pháp thang máy tối ưu cho công trình. Đội ngũ kỹ sư và kiến trúc sư sẽ tư vấn về loại thang, tải trọng, tốc độ, cabin và nội thất phù hợp với nhu cầu và ngân sách.
 
 Sau khi thống nhất giải pháp, chúng tôi thiết kế bản vẽ kỹ thuật chi tiết 2D/3D, phối cảnh cabin, bố trí giếng thang và máy phòng. Thiết kế tuân thủ tiêu chuẩn QCVN 06:2022 và EN 81, đảm bảo an toàn và thẩm mỹ.`,
     highlights: [
@@ -68,7 +68,7 @@ Sau khi thống nhất giải pháp, chúng tôi thiết kế bản vẽ kỹ th
     subtitle: 'Thi công lắp đặt chuyên nghiệp, đúng tiến độ',
     icon: 'wrench',
     shortDescription: 'Đội ngũ kỹ thuật được đào tạo bài bản, thi công lắp đặt theo tiêu chuẩn quốc tế, đúng tiến độ cam kết, không ảnh hưởng công trình.',
-    fullDescription: `Dịch vụ thi công và lắp đặt của VietLift được thực hiện bởi đội ngũ kỹ thuật được đào tạo bài bản, có chứng chỉ từ các nhà sản xuất hàng đầu. Chúng tôi thi công theo tiêu chuẩn QCVN 06:2022 và EN 81, đảm bảo an toàn tuyệt đối.
+    fullDescription: `Dịch vụ thi công và lắp đặt của Hải Phát được thực hiện bởi đội ngũ kỹ thuật được đào tạo bài bản, có chứng chỉ từ các nhà sản xuất hàng đầu. Chúng tôi thi công theo tiêu chuẩn QCVN 06:2022 và EN 81, đảm bảo an toàn tuyệt đối.
 
 Quá trình thi công được quản lý chặt chẽ, đúng tiến độ cam kết, không gây ảnh hưởng đến hoạt động của công trình. Vận hành thử, hiệu chỉnh và kiểm định trước khi bàn giao, đảm bảo thang vận hành êm ái và an toàn.`,
     highlights: [
@@ -92,7 +92,7 @@ Quá trình thi công được quản lý chặt chẽ, đúng tiến độ cam 
     subtitle: 'Bảo hành dài hạn và bảo trì định kỳ chuyên nghiệp',
     icon: 'shield-check',
     shortDescription: 'Bảo hành 5 năm toàn bộ thiết bị, bảo trì định kỳ miễn phí 2 lần/năm, hỗ trợ kỹ thuật 24/7, phản ứng sự cố trong 2 giờ.',
-    fullDescription: `Dịch vụ bảo hành và bảo trì của VietLift cam kết mang lại sự an tâm tuyệt đối cho khách hàng. Bảo hành 5 năm toàn bộ thiết bị, bảo trì định kỳ miễn phí 2 lần/năm, kiểm định hàng năm theo quy định.
+    fullDescription: `Dịch vụ bảo hành và bảo trì của Hải Phát cam kết mang lại sự an tâm tuyệt đối cho khách hàng. Bảo hành 5 năm toàn bộ thiết bị, bảo trì định kỳ miễn phí 2 lần/năm, kiểm định hàng năm theo quy định.
 
 Đội ngũ kỹ thuật túc trực 24/7, phản ứng sự cố trong vòng 2 giờ tại nội thành. Cung cấp phụ tùng chính hãng với giá cạnh tranh, kho phụ tùng luôn sẵn các linh kiện thông dụng để đảm bảo thang vận hành ổn định.`,
     highlights: [
