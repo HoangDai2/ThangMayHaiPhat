@@ -1,44 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Star, ChevronLeft, ChevronRight, Quote } from 'lucide-react';
-
-const testimonials = [
-  {
-    id: 1,
-    name: 'Nguyễn Văn Minh',
-    role: 'Chủ hộ, Biệt thự Ecopark',
-    avatar: 'https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=150&q=80',
-    rating: 5,
-    text: 'Hải Phát đã lắp đặt thang máy gia đình cho biệt thự của tôi rất chuyên nghiệp. Đội thợ làm việc gọn gàng, đúng tiến độ. Thang máy hoạt động êm ái, thiết kế cabin kính rất đẹp. Tôi rất hài lòng và sẽ giới thiệu cho bạn bè.',
-    project: 'Thang máy gia đình · 5 tầng',
-  },
-  {
-    id: 2,
-    name: 'Trần Thị Hoa',
-    role: 'Giám đốc, Khách sạn Mường Thanh',
-    avatar: 'https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=150&q=80',
-    rating: 5,
-    text: 'Chúng tôi đã tin tưởng Hải Phát lắp đặt 4 thang máy tải khách cho khách sạn 12 tầng. Chất lượng vượt kỳ vọng, hệ thống hoạt động ổn định sau 2 năm không có sự cố. Dịch vụ bảo trì định kỳ rất chu đáo.',
-    project: 'Thang máy tải khách · 12 tầng',
-  },
-  {
-    id: 3,
-    name: 'Lê Hoàng Nam',
-    role: 'Kiến trúc sư, Studio NAM',
-    avatar: 'https://images.pexels.com/photos/1516680/pexels-photo-1516680.jpeg?auto=compress&cs=tinysrgb&w=150&q=80',
-    rating: 5,
-    text: 'Tôi thường xuyên hợp tác với Hải Phát trong các dự án thiết kế nội thất cao cấp. Họ luôn tư vấn giải pháp phù hợp nhất với không gian, đảm bảo thẩm mỹ và tính năng. Đây là đối tác tin cậy của tôi.',
-    project: 'Thang máy gia đình · Nhiều dự án',
-  },
-  {
-    id: 4,
-    name: 'Phạm Thị Lan',
-    role: 'Chủ nhà, Quận 7, TP.HCM',
-    avatar: 'https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg?auto=compress&cs=tinysrgb&w=150&q=80',
-    rating: 5,
-    text: 'Nhà tôi 4 tầng, lắp thang máy Hải Phát đã hơn 3 năm. Ba mẹ tôi cao tuổi đi lại rất thuận tiện. Khi có sự cố nhỏ, gọi là có thợ đến ngay trong vòng 1-2 giờ. Rất yên tâm khi sử dụng.',
-    project: 'Thang máy gia đình · 4 tầng',
-  },
-];
+import { useReviewsData } from '../hooks/useReviewsData';
+import ReviewForm from './ReviewForm';
 
 function Stars({ count }: { count: number }) {
   return (
@@ -51,16 +14,24 @@ function Stars({ count }: { count: number }) {
 }
 
 export default function Testimonials() {
+  const { reviews, loading } = useReviewsData();
   const [current, setCurrent] = useState(0);
+  const [showForm, setShowForm] = useState(false);
 
-  const prev = () => setCurrent((c) => (c - 1 + testimonials.length) % testimonials.length);
-  const next = () => setCurrent((c) => (c + 1) % testimonials.length);
+  useEffect(() => {
+    if (reviews.length > 0) setCurrent(0);
+  }, [reviews.length]);
 
-  const visible = [
-    testimonials[current],
-    testimonials[(current + 1) % testimonials.length],
-    testimonials[(current + 2) % testimonials.length],
-  ];
+  const prev = () => setCurrent((c) => (c - 1 + reviews.length) % reviews.length);
+  const next = () => setCurrent((c) => (c + 1) % reviews.length);
+
+  const visible = reviews.length > 0
+    ? [
+        reviews[current],
+        reviews[(current + 1) % reviews.length],
+        reviews[(current + 2) % reviews.length],
+      ]
+    : [];
 
   return (
     <section className="py-20 bg-gray-50">
@@ -76,79 +47,137 @@ export default function Testimonials() {
             </h2>
           </div>
 
-          {/* Navigation */}
-          <div className="flex gap-2">
+          {/* Navigation + CTA */}
+          <div className="flex items-center gap-3">
+            <div className="flex gap-2">
+              <button
+                onClick={prev}
+                disabled={reviews.length < 3}
+                className="w-10 h-10 rounded-xl border border-gray-200 flex items-center justify-center text-gray-500 hover:border-[#285c9a] hover:text-[#285c9a] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                aria-label="Previous"
+              >
+                <ChevronLeft size={18} />
+              </button>
+              <button
+                onClick={next}
+                disabled={reviews.length < 3}
+                className="w-10 h-10 rounded-xl border border-gray-200 flex items-center justify-center text-gray-500 hover:border-[#285c9a] hover:text-[#285c9a] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                aria-label="Next"
+              >
+                <ChevronRight size={18} />
+              </button>
+            </div>
             <button
-              onClick={prev}
-              className="w-10 h-10 rounded-xl border border-gray-200 flex items-center justify-center text-gray-500 hover:border-[#285c9a] hover:text-[#285c9a] transition-colors"
-              aria-label="Previous"
+              onClick={() => setShowForm(true)}
+              className="flex items-center gap-2 px-4 py-2 bg-[#285c9a] text-white rounded-xl text-sm font-semibold hover:bg-[#1e4a80] transition-colors"
             >
-              <ChevronLeft size={18} />
-            </button>
-            <button
-              onClick={next}
-              className="w-10 h-10 rounded-xl border border-gray-200 flex items-center justify-center text-gray-500 hover:border-[#285c9a] hover:text-[#285c9a] transition-colors"
-              aria-label="Next"
-            >
-              <ChevronRight size={18} />
+              <Star size={15} className="fill-white" />
+              Viết đánh giá
             </button>
           </div>
         </div>
 
         {/* Cards */}
-        <div className="grid md:grid-cols-3 gap-5">
-          {visible.map((t, i) => (
-            <div
-              key={t.id}
-              className={`bg-white rounded-2xl p-6 border transition-all duration-300 ${
-                i === 0
-                  ? 'border-[#285c9a]/30 shadow-lg shadow-[#285c9a]/5'
-                  : 'border-gray-100 shadow-sm'
-              }`}
-            >
-              {/* Quote icon */}
-              <div className="flex items-start justify-between mb-4">
-                <Quote size={28} className="text-[#285c9a]/15 fill-[#285c9a]/10" />
-                <Stars count={t.rating} />
-              </div>
-
-              {/* Text */}
-              <p className="text-gray-600 text-sm leading-relaxed mb-5 line-clamp-4">{t.text}</p>
-
-              {/* Project tag */}
-              <div className="text-xs text-[#285c9a] font-medium bg-[#285c9a]/8 px-3 py-1.5 rounded-full inline-block mb-5">
-                {t.project}
-              </div>
-
-              {/* Author */}
-              <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
-                <img
-                  src={t.avatar}
-                  alt={t.name}
-                  className="w-10 h-10 rounded-full object-cover flex-shrink-0"
-                />
-                <div>
-                  <div className="text-gray-900 font-semibold text-sm">{t.name}</div>
-                  <div className="text-gray-400 text-xs">{t.role}</div>
+        {loading ? (
+          <div className="grid md:grid-cols-3 gap-5">
+            {[0, 1, 2].map((i) => (
+              <div key={i} className="bg-white rounded-2xl p-6 border border-gray-100 animate-pulse">
+                <div className="flex justify-between mb-4">
+                  <div className="w-7 h-7 rounded bg-gray-100" />
+                  <div className="flex gap-0.5">
+                    {[0, 1, 2, 3, 4].map((s) => (
+                      <div key={s} className="w-3 h-3 rounded bg-gray-100" />
+                    ))}
+                  </div>
+                </div>
+                <div className="space-y-2 mb-5">
+                  <div className="h-3 bg-gray-100 rounded w-full" />
+                  <div className="h-3 bg-gray-100 rounded w-4/5" />
+                  <div className="h-3 bg-gray-100 rounded w-3/4" />
+                </div>
+                <div className="h-5 bg-gray-100 rounded-full w-40 mb-5" />
+                <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
+                  <div className="w-10 h-10 rounded-full bg-gray-100" />
+                  <div className="space-y-1">
+                    <div className="h-3 bg-gray-100 rounded w-24" />
+                    <div className="h-2 bg-gray-100 rounded w-16" />
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        ) : visible.length > 0 ? (
+          <div className="grid md:grid-cols-3 gap-5">
+            {visible.map((t, i) => (
+              <div
+                key={t.id}
+                className={`bg-white rounded-2xl p-6 border transition-all duration-300 ${
+                  i === 0
+                    ? 'border-[#285c9a]/30 shadow-lg shadow-[#285c9a]/5'
+                    : 'border-gray-100 shadow-sm'
+                }`}
+              >
+                <div className="flex items-start justify-between mb-4">
+                  <Quote size={28} className="text-[#285c9a]/15 fill-[#285c9a]/10" />
+                  <Stars count={t.rating} />
+                </div>
+
+                <p className="text-gray-600 text-sm leading-relaxed mb-5 line-clamp-4">{t.text}</p>
+
+                {t.project && (
+                  <div className="text-xs text-[#285c9a] font-medium bg-[#285c9a]/8 px-3 py-1.5 rounded-full inline-block mb-5">
+                    {t.project}
+                  </div>
+                )}
+
+                <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
+                  {t.avatar ? (
+                    <img
+                      src={t.avatar}
+                      alt={t.name}
+                      className="w-10 h-10 rounded-full object-cover flex-shrink-0"
+                    />
+                  ) : (
+                    <div className="w-10 h-10 rounded-full bg-[#285c9a]/10 flex items-center justify-center text-[#285c9a] font-semibold text-sm flex-shrink-0">
+                      {t.name.charAt(0)}
+                    </div>
+                  )}
+                  <div>
+                    <div className="text-gray-900 font-semibold text-sm">{t.name}</div>
+                    {t.role && <div className="text-gray-400 text-xs">{t.role}</div>}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="bg-white rounded-2xl p-12 text-center border border-gray-100">
+            <p className="text-gray-500 text-sm mb-4">Chưa có đánh giá nào. Hãy là người đầu tiên chia sẻ!</p>
+            <button
+              onClick={() => setShowForm(true)}
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#285c9a] text-white rounded-xl text-sm font-semibold hover:bg-[#1e4a80] transition-colors"
+            >
+              <Star size={15} className="fill-white" />
+              Viết đánh giá đầu tiên
+            </button>
+          </div>
+        )}
 
         {/* Dot indicators */}
-        <div className="flex justify-center gap-2 mt-8">
-          {testimonials.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setCurrent(i)}
-              className={`rounded-full transition-all duration-200 ${
-                i === current ? 'w-6 h-2 bg-[#285c9a]' : 'w-2 h-2 bg-gray-300 hover:bg-gray-400'
-              }`}
-              aria-label={`Go to ${i + 1}`}
-            />
-          ))}
-        </div>
+        {reviews.length > 0 && (
+          <div className="flex justify-center gap-2 mt-8">
+            {reviews.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrent(i)}
+                className={`rounded-full transition-all duration-200 ${
+                  i === current ? 'w-6 h-2 bg-[#285c9a]' : 'w-2 h-2 bg-gray-300 hover:bg-gray-400'
+                }`}
+                aria-label={`Go to ${i + 1}`}
+              />
+            ))}
+          </div>
+        )}
 
         {/* Trust badges */}
         <div className="mt-14 grid grid-cols-2 sm:grid-cols-4 gap-4">
@@ -165,6 +194,33 @@ export default function Testimonials() {
           ))}
         </div>
       </div>
+
+      {/* Review Form Modal */}
+      {showForm && (
+        <div
+          className="fixed inset-0 bg-black/50 z-50 flex items-start justify-center p-4 overflow-y-auto"
+          onClick={() => setShowForm(false)}
+        >
+          <div
+            className="bg-white rounded-2xl w-full max-w-xl my-8 shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between p-6 border-b border-gray-100">
+              <h2 className="text-xl font-bold text-gray-900">Viết đánh giá</h2>
+              <button
+                onClick={() => setShowForm(false)}
+                className="text-gray-400 hover:text-gray-600 transition-colors"
+                aria-label="Đóng"
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+              </button>
+            </div>
+            <div className="p-6">
+              <ReviewForm />
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
