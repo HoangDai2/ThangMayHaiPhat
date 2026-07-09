@@ -48,7 +48,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link to="/" className="flex items-center group">
           <img
-            src="/image.png"
+            src={scrolled || !isHome ? "/logohp.png" : "/image.png"}
             alt="Thang Máy Hải Phát"
             className="h-12 w-auto object-contain"
           />

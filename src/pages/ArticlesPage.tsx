@@ -50,7 +50,7 @@ export function ArticlesList() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-[#0d1f35] py-16 relative overflow-hidden">
+      <header className="bg-[#0d1f35] pt-36 pb-32 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-10 left-10 w-64 h-64 bg-[#285c9a] rounded-full blur-3xl" />
           <div className="absolute bottom-10 right-10 w-96 h-96 bg-[#285c9a] rounded-full blur-3xl" />
@@ -268,7 +268,7 @@ export function ArticleDetail() {
 
         <Link
           to="/bai-viet"
-          className="absolute top-6 left-6 flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-white/20 transition-colors z-10"
+          className="absolute top-24 left-6 flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-white/20 transition-colors z-10"
         >
           <ChevronLeft size={16} />
           Quay lại

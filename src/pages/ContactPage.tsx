@@ -59,7 +59,7 @@ export default function ContactPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Header */}
-      <header className="bg-[#0d1f35] py-16 relative overflow-hidden">
+      <header className="bg-[#0d1f35] pt-36 pb-32 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#285c9a] rounded-full blur-3xl" />
           <div className="absolute bottom-0 left-1/4 w-80 h-80 bg-[#285c9a] rounded-full blur-3xl" />
@@ -79,7 +79,7 @@ export default function ContactPage() {
       </header>
 
       {/* Why Contact */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 relative z-20">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {reasons.map(({ icon: Icon, title, desc }) => (
             <div
@@ -349,7 +349,7 @@ export default function ContactPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-gray-100 rounded-2xl overflow-hidden h-80">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.2893282848477!2d105.80226671493314!3d21.01458808600273!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab6e8f9e2b31%3A0x9c9c9c9c9c9c9c9c!2zMTIzIMSLog4bmg5nIEzDpW5nLCDEkOG6oW5nIMSQ4buHbywgSMOgIE7hur9p!5e0!3m2!1svi!2s!4v1234567890"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.51918546902!2d105.8077309!3d21.0119023!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135abb9daa0bd23%3A0x3d8690104c1e73b6!2zQ8O0bmcgVHkgVGhhbmcgTcOheSBI4bqjaSBQaMOhdA!5e0!3m2!1svi!2s!4v1783580826957!5m2!1svi!2s"
               width="100%"
               height="100%"
               style={{ border: 0 }}
@@ -358,48 +358,6 @@ export default function ContactPage() {
               referrerPolicy="no-referrer-when-downgrade"
               title="Hải Phát Office"
             />
-          </div>
-        </div>
-      </section>
-
-      {/* Branch Offices */}
-      <section className="py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8">
-            <h2 className="text-xl font-bold text-gray-900 mb-2">Văn phòng trên toàn quốc</h2>
-            <p className="text-gray-500 text-sm">Phục vụ khách hàng tại 63 tỉnh thành</p>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {companyInfo.branches.map((branch) => (
-              <div
-                key={branch.city}
-                className={`rounded-xl p-5 ${
-                  branch.type === 'Trụ sở chính'
-                    ? 'bg-[#285c9a] text-white'
-                    : 'bg-white border border-gray-100'
-                }`}
-              >
-                <div className="flex items-center justify-between mb-3">
-                  <h4 className={`font-bold ${branch.type === 'Trụ sở chính' ? 'text-white' : 'text-gray-900'}`}>
-                    {branch.city}
-                  </h4>
-                  {branch.type === 'Trụ sở chính' && (
-                    <span className="bg-white/20 text-white text-xs px-2 py-0.5 rounded-full">HQ</span>
-                  )}
-                </div>
-                <p className={`text-xs mb-2 ${branch.type === 'Trụ sở chính' ? 'text-blue-100' : 'text-gray-500'}`}>
-                  {branch.address}
-                </p>
-                <a
-                  href={`tel:${branch.phone.replace(/\s/g, '')}`}
-                  className={`flex items-center gap-1.5 text-xs ${branch.type === 'Trụ sở chính' ? 'text-blue-100' : 'text-gray-600 hover:text-[#285c9a]'}`}
-                >
-                  <Phone size={12} />
-                  {branch.phone}
-                </a>
-              </div>
-            ))}
           </div>
         </div>
       </section>
