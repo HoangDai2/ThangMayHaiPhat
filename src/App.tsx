@@ -11,6 +11,7 @@ import { ServicesList } from './pages/ServicesPage';
 import { ProductsList, ProductDetail } from './pages/ProductsPage';
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
+import { ArticlesList, ArticleDetail } from './pages/ArticlesPage';
 import { AdminLayout } from './pages/admin/AdminLayout';
 import AdminLogin from './pages/admin/AdminLogin';
 import AdminDashboard from './pages/admin/AdminDashboard';
@@ -53,6 +54,8 @@ function App() {
                   <Route path="/dich-vu" element={<ServicesList />} />
                   <Route path="/san-pham" element={<ProductsList />} />
                   <Route path="/san-pham/:id" element={<ProductDetail />} />
+                  <Route path="/bai-viet" element={<ArticlesList />} />
+                  <Route path="/bai-viet/:slug" element={<ArticleDetail />} />
                   <Route path="/ve-chung-toi" element={<AboutPage />} />
                   <Route path="/lien-he" element={<ContactPage />} />
                 </Routes>
