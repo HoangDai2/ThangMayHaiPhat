@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import { ArrowRight, ShieldCheck, Award, Wrench, ChevronLeft, ChevronRight } from 'lucide-react';
 import { supabase, DbBanner } from '../lib/supabase';
+import { getYouTubeEmbedUrl, isDirectVideo } from '../lib/video';
 
 const stats = [
-  { icon: Award, value: '15+', label: 'Nam kinh nghiem' },
-  { icon: ShieldCheck, value: '500+', label: 'Cong trinh hoan thanh' },
-  { icon: Wrench, value: '24/7', label: 'Ho tro ky thuat' },
+  { icon: Award, value: '15+', label: 'Năm kinh nghiệm' },
+  { icon: ShieldCheck, value: '500+', label: 'Công trình hoàn thành' },
+  { icon: Wrench, value: '24/7', label: 'Hỗ trợ kỹ thuật' },
 ];
 
 export default function Hero() {
@@ -41,8 +42,8 @@ export default function Hero() {
   const currentBanner = banners[currentIdx];
 
   const defaultHero = {
-    title: 'Giai Phap Thang May Hien Dai & Uy Tin',
-    subtitle: 'Tieu chuan chau Au - Bao hanh 18 thang',
+    title: 'Giải Pháp Thang Máy Hiện Đại & Uy Tín',
+    subtitle: 'Tiêu chuẩn châu Âu - Bảo hành 18 tháng',
     image: 'https://images.pexels.com/photos/1267338/pexels-photo-1267338.jpeg?auto=compress&cs=tinysrgb&w=1920&q=80',
   };
 
@@ -59,17 +60,45 @@ export default function Hero() {
     <section id="home" className="relative min-h-screen flex items-center overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0">
-        {currentBanner?.media_type === 'video' && currentBanner.video_url ? (
-          <video
-            key={currentBanner.id}
-            src={currentBanner.video_url}
-            className="w-full h-full object-cover"
-            autoPlay
-            muted
-            loop
-            playsInline
-          />
-        ) : currentBanner?.image_url ? (
+        {currentBanner?.media_type === 'video' && currentBanner.video_url
+          ? getYouTubeEmbedUrl(currentBanner.video_url)
+            ? (
+              <iframe
+                key={currentBanner.id}
+                src={getYouTubeEmbedUrl(currentBanner.video_url)!}
+                className="w-full h-full object-cover pointer-events-none"
+                allow="autoplay; encrypted-media"
+                title={currentBanner.title}
+              />
+            )
+            : isDirectVideo(currentBanner.video_url)
+              ? (
+                <video
+                  key={currentBanner.id}
+                  src={currentBanner.video_url}
+                  className="w-full h-full object-cover"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                />
+              )
+              : currentBanner.image_url
+                ? (
+                  <img
+                    src={currentBanner.image_url}
+                    alt={currentBanner.title}
+                    className="w-full h-full object-cover"
+                  />
+                )
+                : (
+                  <img
+                    src={defaultHero.image}
+                    alt="Thang máy gia đình sang trọng"
+                    className="w-full h-full object-cover"
+                  />
+                )
+        : currentBanner?.image_url ? (
           <img
             src={currentBanner.image_url}
             alt={currentBanner.title}
@@ -78,7 +107,7 @@ export default function Hero() {
         ) : (
           <img
             src={defaultHero.image}
-            alt="Thang may gia dinh sang trong"
+            alt="Thang máy gia đình sang trọng"
             className="w-full h-full object-cover"
           />
         )}
@@ -114,8 +143,8 @@ export default function Hero() {
           </h1>
 
           <p className="text-lg text-white/80 leading-relaxed mb-8 max-w-xl">
-            Chuyen lap dat thang may gia dinh va thang may tai khach cao cap.
-            Chung toi mang den su an toan, sang trong va dang cap cho khong gian song cua ban.
+            Chuyên lắp đặt thang máy gia đình và thang máy tải khách cao cấp.
+            Chúng tôi mang đến sự an toàn, sang trọng và đẳng cấp cho không gian sống của bạn.
           </p>
 
           {/* CTA buttons */}
@@ -124,14 +153,14 @@ export default function Hero() {
               href="#contact"
               className="group flex items-center gap-2 bg-[#285c9a] hover:bg-[#1e4a80] text-white px-7 py-3.5 rounded-xl font-semibold text-sm transition-all duration-200 shadow-lg shadow-[#285c9a]/40 hover:shadow-[#285c9a]/60 hover:-translate-y-0.5"
             >
-              Tu van mien phi
+              Tư vấn miễn phí
               <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
             </a>
             <a
               href="#projects"
               className="flex items-center gap-2 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/30 text-white px-7 py-3.5 rounded-xl font-semibold text-sm transition-all duration-200 hover:-translate-y-0.5"
             >
-              Xem du an
+              Xem dự án
             </a>
           </div>
         </div>
@@ -185,7 +214,7 @@ export default function Hero() {
 
       {/* Scroll indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 animate-bounce">
-        <span className="text-white/40 text-xs">Cuon xuong</span>
+        <span className="text-white/40 text-xs">Cuộn xuống</span>
         <div className="w-px h-8 bg-gradient-to-b from-white/30 to-transparent" />
       </div>
     </section>

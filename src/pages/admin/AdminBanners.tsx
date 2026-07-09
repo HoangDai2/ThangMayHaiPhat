@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Plus, Edit, Trash2, X, Loader2, Image, ToggleLeft, ToggleRight, Video, ImageIcon } from 'lucide-react';
 import { supabase, DbBanner } from '../../lib/supabase';
 import ImageUpload from '../../components/admin/ImageUpload';
+import { getYouTubeEmbedUrl, isDirectVideo } from '../../lib/video';
 
 const POSITIONS = ['hero', 'sub', 'sidebar'];
 const MEDIA_TYPES = ['image', 'video'] as const;
@@ -112,6 +113,51 @@ export default function AdminBanners() {
     await fetchBanners();
   };
 
+  const renderMediaPreview = (banner: DbBanner) => {
+    if (banner.media_type === 'video' && banner.video_url) {
+      const ytEmbed = getYouTubeEmbedUrl(banner.video_url);
+      if (ytEmbed) {
+        return (
+          <iframe
+            src={ytEmbed}
+            className="w-full h-full object-cover pointer-events-none"
+            allow="autoplay; encrypted-media"
+            title={banner.title}
+          />
+        );
+      }
+      if (isDirectVideo(banner.video_url)) {
+        return (
+          <video
+            src={banner.video_url}
+            className="w-full h-full object-cover"
+            muted
+            playsInline
+            onMouseEnter={(e) => e.currentTarget.play()}
+            onMouseLeave={(e) => {
+              e.currentTarget.pause();
+              e.currentTarget.currentTime = 0;
+            }}
+          />
+        );
+      }
+    }
+    if (banner.image_url) {
+      return (
+        <img
+          src={banner.image_url}
+          alt={banner.title}
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+        />
+      );
+    }
+    return (
+      <div className="flex items-center justify-center h-full text-slate-300">
+        <Image className="w-12 h-12" />
+      </div>
+    );
+  };
+
   return (
     <div>
       <div className="flex items-center justify-between mb-8">
@@ -137,29 +183,7 @@ export default function AdminBanners() {
           {banners.map((banner) => (
             <div key={banner.id} className="bg-white rounded-xl shadow-sm overflow-hidden group">
               <div className="relative h-40 overflow-hidden bg-slate-100">
-                {banner.media_type === 'video' && banner.video_url ? (
-                  <video
-                    src={banner.video_url}
-                    className="w-full h-full object-cover"
-                    muted
-                    playsInline
-                    onMouseEnter={(e) => e.currentTarget.play()}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.pause();
-                      e.currentTarget.currentTime = 0;
-                    }}
-                  />
-                ) : banner.image_url ? (
-                  <img
-                    src={banner.image_url}
-                    alt={banner.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                ) : (
-                  <div className="flex items-center justify-center h-full text-slate-300">
-                    <Image className="w-12 h-12" />
-                  </div>
-                )}
+                {renderMediaPreview(banner)}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                 <div className="absolute bottom-3 left-3 right-3">
                   <p className="text-white font-semibold text-sm">{banner.title}</p>
@@ -246,13 +270,13 @@ export default function AdminBanners() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Tiêu đề phụ</label>
-                <input
-                  type="text"
+                <label className="block text-sm font-medium text-slate-700 mb-1">Tiêu đề phụ (mô tả)</label>
+                <textarea
                   value={form.subtitle || ''}
                   onChange={(e) => set('subtitle', e.target.value)}
                   placeholder="Giảm 15% chi phí lắp đặt"
-                  className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none"
+                  rows={2}
+                  className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none resize-none"
                 />
               </div>
 
@@ -284,10 +308,27 @@ export default function AdminBanners() {
                     type="text"
                     value={form.video_url || ''}
                     onChange={(e) => set('video_url', e.target.value)}
-                    placeholder="https://example.com/video.mp4"
+                    placeholder="https://www.youtube.com/watch?v=... hoặc https://example.com/video.mp4"
                     className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none"
                   />
-                  <p className="text-xs text-slate-400 mt-1">Hỗ trợ định dạng MP4, WebM. Đường dẫn trực tiếp đến file video.</p>
+                  <p className="text-xs text-slate-400 mt-1">
+                    Hỗ trợ YouTube (watch/shorts/youtu.be) hoặc file trực tiếp (MP4, WebM).
+                  </p>
+                  {form.video_url && getYouTubeEmbedUrl(form.video_url) && (
+                    <div className="mt-2 aspect-video rounded-lg overflow-hidden bg-slate-100">
+                      <iframe
+                        src={getYouTubeEmbedUrl(form.video_url)!}
+                        className="w-full h-full"
+                        allow="autoplay; encrypted-media"
+                        title="Video preview"
+                      />
+                    </div>
+                  )}
+                  {form.video_url && isDirectVideo(form.video_url) && (
+                    <div className="mt-2 aspect-video rounded-lg overflow-hidden bg-slate-100">
+                      <video src={form.video_url} className="w-full h-full object-cover" muted controls />
+                    </div>
+                  )}
                 </div>
               ) : (
                 <ImageUpload
