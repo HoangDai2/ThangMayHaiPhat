@@ -63,6 +63,8 @@ export interface DbBanner {
   title: string;
   subtitle: string;
   image_url: string;
+  video_url: string;
+  media_type: 'image' | 'video';
   link_url: string;
   position: string;
   sort_order: number;
