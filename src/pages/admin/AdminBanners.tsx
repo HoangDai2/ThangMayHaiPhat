@@ -10,6 +10,7 @@ const MEDIA_TYPES = ['image', 'video'] as const;
 const emptyForm = (): Partial<DbBanner> => ({
   title: '',
   subtitle: '',
+  description: '',
   image_url: '',
   video_url: '',
   media_type: 'image',
@@ -77,6 +78,7 @@ export default function AdminBanners() {
     const payload = {
       title: form.title!.trim(),
       subtitle: form.subtitle || '',
+      description: form.description || '',
       image_url: form.image_url || '',
       video_url: form.video_url || '',
       media_type: form.media_type || 'image',
@@ -270,12 +272,23 @@ export default function AdminBanners() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Tiêu đề phụ (mô tả)</label>
+                <label className="block text-sm font-medium text-slate-700 mb-1">Tiêu đề phụ (mô tả ngắn)</label>
                 <textarea
                   value={form.subtitle || ''}
                   onChange={(e) => set('subtitle', e.target.value)}
                   placeholder="Giảm 15% chi phí lắp đặt"
                   rows={2}
+                  className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none resize-none"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">Mô tả chi tiết</label>
+                <textarea
+                  value={form.description || ''}
+                  onChange={(e) => set('description', e.target.value)}
+                  placeholder="Nhập mô tả chi tiết cho banner..."
+                  rows={4}
                   className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none resize-none"
                 />
               </div>

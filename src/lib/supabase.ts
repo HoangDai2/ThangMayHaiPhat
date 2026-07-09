@@ -62,6 +62,7 @@ export interface DbBanner {
   id: string;
   title: string;
   subtitle: string;
+  description: string;
   image_url: string;
   video_url: string;
   media_type: 'image' | 'video';
