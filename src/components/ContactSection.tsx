@@ -1,5 +1,6 @@
 import { Phone, Mail, MapPin, Send } from 'lucide-react';
 import { useState } from 'react';
+import { ZaloIcon } from './icons/ZaloIcon';
 
 export default function ContactSection() {
   const [form, setForm] = useState({ name: '', phone: '', service: '', message: '' });
@@ -61,6 +62,22 @@ export default function ContactSection() {
                 </div>
               </div>
             ))}
+
+            {/* Zalo contact */}
+            <a
+              href="https://zalo.me/0800123456"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-4 p-4 bg-[#0068ff]/5 rounded-xl border border-[#0068ff]/20 hover:bg-[#0068ff]/10 transition-colors"
+            >
+              <div className="w-11 h-11 rounded-xl bg-[#0068ff] flex items-center justify-center flex-shrink-0">
+                <ZaloIcon size={20} className="text-white" />
+              </div>
+              <div>
+                <div className="text-xs text-gray-400 font-medium uppercase tracking-wide mb-0.5">Chat Zalo</div>
+                <div className="text-gray-800 text-sm font-medium">0800 123 456</div>
+              </div>
+            </a>
 
             {/* Map placeholder */}
             <div className="mt-4 rounded-2xl overflow-hidden border border-gray-100 h-44 bg-gray-50 relative">

@@ -89,15 +89,15 @@ Quá trình thi công được quản lý chặt chẽ, đúng tiến độ cam 
   {
     id: 'bao-hanh-bao-tri',
     title: 'Bảo Hành - Bảo Trì',
-    subtitle: 'Bảo hành dài hạn và bảo trì định kỳ chuyên nghiệp',
+    subtitle: 'Bảo hành 18 tháng và bảo trì định kỳ 2 tháng/lần',
     icon: 'shield-check',
-    shortDescription: 'Bảo hành 5 năm toàn bộ thiết bị, bảo trì định kỳ miễn phí 2 lần/năm, hỗ trợ kỹ thuật 24/7, phản ứng sự cố trong 2 giờ.',
-    fullDescription: `Dịch vụ bảo hành và bảo trì của Hải Phát cam kết mang lại sự an tâm tuyệt đối cho khách hàng. Bảo hành 5 năm toàn bộ thiết bị, bảo trì định kỳ miễn phí 2 lần/năm, kiểm định hàng năm theo quy định.
+    shortDescription: 'Bảo hành 18 tháng toàn bộ thiết bị, bảo trì định kỳ miễn phí 2 tháng/lần trong thời gian bảo hành, hỗ trợ kỹ thuật 24/7, phản ứng sự cố trong 2 giờ.',
+    fullDescription: `Dịch vụ bảo hành và bảo trì của Hải Phát cam kết mang lại sự an tâm tuyệt đối cho khách hàng. Bảo hành 18 tháng toàn bộ thiết bị, bảo trì định kỳ miễn phí 2 tháng/lần trong suốt thời gian bảo hành.
 
 Đội ngũ kỹ thuật túc trực 24/7, phản ứng sự cố trong vòng 2 giờ tại nội thành. Cung cấp phụ tùng chính hãng với giá cạnh tranh, kho phụ tùng luôn sẵn các linh kiện thông dụng để đảm bảo thang vận hành ổn định.`,
     highlights: [
-      'Bảo hành 5 năm toàn bộ thiết bị',
-      'Bảo trì miễn phí 2 lần/năm',
+      'Bảo hành 18 tháng toàn bộ thiết bị',
+      'Bảo trì miễn phí 2 tháng/lần trong thời gian bảo hành',
       'Hỗ trợ kỹ thuật 24/7',
       'Phản ứng sự cố trong 2 giờ',
       'Phụ tùng chính hãng, giá cạnh tranh',
@@ -105,7 +105,7 @@ Quá trình thi công được quản lý chặt chẽ, đúng tiến độ cam 
     ],
     process: [
       { step: 1, title: 'Ký hợp đồng bảo trì', description: 'Ký hợp đồng bảo trì với gói dịch vụ phù hợp: tiêu chuẩn, nâng cao hoặc cao cấp.' },
-      { step: 2, title: 'Bảo trì định kỳ', description: 'Bảo trì định kỳ theo lịch, kiểm tra toàn bộ hệ thống, vệ sinh và bôi trơn.' },
+      { step: 2, title: 'Bảo trì định kỳ', description: 'Bảo trì định kỳ mỗi 2 tháng, kiểm tra toàn bộ hệ thống, vệ sinh và bôi trơn.' },
       { step: 3, title: 'Xử lý sự cố', description: 'Tiếp nhận sự cố 24/7, phản ứng trong 2 giờ, xử lý nhanh chóng và chuyên nghiệp.' },
       { step: 4, title: 'Kiểm định hàng năm', description: 'Phối hợp đơn vị kiểm định, bảo trì và cấp chứng nhận theo quy định pháp luật.' },
     ],

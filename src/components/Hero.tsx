@@ -35,7 +35,7 @@ export default function Hero() {
           <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-1.5 mb-6">
             <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
             <span className="text-white/90 text-xs font-medium tracking-wide uppercase">
-              Tiêu chuẩn châu Âu · Bảo hành 5 năm
+              Tiêu chuẩn châu Âu · Bảo hành 18 tháng
             </span>
           </div>
 

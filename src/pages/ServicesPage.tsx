@@ -129,8 +129,8 @@ export function ServicesList() {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {[
+              { icon: ShieldCheck, title: 'Bảo hành 18 tháng', desc: 'Bảo hành 18 tháng toàn bộ thiết bị, bảo trì định kỳ 2 tháng/lần.' },
               { icon: Star, title: '15+ năm kinh nghiệm', desc: 'Đội ngũ chuyên gia với kinh nghiệm sâu trong ngành thang máy.' },
-              { icon: ShieldCheck, title: 'An toàn tuyệt đối', desc: 'Tuân thủ tiêu chuẩn QCVN, EN 81 với hệ thống an toàn đa lớp.' },
               { icon: Clock, title: 'Hỗ trợ 24/7', desc: 'Đường dây nóng hoạt động 24/7, phản ứng sự cố trong 2 giờ.' },
               { icon: Zap, title: 'Công nghệ tiên tiến', desc: 'Sử dụng công nghệ mới nhất từ các thương hiệu hàng đầu thế giới.' },
             ].map(({ icon: Icon, title, desc }) => (
