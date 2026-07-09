@@ -35,7 +35,7 @@ const serviceIconMap: Record<string, React.ComponentType<{ size?: number; classN
 const features = [
   { icon: ShieldCheck, title: 'An toàn tuyệt đối', desc: 'Hệ thống phanh đa lớp, cảm biến quá tải, cửa an toàn chống kẹt.' },
   { icon: Settings, title: 'Lắp đặt chuyên nghiệp', desc: 'Đội ngũ kỹ sư được chứng nhận, lắp đặt đúng tiến độ, không phá vỡ kết cấu.' },
-  { icon: Clock, title: 'Bảo hành 5 năm', desc: 'Bảo hành toàn bộ linh kiện, bảo trì định kỳ miễn phí 2 lần/năm.' },
+  { icon: Clock, title: 'Bảo hành 18 tháng', desc: 'Bảo hành toàn bộ linh kiện, bảo trì định kỳ miễn phí 2 tháng/lần.' },
   { icon: Headphones, title: 'Hỗ trợ 24/7', desc: 'Đường dây nóng 24/7, xử lý sự cố trong vòng 2 giờ trên toàn quốc.' },
 ];
 

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Phone, Mail, MapPin, Facebook, Youtube, ArrowUp } from 'lucide-react';
+import { ZaloIcon } from './icons/ZaloIcon';
 
 const quickLinks = [
   { label: 'Thang Homelift', href: '/san-pham/thang-homelift' },
@@ -86,6 +87,15 @@ export default function Footer() {
                 aria-label="Youtube"
               >
                 <Youtube size={16} className="text-gray-400 hover:text-white" />
+              </a>
+              <a
+                href="https://zalo.me/0800123456"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-lg bg-white/8 flex items-center justify-center hover:bg-[#0068ff] transition-colors"
+                aria-label="Zalo"
+              >
+                <ZaloIcon size={16} className="text-gray-400 hover:text-white" />
               </a>
               <a
                 href="tel:0800123456"

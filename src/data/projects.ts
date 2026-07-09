@@ -41,7 +41,7 @@ export const projects: Project[] = [
       speed: '0.5 m/s',
       brand: 'Mitsubishi Electric',
       completionDate: 'Tháng 3/2024',
-      warranty: '5 năm',
+      warranty: '18 tháng',
     },
     gallery: [
       'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=800&q=80',
@@ -71,7 +71,7 @@ export const projects: Project[] = [
       speed: '2.5 m/s',
       brand: 'Otis',
       completionDate: 'Tháng 8/2023',
-      warranty: '5 năm + Bảo trì 2 năm',
+      warranty: '18 tháng + Bảo trì 2 tháng/lần',
     },
     gallery: [
       'https://images.pexels.com/photos/1105766/pexels-photo-1105766.jpeg?auto=compress&cs=tinysrgb&w=800&q=80',
@@ -101,7 +101,7 @@ export const projects: Project[] = [
       speed: '1.75 m/s',
       brand: 'Schindler',
       completionDate: 'Tháng 1/2024',
-      warranty: '5 năm',
+      warranty: '18 tháng',
     },
     gallery: [
       'https://images.pexels.com/photos/271639/pexels-photo-271639.jpeg?auto=compress&cs=tinysrgb&w=800&q=80',
@@ -125,7 +125,7 @@ export const projects: Project[] = [
       speed: '0.4 m/s',
       brand: 'Nissan',
       completionDate: 'Tháng 6/2024',
-      warranty: '5 năm',
+      warranty: '18 tháng',
     },
     gallery: [
       'https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=800&q=80',
@@ -155,7 +155,7 @@ export const projects: Project[] = [
       speed: '0.5 m/s (thang cuốn)',
       brand: 'Kone',
       completionDate: 'Tháng 11/2023',
-      warranty: '3 năm + Bảo trì 5 năm',
+      warranty: '12 tháng + Bảo trì 2 tháng/lần',
     },
     gallery: [
       'https://images.pexels.com/photos/264636/pexels-photo-264636.jpeg?auto=compress&cs=tinysrgb&w=800&q=80',
@@ -179,7 +179,7 @@ export const projects: Project[] = [
       speed: '1.0 m/s',
       brand: 'ThyssenKrupp',
       completionDate: 'Tháng 9/2023',
-      warranty: '5 năm + Bảo trì 3 năm',
+      warranty: '18 tháng + Bảo trì 2 tháng/lần',
     },
     gallery: [
       'https://images.pexels.com/photos/668300/pexels-photo-668300.jpeg?auto=compress&cs=tinysrgb&w=800&q=80',

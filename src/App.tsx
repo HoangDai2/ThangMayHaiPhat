@@ -21,6 +21,7 @@ import AdminBanners from './pages/admin/AdminBanners';
 import AdminArticles from './pages/admin/AdminArticles';
 import AdminReviews from './pages/admin/AdminReviews';
 import AdminImages from './pages/admin/AdminImages';
+import { FloatingButtons } from './components/FloatingButtons';
 
 function HomePage() {
   return (
@@ -57,6 +58,7 @@ function App() {
                 </Routes>
               </main>
               <Footer />
+              <FloatingButtons />
             </div>
           }
         />
