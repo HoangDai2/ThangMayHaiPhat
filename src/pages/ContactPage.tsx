@@ -42,14 +42,45 @@ export default function ContactPage() {
   });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setTimeout(() => {
-      setSubmitted(true);
-      setLoading(false);
-    }, 1000);
+    setError(false);
+    
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          access_key: "e183c617-e789-41ad-97c7-35d2ddc8a7dc",
+          subject: "Yêu cầu tư vấn mới từ Trang Liên Hệ",
+          from_name: formData.name,
+          Họ_tên: formData.name,
+          Số_điện_thoại: formData.phone,
+          Email: formData.email || 'Không có',
+          Sản_phẩm_quan_tâm: productOptions.find(p => p.id === formData.service)?.label || formData.service || 'Chưa chọn',
+          Mô_tả: formData.message || 'Không có',
+        })
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setSubmitted(true);
+        setFormData({ name: '', phone: '', email: '', service: '', message: '' });
+      } else {
+        setError(true);
+      }
+    } catch (err) {
+      setError(true);
+    }
+    
+    setLoading(false);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -133,6 +164,11 @@ export default function ContactPage() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="p-6 space-y-5">
+                  {error && (
+                    <div className="bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3 rounded-xl mb-4">
+                      Có lỗi xảy ra khi gửi yêu cầu. Vui lòng thử lại sau hoặc liên hệ trực tiếp qua Hotline.
+                    </div>
+                  )}
                   <div className="grid sm:grid-cols-2 gap-5">
                     <div>
                       <label className="block text-gray-700 text-sm font-medium mb-1.5">
