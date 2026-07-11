@@ -43,7 +43,7 @@ export default function Hero() {
 
   const defaultHero = {
     title: 'Giải Pháp Thang Máy Hiện Đại & Uy Tín',
-    subtitle: 'Tiêu chuẩn châu Âu - Bảo hành 18 tháng',
+    subtitle: 'Chất lượng khẳng định thương hiệu',
     image: 'https://images.pexels.com/photos/1267338/pexels-photo-1267338.jpeg?auto=compress&cs=tinysrgb&w=1920&q=80',
   };
 

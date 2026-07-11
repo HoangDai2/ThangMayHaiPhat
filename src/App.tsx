@@ -12,6 +12,8 @@ import { ProductsList, ProductDetail } from './pages/ProductsPage';
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
 import { ArticlesList, ArticleDetail } from './pages/ArticlesPage';
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
+import TermsOfUsePage from './pages/TermsOfUsePage';
 import { AdminLayout } from './pages/admin/AdminLayout';
 import AdminLogin from './pages/admin/AdminLogin';
 import AdminDashboard from './pages/admin/AdminDashboard';
@@ -58,6 +60,8 @@ function App() {
                   <Route path="/bai-viet/:slug" element={<ArticleDetail />} />
                   <Route path="/ve-chung-toi" element={<AboutPage />} />
                   <Route path="/lien-he" element={<ContactPage />} />
+                  <Route path="/chinh-sach-bao-mat" element={<PrivacyPolicyPage />} />
+                  <Route path="/dieu-khoan-su-dung" element={<TermsOfUsePage />} />
                 </Routes>
               </main>
               <Footer />

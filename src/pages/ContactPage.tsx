@@ -291,7 +291,7 @@ export default function ContactPage() {
                 {companyInfo.headquarters.hotline}
               </a>
               <p className="text-blue-100 text-sm mt-2">
-                Miễn phí · Phản hồi trong 2 giờ
+                Phản hồi trong 2 giờ
               </p>
             </div>
 
@@ -320,7 +320,7 @@ export default function ContactPage() {
                       {companyInfo.headquarters.phone}
                     </a>
                     <a href="tel:0800123456" className="text-gray-500 text-xs hover:text-[#285c9a] block">
-                      0800 123 456 (Hotline)
+                      0987.603.588 (Hotline)
                     </a>
                   </div>
                 </div>
@@ -333,9 +333,6 @@ export default function ContactPage() {
                     <div className="font-medium text-gray-900 text-sm">Email</div>
                     <a href={`mailto:${companyInfo.headquarters.email}`} className="text-gray-500 text-xs hover:text-[#285c9a] block">
                       {companyInfo.headquarters.email}
-                    </a>
-                    <a href="mailto:sales@haiphat.vn" className="text-gray-500 text-xs hover:text-[#285c9a] block">
-                      sales@haiphat.vn
                     </a>
                   </div>
                 </div>
@@ -356,19 +353,13 @@ export default function ContactPage() {
                 <div className="text-gray-700 text-sm font-medium mb-3">Kết nối mạng xã hội</div>
                 <div className="flex gap-2">
                   <a
-                    href="#"
+                    href="https://www.facebook.com/thangmayhaiphat"
                     className="w-10 h-10 rounded-xl bg-gray-100 flex items-center justify-center hover:bg-[#285c9a] hover:text-white text-gray-500 transition-colors"
                   >
                     <Facebook size={18} />
-                  </a>
+                  </a> 
                   <a
-                    href="#"
-                    className="w-10 h-10 rounded-xl bg-gray-100 flex items-center justify-center hover:bg-[#285c9a] hover:text-white text-gray-500 transition-colors"
-                  >
-                    <Youtube size={18} />
-                  </a>
-                  <a
-                    href="#"
+                    href="https://zalo.me/0898.424.666"
                     className="w-10 h-10 rounded-xl bg-gray-100 flex items-center justify-center hover:bg-[#285c9a] hover:text-white text-gray-500 transition-colors"
                   >
                     <MessageSquare size={18} />
@@ -409,7 +400,7 @@ export default function ContactPage() {
             {[
               {
                 q: 'Thời gian phản hồi yêu cầu tư vấn?',
-                a: 'Chúng tôi sẽ phản hồi trong vòng 2 giờ làm việc. Với yêu cầu khẩn cấp, vui lòng gọi hotline 0800 123 456 để được hỗ trợ ngay.',
+                a: 'Chúng tôi sẽ phản hồi trong vòng 2 giờ làm việc. Với yêu cầu khẩn cấp, vui lòng gọi hotline 0987 603 588 để được hỗ trợ ngay.',
               },
               {
                 q: 'Có tính phí khảo sát không?',
@@ -417,11 +408,11 @@ export default function ContactPage() {
               },
               {
                 q: 'Thời gian lắp đặt một thang máy gia đình?',
-                a: 'Từ 7-14 ngày làm việc tùy theo điều kiện hiện trạng và thời gian chuẩn bị giếng thang.',
+                a: '45 - 60 ngày làm việc tùy theo điều kiện hiện trạng và thời gian chuẩn bị giếng thang.',
               },
               {
                 q: 'Có dịch vụ tại tỉnh thành nào?',
-                a: 'Hải Phát phục vụ khách hàng trên toàn quốc 63 tỉnh thành với mạng lưới văn phòng và đối tác trải dài.',
+                a: 'Hải Phát phục vụ khách hàng trên toàn quốc.',
               },
             ].map((faq, idx) => (
               <details
