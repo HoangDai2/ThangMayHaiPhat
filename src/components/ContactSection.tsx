@@ -9,7 +9,7 @@ export default function ContactSection() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('submitting');
-    
+
     try {
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
@@ -39,7 +39,7 @@ export default function ContactSection() {
     } catch (error) {
       setStatus('error');
     }
-    
+
     setTimeout(() => setStatus('idle'), 5000);
   };
 
@@ -112,7 +112,7 @@ export default function ContactSection() {
             {/* Map placeholder */}
             <div className="mt-4 rounded-2xl overflow-hidden border border-gray-100 h-44 bg-gray-50 relative">
               <iframe
-                title="VietLift Office Map"
+                title="Hải Phát Office Map"
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.51906091662!2d105.80515597584109!3d21.011907288356106!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135abb9daa0bd23%3A0x3d8690104c1e73b6!2zQ8O0bmcgVHkgVGhhbmcgTcOheSBI4bqjaSBQaMOhdA!5e0!3m2!1svi!2s!4v1783673071879!5m2!1svi!2s"
                 className="w-full h-full"
                 style={{ border: 0 }}

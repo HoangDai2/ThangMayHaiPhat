@@ -18,11 +18,7 @@ const serviceLinks = [
 ];
 
 const companyLinks = [
-  { label: 'Về Hải Phát', href: '/ve-chung-toi' },
-  { label: 'Đội ngũ chuyên gia', href: '/ve-chung-toi' },
-  { label: 'Chứng nhận & giải thưởng', href: '/ve-chung-toi' },
-  { label: 'Tuyển dụng', href: '#' },
-  { label: 'Tin tức', href: '#' },
+  { label: 'Về Hải Phát', href: '/ve-chung-toi' }
 ];
 
 export default function Footer() {

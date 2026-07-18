@@ -107,3 +107,23 @@ export interface StorageImage {
   size: number;
   created_at: string;
 }
+
+export interface DbRole {
+  id: string;
+  name: string;
+  description: string;
+  created_at: string;
+}
+
+export interface DbPermission {
+  id: string;
+  name: string;
+  description: string;
+  created_at: string;
+}
+
+export interface DbUserRole {
+  user_id: string;
+  role_id: string;
+  created_at: string;
+}

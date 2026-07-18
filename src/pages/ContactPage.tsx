@@ -18,12 +18,7 @@ import {
   Headphones,
 } from 'lucide-react';
 import { companyInfo } from '../data/company';
-import { products } from '../data/products';
-
-const productOptions = products.map((p) => ({
-  id: p.id,
-  label: p.title,
-}));
+import { useProductsData } from '../hooks/useProductsData';
 
 const reasons = [
   { icon: Home, title: 'Tư vấn thang máy gia đình', desc: 'Lắp mới, thay thế, nâng cấp' },
@@ -33,6 +28,12 @@ const reasons = [
 ];
 
 export default function ContactPage() {
+  const { products } = useProductsData();
+  const productOptions = products.map((p) => ({
+    id: p.id,
+    label: p.title,
+  }));
+
   const [formData, setFormData] = useState({
     name: '',
     phone: '',

@@ -24,6 +24,8 @@ import AdminBanners from './pages/admin/AdminBanners';
 import AdminArticles from './pages/admin/AdminArticles';
 import AdminReviews from './pages/admin/AdminReviews';
 import AdminImages from './pages/admin/AdminImages';
+import AdminUsers from './pages/admin/AdminUsers';
+import AdminRoles from './pages/admin/AdminRoles';
 import { FloatingButtons } from './components/FloatingButtons';
 
 function HomePage() {
@@ -81,6 +83,8 @@ function App() {
           <Route path="articles" element={<AdminArticles />} />
           <Route path="reviews" element={<AdminReviews />} />
           <Route path="images" element={<AdminImages />} />
+          <Route path="users" element={<AdminUsers />} />
+          <Route path="roles" element={<AdminRoles />} />
         </Route>
       </Routes>
     </BrowserRouter>

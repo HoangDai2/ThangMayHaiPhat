@@ -14,8 +14,8 @@ import {
   Ruler,
   Wrench,
 } from 'lucide-react';
-import { products } from '../data/products';
-import { serviceItems } from '../data/services';
+import { useProductsData } from '../hooks/useProductsData';
+import { useServicesData } from '../hooks/useServicesData';
 
 const productIconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
   home: Home,
@@ -40,6 +40,9 @@ const features = [
 ];
 
 export default function Services() {
+  const { products } = useProductsData();
+  const { services: serviceItems } = useServicesData();
+  
   return (
     <section id="services" className="py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -151,8 +151,8 @@ export const teamMembers: TeamMember[] = [
     experience: '18 năm',
   },
   {
-    id: 'le-van-tuan',
-    name: 'Lê Văn Tuấn',
+    id: 'tran-cong-tinh',
+    name: 'Trần Công Tình',
     role: 'Giám đốc Kinh doanh',
     bio: 'Ông Tuấn có 15 năm kinh nghiệm trong lĩnh vực B2B, đã mở rộng mạng lưới khách hàng của Hải Phát trên 63 tỉnh thành.',
     image: 'https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=400&q=80',
@@ -160,8 +160,8 @@ export const teamMembers: TeamMember[] = [
     experience: '15 năm',
   },
   {
-    id: 'pham-thi-hoa',
-    name: 'Phạm Thị Hoa',
+    id: 'nguyen-huy-tuyen',
+    name: 'Nguyễn Huy Tuyên',
     role: 'Giám đốc Dịch vụ',
     bio: 'Bà Hoa phụ trách mảng bảo hành và hậu mãi, đảm bảo khách hàng luôn được hỗ trợ tốt nhất 24/7.',
     image: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=400&q=80',
@@ -172,18 +172,13 @@ export const teamMembers: TeamMember[] = [
 
 export const certificates: Certificate[] = [
   {
-    name: 'ISO 9001:2015',
-    issuer: 'TÜV Rheinland',
-    image: 'https://images.pexels.com/photos/5900/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=200&q=80',
-  },
-  {
-    name: 'Chứng nhận QCVN 06:2022',
+    name: 'Chứng nhận Hợp chuẩn QCVN 06:2022',
     issuer: 'Bộ Xây dựng',
     image: 'https://images.pexels.com/photos/5900/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=200&q=80',
   },
   {
-    name: 'Đối tác Mitsubishi Electric',
-    issuer: 'Mitsubishi Electric',
+    name: 'Chứng nhận Hợp chuẩn QCVN 13:2021',
+    issuer: 'Bộ Xây dựng',
     image: 'https://images.pexels.com/photos/5900/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=200&q=80',
   },
   {

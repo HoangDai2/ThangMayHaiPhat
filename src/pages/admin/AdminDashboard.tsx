@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useOutletContext } from 'react-router-dom';
 import { LayoutDashboard, FolderKanban, Box, Briefcase, Loader2, Layout, FileText, Star, ImageIcon } from 'lucide-react';
 import { supabase, DbProject } from '../../lib/supabase';
 
 export default function AdminDashboard() {
+  const { hasPermission } = useOutletContext<{ hasPermission: (perm: string) => boolean }>();
   const [counts, setCounts] = useState({ projects: 0, products: 0, services: 0, banners: 0, articles: 0, reviews: 0 });
   const [recentProjects, setRecentProjects] = useState<DbProject[]>([]);
   const [loading, setLoading] = useState(true);
@@ -33,12 +34,12 @@ export default function AdminDashboard() {
   }, []);
 
   const statCards = [
-    { title: 'Dự án', count: counts.projects, icon: FolderKanban, color: 'bg-blue-500', href: '/admin/projects' },
-    { title: 'Sản phẩm', count: counts.products, icon: Box, color: 'bg-green-500', href: '/admin/products' },
-    { title: 'Dịch vụ', count: counts.services, icon: Briefcase, color: 'bg-purple-500', href: '/admin/services' },
-    { title: 'Banner', count: counts.banners, icon: Layout, color: 'bg-pink-500', href: '/admin/banners' },
-    { title: 'Bài viết', count: counts.articles, icon: FileText, color: 'bg-amber-500', href: '/admin/articles' },
-    { title: 'Đánh giá', count: counts.reviews, icon: Star, color: 'bg-red-500', href: '/admin/reviews' },
+    { title: 'Dự án', count: counts.projects, icon: FolderKanban, color: 'bg-blue-500', href: '/admin/projects', permission: 'manage_projects' },
+    { title: 'Sản phẩm', count: counts.products, icon: Box, color: 'bg-green-500', href: '/admin/products', permission: 'manage_products' },
+    { title: 'Dịch vụ', count: counts.services, icon: Briefcase, color: 'bg-purple-500', href: '/admin/services', permission: 'manage_services' },
+    { title: 'Banner', count: counts.banners, icon: Layout, color: 'bg-pink-500', href: '/admin/banners', permission: 'manage_banners' },
+    { title: 'Bài viết', count: counts.articles, icon: FileText, color: 'bg-amber-500', href: '/admin/articles', permission: 'manage_articles' },
+    { title: 'Đánh giá', count: counts.reviews, icon: Star, color: 'bg-red-500', href: '/admin/reviews', permission: 'manage_reviews' },
   ];
 
   return (
@@ -50,7 +51,7 @@ export default function AdminDashboard() {
 
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-        {statCards.map((stat) => {
+        {statCards.filter(stat => hasPermission(stat.permission)).map((stat) => {
           const Icon = stat.icon;
           return (
             <Link
@@ -78,88 +79,104 @@ export default function AdminDashboard() {
       <div className="bg-white rounded-xl p-6 shadow-sm mb-8">
         <h2 className="text-xl font-semibold text-slate-800 mb-4">Thao tác nhanh</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <Link to="/admin/projects" className="flex items-center gap-3 p-4 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors">
-            <FolderKanban className="w-5 h-5 text-orange-500" />
-            <span className="text-slate-700">Quản lý dự án</span>
-          </Link>
-          <Link to="/admin/products" className="flex items-center gap-3 p-4 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors">
-            <Box className="w-5 h-5 text-orange-500" />
-            <span className="text-slate-700">Quản lý sản phẩm</span>
-          </Link>
-          <Link to="/admin/services" className="flex items-center gap-3 p-4 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors">
-            <Briefcase className="w-5 h-5 text-orange-500" />
-            <span className="text-slate-700">Quản lý dịch vụ</span>
-          </Link>
-          <Link to="/admin/banners" className="flex items-center gap-3 p-4 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors">
-            <Layout className="w-5 h-5 text-orange-500" />
-            <span className="text-slate-700">Quản lý banner</span>
-          </Link>
-          <Link to="/admin/articles" className="flex items-center gap-3 p-4 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors">
-            <FileText className="w-5 h-5 text-orange-500" />
-            <span className="text-slate-700">Quản lý bài viết</span>
-          </Link>
-          <Link to="/admin/reviews" className="flex items-center gap-3 p-4 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors">
-            <Star className="w-5 h-5 text-orange-500" />
-            <span className="text-slate-700">Quản lý đánh giá</span>
-          </Link>
-          <Link to="/admin/images" className="flex items-center gap-3 p-4 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors">
-            <ImageIcon className="w-5 h-5 text-orange-500" />
-            <span className="text-slate-700">Quản lý hình ảnh</span>
-          </Link>
+          {hasPermission('manage_projects') && (
+            <Link to="/admin/projects" className="flex items-center gap-3 p-4 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors">
+              <FolderKanban className="w-5 h-5 text-orange-500" />
+              <span className="text-slate-700">Quản lý dự án</span>
+            </Link>
+          )}
+          {hasPermission('manage_products') && (
+            <Link to="/admin/products" className="flex items-center gap-3 p-4 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors">
+              <Box className="w-5 h-5 text-orange-500" />
+              <span className="text-slate-700">Quản lý sản phẩm</span>
+            </Link>
+          )}
+          {hasPermission('manage_services') && (
+            <Link to="/admin/services" className="flex items-center gap-3 p-4 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors">
+              <Briefcase className="w-5 h-5 text-orange-500" />
+              <span className="text-slate-700">Quản lý dịch vụ</span>
+            </Link>
+          )}
+          {hasPermission('manage_banners') && (
+            <Link to="/admin/banners" className="flex items-center gap-3 p-4 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors">
+              <Layout className="w-5 h-5 text-orange-500" />
+              <span className="text-slate-700">Quản lý banner</span>
+            </Link>
+          )}
+          {hasPermission('manage_articles') && (
+            <Link to="/admin/articles" className="flex items-center gap-3 p-4 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors">
+              <FileText className="w-5 h-5 text-orange-500" />
+              <span className="text-slate-700">Quản lý bài viết</span>
+            </Link>
+          )}
+          {hasPermission('manage_reviews') && (
+            <Link to="/admin/reviews" className="flex items-center gap-3 p-4 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors">
+              <Star className="w-5 h-5 text-orange-500" />
+              <span className="text-slate-700">Quản lý đánh giá</span>
+            </Link>
+          )}
+          {hasPermission('manage_images') && (
+            <Link to="/admin/images" className="flex items-center gap-3 p-4 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors">
+              <ImageIcon className="w-5 h-5 text-orange-500" />
+              <span className="text-slate-700">Quản lý hình ảnh</span>
+            </Link>
+          )}
         </div>
       </div>
 
       {/* Recent Projects */}
-      <div className="bg-white rounded-xl p-6 shadow-sm">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-semibold text-slate-800">Dự án gần đây</h2>
-          <Link to="/admin/projects" className="text-orange-500 hover:text-orange-600 text-sm font-medium">
-            Xem tất cả
-          </Link>
-        </div>
-        {loading ? (
-          <div className="flex justify-center py-8">
-            <Loader2 className="w-6 h-6 animate-spin text-orange-500" />
+      {hasPermission('manage_projects') && (
+        <div className="bg-white rounded-xl p-6 shadow-sm">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-xl font-semibold text-slate-800">Dự án gần đây</h2>
+            <Link to="/admin/projects" className="text-orange-500 hover:text-orange-600 text-sm font-medium">
+              Xem tất cả
+            </Link>
           </div>
-        ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="text-left text-slate-500 text-sm border-b">
-                  <th className="pb-3 font-medium">Dự án</th>
-                  <th className="pb-3 font-medium">Địa điểm</th>
-                  <th className="pb-3 font-medium">Loại</th>
-                  <th className="pb-3 font-medium">Hoàn thành</th>
-                </tr>
-              </thead>
-              <tbody>
-                {recentProjects.map((project) => (
-                  <tr key={project.id} className="border-b last:border-0">
-                    <td className="py-4">
-                      <div className="flex items-center gap-3">
-                        {project.image && (
-                          <img src={project.image} alt={project.title} className="w-12 h-12 rounded-lg object-cover" />
-                        )}
-                        <div>
-                          <p className="font-medium text-slate-800">{project.title}</p>
-                          <p className="text-sm text-slate-500">{project.specs}</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="py-4 text-slate-600">{project.location}</td>
-                    <td className="py-4">
-                      <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm">
-                        {project.category}
-                      </span>
-                    </td>
-                    <td className="py-4 text-slate-600">{project.completion_date}</td>
+          {loading ? (
+            <div className="flex justify-center py-8">
+              <Loader2 className="w-6 h-6 animate-spin text-orange-500" />
+            </div>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="text-left text-slate-500 text-sm border-b">
+                    <th className="pb-3 font-medium">Dự án</th>
+                    <th className="pb-3 font-medium">Địa điểm</th>
+                    <th className="pb-3 font-medium">Loại</th>
+                    <th className="pb-3 font-medium">Hoàn thành</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
-      </div>
+                </thead>
+                <tbody>
+                  {recentProjects.map((project) => (
+                    <tr key={project.id} className="border-b last:border-0">
+                      <td className="py-4">
+                        <div className="flex items-center gap-3">
+                          {project.image && (
+                            <img src={project.image} alt={project.title} className="w-12 h-12 rounded-lg object-cover" />
+                          )}
+                          <div>
+                            <p className="font-medium text-slate-800">{project.title}</p>
+                            <p className="text-sm text-slate-500">{project.specs}</p>
+                          </div>
+                        </div>
+                      </td>
+                      <td className="py-4 text-slate-600">{project.location}</td>
+                      <td className="py-4">
+                        <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm">
+                          {project.category}
+                        </span>
+                      </td>
+                      <td className="py-4 text-slate-600">{project.completion_date}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }
