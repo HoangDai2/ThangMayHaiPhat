@@ -30,7 +30,7 @@ export function ServicesList() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Header */}
-      <header className="bg-[#0d1f35] py-16 relative overflow-hidden">
+      <header className="bg-[#0d1f35] pt-36 pb-32 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-10 left-10 w-64 h-64 bg-[#285c9a] rounded-full blur-3xl" />
           <div className="absolute bottom-10 right-10 w-96 h-96 bg-[#285c9a] rounded-full blur-3xl" />
@@ -50,7 +50,7 @@ export function ServicesList() {
       </header>
 
       {/* Services Timeline */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 -mt-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 -mt-8 relative z-20">
         <div className="space-y-6">
           {serviceItems.map((service, idx) => {
             const Icon = iconMap[service.icon] || Settings;

@@ -29,52 +29,34 @@ export interface Certificate {
 export const companyInfo = {
   name: 'Hải Phát',
   fullName: 'Công Ty TNHH Thang Máy Hải Phát',
-  founded: 2009,
-  yearsExperience: 15,
+  founded: 2021,
+  yearsExperience: 5,
   slogan: 'Chất lượng khẳng định thương hiệu',
-  description: `Thang Máy Hải Phát là đơn vị chuyên lắp đặt, bảo trì và cung cấp giải pháp thang máy hàng đầu Việt Nam với hơn 15 năm kinh nghiệm. Chúng tôi tự hào đã hoàn thành hơn 500 công trình trên toàn quốc, từ biệt thự gia đình đến các tòa nhà văn phòng cao tầng, trung tâm thương mại lớn.
+  description: `Thang Máy Hải Phát là đơn vị chuyên lắp đặt, bảo trì và cung cấp giải pháp thang máy hàng đầu Việt Nam với hơn 5 năm kinh nghiệm. Chúng tôi tự hào đã hoàn thành hơn 1000 công trình trên toàn quốc, từ biệt thự gia đình đến các tòa nhà văn phòng, chung cư cao tầng.
 
 Với đội ngũ kỹ sư giàu kinh nghiệm, được đào tạo bài bản từ các nhà sản xuất thang máy hàng đầu thế giới, Hải Phát cam kết mang đến sản phẩm chất lượng cao với dịch vụ hậu mãi chuyên nghiệp 24/7.`,
   mission: 'Cung cấp giải pháp thang máy an toàn, hiện đại và tiện nghi, nâng tầm chất lượng sống cho khách hàng.',
   vision: 'Trở thành thương hiệu thang máy uy tín nhất Việt Nam, Top 5 doanh nghiệp hàng đầu trong ngành thang máy Đông Nam Á vào năm 2030.',
   stats: [
-    { label: 'Năm kinh nghiệm', value: '15+' },
-    { label: 'Công trình hoàn thành', value: '500+' },
-    { label: 'Tỉnh thành phủ sóng', value: '63' },
+    { label: 'Năm kinh nghiệm', value: '5+' },
+    { label: 'Công trình hoàn thành', value: '1000+' },
+    { label: 'Tỉnh thành phủ sóng', value: '34' },
     { label: 'Khách hàng hài lòng', value: '98%' },
   ],
   headquarters: {
-    address: '123 Đường Láng, Quận Đống Đa, Hà Nội',
-    phone: '024 1234 5678',
-    hotline: '0800 123 456',
-    email: 'info@haiphat.vn',
+    address: 'Tầng 11, Tòa Nhà Đa Năng, 169 Đ. Nguyễn Ngọc Vũ, Yên Hòa, Hà Nội, Việt Nam',
+    phone: '0898 424 666',
+    hotline: '0987 603 588',
+    email: 'haiphatthangmay@gmail.com',
     workingHours: 'Thứ 2 - Thứ 7: 7:30 - 17:30',
   },
   branches: [
     {
       city: 'Hà Nội',
-      address: '123 Đường Láng, Đống Đa',
-      phone: '024 1234 5678',
+      address: 'Tầng 11, Tòa Nhà Đa Năng, 169 Đ. Nguyễn Ngọc Vũ, Yên Hòa',
+      phone: '0987 603 588',
       type: 'Trụ sở chính',
-    },
-    {
-      city: 'TP. Hồ Chí Minh',
-      address: '456 Nguyễn Văn Linh, Quận 7',
-      phone: '028 1234 5678',
-      type: 'Văn phòng',
-    },
-    {
-      city: 'Đà Nẵng',
-      address: '78 Nguyễn Văn Linh, Thanh Khê',
-      phone: '0236 1234 567',
-      type: 'Văn phòng',
-    },
-    {
-      city: 'Cần Thơ',
-      address: '90 Nguyễn Văn Cừ, Ninh Kiều',
-      phone: '0292 1234 567',
-      type: 'Văn phòng',
-    },
+    }
   ],
 };
 
@@ -151,26 +133,26 @@ export const coreValues: Value[] = [
 
 export const teamMembers: TeamMember[] = [
   {
-    id: 'nguyen-van-hung',
-    name: 'Nguyễn Văn Hùng',
+    id: 'hoang-le-quang-hoa',
+    name: 'Hoàng Lê Quang Hòa',
     role: 'CEO & Founder',
-    bio: 'Với hơn 20 năm kinh nghiệm trong ngành thang máy, ông Hùng đã sáng lập Hải Phát với tầm nhìn đưa thang máy chất lượng cao đại trà cho các gia đình Việt.',
+    bio: 'Với hơn 10 năm kinh nghiệm trong ngành thang máy, anh Hòa đã sáng lập Hải Phát với tầm nhìn đưa thang máy chất lượng cao đại trà cho các gia đình Việt.',
     image: 'https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=400&q=80',
     linkedin: '#',
-    experience: '20+ năm',
+    experience: '10+ năm',
   },
   {
-    id: 'tran-thi-mai',
-    name: 'Trần Thị Mai',
-    role: 'Giám đốc Kỹ thuật',
-    bio: 'Bà Mai là chuyên gia kỹ thuật với chứng chỉ từ Mitsubishi, Otis và Schindler. Đã trực tiếp giám sát hơn 300 công trình thang máy.',
+    id: 'nguyen-thi-huong',
+    name: 'Nguyễn Thị Hường',
+    role: 'Phó Giám đốc',
+    bio: 'Chị Hường là người đứng sau ',
     image: 'https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=400&q=80',
     linkedin: '#',
     experience: '18 năm',
   },
   {
-    id: 'le-van-tuan',
-    name: 'Lê Văn Tuấn',
+    id: 'tran-cong-tinh',
+    name: 'Trần Công Tình',
     role: 'Giám đốc Kinh doanh',
     bio: 'Ông Tuấn có 15 năm kinh nghiệm trong lĩnh vực B2B, đã mở rộng mạng lưới khách hàng của Hải Phát trên 63 tỉnh thành.',
     image: 'https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=400&q=80',
@@ -178,8 +160,8 @@ export const teamMembers: TeamMember[] = [
     experience: '15 năm',
   },
   {
-    id: 'pham-thi-hoa',
-    name: 'Phạm Thị Hoa',
+    id: 'nguyen-huy-tuyen',
+    name: 'Nguyễn Huy Tuyên',
     role: 'Giám đốc Dịch vụ',
     bio: 'Bà Hoa phụ trách mảng bảo hành và hậu mãi, đảm bảo khách hàng luôn được hỗ trợ tốt nhất 24/7.',
     image: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=400&q=80',
@@ -190,18 +172,13 @@ export const teamMembers: TeamMember[] = [
 
 export const certificates: Certificate[] = [
   {
-    name: 'ISO 9001:2015',
-    issuer: 'TÜV Rheinland',
-    image: 'https://images.pexels.com/photos/5900/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=200&q=80',
-  },
-  {
-    name: 'Chứng nhận QCVN 06:2022',
+    name: 'Chứng nhận Hợp chuẩn QCVN 06:2022',
     issuer: 'Bộ Xây dựng',
     image: 'https://images.pexels.com/photos/5900/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=200&q=80',
   },
   {
-    name: 'Đối tác Mitsubishi Electric',
-    issuer: 'Mitsubishi Electric',
+    name: 'Chứng nhận Hợp chuẩn QCVN 13:2021',
+    issuer: 'Bộ Xây dựng',
     image: 'https://images.pexels.com/photos/5900/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=200&q=80',
   },
   {

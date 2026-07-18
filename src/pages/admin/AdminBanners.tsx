@@ -1,14 +1,19 @@
 import { useState, useEffect } from 'react';
-import { Plus, Edit, Trash2, X, Loader2, Image, ToggleLeft, ToggleRight } from 'lucide-react';
+import { Plus, Edit, Trash2, X, Loader2, Image, ToggleLeft, ToggleRight, Video, ImageIcon } from 'lucide-react';
 import { supabase, DbBanner } from '../../lib/supabase';
 import ImageUpload from '../../components/admin/ImageUpload';
+import { getYouTubeEmbedUrl, isDirectVideo } from '../../lib/video';
 
 const POSITIONS = ['hero', 'sub', 'sidebar'];
+const MEDIA_TYPES = ['image', 'video'] as const;
 
 const emptyForm = (): Partial<DbBanner> => ({
   title: '',
   subtitle: '',
+  description: '',
   image_url: '',
+  video_url: '',
+  media_type: 'image',
   link_url: '',
   position: 'hero',
   sort_order: 0,
@@ -73,7 +78,10 @@ export default function AdminBanners() {
     const payload = {
       title: form.title!.trim(),
       subtitle: form.subtitle || '',
+      description: form.description || '',
       image_url: form.image_url || '',
+      video_url: form.video_url || '',
+      media_type: form.media_type || 'image',
       link_url: form.link_url || '',
       position: form.position || 'hero',
       sort_order: form.sort_order || 0,
@@ -107,6 +115,51 @@ export default function AdminBanners() {
     await fetchBanners();
   };
 
+  const renderMediaPreview = (banner: DbBanner) => {
+    if (banner.media_type === 'video' && banner.video_url) {
+      const ytEmbed = getYouTubeEmbedUrl(banner.video_url);
+      if (ytEmbed) {
+        return (
+          <iframe
+            src={ytEmbed}
+            className="w-full h-full object-cover pointer-events-none"
+            allow="autoplay; encrypted-media"
+            title={banner.title}
+          />
+        );
+      }
+      if (isDirectVideo(banner.video_url)) {
+        return (
+          <video
+            src={banner.video_url}
+            className="w-full h-full object-cover"
+            muted
+            playsInline
+            onMouseEnter={(e) => e.currentTarget.play()}
+            onMouseLeave={(e) => {
+              e.currentTarget.pause();
+              e.currentTarget.currentTime = 0;
+            }}
+          />
+        );
+      }
+    }
+    if (banner.image_url) {
+      return (
+        <img
+          src={banner.image_url}
+          alt={banner.title}
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+        />
+      );
+    }
+    return (
+      <div className="flex items-center justify-center h-full text-slate-300">
+        <Image className="w-12 h-12" />
+      </div>
+    );
+  };
+
   return (
     <div>
       <div className="flex items-center justify-between mb-8">
@@ -132,17 +185,7 @@ export default function AdminBanners() {
           {banners.map((banner) => (
             <div key={banner.id} className="bg-white rounded-xl shadow-sm overflow-hidden group">
               <div className="relative h-40 overflow-hidden bg-slate-100">
-                {banner.image_url ? (
-                  <img
-                    src={banner.image_url}
-                    alt={banner.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                ) : (
-                  <div className="flex items-center justify-center h-full text-slate-300">
-                    <Image className="w-12 h-12" />
-                  </div>
-                )}
+                {renderMediaPreview(banner)}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                 <div className="absolute bottom-3 left-3 right-3">
                   <p className="text-white font-semibold text-sm">{banner.title}</p>
@@ -151,6 +194,12 @@ export default function AdminBanners() {
                 <span className="absolute top-3 left-3 px-2 py-1 bg-black/50 text-white rounded-full text-xs">
                   {banner.position}
                 </span>
+                {banner.media_type === 'video' && (
+                  <span className="absolute top-3 right-3 px-2 py-1 bg-orange-500 text-white rounded-full text-xs flex items-center gap-1">
+                    <Video className="w-3 h-3" />
+                    Video
+                  </span>
+                )}
               </div>
               <div className="p-4">
                 <div className="flex items-center justify-between mb-3">
@@ -223,21 +272,84 @@ export default function AdminBanners() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Tiêu đề phụ</label>
-                <input
-                  type="text"
+                <label className="block text-sm font-medium text-slate-700 mb-1">Tiêu đề phụ (mô tả ngắn)</label>
+                <textarea
                   value={form.subtitle || ''}
                   onChange={(e) => set('subtitle', e.target.value)}
                   placeholder="Giảm 15% chi phí lắp đặt"
-                  className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none"
+                  rows={2}
+                  className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none resize-none"
                 />
               </div>
 
-              <ImageUpload
-                label="Ảnh banner"
-                value={form.image_url || ''}
-                onChange={(url) => set('image_url', url)}
-              />
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">Mô tả chi tiết</label>
+                <textarea
+                  value={form.description || ''}
+                  onChange={(e) => set('description', e.target.value)}
+                  placeholder="Nhập mô tả chi tiết cho banner..."
+                  rows={4}
+                  className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none resize-none"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">Loại media</label>
+                <div className="flex gap-3">
+                  {MEDIA_TYPES.map((type) => (
+                    <button
+                      key={type}
+                      type="button"
+                      onClick={() => set('media_type', type)}
+                      className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-lg border-2 transition-all ${
+                        form.media_type === type
+                          ? 'border-orange-500 bg-orange-50 text-orange-600'
+                          : 'border-slate-200 bg-white text-slate-500 hover:border-slate-300'
+                      }`}
+                    >
+                      {type === 'image' ? <ImageIcon className="w-5 h-5" /> : <Video className="w-5 h-5" />}
+                      <span className="font-medium capitalize">{type === 'image' ? 'Hình ảnh' : 'Video'}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {form.media_type === 'video' ? (
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-1">URL Video</label>
+                  <input
+                    type="text"
+                    value={form.video_url || ''}
+                    onChange={(e) => set('video_url', e.target.value)}
+                    placeholder="https://www.youtube.com/watch?v=... hoặc https://example.com/video.mp4"
+                    className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none"
+                  />
+                  <p className="text-xs text-slate-400 mt-1">
+                    Hỗ trợ YouTube (watch/shorts/youtu.be) hoặc file trực tiếp (MP4, WebM).
+                  </p>
+                  {form.video_url && getYouTubeEmbedUrl(form.video_url) && (
+                    <div className="mt-2 aspect-video rounded-lg overflow-hidden bg-slate-100">
+                      <iframe
+                        src={getYouTubeEmbedUrl(form.video_url)!}
+                        className="w-full h-full"
+                        allow="autoplay; encrypted-media"
+                        title="Video preview"
+                      />
+                    </div>
+                  )}
+                  {form.video_url && isDirectVideo(form.video_url) && (
+                    <div className="mt-2 aspect-video rounded-lg overflow-hidden bg-slate-100">
+                      <video src={form.video_url} className="w-full h-full object-cover" muted controls />
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <ImageUpload
+                  label="Ảnh banner"
+                  value={form.image_url || ''}
+                  onChange={(url) => set('image_url', url)}
+                />
+              )}
 
               <div className="grid grid-cols-2 gap-4">
                 <div>

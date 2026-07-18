@@ -11,6 +11,9 @@ import { ServicesList } from './pages/ServicesPage';
 import { ProductsList, ProductDetail } from './pages/ProductsPage';
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
+import { ArticlesList, ArticleDetail } from './pages/ArticlesPage';
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
+import TermsOfUsePage from './pages/TermsOfUsePage';
 import { AdminLayout } from './pages/admin/AdminLayout';
 import AdminLogin from './pages/admin/AdminLogin';
 import AdminDashboard from './pages/admin/AdminDashboard';
@@ -21,6 +24,8 @@ import AdminBanners from './pages/admin/AdminBanners';
 import AdminArticles from './pages/admin/AdminArticles';
 import AdminReviews from './pages/admin/AdminReviews';
 import AdminImages from './pages/admin/AdminImages';
+import AdminUsers from './pages/admin/AdminUsers';
+import AdminRoles from './pages/admin/AdminRoles';
 import { FloatingButtons } from './components/FloatingButtons';
 
 function HomePage() {
@@ -53,8 +58,12 @@ function App() {
                   <Route path="/dich-vu" element={<ServicesList />} />
                   <Route path="/san-pham" element={<ProductsList />} />
                   <Route path="/san-pham/:id" element={<ProductDetail />} />
+                  <Route path="/bai-viet" element={<ArticlesList />} />
+                  <Route path="/bai-viet/:slug" element={<ArticleDetail />} />
                   <Route path="/ve-chung-toi" element={<AboutPage />} />
                   <Route path="/lien-he" element={<ContactPage />} />
+                  <Route path="/chinh-sach-bao-mat" element={<PrivacyPolicyPage />} />
+                  <Route path="/dieu-khoan-su-dung" element={<TermsOfUsePage />} />
                 </Routes>
               </main>
               <Footer />
@@ -74,6 +83,8 @@ function App() {
           <Route path="articles" element={<AdminArticles />} />
           <Route path="reviews" element={<AdminReviews />} />
           <Route path="images" element={<AdminImages />} />
+          <Route path="users" element={<AdminUsers />} />
+          <Route path="roles" element={<AdminRoles />} />
         </Route>
       </Routes>
     </BrowserRouter>

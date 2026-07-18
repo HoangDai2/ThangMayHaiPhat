@@ -54,7 +54,7 @@ function ProjectDetail() {
         {/* Back button */}
         <Link
           to="/du-an"
-          className="absolute top-6 left-6 flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-white/20 transition-colors z-10"
+          className="absolute top-24 left-6 flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-white/20 transition-colors z-10"
         >
           <ChevronLeft size={16} />
           Quay lại
@@ -264,7 +264,7 @@ function ProjectsList() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-[#0d1f35] py-16">
+      <header className="bg-[#0d1f35] pt-36 pb-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-3xl sm:text-4xl font-bold text-white mb-3">Dự án tiêu biểu</h1>
           <p className="text-white/70 text-sm max-w-xl mx-auto">

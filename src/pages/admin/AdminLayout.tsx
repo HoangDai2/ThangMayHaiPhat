@@ -1,6 +1,7 @@
-import { Outlet, Navigate } from 'react-router-dom';
-import { useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Outlet, Navigate, Link, useLocation, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { supabase } from '../../lib/supabase';
+import { usePermissions } from '../../hooks/usePermissions';
 import {
   LayoutDashboard,
   FolderKanban,
@@ -12,55 +13,55 @@ import {
   ImageIcon,
   FileText,
   Star,
-  Layout
+  Layout,
+  Users,
+  Shield
 } from 'lucide-react';
 
 const sidebarItems = [
-  { path: '/admin', label: 'Tổng quan', icon: LayoutDashboard },
-  { path: '/admin/projects', label: 'Dự án', icon: FolderKanban },
-  { path: '/admin/products', label: 'Sản phẩm', icon: Box },
-  { path: '/admin/services', label: 'Dịch vụ', icon: Briefcase },
-  { path: '/admin/banners', label: 'Banner', icon: Layout },
-  { path: '/admin/articles', label: 'Bài viết', icon: FileText },
-  { path: '/admin/reviews', label: 'Đánh giá', icon: Star },
-  { path: '/admin/images', label: 'Hình ảnh', icon: ImageIcon },
+  { path: '/admin', label: 'Tổng quan', icon: LayoutDashboard, permission: null },
+  { path: '/admin/projects', label: 'Dự án', icon: FolderKanban, permission: 'manage_projects' },
+  { path: '/admin/products', label: 'Sản phẩm', icon: Box, permission: 'manage_products' },
+  { path: '/admin/services', label: 'Dịch vụ', icon: Briefcase, permission: 'manage_services' },
+  { path: '/admin/banners', label: 'Banner', icon: Layout, permission: 'manage_banners' },
+  { path: '/admin/articles', label: 'Bài viết', icon: FileText, permission: 'manage_articles' },
+  { path: '/admin/reviews', label: 'Đánh giá', icon: Star, permission: 'manage_reviews' },
+  { path: '/admin/images', label: 'Hình ảnh', icon: ImageIcon, permission: 'manage_images' },
+  { path: '/admin/users', label: 'Tài khoản', icon: Users, permission: 'manage_all' },
+  { path: '/admin/roles', label: 'Phân quyền', icon: Shield, permission: 'manage_all' },
 ];
 
-export function useAdminAuth() {
-  const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    return localStorage.getItem('adminAuth') === 'true';
-  });
-
-  const login = (password: string): boolean => {
-    // Simple password check - in production use Supabase auth
-    if (password === 'haiphat2024') {
-      localStorage.setItem('adminAuth', 'true');
-      setIsAuthenticated(true);
-      return true;
-    }
-    return false;
-  };
-
-  const logout = () => {
-    localStorage.removeItem('adminAuth');
-    setIsAuthenticated(false);
-  };
-
-  return { isAuthenticated, login, logout };
-}
-
 export function AdminLayout() {
-  const { isAuthenticated, logout } = useAdminAuth();
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+  const { hasPermission, loading: permissionsLoading, role } = usePermissions();
   const location = useLocation();
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  if (!isAuthenticated) {
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setIsAuthenticated(!!session);
+    });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setIsAuthenticated(!!session);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  if (isAuthenticated === null || permissionsLoading) {
+    return <div className="min-h-screen flex items-center justify-center bg-slate-100">Đang tải...</div>;
+  }
+
+  if (isAuthenticated === false) {
     return <Navigate to="/admin/login" replace />;
   }
 
-  const handleLogout = () => {
-    logout();
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
     navigate('/admin/login');
   };
 
@@ -76,17 +77,27 @@ export function AdminLayout() {
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-0 left-0 h-full w-64 bg-slate-800 text-white transform transition-transform duration-300 z-40 ${
+        className={`fixed top-0 left-0 h-full w-64 bg-slate-800 text-white transform transition-transform duration-300 z-40 flex flex-col ${
           sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         }`}
       >
         <div className="p-6 border-b border-slate-700">
-          <Link to="/" className="text-xl font-bold text-orange-500">
+          <Link to="/" className="text-xl font-bold text-orange-500 block">
             Hải Phát Admin
           </Link>
+          {role && (
+            <div className="mt-2 text-sm text-slate-400 bg-slate-700/50 inline-block px-2 py-1 rounded">
+              Vai trò: <span className="text-white font-medium">{role}</span>
+            </div>
+          )}
         </div>
-        <nav className="p-4">
+        <nav className="p-4 flex-1 overflow-y-auto">
           {sidebarItems.map((item) => {
+            // Check permission
+            if (item.permission && !hasPermission(item.permission)) {
+              return null;
+            }
+
             const Icon = item.icon;
             const isActive = location.pathname === item.path;
             return (
@@ -106,7 +117,7 @@ export function AdminLayout() {
             );
           })}
         </nav>
-        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-slate-700">
+        <div className="p-4 border-t border-slate-700">
           <button
             onClick={handleLogout}
             className="flex items-center gap-3 px-4 py-3 w-full text-slate-300 hover:text-white hover:bg-slate-700 rounded-lg transition-colors"
@@ -127,7 +138,7 @@ export function AdminLayout() {
 
       {/* Main content */}
       <main className="lg:ml-64 min-h-screen p-6 pt-16 lg:pt-6">
-        <Outlet />
+        <Outlet context={{ hasPermission }} />
       </main>
     </div>
   );

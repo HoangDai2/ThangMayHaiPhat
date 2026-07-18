@@ -12,9 +12,7 @@ export function useProductsData() {
     (async () => {
       const { data, error } = await supabase
         .from('products')
-        .select('*')
-        .eq('is_published', true)
-        .order('sort_order', { ascending: true });
+        .select('*');
       if (!error && data && data.length > 0) {
         setProducts(data.map(mapProduct));
       }

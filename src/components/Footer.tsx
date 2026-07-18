@@ -18,11 +18,7 @@ const serviceLinks = [
 ];
 
 const companyLinks = [
-  { label: 'Về Hải Phát', href: '/ve-chung-toi' },
-  { label: 'Đội ngũ chuyên gia', href: '/ve-chung-toi' },
-  { label: 'Chứng nhận & giải thưởng', href: '/ve-chung-toi' },
-  { label: 'Tuyển dụng', href: '#' },
-  { label: 'Tin tức', href: '#' },
+  { label: 'Về Hải Phát', href: '/ve-chung-toi' }
 ];
 
 export default function Footer() {
@@ -68,7 +64,7 @@ export default function Footer() {
               <img src="/image.png" alt="Thang Máy Hải Phát" className="h-12 w-auto object-contain" />
             </div>
             <p className="text-gray-400 text-sm leading-relaxed mb-5">
-              Chuyên lắp đặt thang máy gia đình và thang máy tải khách cao cấp. Hơn 15 năm
+              Chuyên lắp đặt thang máy gia đình và thang máy tải khách cao cấp. Hơn 5 năm
               kinh nghiệm, phục vụ khách hàng trên toàn quốc.
             </p>
 
@@ -82,14 +78,7 @@ export default function Footer() {
                 <Facebook size={16} className="text-gray-400 hover:text-white" />
               </a>
               <a
-                href="#"
-                className="w-9 h-9 rounded-lg bg-white/8 flex items-center justify-center hover:bg-[#285c9a] transition-colors"
-                aria-label="Youtube"
-              >
-                <Youtube size={16} className="text-gray-400 hover:text-white" />
-              </a>
-              <a
-                href="https://zalo.me/0800123456"
+                href="https://zalo.me/0898.424.666"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-9 h-9 rounded-lg bg-white/8 flex items-center justify-center hover:bg-[#0068ff] transition-colors"
@@ -98,7 +87,7 @@ export default function Footer() {
                 <ZaloIcon size={16} className="text-gray-400 hover:text-white" />
               </a>
               <a
-                href="tel:0800123456"
+                href="tel:0987603588"
                 className="w-9 h-9 rounded-lg bg-white/8 flex items-center justify-center hover:bg-[#285c9a] transition-colors"
                 aria-label="Phone"
               >
@@ -176,29 +165,27 @@ export default function Footer() {
               <li className="flex gap-3">
                 <MapPin size={15} className="text-[#285c9a] mt-0.5 flex-shrink-0" />
                 <span className="text-gray-400 text-sm leading-relaxed">
-                  123 Đường Láng, Đống Đa, Hà Nội
+                  Tầng 11, Tòa Nhà Đa Năng, 169 Nguyễn Ngọc Vũ, Yên Hòa, Hà Nội
                 </span>
               </li>
               <li className="flex gap-3">
                 <Phone size={15} className="text-[#285c9a] mt-0.5 flex-shrink-0" />
                 <div>
-                  <a href="tel:0800123456" className="text-gray-400 text-sm hover:text-white transition-colors block">
-                    0800 123 456 (Miễn phí)
+                  <a href="tel:0987603588" className="text-gray-400 text-sm hover:text-white transition-colors block">
+                    0987 603 588
                   </a>
-                  <a href="tel:02412345678" className="text-gray-400 text-sm hover:text-white transition-colors block">
-                    024 1234 5678
+                  <a href="tel:0898424666" className="text-gray-400 text-sm hover:text-white transition-colors block">
+                    0898 424 666
                   </a>
                 </div>
               </li>
               <li className="flex gap-3">
                 <Mail size={15} className="text-[#285c9a] mt-0.5 flex-shrink-0" />
                 <div>
-                  <a href="mailto:info@haiphat.vn" className="text-gray-400 text-sm hover:text-white transition-colors block">
-                    info@haiphat.vn
+                  <a href="mailto:haiphatthangmay@gmail.com" className="text-gray-400 text-sm hover:text-white transition-colors block">
+                    haiphatthangmay@gmail.com
                   </a>
-                  <a href="mailto:sales@haiphat.vn" className="text-gray-400 text-sm hover:text-white transition-colors block">
-                    sales@haiphat.vn
-                  </a>
+
                 </div>
               </li>
             </ul>
@@ -219,15 +206,15 @@ export default function Footer() {
       <div className="border-t border-white/8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-gray-500 text-xs">
-            &copy; {new Date().getFullYear()} Thang Máy Hải Phát. All rights reserved. · MST: 0123456789
+            &copy; {new Date().getFullYear()} Thang Máy Hải Phát. All rights reserved. · MST: 0109108682
           </p>
           <div className="flex items-center gap-5">
-            <a href="#" className="text-gray-500 text-xs hover:text-gray-300 transition-colors">
+            <Link to="/chinh-sach-bao-mat" className="text-gray-500 text-xs hover:text-gray-300 transition-colors">
               Chính sách bảo mật
-            </a>
-            <a href="#" className="text-gray-500 text-xs hover:text-gray-300 transition-colors">
+            </Link>
+            <Link to="/dieu-khoan-su-dung" className="text-gray-500 text-xs hover:text-gray-300 transition-colors">
               Điều khoản sử dụng
-            </a>
+            </Link>
             <button
               onClick={scrollTop}
               className="w-8 h-8 rounded-lg bg-[#285c9a]/30 flex items-center justify-center hover:bg-[#285c9a] transition-colors"

@@ -7,6 +7,7 @@ const navLinks = [
   { label: 'Sản phẩm', href: '/san-pham' },
   { label: 'Dịch vụ', href: '/dich-vu' },
   { label: 'Dự án', href: '/du-an' },
+  { label: 'Bài viết', href: '/bai-viet' },
   { label: 'Về chúng tôi', href: '/ve-chung-toi' },
   { label: 'Liên hệ', href: '/lien-he' },
 ];
@@ -47,7 +48,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link to="/" className="flex items-center group">
           <img
-            src="/image.png"
+            src={scrolled || !isHome ? "/logohp.png" : "/image.png"}
             alt="Thang Máy Hải Phát"
             className="h-12 w-auto object-contain"
           />

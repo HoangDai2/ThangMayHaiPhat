@@ -33,7 +33,7 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Header */}
-      <header className="bg-[#0d1f35] py-20 relative overflow-hidden">
+      <header className="bg-[#0d1f35] pt-36 pb-32 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#285c9a] rounded-full blur-3xl" />
           <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-[#285c9a] rounded-full blur-3xl" />
@@ -284,48 +284,6 @@ export default function AboutPage() {
                 </div>
               ))}
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Office Locations */}
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">Văn phòng trên toàn quốc</h2>
-            <p className="text-gray-500 text-sm max-w-xl mx-auto">
-              Phạm vi phục vụ tại 63 tỉnh thành với mạng lưới văn phòng trải dài
-            </p>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {companyInfo.branches.map((branch) => (
-              <div
-                key={branch.city}
-                className={`bg-gray-50 rounded-2xl p-6 border ${
-                  branch.type === 'Trụ sở chính' ? 'border-[#285c9a]/30' : 'border-gray-100'
-                }`}
-              >
-                <div className="flex items-start justify-between mb-3">
-                  <h4 className="font-bold text-gray-900">{branch.city}</h4>
-                  {branch.type === 'Trụ sở chính' && (
-                    <span className="bg-[#285c9a] text-white text-xs px-2 py-0.5 rounded-full">
-                      HQ
-                    </span>
-                  )}
-                </div>
-                <div className="space-y-2 text-sm">
-                  <div className="flex items-start gap-2 text-gray-600">
-                    <MapPin size={14} className="mt-0.5 flex-shrink-0 text-gray-400" />
-                    <span>{branch.address}</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-gray-600">
-                    <Phone size={14} className="text-gray-400" />
-                    <span>{branch.phone}</span>
-                  </div>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </section>

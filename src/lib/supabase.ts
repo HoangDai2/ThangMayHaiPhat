@@ -62,7 +62,10 @@ export interface DbBanner {
   id: string;
   title: string;
   subtitle: string;
+  description: string;
   image_url: string;
+  video_url: string;
+  media_type: 'image' | 'video';
   link_url: string;
   position: string;
   sort_order: number;
@@ -102,5 +105,25 @@ export interface StorageImage {
   name: string;
   url: string;
   size: number;
+  created_at: string;
+}
+
+export interface DbRole {
+  id: string;
+  name: string;
+  description: string;
+  created_at: string;
+}
+
+export interface DbPermission {
+  id: string;
+  name: string;
+  description: string;
+  created_at: string;
+}
+
+export interface DbUserRole {
+  user_id: string;
+  role_id: string;
   created_at: string;
 }

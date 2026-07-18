@@ -12,9 +12,7 @@ export function useServicesData() {
     (async () => {
       const { data, error } = await supabase
         .from('services')
-        .select('*')
-        .eq('is_published', true)
-        .order('sort_order', { ascending: true });
+        .select('*');
       if (!error && data && data.length > 0) {
         setServices(data.map(mapService));
       }

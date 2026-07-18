@@ -4,13 +4,43 @@ import { ZaloIcon } from './icons/ZaloIcon';
 
 export default function ContactSection() {
   const [form, setForm] = useState({ name: '', phone: '', service: '', message: '' });
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSent(true);
-    setForm({ name: '', phone: '', service: '', message: '' });
-    setTimeout(() => setSent(false), 4000);
+    setStatus('submitting');
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          access_key: "e183c617-e789-41ad-97c7-35d2ddc8a7dc", // <-- ĐĂNG KÝ MIỄN PHÍ TẠI web3forms.com VÀ DÁN ACCESS KEY VÀO ĐÂY
+          subject: "Yêu cầu tư vấn thang máy mới từ Website",
+          from_name: form.name,
+          Họ_tên: form.name,
+          Số_điện_thoại: form.phone,
+          Loại_thang_máy: form.service || 'Chưa chọn',
+          Mô_tả: form.message || 'Không có',
+        })
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setStatus('success');
+        setForm({ name: '', phone: '', service: '', message: '' });
+      } else {
+        setStatus('error');
+      }
+    } catch (error) {
+      setStatus('error');
+    }
+
+    setTimeout(() => setStatus('idle'), 5000);
   };
 
   return (
@@ -82,8 +112,8 @@ export default function ContactSection() {
             {/* Map placeholder */}
             <div className="mt-4 rounded-2xl overflow-hidden border border-gray-100 h-44 bg-gray-50 relative">
               <iframe
-                title="VietLift Office Map"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.4068454788!2d105.82970331532978!3d21.022736785995607!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab9bd9861ca1%3A0xe7887f7b72ca17a9!2zxJDhu6FuZyBMw6FuZywgxJDhu5FuZyDEkGE!5e0!3m2!1svi!2svn!4v1620000000000!5m2!1svi!2svn"
+                title="Hải Phát Office Map"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.51906091662!2d105.80515597584109!3d21.011907288356106!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135abb9daa0bd23%3A0x3d8690104c1e73b6!2zQ8O0bmcgVHkgVGhhbmcgTcOheSBI4bqjaSBQaMOhdA!5e0!3m2!1svi!2s!4v1783673071879!5m2!1svi!2s"
                 className="w-full h-full"
                 style={{ border: 0 }}
                 allowFullScreen
@@ -98,9 +128,14 @@ export default function ContactSection() {
               onSubmit={handleSubmit}
               className="bg-gray-50 rounded-2xl p-7 border border-gray-100"
             >
-              {sent && (
+              {status === 'success' && (
                 <div className="mb-5 bg-green-50 border border-green-200 text-green-700 text-sm px-4 py-3 rounded-xl">
-                  Cảm ơn bạn! Chúng tôi sẽ liên hệ lại trong vòng 30 phút.
+                  Cảm ơn bạn! Yêu cầu của bạn đã được gửi thành công. Chúng tôi sẽ liên hệ lại sớm nhất.
+                </div>
+              )}
+              {status === 'error' && (
+                <div className="mb-5 bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3 rounded-xl">
+                  Có lỗi xảy ra khi gửi yêu cầu. Vui lòng thử lại sau hoặc liên hệ trực tiếp qua Hotline.
                 </div>
               )}
 
@@ -166,10 +201,11 @@ export default function ContactSection() {
 
               <button
                 type="submit"
-                className="group w-full flex items-center justify-center gap-2 bg-[#285c9a] hover:bg-[#1e4a80] text-white py-3 rounded-xl font-semibold text-sm transition-all duration-200 shadow-lg shadow-[#285c9a]/25 hover:shadow-[#285c9a]/40"
+                disabled={status === 'submitting'}
+                className="group w-full flex items-center justify-center gap-2 bg-[#285c9a] hover:bg-[#1e4a80] disabled:bg-gray-400 text-white py-3 rounded-xl font-semibold text-sm transition-all duration-200 shadow-lg shadow-[#285c9a]/25 hover:shadow-[#285c9a]/40 disabled:shadow-none disabled:cursor-not-allowed"
               >
-                Gửi yêu cầu tư vấn
-                <Send size={15} className="group-hover:translate-x-0.5 transition-transform" />
+                {status === 'submitting' ? 'Đang gửi...' : 'Gửi yêu cầu tư vấn'}
+                {status !== 'submitting' && <Send size={15} className="group-hover:translate-x-0.5 transition-transform" />}
               </button>
 
               <p className="text-center text-xs text-gray-400 mt-3">
