@@ -1,3 +1,4 @@
+"use client";
 import { useState, useEffect } from 'react';
 import { ArrowRight, ShieldCheck, Award, Wrench, ChevronLeft, ChevronRight } from 'lucide-react';
 import { supabase, DbBanner } from '../lib/supabase';

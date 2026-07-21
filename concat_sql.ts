@@ -18,7 +18,7 @@ for (const file of filesToConcat) {
     finalSql += `-- ==================================================================\n\n`;
     finalSql += content + '\n\n';
   } catch (err) {
-    console.error(`Error reading ${file}:`, err.message);
+    console.error(`Error reading ${file}:`, (err as Error).message);
   }
 }
 

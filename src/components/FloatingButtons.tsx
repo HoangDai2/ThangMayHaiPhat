@@ -1,3 +1,4 @@
+"use client";
 import { Phone, MessageCircle, X } from 'lucide-react';
 import { useState } from 'react';
 import { ZaloIcon } from './icons/ZaloIcon';

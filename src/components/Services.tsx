@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom';
+"use client";
+import Link from 'next/link';
 import {
   Building2,
   ShieldCheck,
@@ -65,9 +66,8 @@ export default function Services() {
           {products.map((product) => {
             const Icon = productIconMap[product.icon] || Building2;
             return (
-              <Link
-                key={product.id}
-                to={`/san-pham/${product.id}`}
+              <Link key={product.id}
+                href={`/san-pham/${product.id}`}
                 className="group bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
               >
                 {/* Image */}
@@ -117,8 +117,7 @@ export default function Services() {
               <h3 className="text-2xl font-bold text-gray-900">Quy Trình Dịch Vụ Chuyên Nghiệp</h3>
               <p className="text-gray-500 text-sm mt-1">Đồng hành cùng bạn trong toàn bộ vòng đời thang máy</p>
             </div>
-            <Link
-              to="/dich-vu"
+            <Link href="/dich-vu"
               className="group flex items-center gap-2 text-[#285c9a] font-semibold text-sm hover:gap-3 transition-all"
             >
               Xem tất cả dịch vụ
@@ -129,9 +128,8 @@ export default function Services() {
             {serviceItems.map((service, idx) => {
               const Icon = serviceIconMap[service.icon] || Settings;
               return (
-                <Link
-                  key={service.id}
-                  to={`/dich-vu#${service.id}`}
+                <Link key={service.id}
+                  href={`/dich-vu#${service.id}`}
                   className="group flex items-start gap-4 p-5 rounded-xl bg-gray-50 hover:bg-[#285c9a]/5 hover:shadow-md transition-all duration-200"
                 >
                   <div className="w-11 h-11 rounded-xl bg-[#285c9a]/10 flex items-center justify-center flex-shrink-0">
