@@ -72,7 +72,7 @@ export default function Navbar() {
 
         {/* CTA phone */}
         <a
-          href="tel:0800123456"
+          href="tel:0898424666"
           className={`hidden md:flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 ${
             scrolled || !isHome
               ? 'bg-[#285c9a] text-white hover:bg-[#1e4a80]'
@@ -80,7 +80,7 @@ export default function Navbar() {
           }`}
         >
           <Phone size={15} />
-          0800 123 456
+          0898 424 666
         </a>
 
         {/* Mobile menu toggle */}
@@ -106,11 +106,11 @@ export default function Navbar() {
               </Link>
             ))}
             <a
-              href="tel:0800123456"
+              href="tel:0898424666"
               className="mt-2 flex items-center justify-center gap-2 py-2.5 bg-[#285c9a] text-white rounded-lg font-semibold text-sm"
             >
               <Phone size={15} />
-              0800 123 456
+              0898 424 666
             </a>
           </nav>
         </div>

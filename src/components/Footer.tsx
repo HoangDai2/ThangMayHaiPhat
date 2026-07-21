@@ -40,7 +40,7 @@ export default function Footer() {
           </div>
           <div className="flex gap-3 flex-shrink-0">
             <a
-              href="tel:0800123456"
+              href="tel:0898424666"
               className="flex items-center gap-2 bg-white text-[#285c9a] px-5 py-2.5 rounded-xl font-semibold text-sm hover:bg-blue-50 transition-colors"
             >
               <Phone size={15} />

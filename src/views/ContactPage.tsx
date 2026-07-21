@@ -321,7 +321,7 @@ export default function ContactPage() {
                     <a href={`tel:${companyInfo.headquarters.phone.replace(/\s/g, '')}`} className="text-gray-500 text-xs hover:text-[#285c9a] block">
                       {companyInfo.headquarters.phone}
                     </a>
-                    <a href="tel:0800123456" className="text-gray-500 text-xs hover:text-[#285c9a] block">
+                    <a href="tel:0898424666" className="text-gray-500 text-xs hover:text-[#285c9a] block">
                       0987.603.588 (Hotline)
                     </a>
                   </div>

@@ -68,17 +68,17 @@ export default function ContactSection() {
               {
                 icon: Phone,
                 title: 'Hotline',
-                lines: ['0800 123 456', '(Miễn phí · 7:00–22:00)'],
+                lines: ['0898 424 666', 'Thứ 2 - Thứ 7: 7:30 - 17:30'],
               },
               {
                 icon: Mail,
                 title: 'Email',
-                lines: ['info@haiphat.vn', 'sales@haiphat.vn'],
+                lines: ['haiphatthangmay@gmail.com'],
               },
               {
                 icon: MapPin,
                 title: 'Địa chỉ',
-                lines: ['123 Đường Láng, Đống Đa', 'Hà Nội, Việt Nam'],
+                lines: ['Tầng 11, Tòa Nhà Đa Năng, 169 Đ. Nguyễn Ngọc Vũ, Yên Hòa', 'Hà Nội, Việt Nam'],
               },
             ].map(({ icon: Icon, title, lines }) => (
               <div key={title} className="flex gap-4">
@@ -96,7 +96,7 @@ export default function ContactSection() {
 
             {/* Zalo contact */}
             <a
-              href="https://zalo.me/0800123456"
+              href="https://zalo.me/0898424666"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-4 p-4 bg-[#0068ff]/5 rounded-xl border border-[#0068ff]/20 hover:bg-[#0068ff]/10 transition-colors"
@@ -106,7 +106,7 @@ export default function ContactSection() {
               </div>
               <div>
                 <div className="text-xs text-gray-400 font-medium uppercase tracking-wide mb-0.5">Chat Zalo</div>
-                <div className="text-gray-800 text-sm font-medium">0800 123 456</div>
+                <div className="text-gray-800 text-sm font-medium">0898 424 666</div>
               </div>
             </a>
 

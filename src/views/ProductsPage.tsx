@@ -161,11 +161,11 @@ export function ProductsList() {
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <a
-                href="tel:0800123456"
+                href="tel:0898424666"
                 className="flex items-center justify-center gap-2 bg-white text-[#285c9a] px-6 py-3 rounded-xl font-semibold text-sm hover:bg-blue-50 transition-colors"
               >
                 <Phone size={16} />
-                Hotline: 0800 123 456
+                Hotline: 0898 424 666
               </a>
               <Link href="/lien-he"
                 className="flex items-center justify-center gap-2 bg-white/15 border border-white/30 text-white px-6 py-3 rounded-xl font-semibold text-sm hover:bg-white/25 transition-colors"
@@ -419,11 +419,11 @@ function ProductDetail() {
                 </p>
                 <div className="space-y-2">
                   <a
-                    href="tel:0800123456"
+                    href="tel:0898424666"
                     className="flex items-center justify-center gap-2 bg-[#285c9a] text-white py-3 rounded-xl font-semibold text-sm hover:bg-[#1e4a80] transition-colors w-full"
                   >
                     <Phone size={16} />
-                    0800 123 456
+                    0898 424 666
                   </a>
                   <Link href="/lien-he"
                     className="flex items-center justify-center gap-2 border border-[#285c9a] text-[#285c9a] py-3 rounded-xl font-semibold text-sm hover:bg-[#285c9a]/5 transition-colors w-full"

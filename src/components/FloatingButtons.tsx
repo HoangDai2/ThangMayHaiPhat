@@ -16,7 +16,7 @@ export function FloatingButtons() {
       >
         {/* Zalo button */}
         <a
-          href="https://zalo.me/0800123456"
+          href="https://zalo.me/0898424666"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-3 group"
@@ -31,11 +31,11 @@ export function FloatingButtons() {
 
         {/* Phone button */}
         <a
-          href="tel:0800123456"
+          href="tel:0898424666"
           className="flex items-center gap-3 group"
         >
           <span className="bg-white shadow-lg rounded-lg px-3 py-1.5 text-sm font-medium text-gray-700 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">
-            0800 123 456
+            0898 424 666
           </span>
           <div className="w-12 h-12 rounded-full bg-[#285c9a] flex items-center justify-center shadow-lg hover:scale-110 transition-transform">
             <Phone size={22} className="text-white" />

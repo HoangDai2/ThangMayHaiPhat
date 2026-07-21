@@ -191,11 +191,11 @@ function ProjectDetail() {
               {/* CTA */}
               <div className="mt-6 pt-6 border-t border-gray-200 space-y-3">
                 <a
-                  href="tel:0800123456"
+                  href="tel:0898424666"
                   className="flex items-center justify-center gap-2 bg-[#285c9a] text-white py-3 rounded-xl font-semibold text-sm hover:bg-[#1e4a80] transition-colors w-full"
                 >
                   <Phone size={16} />
-                  Hotline: 0800 123 456
+                  Hotline: 0898 424 666
                 </a>
                 <Link href="/lien-he"
                   className="flex items-center justify-center gap-1.5 border border-[#285c9a] text-[#285c9a] py-3 rounded-xl font-semibold text-sm hover:bg-[#285c9a]/5 transition-colors w-full"
