@@ -1,3 +1,4 @@
+"use client";
 import { useState } from 'react';
 import { Upload, Loader2, Link as LinkIcon, X } from 'lucide-react';
 import { supabase } from '../../lib/supabase';

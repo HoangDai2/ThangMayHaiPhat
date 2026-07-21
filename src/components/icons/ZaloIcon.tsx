@@ -1,3 +1,4 @@
+"use client";
 interface ZaloIconProps {
   size?: number;
   className?: string;

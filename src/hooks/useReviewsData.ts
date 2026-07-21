@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import { DbReview } from '../lib/supabase';
 
-export interface Review extends DbReview {}
+export type Review = DbReview;
 
 const fallback: DbReview[] = [
   {

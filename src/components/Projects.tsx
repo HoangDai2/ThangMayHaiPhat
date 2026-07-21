@@ -1,5 +1,6 @@
+"use client";
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { MapPin, ArrowRight } from 'lucide-react';
 import { ProjectCategory } from '../data/projects';
 import { useProjectsData } from '../hooks/useProjectsData';
@@ -25,8 +26,7 @@ export default function Projects() {
               Công Trình Đã Hoàn Thành
             </h2>
           </div>
-          <Link
-            to="/du-an"
+          <Link href="/du-an"
             className="group inline-flex items-center gap-1.5 text-[#285c9a] font-semibold text-sm whitespace-nowrap hover:gap-2.5 transition-all duration-200"
           >
             Xem tất cả dự án
@@ -54,9 +54,8 @@ export default function Projects() {
         {/* Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {filtered.slice(0, 6).map((project) => (
-            <Link
-              key={project.id}
-              to={`/du-an/${project.id}`}
+            <Link key={project.id}
+              href={`/du-an/${project.id}`}
               className="group relative rounded-2xl overflow-hidden cursor-pointer bg-gray-100"
             >
               <img
@@ -99,8 +98,7 @@ export default function Projects() {
               <div className="text-gray-500 text-xs">Khách hàng hài lòng</div>
             </div>
             <div className="w-px h-10 bg-gray-200" />
-            <Link
-              to="/lien-he"
+            <Link href="/lien-he"
               className="ml-2 bg-[#285c9a] text-white px-5 py-2.5 rounded-xl font-semibold text-sm hover:bg-[#1e4a80] transition-colors"
             >
               Liên hệ ngay

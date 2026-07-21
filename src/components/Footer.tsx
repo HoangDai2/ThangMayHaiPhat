@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom';
+"use client";
+import Link from 'next/link';
 import { Phone, Mail, MapPin, Facebook, Youtube, ArrowUp } from 'lucide-react';
 import { ZaloIcon } from './icons/ZaloIcon';
 
@@ -45,8 +46,7 @@ export default function Footer() {
               <Phone size={15} />
               Gọi ngay
             </a>
-            <Link
-              to="/lien-he"
+            <Link href="/lien-he"
               className="flex items-center gap-2 bg-white/15 border border-white/25 text-white px-5 py-2.5 rounded-xl font-semibold text-sm hover:bg-white/25 transition-colors"
             >
               Gửi yêu cầu
@@ -104,8 +104,7 @@ export default function Footer() {
             <ul className="space-y-2.5">
               {quickLinks.map((l) => (
                 <li key={l.label}>
-                  <Link
-                    to={l.href}
+                  <Link href={l.href}
                     className="text-gray-400 text-sm hover:text-white transition-colors flex items-center gap-2 group"
                   >
                     <span className="w-1 h-1 rounded-full bg-[#285c9a] group-hover:bg-blue-300 transition-colors" />
@@ -124,8 +123,7 @@ export default function Footer() {
             <ul className="space-y-2.5">
               {serviceLinks.map((l) => (
                 <li key={l.label}>
-                  <Link
-                    to={l.href}
+                  <Link href={l.href}
                     className="text-gray-400 text-sm hover:text-white transition-colors flex items-center gap-2 group"
                   >
                     <span className="w-1 h-1 rounded-full bg-[#285c9a] group-hover:bg-blue-300 transition-colors" />
@@ -144,8 +142,7 @@ export default function Footer() {
             <ul className="space-y-2.5">
               {companyLinks.map((l) => (
                 <li key={l.label}>
-                  <Link
-                    to={l.href}
+                  <Link href={l.href}
                     className="text-gray-400 text-sm hover:text-white transition-colors flex items-center gap-2 group"
                   >
                     <span className="w-1 h-1 rounded-full bg-[#285c9a] group-hover:bg-blue-300 transition-colors" />
@@ -209,10 +206,10 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} Thang Máy Hải Phát. All rights reserved. · MST: 0109108682
           </p>
           <div className="flex items-center gap-5">
-            <Link to="/chinh-sach-bao-mat" className="text-gray-500 text-xs hover:text-gray-300 transition-colors">
+            <Link href="/chinh-sach-bao-mat" className="text-gray-500 text-xs hover:text-gray-300 transition-colors">
               Chính sách bảo mật
             </Link>
-            <Link to="/dieu-khoan-su-dung" className="text-gray-500 text-xs hover:text-gray-300 transition-colors">
+            <Link href="/dieu-khoan-su-dung" className="text-gray-500 text-xs hover:text-gray-300 transition-colors">
               Điều khoản sử dụng
             </Link>
             <button

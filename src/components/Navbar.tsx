@@ -1,5 +1,7 @@
+"use client";
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Menu, X, Phone } from 'lucide-react';
 
 const navLinks = [
@@ -15,9 +17,9 @@ const navLinks = [
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const location = useLocation();
+  const pathname = usePathname();
 
-  const isHome = location.pathname === '/';
+  const isHome = pathname === '/';
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -27,16 +29,16 @@ export default function Navbar() {
 
   useEffect(() => {
     setMenuOpen(false);
-  }, [location]);
+  }, [pathname]);
 
   useEffect(() => {
-    if (location.hash) {
+    if (typeof window !== 'undefined' && window.location.hash) {
       setTimeout(() => {
-        const el = document.querySelector(location.hash);
+        const el = document.querySelector(window.location.hash);
         if (el) el.scrollIntoView({ behavior: 'smooth' });
       }, 50);
     }
-  }, [location]);
+  }, [pathname]);
 
   return (
     <header
@@ -46,7 +48,7 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="flex items-center group">
+        <Link href="/" className="flex items-center group">
           <img
             src={scrolled || !isHome ? "/logohp.png" : "/image.png"}
             alt="Thang Máy Hải Phát"
@@ -57,9 +59,8 @@ export default function Navbar() {
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-7">
           {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              to={link.href}
+            <Link key={link.href}
+              href={link.href}
               className={`text-sm font-medium transition-colors duration-200 hover:text-[#285c9a] ${
                 scrolled || !isHome ? 'text-gray-700' : 'text-white/90 hover:text-white'
               }`}
@@ -97,9 +98,8 @@ export default function Navbar() {
         <div className="md:hidden bg-white border-t border-gray-100 shadow-lg">
           <nav className="flex flex-col px-4 py-3 gap-1">
             {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                to={link.href}
+              <Link key={link.href}
+                href={link.href}
                 className="py-2.5 px-3 text-gray-700 font-medium text-sm rounded-lg hover:bg-blue-50 hover:text-[#285c9a] transition-colors"
               >
                 {link.label}

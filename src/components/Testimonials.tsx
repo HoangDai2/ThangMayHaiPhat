@@ -1,3 +1,4 @@
+"use client";
 import { useState, useEffect } from 'react';
 import { Star, ChevronLeft, ChevronRight, Quote } from 'lucide-react';
 import { useReviewsData } from '../hooks/useReviewsData';

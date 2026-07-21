@@ -1,3 +1,4 @@
+"use client";
 import { useState } from 'react';
 import { Star, Send, Loader2, CheckCircle2 } from 'lucide-react';
 import { submitReview } from '../hooks/useReviewsData';
