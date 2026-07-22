@@ -10,7 +10,7 @@ interface UserRoleWithDetails extends DbUserRole {
 }
 
 export default function AdminUsers() {
-  const { hasPermission } = usePermissions();
+  const { hasPermission, loading: permissionsLoading } = usePermissions();
   const [userRoles, setUserRoles] = useState<UserRoleWithDetails[]>([]);
   const [roles, setRoles] = useState<DbRole[]>([]);
   const [loading, setLoading] = useState(true);
@@ -22,10 +22,10 @@ export default function AdminUsers() {
   const router = useRouter();
 
   useEffect(() => {
-    if (!hasPermission('manage_all')) {
+    if (!permissionsLoading && !hasPermission('manage_all')) {
       router.replace('/admin');
     }
-  }, [hasPermission, router]);
+  }, [hasPermission, permissionsLoading, router]);
 
   const fetchData = async () => {
     setLoading(true);
@@ -55,7 +55,7 @@ export default function AdminUsers() {
     fetchData();
   }, []);
 
-  if (!hasPermission('manage_all')) return null;
+  if (permissionsLoading || !hasPermission('manage_all')) return null;
 
 
 
