@@ -6,7 +6,7 @@ import { usePermissions } from '../../hooks/usePermissions';
 import { useRouter } from 'next/navigation';
 
 export default function AdminRoles() {
-  const { hasPermission } = usePermissions();
+  const { hasPermission, loading: permissionsLoading } = usePermissions();
   const [roles, setRoles] = useState<DbRole[]>([]);
   const [permissions, setPermissions] = useState<DbPermission[]>([]);
   const [rolePermissions, setRolePermissions] = useState<Record<string, string[]>>({});
@@ -19,18 +19,6 @@ export default function AdminRoles() {
   const [editingRole, setEditingRole] = useState<string | null>(null);
 
   const router = useRouter();
-
-  useEffect(() => {
-    if (!hasPermission('manage_all')) {
-      router.replace('/admin');
-    }
-  }, [hasPermission, router]);
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  if (!hasPermission('manage_all')) return null;
 
   const fetchData = async () => {
     setLoading(true);
@@ -58,6 +46,18 @@ export default function AdminRoles() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (!permissionsLoading && !hasPermission('manage_all')) {
+      router.replace('/admin');
+    }
+  }, [hasPermission, permissionsLoading, router]);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  if (permissionsLoading || !hasPermission('manage_all')) return null;
 
   const handleAddRole = async () => {
     if (!newRoleName) return;
