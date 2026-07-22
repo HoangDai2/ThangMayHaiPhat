@@ -36,7 +36,7 @@ export default function AdminServices() {
     const { data, error } = await supabase
       .from('services')
       .select('*')
-      .order('sort_order', { ascending: true });
+      .order('created_at', { ascending: true });
     if (!error && data) setServices(data);
     setLoading(false);
   };

@@ -27,12 +27,6 @@ export default function AdminUsers() {
     }
   }, [hasPermission, router]);
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  if (!hasPermission('manage_all')) return null;
-
   const fetchData = async () => {
     setLoading(true);
     try {
@@ -56,6 +50,14 @@ export default function AdminUsers() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  if (!hasPermission('manage_all')) return null;
+
+
 
   const handleAddUserRole = async () => {
     if (!newUserId || !newRoleId) return;

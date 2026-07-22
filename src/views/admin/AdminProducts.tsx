@@ -41,7 +41,7 @@ export default function AdminProducts() {
     const { data, error } = await supabase
       .from('products')
       .select('*')
-      .order('sort_order', { ascending: true });
+      .order('created_at', { ascending: true });
     if (!error && data) setProducts(data);
     setLoading(false);
   };
