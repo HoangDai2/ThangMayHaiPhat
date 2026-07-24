@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from 'react';
 import { supabase, DbRole, DbPermission } from '../../lib/supabase';
-import { Shield, Plus, Edit2, Trash2, Check, X } from 'lucide-react';
+import { Shield, Plus, Trash2, Check, X } from 'lucide-react';
 import { usePermissions } from '../../hooks/usePermissions';
 import { useRouter } from 'next/navigation';
 
