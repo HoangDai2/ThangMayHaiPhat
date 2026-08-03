@@ -29,12 +29,23 @@ export default function Hero() {
   }, [banners.length]);
 
   const fetchBanners = async () => {
-    const { data } = await supabase
+    let { data } = await supabase
       .from('banners')
       .select('*')
       .eq('position', 'hero')
       .eq('is_active', true)
       .order('sort_order', { ascending: true });
+
+    // Nếu không có banner nào đặt vị trí 'hero', tự động lấy các banner được kích hoạt (is_active = true)
+    if (!data || data.length === 0) {
+      const fallbackRes = await supabase
+        .from('banners')
+        .select('*')
+        .eq('is_active', true)
+        .order('sort_order', { ascending: true });
+      data = fallbackRes.data;
+    }
+
     if (data && data.length > 0) setBanners(data);
   };
 

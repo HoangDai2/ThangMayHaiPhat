@@ -137,39 +137,39 @@ export default function AdminArticles() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-slate-800">Quản lý bài viết</h1>
-          <p className="text-slate-500 mt-1">{articles.length} bài viết</p>
+          <h1 className="text-2xl font-bold text-slate-800">Quản Lý Bài Viết</h1>
+          <p className="text-slate-500 text-sm mt-0.5">Tổng cộng {articles.length} bài viết tin tức & kiến thức</p>
         </div>
         <button
           onClick={openAdd}
-          className="flex items-center gap-2 bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors"
+          className="flex items-center justify-center gap-2 bg-[#285c9a] hover:bg-[#1e4a80] text-white px-5 py-2.5 rounded-xl font-medium text-sm shadow-md shadow-blue-900/10 transition-all"
         >
-          <Plus className="w-5 h-5" />
-          Thêm bài viết
+          <Plus className="w-4 h-4" />
+          Thêm bài viết mới
         </button>
       </div>
 
-      <div className="bg-white rounded-xl p-4 shadow-sm mb-6 flex flex-col md:flex-row gap-4">
+      <div className="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm mb-6 flex flex-col md:flex-row gap-4">
         <div className="flex-1 relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
+          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4" />
           <input
             type="text"
             placeholder="Tìm kiếm bài viết..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none text-sm"
+            className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-[#285c9a] focus:border-transparent outline-none text-sm font-medium transition-all"
           />
         </div>
-        <div className="flex gap-2 flex-wrap">
+        <div className="flex gap-2 flex-wrap items-center">
           {['all', ...CATEGORIES].map((cat) => (
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-3 py-2 rounded-lg text-sm transition-colors ${
+              className={`px-3.5 py-2 rounded-xl text-xs font-semibold transition-all ${
                 selectedCategory === cat
-                  ? 'bg-orange-500 text-white'
+                  ? 'bg-[#285c9a] text-white shadow-sm'
                   : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
               }`}
             >
@@ -181,13 +181,13 @@ export default function AdminArticles() {
 
       {loading ? (
         <div className="flex justify-center py-20">
-          <Loader2 className="w-8 h-8 animate-spin text-orange-500" />
+          <Loader2 className="w-8 h-8 animate-spin text-[#285c9a]" />
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filtered.map((article) => (
-            <div key={article.id} className="bg-white rounded-xl shadow-sm overflow-hidden group">
-              <div className="relative h-40 overflow-hidden bg-slate-100">
+            <div key={article.id} className="bg-white rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition-all overflow-hidden group">
+              <div className="relative h-44 overflow-hidden bg-slate-100">
                 {article.cover_image ? (
                   <img
                     src={article.cover_image}
@@ -199,49 +199,53 @@ export default function AdminArticles() {
                     <Image className="w-12 h-12" />
                   </div>
                 )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/20 to-transparent" />
                 <div className="absolute bottom-3 left-3 right-3">
-                  <p className="text-white font-semibold text-sm line-clamp-2">{article.title}</p>
-                  <p className="text-white/70 text-xs">{article.author}</p>
+                  <p className="text-white font-bold text-sm leading-tight line-clamp-2">{article.title}</p>
+                  <p className="text-blue-100/90 text-xs mt-0.5">{article.author}</p>
                 </div>
-                <span className="absolute top-3 left-3 px-2 py-1 bg-blue-500 text-white rounded-full text-xs">
+                <span className="absolute top-3 left-3 px-2.5 py-1 bg-[#285c9a] text-white rounded-lg text-xs font-semibold">
                   {article.category}
                 </span>
               </div>
               <div className="p-4">
-                <p className="text-slate-600 text-sm mb-3 line-clamp-2">{article.excerpt}</p>
-                <div className="flex items-center justify-between mb-3">
+                <p className="text-slate-600 text-xs mb-3 line-clamp-2 leading-relaxed">{article.excerpt}</p>
+                <div className="flex items-center justify-between mb-3 pt-2 border-t border-slate-100">
                   <button
                     onClick={() => {
                       setPreviewArticle(article);
                       setPreviewOpen(true);
                     }}
-                    className="flex items-center gap-1 text-xs text-slate-500 hover:text-orange-500"
+                    className="flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-[#285c9a] transition-colors"
                   >
-                    <Eye className="w-4 h-4" />
+                    <Eye className="w-3.5 h-3.5" />
                     Xem nhanh
                   </button>
                   <button
                     onClick={() => togglePublish(article)}
-                    className={`flex items-center gap-1 text-xs ${article.is_published ? 'text-green-600' : 'text-slate-400'}`}
+                    className={`flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full border transition-all ${
+                      article.is_published 
+                        ? 'bg-emerald-50 text-emerald-700 border-emerald-200' 
+                        : 'bg-slate-50 text-slate-500 border-slate-200'
+                    }`}
                   >
-                    {article.is_published ? <ToggleRight className="w-5 h-5" /> : <ToggleLeft className="w-5 h-5" />}
-                    {article.is_published ? 'Đăng' : 'Bản nháp'}
+                    {article.is_published ? <ToggleRight className="w-4 h-4 text-emerald-600" /> : <ToggleLeft className="w-4 h-4 text-slate-400" />}
+                    {article.is_published ? 'Đã xuất bản' : 'Bản nháp'}
                   </button>
                 </div>
                 <div className="flex gap-2">
                   <button
                     onClick={() => openEdit(article)}
-                    className="flex-1 flex items-center justify-center gap-1 py-2 bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200 transition-colors text-sm"
+                    className="flex-1 flex items-center justify-center gap-1.5 py-2 bg-slate-50 border border-slate-200/70 text-slate-700 rounded-xl hover:bg-blue-50 hover:text-[#285c9a] hover:border-blue-200 transition-all text-xs font-semibold"
                   >
-                    <Edit className="w-4 h-4" />
+                    <Edit className="w-3.5 h-3.5" />
                     Sửa
                   </button>
                   <button
                     onClick={() => handleDelete(article.id, article.title)}
-                    className="flex-1 flex items-center justify-center gap-1 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors text-sm"
+                    className="flex-1 flex items-center justify-center gap-1.5 py-2 bg-slate-50 border border-slate-200/70 text-slate-400 hover:text-rose-600 hover:bg-rose-50 hover:border-rose-200 rounded-xl transition-all text-xs font-semibold"
                   >
-                    <Trash2 className="w-4 h-4" />
+                    <Trash2 className="w-3.5 h-3.5" />
                     Xóa
                   </button>
                 </div>
@@ -249,7 +253,7 @@ export default function AdminArticles() {
             </div>
           ))}
           {filtered.length === 0 && (
-            <div className="col-span-3 bg-white rounded-xl p-12 text-center text-slate-500">
+            <div className="col-span-3 bg-white rounded-2xl p-12 text-center text-slate-500 border border-slate-200/80">
               Không tìm thấy bài viết nào
             </div>
           )}
@@ -257,43 +261,43 @@ export default function AdminArticles() {
       )}
 
       {modalOpen && (
-        <div className="fixed inset-0 bg-black/50 z-50 flex items-start justify-center p-4 overflow-y-auto">
-          <div className="bg-white rounded-2xl w-full max-w-3xl my-8 shadow-2xl">
-            <div className="flex items-center justify-between p-6 border-b">
-              <h2 className="text-xl font-bold text-slate-800">
-                {editingId ? 'Sửa bài viết' : 'Thêm bài viết mới'}
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/60 backdrop-blur-sm p-4">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-3xl overflow-hidden border border-slate-100">
+            <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/80">
+              <h2 className="text-lg font-bold text-slate-800">
+                {editingId ? 'Chỉnh sửa bài viết' : 'Thêm bài viết mới'}
               </h2>
-              <button onClick={closeModal} className="text-slate-400 hover:text-slate-600">
-                <X className="w-6 h-6" />
+              <button onClick={closeModal} className="text-slate-400 hover:text-slate-600 p-1 rounded-lg">
+                <X className="w-5 h-5" />
               </button>
             </div>
 
             <div className="p-6 space-y-4 max-h-[70vh] overflow-y-auto">
               {error && (
-                <div className="p-3 bg-red-50 border border-red-200 text-red-700 rounded-lg text-sm">
+                <div className="p-3 bg-rose-50 border border-rose-200 text-rose-700 rounded-xl text-xs font-medium">
                   {error}
                 </div>
               )}
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">
-                    Slug (URL) <span className="text-red-500">*</span>
+                  <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">
+                    Slug (URL) <span className="text-rose-500">*</span>
                   </label>
                   <input
                     type="text"
                     value={form.slug || ''}
                     onChange={(e) => set('slug', e.target.value)}
                     placeholder="khuyen-mai-mua-he-2024"
-                    className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none"
+                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-[#285c9a] outline-none transition-all"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Danh mục</label>
+                  <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Danh mục</label>
                   <select
                     value={form.category || 'Tin tức'}
                     onChange={(e) => set('category', e.target.value)}
-                    className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none"
+                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-[#285c9a] outline-none transition-all"
                   >
                     {CATEGORIES.map((c) => (
                       <option key={c}>{c}</option>
@@ -303,26 +307,26 @@ export default function AdminArticles() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">
-                  Tiêu đề <span className="text-red-500">*</span>
+                <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">
+                  Tiêu đề <span className="text-rose-500">*</span>
                 </label>
                 <input
                   type="text"
                   value={form.title || ''}
                   onChange={(e) => set('title', e.target.value)}
                   placeholder="Khuyến mãi mùa hè 2024"
-                  className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none"
+                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-[#285c9a] outline-none transition-all"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Tác giả</label>
+                <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Tác giả</label>
                 <input
                   type="text"
                   value={form.author || ''}
                   onChange={(e) => set('author', e.target.value)}
                   placeholder="Hải Phát"
-                  className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none"
+                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-[#285c9a] outline-none transition-all"
                 />
               </div>
 
@@ -333,24 +337,24 @@ export default function AdminArticles() {
               />
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Tóm tắt</label>
+                <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Tóm tắt</label>
                 <textarea
                   value={form.excerpt || ''}
                   onChange={(e) => set('excerpt', e.target.value)}
                   rows={2}
                   placeholder="Đoạn tóm tắt ngắn..."
-                  className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none resize-none"
+                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-[#285c9a] outline-none resize-none transition-all"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Nội dung</label>
+                <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Nội dung</label>
                 <textarea
                   value={form.content || ''}
                   onChange={(e) => set('content', e.target.value)}
                   rows={8}
                   placeholder="Nội dung bài viết (hỗ trợ HTML)..."
-                  className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none resize-none font-mono"
+                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-[#285c9a] outline-none resize-none font-mono transition-all"
                 />
               </div>
 
@@ -361,29 +365,29 @@ export default function AdminArticles() {
                 placeholder="Nhập thẻ rồi Enter..."
               />
 
-              <div className="flex items-center gap-3">
-                <label className="text-sm font-medium text-slate-700">Xuất bản</label>
+              <div className="flex items-center justify-between p-3.5 bg-slate-50 rounded-xl border border-slate-200/60">
+                <label className="text-xs font-semibold text-slate-700 uppercase tracking-wider">Xuất bản trên website</label>
                 <button
                   type="button"
                   onClick={() => set('is_published', !form.is_published)}
-                  className={form.is_published ? 'text-green-500' : 'text-slate-300'}
+                  className={`transition-colors ${form.is_published ? 'text-emerald-600' : 'text-slate-300'}`}
                 >
-                  {form.is_published ? <ToggleRight className="w-8 h-8" /> : <ToggleLeft className="w-8 h-8" />}
+                  {form.is_published ? <ToggleRight className="w-7 h-7" /> : <ToggleLeft className="w-7 h-7" />}
                 </button>
               </div>
             </div>
 
-            <div className="p-6 border-t flex gap-3 justify-end">
+            <div className="p-4 sm:p-6 border-t border-slate-100 bg-slate-50/50 flex gap-3 justify-end">
               <button
                 onClick={closeModal}
-                className="px-5 py-2 border border-slate-300 text-slate-700 rounded-lg hover:bg-slate-50 transition-colors"
+                className="px-5 py-2.5 border border-slate-200 text-slate-700 rounded-xl hover:bg-slate-100 text-xs font-semibold transition-all"
               >
                 Hủy
               </button>
               <button
                 onClick={handleSave}
                 disabled={saving}
-                className="flex items-center gap-2 px-5 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors disabled:opacity-50"
+                className="flex items-center gap-2 px-5 py-2.5 bg-[#285c9a] hover:bg-[#1e4a80] text-white rounded-xl text-xs font-semibold shadow-md shadow-blue-900/10 transition-all disabled:opacity-50"
               >
                 {saving && <Loader2 className="w-4 h-4 animate-spin" />}
                 {editingId ? 'Lưu thay đổi' : 'Thêm bài viết'}
@@ -394,15 +398,15 @@ export default function AdminArticles() {
       )}
 
       {previewOpen && previewArticle && (
-        <div className="fixed inset-0 bg-black/50 z-50 flex items-start justify-center p-4 overflow-y-auto">
-          <div className="bg-white rounded-2xl w-full max-w-2xl my-8 shadow-2xl">
-            <div className="flex items-center justify-between p-6 border-b">
-              <h2 className="text-xl font-bold text-slate-800">{previewArticle.title}</h2>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/60 backdrop-blur-sm p-4">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl overflow-hidden border border-slate-100">
+            <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/80">
+              <h2 className="text-lg font-bold text-slate-800">{previewArticle.title}</h2>
               <button
                 onClick={() => setPreviewOpen(false)}
-                className="text-slate-400 hover:text-slate-600"
+                className="text-slate-400 hover:text-slate-600 p-1 rounded-lg"
               >
-                <X className="w-6 h-6" />
+                <X className="w-5 h-5" />
               </button>
             </div>
             <div className="p-6 max-h-[70vh] overflow-y-auto">
@@ -410,17 +414,17 @@ export default function AdminArticles() {
                 <img
                   src={previewArticle.cover_image}
                   alt={previewArticle.title}
-                  className="w-full h-48 object-cover rounded-lg mb-4"
+                  className="w-full h-52 object-cover rounded-xl mb-4 border border-slate-200"
                 />
               )}
-              <div className="flex items-center gap-2 text-sm text-slate-500 mb-4">
-                <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded-full text-xs">
+              <div className="flex items-center gap-2 text-xs text-slate-500 mb-4">
+                <span className="px-2.5 py-1 bg-blue-50 text-[#285c9a] border border-blue-100 rounded-lg font-semibold">
                   {previewArticle.category}
                 </span>
-                <span>{previewArticle.author}</span>
+                <span>Tác giả: {previewArticle.author}</span>
               </div>
               <div
-                className="prose prose-sm max-w-none text-slate-700"
+                className="prose prose-sm max-w-none text-slate-700 leading-relaxed"
                 dangerouslySetInnerHTML={{ __html: previewArticle.content }}
               />
             </div>

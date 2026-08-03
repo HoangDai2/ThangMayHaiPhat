@@ -107,43 +107,43 @@ export default function AdminUsers() {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold text-slate-800 flex items-center gap-2">
-          <Users className="w-6 h-6 text-orange-500" />
-          Quản lý Tài khoản (Gán quyền)
+          <Users className="w-6 h-6 text-[#285c9a]" />
+          Quản Lý Tài Khoản (Phân Quyền)
         </h1>
         <button
           onClick={() => setIsAdding(true)}
-          className="bg-orange-500 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-orange-600 transition-colors"
+          className="bg-[#285c9a] text-white px-5 py-2.5 rounded-xl font-medium text-sm flex items-center gap-2 hover:bg-[#1e4a80] shadow-md shadow-blue-900/10 transition-all"
         >
-          <Plus className="w-5 h-5" />
-          Gán Vai trò
+          <Plus className="w-4 h-4" />
+          Gán Vai Trò
         </button>
       </div>
 
-      <div className="bg-blue-50 border border-blue-200 text-blue-800 px-4 py-3 rounded-lg text-sm">
+      <div className="bg-blue-50 border border-blue-200/80 text-blue-900 px-4 py-3 rounded-xl text-xs font-medium">
         <strong>Lưu ý:</strong> Vì lý do bảo mật, hệ thống chỉ lưu `User ID` (UUID). 
-        Để thêm một nhân viên mới, hãy tạo tài khoản cho họ trong mục <strong>Authentication</strong> trên bảng điều khiển Supabase, sau đó copy <strong>User UID</strong> dán vào đây để phân quyền.
+        Để thêm nhân viên mới, tạo tài khoản trong <strong>Authentication</strong> trên bảng điều khiển Supabase, sau đó dán <strong>User UID</strong> vào đây để cấp quyền.
       </div>
 
       {isAdding && (
-        <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-          <h2 className="text-lg font-semibold mb-4">Gán Vai trò cho User</h2>
+        <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+          <h2 className="text-base font-bold text-slate-800 mb-4">Gán Vai Trò Cho Nhân Viên</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">User ID (UUID từ Supabase Auth)</label>
+              <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">User ID (UUID từ Supabase Auth)</label>
               <input
                 type="text"
                 value={newUserId}
                 onChange={e => setNewUserId(e.target.value)}
-                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
+                className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-[#285c9a] outline-none transition-all"
                 placeholder="VD: 123e4567-e89b-12d3-a456-426614174000"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Chọn Vai trò</label>
+              <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Chọn Vai Trò</label>
               <select
                 value={newRoleId}
                 onChange={e => setNewRoleId(e.target.value)}
-                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
+                className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-[#285c9a] outline-none transition-all"
               >
                 <option value="">-- Chọn vai trò --</option>
                 {roles.map(role => (
@@ -153,30 +153,30 @@ export default function AdminUsers() {
             </div>
           </div>
           <div className="flex gap-2">
-            <button onClick={handleAddUserRole} className="bg-orange-500 text-white px-4 py-2 rounded-lg">Lưu</button>
-            <button onClick={() => setIsAdding(false)} className="bg-slate-200 text-slate-700 px-4 py-2 rounded-lg">Hủy</button>
+            <button onClick={handleAddUserRole} className="bg-[#285c9a] hover:bg-[#1e4a80] text-white px-5 py-2 rounded-xl text-xs font-semibold shadow-sm transition-all">Lưu</button>
+            <button onClick={() => setIsAdding(false)} className="bg-slate-100 hover:bg-slate-200 text-slate-700 px-5 py-2 rounded-xl text-xs font-semibold transition-all">Hủy</button>
           </div>
         </div>
       )}
 
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead className="bg-slate-50 border-b border-slate-200">
+          <table className="w-full text-left">
+            <thead className="bg-slate-50 border-b border-slate-200 text-xs font-semibold uppercase tracking-wider text-slate-600">
               <tr>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">User ID</th>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Vai trò</th>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Thao tác</th>
+                <th className="px-6 py-4">User ID</th>
+                <th className="px-6 py-4">Vai trò</th>
+                <th className="px-6 py-4">Thao tác</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-200">
+            <tbody className="divide-y divide-slate-100 text-sm">
               {userRoles.map((ur) => (
-                <tr key={ur.user_id} className="hover:bg-slate-50 transition-colors">
+                <tr key={ur.user_id} className="hover:bg-slate-50/60 transition-colors">
                   <td className="px-6 py-4">
-                    <div className="font-mono text-sm text-slate-600">{ur.user_id}</div>
+                    <div className="font-mono text-xs text-slate-600 font-medium">{ur.user_id}</div>
                   </td>
                   <td className="px-6 py-4">
-                    <span className="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm font-medium">
+                    <span className="bg-blue-50 text-[#285c9a] border border-blue-100 px-3 py-1 rounded-full text-xs font-semibold">
                       {ur.role_name || 'Không xác định'}
                     </span>
                   </td>

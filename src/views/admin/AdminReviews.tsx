@@ -110,81 +110,85 @@ export default function AdminReviews() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-slate-800">Quản lý đánh giá</h1>
-          <p className="text-slate-500 mt-1">{reviews.length} đánh giá</p>
+          <h1 className="text-2xl font-bold text-slate-800">Quản Lý Đánh Giá</h1>
+          <p className="text-slate-500 text-sm mt-0.5">Tổng cộng {reviews.length} đánh giá từ khách hàng</p>
         </div>
         <button
           onClick={openAdd}
-          className="flex items-center gap-2 bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors"
+          className="flex items-center justify-center gap-2 bg-[#285c9a] hover:bg-[#1e4a80] text-white px-5 py-2.5 rounded-xl font-medium text-sm shadow-md shadow-blue-900/10 transition-all"
         >
-          <Plus className="w-5 h-5" />
-          Thêm đánh giá
+          <Plus className="w-4 h-4" />
+          Thêm đánh giá mới
         </button>
       </div>
 
       {loading ? (
         <div className="flex justify-center py-20">
-          <Loader2 className="w-8 h-8 animate-spin text-orange-500" />
+          <Loader2 className="w-8 h-8 animate-spin text-[#285c9a]" />
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {reviews.map((review) => (
-            <div key={review.id} className="bg-white rounded-xl shadow-sm p-5">
+            <div key={review.id} className="bg-white rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition-all p-5">
               <div className="flex items-start gap-4">
                 {review.avatar ? (
                   <img
                     src={review.avatar}
                     alt={review.name}
-                    className="w-14 h-14 rounded-full object-cover flex-shrink-0"
+                    className="w-12 h-12 rounded-full object-cover flex-shrink-0 border border-slate-200"
                   />
                 ) : (
-                  <div className="w-14 h-14 rounded-full bg-slate-200 flex items-center justify-center text-slate-400 font-semibold text-lg flex-shrink-0">
+                  <div className="w-12 h-12 rounded-full bg-blue-50 text-[#285c9a] border border-blue-100 flex items-center justify-center font-bold text-base flex-shrink-0">
                     {review.name.charAt(0)}
                   </div>
                 )}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="font-semibold text-slate-800">{review.name}</p>
-                      <p className="text-sm text-slate-500">{review.role}</p>
+                      <p className="font-bold text-slate-800 text-sm">{review.name}</p>
+                      <p className="text-xs text-slate-500">{review.role}</p>
                     </div>
                     <button
                       onClick={() => togglePublish(review)}
-                      className={`flex items-center gap-1 text-xs ${review.is_published ? 'text-green-600' : 'text-slate-400'}`}
+                      className={`flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full border transition-all ${
+                        review.is_published 
+                          ? 'bg-emerald-50 text-emerald-700 border-emerald-200' 
+                          : 'bg-slate-50 text-slate-500 border-slate-200'
+                      }`}
                     >
-                      {review.is_published ? <ToggleRight className="w-5 h-5" /> : <ToggleLeft className="w-5 h-5" />}
-                      {review.is_published ? 'Hiện' : 'Ẩn'}
+                      {review.is_published ? <ToggleRight className="w-4 h-4 text-emerald-600" /> : <ToggleLeft className="w-4 h-4 text-slate-400" />}
+                      {review.is_published ? 'Hiển thị' : 'Đang ẩn'}
                     </button>
                   </div>
-                  <div className="flex items-center gap-1 mt-1">
+                  <div className="flex items-center gap-1 mt-1.5">
                     {[1, 2, 3, 4, 5].map((star) => (
                       <Star
                         key={star}
-                        className={`w-4 h-4 ${star <= review.rating ? 'fill-orange-400 text-orange-400' : 'text-slate-200'}`}
+                        className={`w-3.5 h-3.5 ${star <= review.rating ? 'fill-amber-400 text-amber-400' : 'text-slate-200'}`}
                       />
                     ))}
                   </div>
                 </div>
               </div>
-              <p className="text-slate-600 text-sm mt-3 line-clamp-3">{review.text}</p>
+              <p className="text-slate-600 text-xs mt-3 line-clamp-3 leading-relaxed">{review.text}</p>
               {review.project && (
-                <p className="text-xs text-slate-400 mt-2">{review.project}</p>
+                <p className="text-xs text-slate-400 mt-2 font-medium">Dự án: {review.project}</p>
               )}
-              <div className="flex gap-2 mt-4">
+              <div className="flex gap-2 mt-4 pt-3 border-t border-slate-100">
                 <button
                   onClick={() => openEdit(review)}
-                  className="flex-1 flex items-center justify-center gap-1 py-2 bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200 transition-colors text-sm"
+                  className="flex-1 flex items-center justify-center gap-1.5 py-2 bg-slate-50 border border-slate-200/70 text-slate-700 rounded-xl hover:bg-blue-50 hover:text-[#285c9a] hover:border-blue-200 transition-all text-xs font-semibold"
                 >
-                  <Edit className="w-4 h-4" />
+                  <Edit className="w-3.5 h-3.5" />
                   Sửa
                 </button>
                 <button
                   onClick={() => handleDelete(review.id, review.name)}
-                  className="flex-1 flex items-center justify-center gap-1 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors text-sm"
+                  className="flex-1 flex items-center justify-center gap-1.5 py-2 bg-slate-50 border border-slate-200/70 text-slate-400 hover:text-rose-600 hover:bg-rose-50 hover:border-rose-200 rounded-xl transition-all text-xs font-semibold"
                 >
-                  <Trash2 className="w-4 h-4" />
+                  <Trash2 className="w-3.5 h-3.5" />
                   Xóa
                 </button>
               </div>
@@ -199,45 +203,45 @@ export default function AdminReviews() {
       )}
 
       {modalOpen && (
-        <div className="fixed inset-0 bg-black/50 z-50 flex items-start justify-center p-4 overflow-y-auto">
-          <div className="bg-white rounded-2xl w-full max-w-2xl my-8 shadow-2xl">
-            <div className="flex items-center justify-between p-6 border-b">
-              <h2 className="text-xl font-bold text-slate-800">
-                {editingId ? 'Sửa đánh giá' : 'Thêm đánh giá mới'}
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/60 backdrop-blur-sm p-4">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-xl overflow-hidden border border-slate-100">
+            <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/80">
+              <h2 className="text-lg font-bold text-slate-800">
+                {editingId ? 'Chỉnh sửa đánh giá' : 'Thêm đánh giá mới'}
               </h2>
-              <button onClick={closeModal} className="text-slate-400 hover:text-slate-600">
-                <X className="w-6 h-6" />
+              <button onClick={closeModal} className="text-slate-400 hover:text-slate-600 p-1 rounded-lg">
+                <X className="w-5 h-5" />
               </button>
             </div>
 
             <div className="p-6 space-y-4 max-h-[70vh] overflow-y-auto">
               {error && (
-                <div className="p-3 bg-red-50 border border-red-200 text-red-700 rounded-lg text-sm">
+                <div className="p-3 bg-rose-50 border border-rose-200 text-rose-700 rounded-xl text-xs font-medium">
                   {error}
                 </div>
               )}
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">
-                  Tên khách hàng <span className="text-red-500">*</span>
+                <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">
+                  Tên khách hàng <span className="text-rose-500">*</span>
                 </label>
                 <input
                   type="text"
                   value={form.name || ''}
                   onChange={(e) => set('name', e.target.value)}
                   placeholder="Nguyễn Văn Minh"
-                  className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none"
+                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-[#285c9a] outline-none transition-all"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Chức danh / Vai trò</label>
+                <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Chức danh / Vai trò</label>
                 <input
                   type="text"
                   value={form.role || ''}
                   onChange={(e) => set('role', e.target.value)}
                   placeholder="Chủ hộ, Biệt thự Ecopark"
-                  className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none"
+                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-[#285c9a] outline-none transition-all"
                 />
               </div>
 
@@ -248,7 +252,7 @@ export default function AdminReviews() {
               />
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">Đánh giá (số sao)</label>
+                <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">Đánh giá (số sao)</label>
                 <div className="flex items-center gap-2">
                   {[1, 2, 3, 4, 5].map((star) => (
                     <button
@@ -257,7 +261,7 @@ export default function AdminReviews() {
                       onClick={() => set('rating', star)}
                     >
                       <Star
-                        className={`w-8 h-8 transition-colors ${star <= (form.rating || 5) ? 'fill-orange-400 text-orange-400' : 'text-slate-200 hover:text-orange-200'}`}
+                        className={`w-7 h-7 transition-colors ${star <= (form.rating || 5) ? 'fill-amber-400 text-amber-400' : 'text-slate-200 hover:text-amber-200'}`}
                       />
                     </button>
                   ))}
@@ -265,61 +269,61 @@ export default function AdminReviews() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Nội dung đánh giá</label>
+                <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Nội dung đánh giá</label>
                 <textarea
                   value={form.text || ''}
                   onChange={(e) => set('text', e.target.value)}
                   rows={4}
                   placeholder="Hải Phát đã lắp đặt thang máy gia đình..."
-                  className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none resize-none"
+                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-[#285c9a] outline-none resize-none transition-all"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Dự án liên quan</label>
+                <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Dự án liên quan</label>
                 <input
                   type="text"
                   value={form.project || ''}
                   onChange={(e) => set('project', e.target.value)}
                   placeholder="Thang máy gia đình · 5 tầng"
-                  className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none"
+                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-[#285c9a] outline-none transition-all"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Thứ tự</label>
+                  <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Thứ tự</label>
                   <input
                     type="number"
                     value={form.sort_order || 0}
                     onChange={(e) => set('sort_order', Number(e.target.value))}
-                    className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none"
+                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-[#285c9a] outline-none transition-all"
                   />
                 </div>
-                <div className="flex items-end gap-3 pb-1">
-                  <label className="text-sm font-medium text-slate-700">Hiển thị</label>
+                <div className="flex items-center justify-between p-3.5 bg-slate-50 rounded-xl border border-slate-200/60">
+                  <label className="text-xs font-semibold text-slate-700 uppercase tracking-wider">Hiển thị</label>
                   <button
                     type="button"
                     onClick={() => set('is_published', !form.is_published)}
-                    className={form.is_published ? 'text-green-500' : 'text-slate-300'}
+                    className={`transition-colors ${form.is_published ? 'text-emerald-600' : 'text-slate-300'}`}
                   >
-                    {form.is_published ? <ToggleRight className="w-8 h-8" /> : <ToggleLeft className="w-8 h-8" />}
+                    {form.is_published ? <ToggleRight className="w-7 h-7" /> : <ToggleLeft className="w-7 h-7" />}
                   </button>
                 </div>
               </div>
             </div>
 
-            <div className="p-6 border-t flex gap-3 justify-end">
+            <div className="p-4 sm:p-6 border-t border-slate-100 bg-slate-50/50 flex gap-3 justify-end">
               <button
                 onClick={closeModal}
-                className="px-5 py-2 border border-slate-300 text-slate-700 rounded-lg hover:bg-slate-50 transition-colors"
+                className="px-5 py-2.5 border border-slate-200 text-slate-700 rounded-xl hover:bg-slate-100 text-xs font-semibold transition-all"
               >
                 Hủy
               </button>
               <button
                 onClick={handleSave}
                 disabled={saving}
-                className="flex items-center gap-2 px-5 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors disabled:opacity-50"
+                className="flex items-center gap-2 px-5 py-2.5 bg-[#285c9a] hover:bg-[#1e4a80] text-white rounded-xl text-xs font-semibold shadow-md shadow-blue-900/10 transition-all disabled:opacity-50"
               >
                 {saving && <Loader2 className="w-4 h-4 animate-spin" />}
                 {editingId ? 'Lưu thay đổi' : 'Thêm đánh giá'}

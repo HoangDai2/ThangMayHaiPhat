@@ -127,85 +127,85 @@ export default function AdminRoles() {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold text-slate-800 flex items-center gap-2">
-          <Shield className="w-6 h-6 text-orange-500" />
-          Quản lý Phân quyền
+          <Shield className="w-6 h-6 text-[#285c9a]" />
+          Quản Lý Phân Quyền
         </h1>
         <button
           onClick={() => setIsAddingRole(true)}
-          className="bg-orange-500 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-orange-600 transition-colors"
+          className="bg-[#285c9a] text-white px-5 py-2.5 rounded-xl font-medium text-sm flex items-center gap-2 hover:bg-[#1e4a80] shadow-md shadow-blue-900/10 transition-all"
         >
-          <Plus className="w-5 h-5" />
-          Thêm Vai trò
+          <Plus className="w-4 h-4" />
+          Thêm Vai Trò
         </button>
       </div>
 
       {isAddingRole && (
-        <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-          <h2 className="text-lg font-semibold mb-4">Thêm Vai trò mới</h2>
+        <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+          <h2 className="text-base font-bold text-slate-800 mb-4">Thêm Vai Trò Mới</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Tên Vai trò</label>
+              <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Tên Vai Trò</label>
               <input
                 type="text"
                 value={newRoleName}
                 onChange={e => setNewRoleName(e.target.value)}
-                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
+                className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-[#285c9a] outline-none transition-all"
                 placeholder="VD: Biên tập viên"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Mô tả</label>
+              <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Mô tả</label>
               <input
                 type="text"
                 value={newRoleDescription}
                 onChange={e => setNewRoleDescription(e.target.value)}
-                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
+                className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-[#285c9a] outline-none transition-all"
                 placeholder="VD: Quản lý nội dung bài viết"
               />
             </div>
           </div>
           <div className="flex gap-2">
-            <button onClick={handleAddRole} className="bg-orange-500 text-white px-4 py-2 rounded-lg">Lưu</button>
-            <button onClick={() => setIsAddingRole(false)} className="bg-slate-200 text-slate-700 px-4 py-2 rounded-lg">Hủy</button>
+            <button onClick={handleAddRole} className="bg-[#285c9a] hover:bg-[#1e4a80] text-white px-5 py-2 rounded-xl text-xs font-semibold shadow-sm transition-all">Lưu</button>
+            <button onClick={() => setIsAddingRole(false)} className="bg-slate-100 hover:bg-slate-200 text-slate-700 px-5 py-2 rounded-xl text-xs font-semibold transition-all">Hủy</button>
           </div>
         </div>
       )}
 
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead className="bg-slate-50 border-b border-slate-200">
+          <table className="w-full text-left">
+            <thead className="bg-slate-50 border-b border-slate-200 text-xs font-semibold uppercase tracking-wider text-slate-600">
               <tr>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Vai trò</th>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Mô tả</th>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Thao tác</th>
+                <th className="px-6 py-4">Vai trò</th>
+                <th className="px-6 py-4">Mô tả</th>
+                <th className="px-6 py-4">Thao tác</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-200">
+            <tbody className="divide-y divide-slate-100 text-sm">
               {roles.map((role) => (
-                <tr key={role.id} className="hover:bg-slate-50 transition-colors">
+                <tr key={role.id} className="hover:bg-slate-50/60 transition-colors">
                   <td className="px-6 py-4">
-                    <div className="font-medium text-slate-800">{role.name}</div>
+                    <div className="font-semibold text-slate-800">{role.name}</div>
                   </td>
-                  <td className="px-6 py-4 text-slate-600">
+                  <td className="px-6 py-4 text-slate-600 text-xs">
                     {role.description}
                   </td>
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-2">
                       <button 
                         onClick={() => setEditingRole(editingRole === role.id ? null : role.id)}
-                        className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                        className="p-2 text-[#285c9a] hover:bg-blue-50 rounded-xl transition-colors"
                         title="Cấu hình quyền"
                       >
-                        <Shield className="w-5 h-5" />
+                        <Shield className="w-4 h-4" />
                       </button>
                       {role.name !== 'Quản lý' && (
                         <button 
                           onClick={() => handleDeleteRole(role.id)}
-                          className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                          className="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition-colors"
                           title="Xóa"
                         >
-                          <Trash2 className="w-5 h-5" />
+                          <Trash2 className="w-4 h-4" />
                         </button>
                       )}
                     </div>
@@ -218,12 +218,12 @@ export default function AdminRoles() {
       </div>
 
       {editingRole && (
-        <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mt-6">
+        <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200/80 mt-6">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-lg font-semibold">
-              Cấu hình quyền: <span className="text-orange-500">{roles.find(r => r.id === editingRole)?.name}</span>
+            <h2 className="text-base font-bold text-slate-800">
+              Cấu hình quyền: <span className="text-[#285c9a]">{roles.find(r => r.id === editingRole)?.name}</span>
             </h2>
-            <button onClick={() => setEditingRole(null)}><X className="w-5 h-5 text-slate-500" /></button>
+            <button onClick={() => setEditingRole(null)} className="p-1 text-slate-400 hover:text-slate-600"><X className="w-5 h-5" /></button>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {permissions.map(permission => {
@@ -231,14 +231,14 @@ export default function AdminRoles() {
               return (
                 <div 
                   key={permission.id} 
-                  className={`p-4 border rounded-lg flex items-center justify-between cursor-pointer transition-colors ${hasPerm ? 'border-orange-500 bg-orange-50' : 'border-slate-200 hover:border-slate-300'}`}
+                  className={`p-4 border rounded-xl flex items-center justify-between cursor-pointer transition-all ${hasPerm ? 'border-[#285c9a] bg-blue-50/60 shadow-sm' : 'border-slate-200/80 hover:border-slate-300'}`}
                   onClick={() => handleTogglePermission(editingRole, permission.id, hasPerm)}
                 >
                   <div>
-                    <div className={`font-medium ${hasPerm ? 'text-orange-700' : 'text-slate-700'}`}>{permission.name}</div>
-                    <div className="text-xs text-slate-500">{permission.description}</div>
+                    <div className={`font-semibold text-xs ${hasPerm ? 'text-[#285c9a]' : 'text-slate-700'}`}>{permission.name}</div>
+                    <div className="text-[11px] text-slate-500 mt-0.5">{permission.description}</div>
                   </div>
-                  {hasPerm && <Check className="w-5 h-5 text-orange-500" />}
+                  {hasPerm && <Check className="w-4 h-4 text-[#285c9a] flex-shrink-0" />}
                 </div>
               );
             })}

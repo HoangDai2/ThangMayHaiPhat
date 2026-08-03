@@ -147,30 +147,30 @@ export default function AdminServices() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-slate-800">Quản lý dịch vụ</h1>
-          <p className="text-slate-500 mt-1">{services.length} dịch vụ</p>
+          <h1 className="text-2xl font-bold text-slate-800">Quản Lý Dịch Vụ</h1>
+          <p className="text-slate-500 text-sm mt-0.5">Tổng cộng {services.length} dịch vụ kỹ thuật</p>
         </div>
         <button
           onClick={openAdd}
-          className="flex items-center gap-2 bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors"
+          className="flex items-center justify-center gap-2 bg-[#285c9a] hover:bg-[#1e4a80] text-white px-5 py-2.5 rounded-xl font-medium text-sm shadow-md shadow-blue-900/10 transition-all"
         >
-          <Plus className="w-5 h-5" />
-          Thêm dịch vụ
+          <Plus className="w-4 h-4" />
+          Thêm dịch vụ mới
         </button>
       </div>
 
       {/* Search */}
-      <div className="bg-white rounded-xl p-4 shadow-sm mb-6">
+      <div className="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm mb-6">
         <div className="relative max-w-md">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
+          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4" />
           <input
             type="text"
             placeholder="Tìm kiếm dịch vụ..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none text-sm"
+            className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-[#285c9a] focus:border-transparent outline-none text-sm font-medium transition-all"
           />
         </div>
       </div>
@@ -178,7 +178,7 @@ export default function AdminServices() {
       {/* List */}
       {loading ? (
         <div className="flex justify-center py-20">
-          <Loader2 className="w-8 h-8 animate-spin text-orange-500" />
+          <Loader2 className="w-8 h-8 animate-spin text-[#285c9a]" />
         </div>
       ) : (
         <div className="space-y-4">
@@ -349,7 +349,7 @@ export default function AdminServices() {
                     placeholder="Tên bước (VD: Khảo sát hiện trường)"
                     value={processInput.title}
                     onChange={(e) => setProcessInput((p) => ({ ...p, title: e.target.value }))}
-                    className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none"
+                    className="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-[#285c9a] outline-none transition-all"
                   />
                   <div className="flex gap-2">
                     <input
@@ -357,60 +357,60 @@ export default function AdminServices() {
                       placeholder="Mô tả bước..."
                       value={processInput.description}
                       onChange={(e) => setProcessInput((p) => ({ ...p, description: e.target.value }))}
-                      className="flex-1 px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none"
+                      className="flex-1 px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-[#285c9a] outline-none transition-all"
                     />
                     <button
                       type="button"
                       onClick={addProcess}
-                      className="p-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600"
+                      className="p-2.5 bg-[#285c9a] text-white rounded-xl hover:bg-[#1e4a80] transition-colors"
                     >
                       <Plus className="w-4 h-4" />
                     </button>
                   </div>
                 </div>
                 {(form.process || []).map((step, i) => (
-                  <div key={i} className="flex items-start gap-3 p-3 bg-slate-50 rounded-lg mb-2 text-sm">
-                    <span className="flex-shrink-0 w-6 h-6 bg-orange-500 text-white rounded-full flex items-center justify-center text-xs font-bold">
+                  <div key={i} className="flex items-start gap-3 p-3 bg-slate-50 rounded-xl mb-2 text-sm border border-slate-200/60">
+                    <span className="flex-shrink-0 w-6 h-6 bg-[#285c9a] text-white rounded-full flex items-center justify-center text-xs font-bold">
                       {step.step}
                     </span>
                     <div className="flex-1 min-w-0">
-                      <p className="font-medium text-slate-700">{step.title}</p>
+                      <p className="font-semibold text-slate-800 text-xs">{step.title}</p>
                       <p className="text-slate-500 text-xs mt-0.5">{step.description}</p>
                     </div>
-                    <button onClick={() => removeProcess(i)} className="text-red-400 hover:text-red-600">
+                    <button onClick={() => removeProcess(i)} className="text-slate-400 hover:text-rose-600">
                       <X className="w-4 h-4" />
                     </button>
                   </div>
                 ))}
               </div>
 
-              <div className="flex items-center gap-3">
-                <label className="text-sm font-medium text-slate-700">Hiển thị trên website</label>
+              <div className="flex items-center justify-between p-3.5 bg-slate-50 rounded-xl border border-slate-200/60">
+                <label className="text-xs font-semibold text-slate-700 uppercase tracking-wider">Hiển thị trên website</label>
                 <button
                   type="button"
                   onClick={() => set('is_published', !form.is_published)}
-                  className={`${form.is_published ? 'text-green-500' : 'text-slate-300'}`}
+                  className={`transition-colors ${form.is_published ? 'text-emerald-600' : 'text-slate-300'}`}
                 >
                   {form.is_published ? (
-                    <ToggleRight className="w-8 h-8" />
+                    <ToggleRight className="w-7 h-7" />
                   ) : (
-                    <ToggleLeft className="w-8 h-8" />
+                    <ToggleLeft className="w-7 h-7" />
                   )}
                 </button>
               </div>
             </div>
 
-            <div className="p-6 border-t flex gap-3 justify-end">
+            <div className="p-4 sm:p-6 border-t border-slate-100 bg-slate-50/50 flex gap-3 justify-end">
               <button
                 onClick={closeModal}
-                className="px-5 py-2 border border-slate-300 text-slate-700 rounded-lg hover:bg-slate-50 transition-colors"
+                className="px-5 py-2.5 border border-slate-200 text-slate-700 rounded-xl hover:bg-slate-100 text-xs font-semibold transition-all"
               >
                 Hủy
               </button>
               <button
                 onClick={handleSave}
                 disabled={saving}
-                className="flex items-center gap-2 px-5 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors disabled:opacity-50"
+                className="flex items-center gap-2 px-5 py-2.5 bg-[#285c9a] hover:bg-[#1e4a80] text-white rounded-xl text-xs font-semibold shadow-md shadow-blue-900/10 transition-all disabled:opacity-50"
               >
                 {saving && <Loader2 className="w-4 h-4 animate-spin" />}
                 {isEditing ? 'Lưu thay đổi' : 'Thêm dịch vụ'}
