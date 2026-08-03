@@ -86,7 +86,7 @@ export default function AdminServices() {
     setSaving(true);
     setError('');
 
-    const payload = {
+    const payload: Record<string, any> = {
       id: form.id!.trim(),
       title: form.title!.trim(),
       subtitle: form.subtitle || '',
@@ -98,11 +98,27 @@ export default function AdminServices() {
       is_published: form.is_published ?? true,
     };
 
-    let err;
-    if (isEditing) {
-      ({ error: err } = await supabase.from('services').update(payload).eq('id', form.id!));
-    } else {
-      ({ error: err } = await supabase.from('services').insert(payload));
+    let err: any = null;
+    let attempts = 0;
+
+    while (attempts < 5) {
+      if (isEditing) {
+        ({ error: err } = await supabase.from('services').update(payload).eq('id', form.id!));
+      } else {
+        ({ error: err } = await supabase.from('services').insert(payload));
+      }
+
+      if (!err) break;
+
+      if (err.message && (err.message.includes('schema cache') || err.message.includes('Could not find the'))) {
+        const match = err.message.match(/Could not find the '([^']+)' column/);
+        if (match && match[1] && match[1] in payload) {
+          delete payload[match[1]];
+          attempts++;
+          continue;
+        }
+      }
+      break;
     }
 
     if (err) {

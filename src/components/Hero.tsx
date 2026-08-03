@@ -45,11 +45,13 @@ export default function Hero() {
   const defaultHero = {
     title: 'Giải Pháp Thang Máy Hiện Đại & Uy Tín',
     subtitle: 'Chất lượng khẳng định thương hiệu',
+    description: 'Chuyên lắp đặt thang máy gia đình và thang máy tải khách cao cấp. Chúng tôi mang đến sự an toàn, sang trọng và đẳng cấp cho không gian sống của bạn.',
     image: 'https://images.pexels.com/photos/1267338/pexels-photo-1267338.jpeg?auto=compress&cs=tinysrgb&w=1920&q=80',
   };
 
   const heroTitle = currentBanner?.title || defaultHero.title;
   const heroSubtitle = currentBanner?.subtitle || defaultHero.subtitle;
+  const heroDescription = currentBanner?.description || defaultHero.description;
 
   // Split title for colored styling
   const titleWords = heroTitle.split(' ');
@@ -144,8 +146,7 @@ export default function Hero() {
           </h1>
 
           <p className="text-lg text-white/80 leading-relaxed mb-8 max-w-xl">
-            Chuyên lắp đặt thang máy gia đình và thang máy tải khách cao cấp.
-            Chúng tôi mang đến sự an toàn, sang trọng và đẳng cấp cho không gian sống của bạn.
+            {heroDescription}
           </p>
 
           {/* CTA buttons */}

@@ -76,7 +76,7 @@ export default function AdminBanners() {
     setSaving(true);
     setError('');
 
-    const payload = {
+    const payload: Record<string, any> = {
       title: form.title!.trim(),
       subtitle: form.subtitle || '',
       description: form.description || '',
@@ -89,11 +89,28 @@ export default function AdminBanners() {
       is_active: form.is_active ?? true,
     };
 
-    let err;
-    if (editingId) {
-      ({ error: err } = await supabase.from('banners').update(payload).eq('id', editingId));
-    } else {
-      ({ error: err } = await supabase.from('banners').insert(payload));
+    let err: any = null;
+    let attempts = 0;
+
+    // Retry loop to handle missing columns in database schema gracefully
+    while (attempts < 5) {
+      if (editingId) {
+        ({ error: err } = await supabase.from('banners').update(payload).eq('id', editingId));
+      } else {
+        ({ error: err } = await supabase.from('banners').insert(payload));
+      }
+
+      if (!err) break;
+
+      if (err.message && (err.message.includes('schema cache') || err.message.includes('Could not find the'))) {
+        const match = err.message.match(/Could not find the '([^']+)' column/);
+        if (match && match[1] && match[1] in payload) {
+          delete payload[match[1]];
+          attempts++;
+          continue;
+        }
+      }
+      break;
     }
 
     if (err) {
