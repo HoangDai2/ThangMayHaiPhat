@@ -1,7 +1,8 @@
 "use client";
 import { useState, useEffect } from 'react';
 import { Plus, Edit, Trash2, Search, X, Loader2, ToggleLeft, ToggleRight } from 'lucide-react';
-import { supabase, DbService } from '../../lib/supabase';
+import api from '../../lib/api';
+import { DbService } from '../../lib/types';
 import ArrayInput from '../../components/admin/ArrayInput';
 
 const emptyForm = (): Partial<DbService> => ({
@@ -33,11 +34,12 @@ export default function AdminServices() {
 
   const fetchServices = async () => {
     setLoading(true);
-    const { data, error } = await supabase
-      .from('services')
-      .select('*')
-      .order('created_at', { ascending: true });
-    if (!error && data) setServices(data);
+    try {
+      const response = await api.get('/admin/services');
+      if (response.data) setServices(response.data);
+    } catch (e) {
+      console.error(e);
+    }
     setLoading(false);
   };
 
@@ -98,31 +100,38 @@ export default function AdminServices() {
       is_published: form.is_published ?? true,
     };
 
-    let err;
-    if (isEditing) {
-      ({ error: err } = await supabase.from('services').update(payload).eq('id', form.id!));
-    } else {
-      ({ error: err } = await supabase.from('services').insert(payload));
-    }
-
-    if (err) {
-      setError(err.message);
-    } else {
+    try {
+      if (isEditing) {
+        await api.put(`/admin/services/${form.id}`, payload);
+      } else {
+        await api.post('/admin/services', payload);
+      }
       await fetchServices();
       closeModal();
+    } catch (error: any) {
+      setError(error.response?.data?.message || 'Có lỗi xảy ra');
     }
     setSaving(false);
   };
 
   const handleDelete = async (id: string, title: string) => {
     if (!window.confirm(`Xóa dịch vụ "${title}"?`)) return;
-    await supabase.from('services').delete().eq('id', id);
-    await fetchServices();
+    try {
+      await api.delete(`/admin/services/${id}`);
+      await fetchServices();
+    } catch (e) {
+      console.error(e);
+      alert('Xóa thất bại');
+    }
   };
 
   const togglePublish = async (service: DbService) => {
-    await supabase.from('services').update({ is_published: !service.is_published }).eq('id', service.id);
-    await fetchServices();
+    try {
+      await api.put(`/admin/services/${service.id}`, { is_published: !service.is_published });
+      await fetchServices();
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   const filtered = services.filter((s) =>

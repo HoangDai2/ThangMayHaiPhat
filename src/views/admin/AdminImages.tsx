@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from 'react';
 import { Upload, Trash2, Loader2, Image as ImageIcon, Copy, Search, Check } from 'lucide-react';
-import { supabase } from '../../lib/supabase';
+import api from '../../lib/api';
 
 interface ImageItem {
   name: string;
@@ -29,20 +29,13 @@ export default function AdminImages() {
 
   const fetchImages = async () => {
     setLoading(true);
-    const { data, error } = await supabase.storage.from('images').list('', {
-      sortBy: { column: 'created_at', order: 'desc' },
-      limit: 100,
-    });
-    if (!error && data) {
-      const items = data
-        .filter((f) => f.id && !f.id.endsWith('.emptyFolderPlaceholder'))
-        .map((f) => ({
-          name: f.name,
-          url: supabase.storage.from('images').getPublicUrl(f.name).data.publicUrl,
-          size: f.metadata?.size || 0,
-          lastModified: f.created_at || f.updated_at || '',
-        }));
-      setImages(items);
+    try {
+      const response = await api.get('/admin/images');
+      if (response.data) {
+        setImages(response.data);
+      }
+    } catch (e) {
+      console.error(e);
     }
     setLoading(false);
   };
@@ -50,9 +43,15 @@ export default function AdminImages() {
   const handleUpload = async (files: FileList) => {
     setUploading(true);
     for (const file of Array.from(files)) {
-      const ext = file.name.split('.').pop();
-      const fileName = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
-      await supabase.storage.from('images').upload(fileName, file);
+      const formData = new FormData();
+      formData.append('file', file);
+      try {
+        await api.post('/admin/upload', formData, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        });
+      } catch (e) {
+        console.error(e);
+      }
     }
     setUploading(false);
     await fetchImages();
@@ -60,8 +59,13 @@ export default function AdminImages() {
 
   const handleDelete = async (name: string) => {
     if (!window.confirm(`Xóa hình ảnh "${name}"?`)) return;
-    await supabase.storage.from('images').remove([name]);
-    await fetchImages();
+    try {
+      await api.post('/admin/images/delete', { name });
+      await fetchImages();
+    } catch (e) {
+      console.error(e);
+      alert('Xóa thất bại');
+    }
   };
 
   const copyUrl = async (url: string) => {

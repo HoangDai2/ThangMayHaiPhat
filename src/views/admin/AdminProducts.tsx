@@ -1,7 +1,8 @@
 "use client";
 import { useState, useEffect } from 'react';
 import { Plus, Edit, Trash2, Search, X, Loader2, Image, ToggleLeft, ToggleRight } from 'lucide-react';
-import { supabase, DbProduct } from '../../lib/supabase';
+import api from '../../lib/api';
+import { DbProduct } from '../../lib/types';
 import ArrayInput from '../../components/admin/ArrayInput';
 
 const emptyForm = (): Partial<DbProduct> => ({
@@ -38,11 +39,12 @@ export default function AdminProducts() {
 
   const fetchProducts = async () => {
     setLoading(true);
-    const { data, error } = await supabase
-      .from('products')
-      .select('*')
-      .order('created_at', { ascending: true });
-    if (!error && data) setProducts(data);
+    try {
+      const response = await api.get('/admin/products');
+      if (response.data) setProducts(response.data);
+    } catch (e) {
+      console.error(e);
+    }
     setLoading(false);
   };
 
@@ -115,34 +117,38 @@ export default function AdminProducts() {
       is_published: form.is_published ?? true,
     };
 
-    let err;
-    if (isEditing) {
-      ({ error: err } = await supabase.from('products').update(payload).eq('id', form.id!));
-    } else {
-      ({ error: err } = await supabase.from('products').insert(payload));
-    }
-
-    if (err) {
-      setError(err.message);
-    } else {
+    try {
+      if (isEditing) {
+        await api.put(`/admin/products/${form.id}`, payload);
+      } else {
+        await api.post('/admin/products', payload);
+      }
       await fetchProducts();
       closeModal();
+    } catch (error: any) {
+      setError(error.response?.data?.message || 'Có lỗi xảy ra');
     }
     setSaving(false);
   };
 
   const handleDelete = async (id: string, title: string) => {
     if (!window.confirm(`Xóa sản phẩm "${title}"?`)) return;
-    await supabase.from('products').delete().eq('id', id);
-    await fetchProducts();
+    try {
+      await api.delete(`/admin/products/${id}`);
+      await fetchProducts();
+    } catch (e) {
+      console.error(e);
+      alert('Xóa thất bại');
+    }
   };
 
   const togglePublish = async (product: DbProduct) => {
-    await supabase
-      .from('products')
-      .update({ is_published: !product.is_published })
-      .eq('id', product.id);
-    await fetchProducts();
+    try {
+      await api.put(`/admin/products/${product.id}`, { is_published: !product.is_published });
+      await fetchProducts();
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   const filtered = products.filter((p) =>

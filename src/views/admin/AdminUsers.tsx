@@ -1,207 +1,325 @@
 "use client";
 import { useState, useEffect } from 'react';
-import { supabase, DbRole, DbUserRole } from '../../lib/supabase';
-import { Users, Plus, Trash2 } from 'lucide-react';
-import { usePermissions } from '../../hooks/usePermissions';
-import { useRouter } from 'next/navigation';
+import { Users, Plus, Edit, Trash2, Search, Loader2, X } from 'lucide-react';
+import api from '../../lib/api';
 
-interface UserRoleWithDetails extends DbUserRole {
-  role_name?: string;
+interface DbUser {
+  id: number;
+  name: string;
+  email: string;
+  roles?: { name: string }[];
+  created_at: string;
 }
 
 export default function AdminUsers() {
-  const { hasPermission, loading: permissionsLoading } = usePermissions();
-  const [userRoles, setUserRoles] = useState<UserRoleWithDetails[]>([]);
-  const [roles, setRoles] = useState<DbRole[]>([]);
+  const [users, setUsers] = useState<DbUser[]>([]);
+  const [rolesList, setRolesList] = useState<{ name: string }[]>([]);
   const [loading, setLoading] = useState(true);
-
-  const [isAdding, setIsAdding] = useState(false);
-  const [newUserId, setNewUserId] = useState('');
-  const [newRoleId, setNewRoleId] = useState('');
-
-  const router = useRouter();
-
-  useEffect(() => {
-    if (!permissionsLoading && !hasPermission('manage_all')) {
-      router.replace('/admin');
-    }
-  }, [hasPermission, permissionsLoading, router]);
-
-  const fetchData = async () => {
-    setLoading(true);
-    try {
-      const [rolesRes, userRolesRes] = await Promise.all([
-        supabase.from('roles').select('*'),
-        supabase.from('user_roles').select('*')
-      ]);
-
-      if (rolesRes.data) setRoles(rolesRes.data);
-      
-      if (userRolesRes.data && rolesRes.data) {
-        const enriched = userRolesRes.data.map(ur => ({
-          ...ur,
-          role_name: rolesRes.data.find(r => r.id === ur.role_id)?.name
-        }));
-        setUserRoles(enriched);
-      }
-    } catch (error) {
-      console.error('Error fetching users:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const [searchTerm, setSearchTerm] = useState('');
+  
+  const [modalOpen, setModalOpen] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState('');
+  
+  const [form, setForm] = useState({
+    id: 0,
+    name: '',
+    email: '',
+    password: '',
+    roles: [] as string[],
+  });
 
   useEffect(() => {
     fetchData();
   }, []);
 
-  if (permissionsLoading || !hasPermission('manage_all')) return null;
-
-
-
-  const handleAddUserRole = async () => {
-    if (!newUserId || !newRoleId) return;
+  const fetchData = async () => {
+    setLoading(true);
     try {
-      // Check if user already has a role
-      const existing = userRoles.find(ur => ur.user_id === newUserId);
-      if (existing) {
-        // Update
-        const { error } = await supabase
-          .from('user_roles')
-          .update({ role_id: newRoleId })
-          .eq('user_id', newUserId);
-        if (error) throw error;
+      const [usersRes, rolesRes] = await Promise.all([
+        api.get('/admin/users'),
+        api.get('/admin/roles')
+      ]);
+      setUsers(usersRes.data);
+      setRolesList(rolesRes.data);
+    } catch (e) {
+      console.error(e);
+    }
+    setLoading(false);
+  };
+
+  const openAdd = () => {
+    setForm({ id: 0, name: '', email: '', password: '', roles: [] });
+    setIsEditing(false);
+    setError('');
+    setModalOpen(true);
+  };
+
+  const openEdit = (user: DbUser) => {
+    setForm({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      password: '',
+      roles: user.roles ? user.roles.map(r => r.name) : [],
+    });
+    setIsEditing(true);
+    setError('');
+    setModalOpen(true);
+  };
+
+  const handleSave = async () => {
+    if (!form.name.trim() || !form.email.trim()) {
+      setError('Tên và Email là bắt buộc');
+      return;
+    }
+    if (!isEditing && !form.password) {
+      setError('Mật khẩu là bắt buộc khi tạo mới');
+      return;
+    }
+
+    setSaving(true);
+    setError('');
+
+    const payload = { ...form };
+    if (!payload.password) delete (payload as any).password; // Don't send empty password
+
+    try {
+      if (isEditing) {
+        await api.put(`/admin/users/${form.id}`, payload);
       } else {
-        // Insert
-        const { error } = await supabase
-          .from('user_roles')
-          .insert([{ user_id: newUserId, role_id: newRoleId }]);
-        if (error) throw error;
+        await api.post('/admin/users', payload);
       }
-      
       await fetchData();
-      setIsAdding(false);
-      setNewUserId('');
-      setNewRoleId('');
-    } catch (error) {
-      console.error('Error assigning role:', error);
-      alert('Có lỗi xảy ra (kiểm tra lại UUID của user xem có tồn tại không).');
+      setModalOpen(false);
+    } catch (error: any) {
+      setError(error.response?.data?.message || 'Có lỗi xảy ra');
     }
+    setSaving(false);
   };
 
-  const handleDeleteUserRole = async (userId: string) => {
-    if (!confirm('Bạn có chắc chắn muốn gỡ vai trò của user này?')) return;
+  const handleDelete = async (id: number, name: string) => {
+    if (!window.confirm(`Xóa người dùng "${name}"?`)) return;
     try {
-      const { error } = await supabase.from('user_roles').delete().eq('user_id', userId);
-      if (error) throw error;
-      setUserRoles(userRoles.filter(ur => ur.user_id !== userId));
-    } catch (error) {
-      console.error('Error deleting user role:', error);
-      alert('Có lỗi xảy ra khi gỡ vai trò.');
+      await api.delete(`/admin/users/${id}`);
+      await fetchData();
+    } catch (e) {
+      console.error(e);
+      alert('Xóa thất bại');
     }
   };
 
-  if (loading) return <div>Đang tải dữ liệu...</div>;
+  const toggleRole = (roleName: string) => {
+    setForm(prev => {
+      const roles = prev.roles.includes(roleName)
+        ? prev.roles.filter(r => r !== roleName)
+        : [...prev.roles, roleName];
+      return { ...prev, roles };
+    });
+  };
+
+  const filtered = users.filter((u) =>
+    u.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    u.email.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold text-slate-800 flex items-center gap-2">
-          <Users className="w-6 h-6 text-orange-500" />
-          Quản lý Tài khoản (Gán quyền)
-        </h1>
+      <div className="flex justify-between items-center mb-8">
+        <div>
+          <h1 className="text-3xl font-bold text-slate-800 flex items-center gap-2">
+            <Users className="w-8 h-8 text-orange-500" />
+            Quản lý Tài khoản
+          </h1>
+          <p className="text-slate-500 mt-1">{users.length} tài khoản</p>
+        </div>
         <button
-          onClick={() => setIsAdding(true)}
-          className="bg-orange-500 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-orange-600 transition-colors"
+          onClick={openAdd}
+          className="flex items-center gap-2 bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors"
         >
           <Plus className="w-5 h-5" />
-          Gán Vai trò
+          Thêm người dùng
         </button>
       </div>
 
-      <div className="bg-blue-50 border border-blue-200 text-blue-800 px-4 py-3 rounded-lg text-sm">
-        <strong>Lưu ý:</strong> Vì lý do bảo mật, hệ thống chỉ lưu `User ID` (UUID). 
-        Để thêm một nhân viên mới, hãy tạo tài khoản cho họ trong mục <strong>Authentication</strong> trên bảng điều khiển Supabase, sau đó copy <strong>User UID</strong> dán vào đây để phân quyền.
+      <div className="bg-white rounded-xl p-4 shadow-sm mb-6">
+        <div className="relative max-w-md">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
+          <input
+            type="text"
+            placeholder="Tìm kiếm tài khoản..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none text-sm"
+          />
+        </div>
       </div>
 
-      {isAdding && (
-        <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-          <h2 className="text-lg font-semibold mb-4">Gán Vai trò cho User</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-            <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">User ID (UUID từ Supabase Auth)</label>
-              <input
-                type="text"
-                value={newUserId}
-                onChange={e => setNewUserId(e.target.value)}
-                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
-                placeholder="VD: 123e4567-e89b-12d3-a456-426614174000"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Chọn Vai trò</label>
-              <select
-                value={newRoleId}
-                onChange={e => setNewRoleId(e.target.value)}
-                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-orange-500"
-              >
-                <option value="">-- Chọn vai trò --</option>
-                {roles.map(role => (
-                  <option key={role.id} value={role.id}>{role.name}</option>
-                ))}
-              </select>
-            </div>
-          </div>
-          <div className="flex gap-2">
-            <button onClick={handleAddUserRole} className="bg-orange-500 text-white px-4 py-2 rounded-lg">Lưu</button>
-            <button onClick={() => setIsAdding(false)} className="bg-slate-200 text-slate-700 px-4 py-2 rounded-lg">Hủy</button>
-          </div>
+      {loading ? (
+        <div className="flex justify-center py-20">
+          <Loader2 className="w-8 h-8 animate-spin text-orange-500" />
         </div>
-      )}
-
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead className="bg-slate-50 border-b border-slate-200">
-              <tr>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">User ID</th>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Vai trò</th>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-slate-700">Thao tác</th>
+      ) : (
+        <div className="bg-white rounded-xl shadow-sm overflow-hidden">
+          <table className="w-full text-left border-collapse">
+            <thead>
+              <tr className="bg-slate-50 text-slate-500 text-sm border-b border-slate-200">
+                <th className="p-4 font-medium">Tên</th>
+                <th className="p-4 font-medium">Email</th>
+                <th className="p-4 font-medium">Vai trò</th>
+                <th className="p-4 font-medium">Ngày tạo</th>
+                <th className="p-4 font-medium text-right">Thao tác</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-200">
-              {userRoles.map((ur) => (
-                <tr key={ur.user_id} className="hover:bg-slate-50 transition-colors">
-                  <td className="px-6 py-4">
-                    <div className="font-mono text-sm text-slate-600">{ur.user_id}</div>
+            <tbody className="divide-y divide-slate-100">
+              {filtered.map((user) => (
+                <tr key={user.id} className="hover:bg-slate-50 transition-colors">
+                  <td className="p-4 font-medium text-slate-800">{user.name}</td>
+                  <td className="p-4 text-slate-600">{user.email}</td>
+                  <td className="p-4">
+                    <div className="flex flex-wrap gap-1">
+                      {user.roles && user.roles.map(r => (
+                        <span key={r.name} className="px-2.5 py-0.5 bg-blue-100 text-blue-700 rounded-md text-xs font-medium">
+                          {r.name}
+                        </span>
+                      ))}
+                    </div>
                   </td>
-                  <td className="px-6 py-4">
-                    <span className="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm font-medium">
-                      {ur.role_name || 'Không xác định'}
-                    </span>
+                  <td className="p-4 text-slate-500 text-sm">
+                    {new Date(user.created_at).toLocaleDateString('vi-VN')}
                   </td>
-                  <td className="px-6 py-4">
-                    <button 
-                      onClick={() => handleDeleteUserRole(ur.user_id)}
-                      className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                      title="Xóa phân quyền"
-                    >
-                      <Trash2 className="w-5 h-5" />
-                    </button>
+                  <td className="p-4">
+                    <div className="flex justify-end gap-2">
+                      <button
+                        onClick={() => openEdit(user)}
+                        className="p-2 text-slate-400 hover:text-blue-500 bg-white hover:bg-blue-50 rounded-lg border border-slate-200 transition-colors"
+                        title="Sửa"
+                      >
+                        <Edit className="w-4 h-4" />
+                      </button>
+                      <button
+                        onClick={() => handleDelete(user.id, user.name)}
+                        className="p-2 text-slate-400 hover:text-red-500 bg-white hover:bg-red-50 rounded-lg border border-slate-200 transition-colors"
+                        title="Xóa"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
-              {userRoles.length === 0 && (
+              {filtered.length === 0 && (
                 <tr>
-                  <td colSpan={3} className="px-6 py-8 text-center text-slate-500">
-                    Chưa có user nào được phân quyền
+                  <td colSpan={5} className="p-8 text-center text-slate-500">
+                    Không tìm thấy tài khoản nào
                   </td>
                 </tr>
               )}
             </tbody>
           </table>
         </div>
-      </div>
+      )}
+
+      {/* Modal */}
+      {modalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
+          <div className="bg-white rounded-2xl w-full max-w-lg shadow-xl overflow-hidden flex flex-col max-h-[90vh]">
+            <div className="flex items-center justify-between p-6 border-b border-slate-100">
+              <h2 className="text-xl font-bold text-slate-800">
+                {isEditing ? 'Sửa thông tin tài khoản' : 'Thêm tài khoản mới'}
+              </h2>
+              <button
+                onClick={() => setModalOpen(false)}
+                className="text-slate-400 hover:text-slate-600 transition-colors"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+
+            <div className="p-6 overflow-y-auto">
+              {error && (
+                <div className="mb-6 p-4 bg-red-50 text-red-600 rounded-lg text-sm border border-red-100">
+                  {error}
+                </div>
+              )}
+
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-1">Tên hiển thị</label>
+                  <input
+                    type="text"
+                    value={form.name}
+                    onChange={e => setForm({ ...form, name: e.target.value })}
+                    className="w-full p-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 outline-none"
+                    placeholder="VD: Nguyễn Văn A"
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-1">Email (Tên đăng nhập)</label>
+                  <input
+                    type="email"
+                    value={form.email}
+                    onChange={e => setForm({ ...form, email: e.target.value })}
+                    className="w-full p-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 outline-none"
+                    placeholder="VD: nhanvien@haiphat.vn"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-1">
+                    Mật khẩu {isEditing && '(Bỏ trống nếu không đổi)'}
+                  </label>
+                  <input
+                    type="password"
+                    value={form.password}
+                    onChange={e => setForm({ ...form, password: e.target.value })}
+                    className="w-full p-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 outline-none"
+                    placeholder="Tối thiểu 6 ký tự"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">Vai trò (Role)</label>
+                  <div className="flex flex-wrap gap-2">
+                    {rolesList.map(role => (
+                      <button
+                        key={role.name}
+                        onClick={() => toggleRole(role.name)}
+                        className={`px-3 py-1.5 rounded-lg text-sm font-medium border transition-colors ${
+                          form.roles.includes(role.name)
+                            ? 'bg-orange-50 border-orange-200 text-orange-700'
+                            : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
+                        }`}
+                      >
+                        {role.name}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-6 border-t border-slate-100 bg-slate-50 flex justify-end gap-3">
+              <button
+                onClick={() => setModalOpen(false)}
+                className="px-5 py-2.5 text-slate-600 font-medium hover:bg-slate-200 rounded-xl transition-colors"
+              >
+                Hủy
+              </button>
+              <button
+                onClick={handleSave}
+                disabled={saving}
+                className="flex items-center gap-2 bg-orange-500 text-white px-5 py-2.5 rounded-xl font-medium hover:bg-orange-600 transition-colors disabled:opacity-50"
+              >
+                {saving && <Loader2 className="w-4 h-4 animate-spin" />}
+                {isEditing ? 'Cập nhật' : 'Tạo mới'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { supabase } from '../lib/supabase';
+import api from '../lib/api';
+import Cookies from 'js-cookie';
 
 export function usePermissions() {
   const [permissions, setPermissions] = useState<string[]>([]);
@@ -8,45 +9,29 @@ export function usePermissions() {
 
   useEffect(() => {
     fetchPermissions();
-
-    const { data: authListener } = supabase.auth.onAuthStateChange(() => {
-      fetchPermissions();
-    });
-
-    return () => {
-      authListener.subscription.unsubscribe();
-    };
   }, []);
 
   const fetchPermissions = async () => {
     try {
       setLoading(true);
-      const { data: sessionData } = await supabase.auth.getSession();
-      
-      if (!sessionData.session?.user) {
+      const token = Cookies.get('admin_token');
+      if (!token) {
         setPermissions([]);
         setRole(null);
         return;
       }
-
-      // Lấy quyền từ user_permissions_view
-      const { data, error } = await supabase
-        .from('user_permissions_view')
-        .select('permission_name, role_name')
-        .eq('user_id', sessionData.session.user.id);
-
-      if (error) throw error;
-
-      if (data && data.length > 0) {
-        setPermissions(data.map(p => p.permission_name));
-        setRole(data[0].role_name); // Giả sử user có 1 role, lấy role name đầu tiên
-      } else {
-        setPermissions([]);
-        setRole(null);
+      
+      const { data } = await api.get('/admin/user');
+      
+      if (data) {
+        setPermissions(data.permissions || []);
+        setRole(data.roles?.[0] || null);
       }
     } catch (error) {
       console.error('Error fetching permissions:', error);
       setPermissions([]);
+      setRole(null);
+      Cookies.remove('admin_token');
     } finally {
       setLoading(false);
     }

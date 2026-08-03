@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePermissions } from '../../hooks/usePermissions';
 import { LayoutDashboard, FolderKanban, Box, Briefcase, Loader2, Layout, FileText, Star, ImageIcon } from 'lucide-react';
-import { supabase, DbProject } from '../../lib/supabase';
+import api from '../../lib/api';
+import { DbProject } from '../../lib/types';
 
 export default function AdminDashboard() {
   const { hasPermission } = usePermissions();
@@ -13,24 +14,15 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     (async () => {
-      const [proj, prod, svc, ban, art, rev, recent] = await Promise.all([
-        supabase.from('projects').select('id', { count: 'exact', head: true }),
-        supabase.from('products').select('id', { count: 'exact', head: true }),
-        supabase.from('services').select('id', { count: 'exact', head: true }),
-        supabase.from('banners').select('id', { count: 'exact', head: true }),
-        supabase.from('articles').select('id', { count: 'exact', head: true }),
-        supabase.from('reviews').select('id', { count: 'exact', head: true }),
-        supabase.from('projects').select('*').order('created_at', { ascending: false }).limit(4),
-      ]);
-      setCounts({
-        projects: proj.count ?? 0,
-        products: prod.count ?? 0,
-        services: svc.count ?? 0,
-        banners: ban.count ?? 0,
-        articles: art.count ?? 0,
-        reviews: rev.count ?? 0,
-      });
-      if (!recent.error && recent.data) setRecentProjects(recent.data);
+      try {
+        const response = await api.get('/admin/dashboard');
+        if (response.data) {
+          setCounts(response.data.counts || { projects: 0, products: 0, services: 0, banners: 0, articles: 0, reviews: 0 });
+          setRecentProjects(response.data.recentProjects || []);
+        }
+      } catch (e) {
+        console.error(e);
+      }
       setLoading(false);
     })();
   }, []);

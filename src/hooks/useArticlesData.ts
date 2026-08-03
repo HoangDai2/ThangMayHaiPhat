@@ -1,25 +1,16 @@
-import { useState, useEffect } from 'react';
-import { supabase, DbArticle } from '../lib/supabase';
+import useSWR from 'swr';
+import api from '../lib/api';
+import { DbArticle } from '../lib/types';
 
 export type Article = DbArticle;
 
-export function useArticlesData() {
-  const [articles, setArticles] = useState<Article[]>([]);
-  const [loading, setLoading] = useState(true);
+const fetcher = (url: string) => api.get(url).then(res => res.data);
 
-  useEffect(() => {
-    (async () => {
-      const { data, error } = await supabase
-        .from('articles')
-        .select('*')
-        .eq('is_published', true)
-        .order('published_at', { ascending: false });
-      if (!error && data) {
-        setArticles(data);
-      }
-      setLoading(false);
-    })();
-  }, []);
+export function useArticlesData() {
+  const { data, error, isLoading } = useSWR('/articles', fetcher);
+
+  const articles: Article[] = data || [];
+  const loading = isLoading;
 
   const getBySlug = (slug: string) => articles.find((a) => a.slug === slug);
   const getRelated = (slug: string, limit = 3) =>

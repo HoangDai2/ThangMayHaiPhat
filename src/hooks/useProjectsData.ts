@@ -1,25 +1,19 @@
-import { useState, useEffect } from 'react';
-import { supabase } from '../lib/supabase';
+import useSWR from 'swr';
+import api from '../lib/api';
 import { mapProject } from '../lib/mappers';
 import { Project } from '../data/projects';
 import { projects as staticProjects } from '../data/projects';
 
-export function useProjectsData() {
-  const [projects, setProjects] = useState<Project[]>(staticProjects);
-  const [loading, setLoading] = useState(true);
+const fetcher = (url: string) => api.get(url).then(res => res.data);
 
-  useEffect(() => {
-    (async () => {
-      const { data, error } = await supabase
-        .from('projects')
-        .select('*')
-        .order('created_at', { ascending: false });
-      if (!error && data && data.length > 0) {
-        setProjects(data.map(mapProject));
-      }
-      setLoading(false);
-    })();
-  }, []);
+export function useProjectsData() {
+  const { data, error, isLoading } = useSWR('/projects', fetcher);
+
+  const projects: Project[] = data && data.length > 0 
+    ? data.map(mapProject) 
+    : staticProjects;
+
+  const loading = isLoading;
 
   const getById = (id: string) => projects.find((p) => p.id === id);
   const getRelated = (currentId: string, limit = 3) =>

@@ -1,7 +1,7 @@
 "use client";
 import { useState } from 'react';
 import { Upload, Loader2, Link as LinkIcon, X } from 'lucide-react';
-import { supabase } from '../../lib/supabase';
+import api from '../../lib/api';
 
 interface Props {
   value: string;
@@ -17,14 +17,25 @@ export default function ImageUpload({ value, onChange, label = 'Hình ảnh' }: 
   const handleFile = async (file: File) => {
     if (!file) return;
     setUploading(true);
-    const ext = file.name.split('.').pop();
-    const fileName = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
-    const { error } = await supabase.storage.from('images').upload(fileName, file);
-    if (!error) {
-      const { data } = supabase.storage.from('images').getPublicUrl(fileName);
-      onChange(data.publicUrl);
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      
+      const response = await api.post('/admin/upload', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+      
+      if (response.data?.url) {
+        const url = response.data.url;
+        const fullUrl = url.startsWith('http') ? url : `${process.env.NEXT_PUBLIC_BACKEND_URL}${url}`;
+        onChange(fullUrl);
+      }
+    } catch (error) {
+      console.error('Upload failed', error);
+      alert('Tải ảnh thất bại');
+    } finally {
+      setUploading(false);
     }
-    setUploading(false);
   };
 
   const addUrl = () => {

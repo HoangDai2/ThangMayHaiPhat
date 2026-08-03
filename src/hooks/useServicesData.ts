@@ -1,24 +1,19 @@
-import { useState, useEffect } from 'react';
-import { supabase } from '../lib/supabase';
+import useSWR from 'swr';
+import api from '../lib/api';
 import { mapService } from '../lib/mappers';
-import { ServiceItem } from '../data/services';
+import { Service } from '../data/services';
 import { serviceItems as staticServices } from '../data/services';
 
-export function useServicesData() {
-  const [services, setServices] = useState<ServiceItem[]>(staticServices);
-  const [loading, setLoading] = useState(true);
+const fetcher = (url: string) => api.get(url).then(res => res.data);
 
-  useEffect(() => {
-    (async () => {
-      const { data, error } = await supabase
-        .from('services')
-        .select('*');
-      if (!error && data && data.length > 0) {
-        setServices(data.map(mapService));
-      }
-      setLoading(false);
-    })();
-  }, []);
+export function useServicesData() {
+  const { data, error, isLoading } = useSWR('/services', fetcher);
+
+  const services: Service[] = data && data.length > 0 
+    ? data.map(mapService) 
+    : staticServices;
+
+  const loading = isLoading;
 
   const getById = (id: string) => services.find((s) => s.id === id);
 

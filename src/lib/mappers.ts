@@ -1,7 +1,7 @@
 import { Project, ProjectCategory } from '../data/projects';
 import { Product } from '../data/products';
 import { ServiceItem } from '../data/services';
-import { DbProject, DbProduct, DbService } from './supabase';
+import { DbProject, DbProduct, DbService } from './types';
 
 export function mapProject(db: DbProject): Project {
   return {

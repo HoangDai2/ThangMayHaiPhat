@@ -2,8 +2,9 @@
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
-import { supabase } from '../../lib/supabase';
 import { usePermissions } from '../../hooks/usePermissions';
+import Cookies from 'js-cookie';
+import api from '../../lib/api';
 import {
   LayoutDashboard,
   FolderKanban,
@@ -38,42 +39,32 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
   const { hasPermission, loading: permissionsLoading, role } = usePermissions();
   const pathname = usePathname();
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setIsAuthenticated(!!session);
-    });
-
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setIsAuthenticated(!!session);
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
-
-  useEffect(() => {
-    if (isAuthenticated === false) {
+    if (!permissionsLoading && !role) {
       router.replace('/admin/login');
     }
-  }, [isAuthenticated, router]);
+  }, [permissionsLoading, role, router]);
 
-  if (isAuthenticated === null || permissionsLoading) {
+  if (permissionsLoading) {
     return <div className="min-h-screen flex items-center justify-center bg-slate-100">Đang tải...</div>;
   }
 
-  if (isAuthenticated === false) {
+  if (!role) {
     return null; // Will redirect
   }
 
   const handleLogout = async () => {
-    await supabase.auth.signOut();
+    try {
+      await api.post('/admin/logout');
+    } catch (e) {
+      console.error(e);
+    }
+    Cookies.remove('admin_token');
     router.push('/admin/login');
   };
 

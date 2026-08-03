@@ -1,7 +1,8 @@
 "use client";
 import { useState, useEffect } from 'react';
 import { Plus, Edit, Trash2, Search, X, Loader2, Image } from 'lucide-react';
-import { supabase, DbProject } from '../../lib/supabase';
+import api from '../../lib/api';
+import { DbProject } from '../../lib/types';
 import ArrayInput from '../../components/admin/ArrayInput';
 
 const CATEGORIES = ['Gia đình', 'Tải khách', 'Thương mại', 'Tải hàng'];
@@ -42,11 +43,12 @@ export default function AdminProjects() {
 
   const fetchProjects = async () => {
     setLoading(true);
-    const { data, error } = await supabase
-      .from('projects')
-      .select('*')
-      .order('created_at', { ascending: false });
-    if (!error && data) setProjects(data);
+    try {
+      const response = await api.get('/admin/projects');
+      if (response.data) setProjects(response.data);
+    } catch (e) {
+      console.error(e);
+    }
     setLoading(false);
   };
 
@@ -98,26 +100,29 @@ export default function AdminProjects() {
       testimonial: form.testimonial || null,
     };
 
-    let err;
-    if (editingId) {
-      ({ error: err } = await supabase.from('projects').update(payload).eq('id', editingId));
-    } else {
-      ({ error: err } = await supabase.from('projects').insert(payload));
-    }
-
-    if (err) {
-      setError(err.message);
-    } else {
+    try {
+      if (editingId) {
+        await api.put(`/admin/projects/${editingId}`, payload);
+      } else {
+        await api.post('/admin/projects', payload);
+      }
       await fetchProjects();
       closeModal();
+    } catch (error: any) {
+      setError(error.response?.data?.message || 'Có lỗi xảy ra');
     }
     setSaving(false);
   };
 
   const handleDelete = async (id: string, title: string) => {
     if (!window.confirm(`Xóa dự án "${title}"?`)) return;
-    await supabase.from('projects').delete().eq('id', id);
-    await fetchProjects();
+    try {
+      await api.delete(`/admin/projects/${id}`);
+      await fetchProjects();
+    } catch (e) {
+      console.error(e);
+      alert('Xóa thất bại');
+    }
   };
 
   const set = (field: keyof DbProject, value: unknown) =>

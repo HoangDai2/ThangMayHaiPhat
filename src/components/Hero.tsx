@@ -1,7 +1,8 @@
 "use client";
 import { useState, useEffect } from 'react';
 import { ArrowRight, ShieldCheck, Award, Wrench, ChevronLeft, ChevronRight } from 'lucide-react';
-import { supabase, DbBanner } from '../lib/supabase';
+import api from '../lib/api';
+import { DbBanner } from '../lib/types';
 import { getYouTubeEmbedUrl, isDirectVideo } from '../lib/video';
 
 const stats = [
@@ -13,6 +14,7 @@ const stats = [
 export default function Hero() {
   const [banners, setBanners] = useState<DbBanner[]>([]);
   const [currentIdx, setCurrentIdx] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchBanners();
@@ -29,13 +31,21 @@ export default function Hero() {
   }, [banners.length]);
 
   const fetchBanners = async () => {
-    const { data } = await supabase
-      .from('banners')
-      .select('*')
-      .eq('position', 'hero')
-      .eq('is_active', true)
-      .order('sort_order', { ascending: true });
-    if (data && data.length > 0) setBanners(data);
+    try {
+      const response = await api.get('/banners');
+      if (response.data) {
+        const activeBanners = response.data
+          .filter((b: DbBanner) => b.is_active && b.position === 'hero')
+          .sort((a: DbBanner, b: DbBanner) => (a.sort_order || 0) - (b.sort_order || 0));
+        if (activeBanners.length > 0) {
+          setBanners(activeBanners);
+        }
+      }
+    } catch (error) {
+      console.error('Lỗi khi tải banner:', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const goTo = (idx: number) => setCurrentIdx(idx);

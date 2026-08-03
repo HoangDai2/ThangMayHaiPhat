@@ -1,24 +1,19 @@
-import { useState, useEffect } from 'react';
-import { supabase } from '../lib/supabase';
+import useSWR from 'swr';
+import api from '../lib/api';
 import { mapProduct } from '../lib/mappers';
 import { Product } from '../data/products';
 import { products as staticProducts } from '../data/products';
 
-export function useProductsData() {
-  const [products, setProducts] = useState<Product[]>(staticProducts);
-  const [loading, setLoading] = useState(true);
+const fetcher = (url: string) => api.get(url).then(res => res.data);
 
-  useEffect(() => {
-    (async () => {
-      const { data, error } = await supabase
-        .from('products')
-        .select('*');
-      if (!error && data && data.length > 0) {
-        setProducts(data.map(mapProduct));
-      }
-      setLoading(false);
-    })();
-  }, []);
+export function useProductsData() {
+  const { data, error, isLoading } = useSWR('/products', fetcher);
+
+  const products: Product[] = data && data.length > 0 
+    ? data.map(mapProduct) 
+    : staticProducts;
+
+  const loading = isLoading;
 
   const getById = (id: string) => products.find((p) => p.id === id);
   const getRelated = (currentId: string, limit = 3) =>

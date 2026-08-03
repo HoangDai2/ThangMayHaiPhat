@@ -3,7 +3,8 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Lock, Eye, EyeOff, Mail } from 'lucide-react';
-import { supabase } from '../../lib/supabase';
+import api from '../../lib/api';
+import Cookies from 'js-cookie';
 
 export default function AdminLogin() {
   const [email, setEmail] = useState('');
@@ -11,14 +12,14 @@ export default function AdminLogin() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const navigate = useRouter();
 
-
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setIsAuthenticated(!!session);
-    });
+    const token = Cookies.get('admin_token');
+    if (token) {
+      setIsAuthenticated(true);
+    }
   }, []);
 
   useEffect(() => {
@@ -33,16 +34,17 @@ export default function AdminLogin() {
     setLoading(true);
 
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const response = await api.post('/admin/login', {
         email,
         password,
       });
 
-      if (error) throw error;
-      
-      navigate.push('/admin');
-    } catch (err: unknown) {
-      setError((err as Error).message || 'Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin.');
+      if (response.data.token) {
+        Cookies.set('admin_token', response.data.token, { expires: 7 }); // expires in 7 days
+        navigate.push('/admin');
+      }
+    } catch (err: any) {
+      setError(err.response?.data?.message || 'Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin.');
     } finally {
       setLoading(false);
     }

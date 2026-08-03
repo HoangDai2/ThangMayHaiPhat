@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import { supabase } from '../lib/supabase';
-import { DbReview } from '../lib/supabase';
+import useSWR from 'swr';
+import api from '../lib/api';
+import { DbReview } from '../lib/types';
 
 export type Review = DbReview;
 
@@ -55,23 +55,13 @@ const fallback: DbReview[] = [
   },
 ];
 
-export function useReviewsData() {
-  const [reviews, setReviews] = useState<DbReview[]>(fallback);
-  const [loading, setLoading] = useState(true);
+const fetcher = (url: string) => api.get(url).then(res => res.data);
 
-  useEffect(() => {
-    (async () => {
-      const { data, error } = await supabase
-        .from('reviews')
-        .select('*')
-        .eq('is_published', true)
-        .order('sort_order', { ascending: true });
-      if (!error && data && data.length > 0) {
-        setReviews(data);
-      }
-      setLoading(false);
-    })();
-  }, []);
+export function useReviewsData() {
+  const { data, error, isLoading } = useSWR('/reviews', fetcher);
+
+  const reviews: DbReview[] = data && data.length > 0 ? data : fallback;
+  const loading = isLoading;
 
   return { reviews, loading };
 }
@@ -83,19 +73,15 @@ export async function submitReview(payload: {
   text: string;
   project: string;
 }) {
-  const { data, error } = await supabase
-    .from('reviews')
-    .insert({
-      name: payload.name,
-      role: payload.role,
-      rating: payload.rating,
-      text: payload.text,
-      project: payload.project,
+  try {
+    const response = await api.post('/reviews', {
+      ...payload,
       avatar: '',
       is_published: false,
       sort_order: 0,
-    })
-    .select()
-    .maybeSingle();
-  return { data, error };
+    });
+    return { data: response.data, error: null };
+  } catch (error) {
+    return { data: null, error };
+  }
 }

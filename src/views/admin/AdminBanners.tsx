@@ -1,7 +1,8 @@
 "use client";
 import { useState, useEffect } from 'react';
 import { Plus, Edit, Trash2, X, Loader2, Image, ToggleLeft, ToggleRight, Video, ImageIcon } from 'lucide-react';
-import { supabase, DbBanner } from '../../lib/supabase';
+import api from '../../lib/api';
+import { DbBanner } from '../../lib/types';
 import ImageUpload from '../../components/admin/ImageUpload';
 import { getYouTubeEmbedUrl, isDirectVideo } from '../../lib/video';
 
@@ -36,11 +37,12 @@ export default function AdminBanners() {
 
   const fetchBanners = async () => {
     setLoading(true);
-    const { data, error } = await supabase
-      .from('banners')
-      .select('*')
-      .order('sort_order', { ascending: true });
-    if (!error && data) setBanners(data);
+    try {
+      const response = await api.get('/admin/banners');
+      if (response.data) setBanners(response.data);
+    } catch (e) {
+      console.error(e);
+    }
     setLoading(false);
   };
 
@@ -89,31 +91,38 @@ export default function AdminBanners() {
       is_active: form.is_active ?? true,
     };
 
-    let err;
-    if (editingId) {
-      ({ error: err } = await supabase.from('banners').update(payload).eq('id', editingId));
-    } else {
-      ({ error: err } = await supabase.from('banners').insert(payload));
-    }
-
-    if (err) {
-      setError(err.message);
-    } else {
+    try {
+      if (editingId) {
+        await api.put(`/admin/banners/${editingId}`, payload);
+      } else {
+        await api.post('/admin/banners', payload);
+      }
       await fetchBanners();
       closeModal();
+    } catch (error: any) {
+      setError(error.response?.data?.message || 'Có lỗi xảy ra');
     }
     setSaving(false);
   };
 
   const handleDelete = async (id: string, title: string) => {
     if (!window.confirm(`Xóa banner "${title}"?`)) return;
-    await supabase.from('banners').delete().eq('id', id);
-    await fetchBanners();
+    try {
+      await api.delete(`/admin/banners/${id}`);
+      await fetchBanners();
+    } catch (e) {
+      console.error(e);
+      alert('Xóa thất bại');
+    }
   };
 
   const toggleActive = async (banner: DbBanner) => {
-    await supabase.from('banners').update({ is_active: !banner.is_active }).eq('id', banner.id);
-    await fetchBanners();
+    try {
+      await api.put(`/admin/banners/${banner.id}`, { is_active: !banner.is_active });
+      await fetchBanners();
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   const renderMediaPreview = (banner: DbBanner) => {
