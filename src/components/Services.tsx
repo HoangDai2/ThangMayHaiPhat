@@ -46,7 +46,7 @@ export default function Services() {
   
   return (
     <section id="services" className="py-20 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Products header */}
         <div className="text-center mb-14">
           <span className="inline-block text-[#285c9a] text-sm font-semibold tracking-widest uppercase mb-3">

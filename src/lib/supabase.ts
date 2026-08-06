@@ -58,20 +58,7 @@ export interface DbService {
   created_at: string;
 }
 
-export interface DbBanner {
-  id: string;
-  title: string;
-  subtitle: string;
-  description: string;
-  image_url: string;
-  video_url: string;
-  media_type: 'image' | 'video';
-  link_url: string;
-  position: string;
-  sort_order: number;
-  is_active: boolean;
-  created_at: string;
-}
+
 
 export interface DbArticle {
   id: string;

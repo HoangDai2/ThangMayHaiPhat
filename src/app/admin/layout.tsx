@@ -19,15 +19,17 @@ import {
   Users,
   Shield,
   ExternalLink,
-  UserCheck
+  UserCheck,
+  Settings
 } from 'lucide-react';
 
 const sidebarItems = [
   { path: '/admin', label: 'Tổng quan', icon: LayoutDashboard, permission: null },
+  { path: '/admin/banners', label: 'Banner & Slider', icon: Layout, permission: 'manage_settings' },
   { path: '/admin/projects', label: 'Dự án', icon: FolderKanban, permission: 'manage_projects' },
   { path: '/admin/products', label: 'Sản phẩm', icon: Box, permission: 'manage_products' },
   { path: '/admin/services', label: 'Dịch vụ', icon: Briefcase, permission: 'manage_services' },
-  { path: '/admin/banners', label: 'Banner', icon: Layout, permission: 'manage_banners' },
+  { path: '/admin/settings', label: 'Cài đặt', icon: Settings, permission: 'manage_settings' },
   { path: '/admin/articles', label: 'Bài viết', icon: FileText, permission: 'manage_articles' },
   { path: '/admin/reviews', label: 'Đánh giá', icon: Star, permission: 'manage_reviews' },
   { path: '/admin/images', label: 'Hình ảnh', icon: ImageIcon, permission: 'manage_images' },

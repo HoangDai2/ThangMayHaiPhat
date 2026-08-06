@@ -1,234 +1,183 @@
 "use client";
-import { useState, useEffect } from 'react';
-import { ArrowRight, ShieldCheck, Award, Wrench, ChevronLeft, ChevronRight } from 'lucide-react';
-import { supabase, DbBanner } from '../lib/supabase';
-import { getYouTubeEmbedUrl, isDirectVideo } from '../lib/video';
-
-const stats = [
-  { icon: Award, value: '15+', label: 'Năm kinh nghiệm' },
-  { icon: ShieldCheck, value: '500+', label: 'Công trình hoàn thành' },
-  { icon: Wrench, value: '24/7', label: 'Hỗ trợ kỹ thuật' },
-];
+import { useCallback, useEffect, useState } from 'react';
+import useEmblaCarousel from 'embla-carousel-react';
+import Autoplay from 'embla-carousel-autoplay';
+import { ArrowRight, ChevronLeft, ChevronRight, Loader2 } from 'lucide-react';
+import { useBannersData } from '../hooks/useBannersData';
+import Link from 'next/link';
+import AboutUs from './AboutUs';
 
 export default function Hero() {
-  const [banners, setBanners] = useState<DbBanner[]>([]);
-  const [currentIdx, setCurrentIdx] = useState(0);
+  const { banners, loading } = useBannersData();
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [Autoplay({ delay: 5000, stopOnInteraction: false })]);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  const scrollPrev = useCallback(() => {
+    if (emblaApi) emblaApi.scrollPrev();
+  }, [emblaApi]);
+
+  const scrollNext = useCallback(() => {
+    if (emblaApi) emblaApi.scrollNext();
+  }, [emblaApi]);
+
+  const scrollTo = useCallback((index: number) => {
+    if (emblaApi) emblaApi.scrollTo(index);
+  }, [emblaApi]);
 
   useEffect(() => {
-    fetchBanners();
-  }, []);
+    if (!emblaApi) return;
+    const onSelect = () => {
+      setSelectedIndex(emblaApi.selectedScrollSnap());
+    };
+    emblaApi.on('select', onSelect);
+    onSelect();
+    return () => {
+      emblaApi.off('select', onSelect);
+    };
+  }, [emblaApi]);
 
-  useEffect(() => {
-    if (banners.length <= 1) return;
+  if (loading) {
+    return (
+      <section id="home" className="pt-20 pb-16 bg-gray-50">
+        <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="relative rounded-3xl overflow-hidden shadow-2xl bg-[#285c9a] h-[380px] sm:h-[450px] lg:h-[500px] flex items-center justify-center">
+            <Loader2 className="w-12 h-12 text-white animate-spin opacity-50" />
+          </div>
+        </div>
+      </section>
+    );
+  }
 
-    const timer = setInterval(() => {
-      setCurrentIdx((prev) => (prev + 1) % banners.length);
-    }, 6000);
-
-    return () => clearInterval(timer);
-  }, [banners.length]);
-
-  const fetchBanners = async () => {
-    let { data } = await supabase
-      .from('banners')
-      .select('*')
-      .eq('position', 'hero')
-      .eq('is_active', true)
-      .order('sort_order', { ascending: true });
-
-    // Nếu không có banner nào đặt vị trí 'hero', tự động lấy các banner được kích hoạt (is_active = true)
-    if (!data || data.length === 0) {
-      const fallbackRes = await supabase
-        .from('banners')
-        .select('*')
-        .eq('is_active', true)
-        .order('sort_order', { ascending: true });
-      data = fallbackRes.data;
-    }
-
-    if (data && data.length > 0) setBanners(data);
-  };
-
-  const goTo = (idx: number) => setCurrentIdx(idx);
-
-  const currentBanner = banners[currentIdx];
-
-  const defaultHero = {
-    title: 'Giải Pháp Thang Máy Hiện Đại & Uy Tín',
-    subtitle: 'Chất lượng khẳng định thương hiệu',
-    description: 'Chuyên lắp đặt thang máy gia đình và thang máy tải khách cao cấp. Chúng tôi mang đến sự an toàn, sang trọng và đẳng cấp cho không gian sống của bạn.',
-    image: 'https://images.pexels.com/photos/1267338/pexels-photo-1267338.jpeg?auto=compress&cs=tinysrgb&w=1920&q=80',
-  };
-
-  const heroTitle = currentBanner?.title || defaultHero.title;
-  const heroSubtitle = currentBanner?.subtitle || defaultHero.subtitle;
-  const heroDescription = currentBanner?.description || defaultHero.description;
-
-  // Split title for colored styling
-  const titleWords = heroTitle.split(' ');
-  const titlePart1 = titleWords.slice(0, 2).join(' ');
-  const titlePart2 = titleWords.slice(2, 4).join(' ');
-  const titlePart3 = titleWords.slice(4).join(' ');
+  // Fallback if no banners
+  const displayBanners = banners.length > 0 ? banners : [{
+    id: 'fallback-1',
+    title: 'Giai Phap Thang May Hien Dai & Uy Tin',
+    subtitle: 'Chat luong khang dinh thuong hieu',
+    description: 'Chuyen lap dat thang may gia dinh va thang may tai khach cao cap.',
+    image_url: 'https://images.pexels.com/photos/1267338/pexels-photo-1267338.jpeg?auto=compress&cs=tinysrgb&w=1920&q=80',
+    primary_button_text: 'Tu van mien phi',
+    primary_button_link: '#contact',
+    secondary_button_text: 'Xem du an',
+    secondary_button_link: '#projects',
+  }];
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0">
-        {currentBanner?.media_type === 'video' && currentBanner.video_url
-          ? getYouTubeEmbedUrl(currentBanner.video_url)
-            ? (
-              <iframe
-                key={currentBanner.id}
-                src={getYouTubeEmbedUrl(currentBanner.video_url)!}
-                className="w-full h-full object-cover pointer-events-none"
-                allow="autoplay; encrypted-media"
-                title={currentBanner.title}
-              />
-            )
-            : isDirectVideo(currentBanner.video_url)
-              ? (
-                <video
-                  key={currentBanner.id}
-                  src={currentBanner.video_url}
-                  className="w-full h-full object-cover"
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                />
-              )
-              : currentBanner.image_url
-                ? (
-                  <img
-                    src={currentBanner.image_url}
-                    alt={currentBanner.title}
-                    className="w-full h-full object-cover"
-                  />
-                )
-                : (
-                  <img
-                    src={defaultHero.image}
-                    alt="Thang máy gia đình sang trọng"
-                    className="w-full h-full object-cover"
-                  />
-                )
-        : currentBanner?.image_url ? (
-          <img
-            src={currentBanner.image_url}
-            alt={currentBanner.title}
-            className="w-full h-full object-cover"
-          />
-        ) : (
-          <img
-            src={defaultHero.image}
-            alt="Thang máy gia đình sang trọng"
-            className="w-full h-full object-cover"
-          />
-        )}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0d1f35]/90 via-[#285c9a]/70 to-[#285c9a]/20" />
-      </div>
+    <section id="home" className="pt-20 pb-8 bg-gray-50 min-h-screen flex flex-col justify-center">
+      <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 w-full flex flex-col gap-8 sm:gap-10">
+        <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl bg-[#285c9a]">
+          {/* Embla Viewport */}
+          <div className="overflow-hidden" ref={emblaRef}>
+            <div className="flex">
+              {displayBanners.map((slide) => {
+                const titleWords = slide.title.split(' ');
+                const titlePart1 = titleWords.slice(0, 2).join(' ');
+                const titlePart2 = titleWords.slice(2, 4).join(' ');
+                const titlePart3 = titleWords.slice(4).join(' ');
 
-      {/* Decorative vertical lines */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 bottom-0 left-[55%] w-px bg-white/5" />
-        <div className="absolute top-0 bottom-0 left-[70%] w-px bg-white/5" />
-      </div>
+                return (
+                  <div key={slide.id} className="relative min-w-0 flex-[0_0_100%] h-[380px] sm:h-[450px] lg:h-[500px]">
+                    {/* Background Image */}
+                    <img
+                      src={slide.image_url}
+                      alt={slide.title}
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                    
+                    {/* Gradient Overlay */}
+                    <div className="absolute inset-0 bg-[#285c9a]/80 sm:bg-transparent sm:bg-gradient-to-r sm:from-[#285c9a] sm:from-30% sm:via-[#285c9a]/80 sm:via-60% sm:to-transparent" />
+                    
+                    {/* Decorative lines */}
+                    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                      <div className="absolute top-0 bottom-0 left-[55%] w-px bg-white/5" />
+                      <div className="absolute top-0 bottom-0 left-[70%] w-px bg-white/5" />
+                    </div>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16">
-        <div className="max-w-2xl">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-1.5 mb-6">
-            <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-            <span className="text-white/90 text-xs font-medium tracking-wide uppercase">
-              {heroSubtitle}
-            </span>
-          </div>
+                    {/* Content */}
+                    <div className="relative z-10 flex flex-col justify-center h-full px-5 sm:px-8 md:px-16 max-w-3xl">
+                      {/* Badge */}
+                      <div className="hidden sm:inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-1.5 mb-6 w-fit">
+                        <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+                        <span className="text-white/90 text-xs font-medium tracking-wide uppercase">
+                          {slide.subtitle}
+                        </span>
+                      </div>
 
-          {/* H1 */}
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-5">
-            {titlePart1}{' '}
-            {titlePart2 && <span className="text-blue-300">{titlePart2}</span>}
-            {titlePart3 && (
-              <>
-                <br />
-                {titlePart3}
-              </>
-            )}
-          </h1>
+                      {/* H1 */}
+                      <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 sm:mb-5">
+                        {titlePart1}{' '}
+                        {titlePart2 && <span className="text-blue-200">{titlePart2}</span>}
+                        {titlePart3 && (
+                          <>
+                            <br />
+                            {titlePart3}
+                          </>
+                        )}
+                      </h1>
 
-          <p className="text-lg text-white/80 leading-relaxed mb-8 max-w-xl">
-            {heroDescription}
-          </p>
+                      <p className="text-sm sm:text-lg text-white/90 leading-relaxed mb-5 sm:mb-8 max-w-xl">
+                        {slide.description}
+                      </p>
 
-          {/* CTA buttons */}
-          <div className="flex flex-wrap gap-4">
-            <a
-              href="#contact"
-              className="group flex items-center gap-2 bg-[#285c9a] hover:bg-[#1e4a80] text-white px-7 py-3.5 rounded-xl font-semibold text-sm transition-all duration-200 shadow-lg shadow-[#285c9a]/40 hover:shadow-[#285c9a]/60 hover:-translate-y-0.5"
-            >
-              Tư vấn miễn phí
-              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-            </a>
-            <a
-              href="#projects"
-              className="flex items-center gap-2 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/30 text-white px-7 py-3.5 rounded-xl font-semibold text-sm transition-all duration-200 hover:-translate-y-0.5"
-            >
-              Xem dự án
-            </a>
-          </div>
-        </div>
-
-        {/* Stats bar */}
-        <div className="mt-16 grid grid-cols-3 gap-4 max-w-lg">
-          {stats.map(({ icon: Icon, value, label }) => (
-            <div key={label} className="text-center">
-              <div className="flex justify-center mb-1.5">
-                <Icon size={20} className="text-blue-300" />
-              </div>
-              <div className="text-2xl font-bold text-white">{value}</div>
-              <div className="text-xs text-white/60 mt-0.5">{label}</div>
+                      {/* CTA buttons */}
+                      <div className="flex flex-wrap gap-3 sm:gap-4">
+                        {slide.primary_button_text?.trim() && (
+                          <Link
+                            href={slide.primary_button_link || '#contact'}
+                            className="group flex items-center gap-2 bg-white text-[#285c9a] px-5 py-2.5 sm:px-7 sm:py-3.5 rounded-xl font-bold text-xs sm:text-sm transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+                          >
+                            {slide.primary_button_text}
+                            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                          </Link>
+                        )}
+                        {slide.secondary_button_text?.trim() && (
+                          <Link
+                            href={slide.secondary_button_link || '#projects'}
+                            className="flex items-center gap-2 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/30 text-white px-5 py-2.5 sm:px-7 sm:py-3.5 rounded-xl font-semibold text-xs sm:text-sm transition-all duration-200 hover:-translate-y-0.5"
+                          >
+                            {slide.secondary_button_text}
+                          </Link>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
-          ))}
-        </div>
-      </div>
+          </div>
 
-      {/* Banner navigation dots */}
-      {banners.length > 1 && (
-        <div className="absolute bottom-20 left-1/2 -translate-x-1/2 flex items-center gap-3">
-          {banners.map((_, idx) => (
-            <button
-              key={idx}
-              onClick={() => goTo(idx)}
-              className={`h-2 rounded-full transition-all duration-300 ${
-                idx === currentIdx ? 'bg-white w-8' : 'bg-white/40 w-2 hover:bg-white/60'
-              }`}
-            />
-          ))}
-        </div>
-      )}
-
-      {/* Arrow controls */}
-      {banners.length > 1 && (
-        <>
+          {/* Navigation Arrows */}
           <button
-            onClick={() => setCurrentIdx((prev) => (prev - 1 + banners.length) % banners.length)}
-            className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full p-3 text-white hover:bg-white/20 transition-all z-10"
+            onClick={scrollPrev}
+            className="absolute top-1/2 left-4 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-black/20 hover:bg-black/40 text-white backdrop-blur-sm transition-colors z-20 hidden md:flex"
+            aria-label="Previous slide"
           >
-            <ChevronLeft className="w-5 h-5" />
+            <ChevronLeft size={24} />
           </button>
           <button
-            onClick={() => setCurrentIdx((prev) => (prev + 1) % banners.length)}
-            className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full p-3 text-white hover:bg-white/20 transition-all z-10"
+            onClick={scrollNext}
+            className="absolute top-1/2 right-4 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-black/20 hover:bg-black/40 text-white backdrop-blur-sm transition-colors z-20 hidden md:flex"
+            aria-label="Next slide"
           >
-            <ChevronRight className="w-5 h-5" />
+            <ChevronRight size={24} />
           </button>
-        </>
-      )}
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 animate-bounce">
-        <span className="text-white/40 text-xs">Cuộn xuống</span>
-        <div className="w-px h-8 bg-gradient-to-b from-white/30 to-transparent" />
+          {/* Dots */}
+          <div className="absolute bottom-6 left-0 right-0 flex justify-center gap-2 z-20">
+            {displayBanners.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => scrollTo(index)}
+                className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                  index === selectedIndex ? 'bg-white w-6' : 'bg-white/50 hover:bg-white/80'
+                }`}
+                aria-label={`Go to slide ${index + 1}`}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* About Us */}
+        <AboutUs />
       </div>
     </section>
   );

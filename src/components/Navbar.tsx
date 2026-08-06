@@ -16,16 +16,7 @@ const navLinks = [
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
-
-  const isHome = pathname === '/';
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60);
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
 
   useEffect(() => {
     setMenuOpen(false);
@@ -41,16 +32,12 @@ export default function Navbar() {
   }, [pathname]);
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled || !isHome ? 'bg-white shadow-md py-3' : 'bg-transparent py-5'
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white py-3 transition-all duration-300">
+      <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center group">
           <img
-            src={scrolled || !isHome ? "/logohp.png" : "/image.png"}
+            src="/logohp.png"
             alt="Thang Máy Hải Phát"
             className="h-12 w-auto object-contain"
           />
@@ -61,9 +48,7 @@ export default function Navbar() {
           {navLinks.map((link) => (
             <Link key={link.href}
               href={link.href}
-              className={`text-sm font-medium transition-colors duration-200 hover:text-[#285c9a] ${
-                scrolled || !isHome ? 'text-gray-700' : 'text-white/90 hover:text-white'
-              }`}
+              className="text-sm font-medium text-gray-700 transition-colors duration-200 hover:text-[#285c9a]"
             >
               {link.label}
             </Link>
@@ -73,11 +58,7 @@ export default function Navbar() {
         {/* CTA phone */}
         <a
           href="tel:0898424666"
-          className={`hidden md:flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 ${
-            scrolled || !isHome
-              ? 'bg-[#285c9a] text-white hover:bg-[#1e4a80]'
-              : 'bg-white/15 text-white border border-white/30 hover:bg-white/25 backdrop-blur-sm'
-          }`}
+          className="hidden md:flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 bg-[#285c9a] text-white hover:bg-[#1e4a80]"
         >
           <Phone size={15} />
           0898 424 666
@@ -85,7 +66,7 @@ export default function Navbar() {
 
         {/* Mobile menu toggle */}
         <button
-          className={`md:hidden p-2 rounded-lg transition-colors ${scrolled || !isHome ? 'text-gray-700 hover:bg-gray-100' : 'text-white hover:bg-white/10'}`}
+          className="md:hidden p-2 rounded-lg transition-colors text-gray-700 hover:bg-gray-100"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
         >
@@ -95,7 +76,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="md:hidden bg-white border-t border-gray-100 shadow-lg">
+        <div className="md:hidden bg-white border-t border-gray-100 shadow-lg absolute top-full left-0 right-0">
           <nav className="flex flex-col px-4 py-3 gap-1">
             {navLinks.map((link) => (
               <Link key={link.href}

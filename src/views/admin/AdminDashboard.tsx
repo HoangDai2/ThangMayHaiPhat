@@ -7,17 +7,16 @@ import { supabase, DbProject } from '../../lib/supabase';
 
 export default function AdminDashboard() {
   const { hasPermission } = usePermissions();
-  const [counts, setCounts] = useState({ projects: 0, products: 0, services: 0, banners: 0, articles: 0, reviews: 0 });
+  const [counts, setCounts] = useState({ projects: 0, products: 0, services: 0, articles: 0, reviews: 0 });
   const [recentProjects, setRecentProjects] = useState<DbProject[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     (async () => {
-      const [proj, prod, svc, ban, art, rev, recent] = await Promise.all([
+      const [proj, prod, svc, art, rev, recent] = await Promise.all([
         supabase.from('projects').select('id', { count: 'exact', head: true }),
         supabase.from('products').select('id', { count: 'exact', head: true }),
         supabase.from('services').select('id', { count: 'exact', head: true }),
-        supabase.from('banners').select('id', { count: 'exact', head: true }),
         supabase.from('articles').select('id', { count: 'exact', head: true }),
         supabase.from('reviews').select('id', { count: 'exact', head: true }),
         supabase.from('projects').select('*').order('created_at', { ascending: false }).limit(4),
@@ -26,7 +25,6 @@ export default function AdminDashboard() {
         projects: proj.count ?? 0,
         products: prod.count ?? 0,
         services: svc.count ?? 0,
-        banners: ban.count ?? 0,
         articles: art.count ?? 0,
         reviews: rev.count ?? 0,
       });
@@ -39,7 +37,6 @@ export default function AdminDashboard() {
     { title: 'Dự án thang máy', count: counts.projects, icon: FolderKanban, href: '/admin/projects', permission: 'manage_projects' },
     { title: 'Sản phẩm & Linh kiện', count: counts.products, icon: Box, href: '/admin/products', permission: 'manage_products' },
     { title: 'Dịch vụ kỹ thuật', count: counts.services, icon: Briefcase, href: '/admin/services', permission: 'manage_services' },
-    { title: 'Banner trang chủ', count: counts.banners, icon: Layout, href: '/admin/banners', permission: 'manage_banners' },
     { title: 'Bài viết tin tức', count: counts.articles, icon: FileText, href: '/admin/articles', permission: 'manage_articles' },
     { title: 'Đánh giá khách hàng', count: counts.reviews, icon: Star, href: '/admin/reviews', permission: 'manage_reviews' },
   ];
@@ -119,15 +116,7 @@ export default function AdminDashboard() {
               <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-[#285c9a] group-hover:translate-x-0.5 transition-all" />
             </Link>
           )}
-          {hasPermission('manage_banners') && (
-            <Link href="/admin/banners" className="flex items-center justify-between p-4 bg-slate-50/80 border border-slate-200/60 rounded-xl hover:bg-blue-50/50 hover:border-blue-200 transition-all group">
-              <div className="flex items-center gap-3">
-                <Layout className="w-5 h-5 text-[#285c9a]" />
-                <span className="text-sm font-semibold text-slate-700 group-hover:text-[#285c9a]">Quản lý banner</span>
-              </div>
-              <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-[#285c9a] group-hover:translate-x-0.5 transition-all" />
-            </Link>
-          )}
+
           {hasPermission('manage_articles') && (
             <Link href="/admin/articles" className="flex items-center justify-between p-4 bg-slate-50/80 border border-slate-200/60 rounded-xl hover:bg-blue-50/50 hover:border-blue-200 transition-all group">
               <div className="flex items-center gap-3">
