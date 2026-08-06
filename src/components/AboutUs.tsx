@@ -1,5 +1,7 @@
-﻿"use client";
+"use client";
 import { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 
 interface CountUpProps {
   end: number;
@@ -58,47 +60,75 @@ export default function AboutUs() {
   }, []);
 
   return (
-    <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16 pt-4">
-      <div className="max-w-3xl space-y-6">
-        <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">
-          V&#7873; ch&#250;ng t&#244;i
-        </h2>
-        <p className="text-slate-500 text-lg leading-relaxed">
-          Thang M&#225;y H&#7843;i Ph&#225;t t&#7921; h&#224;o l&#224; &#273;&#417;n v&#7883; chuy&#234;n nghi&#7879;p h&#224;ng &#273;&#7847;u trong l&#297;nh v&#7921;c cung c&#7845;p, l&#7855;p &#273;&#7863;t v&#224; b&#7843;o tr&#236; thang m&#225;y. Ch&#250;ng t&#244;i mang &#273;&#7871;n cho kh&#225;ch h&#224;ng c&#225;c gi&#7843;i ph&#225;p thang m&#225;y to&#224;n di&#7879;n, t&#7915; thi&#7871;t k&#7871;, l&#7921;a ch&#7885;n thi&#7871;t b&#7883; ph&#249; h&#7907;p cho &#273;&#7871;n d&#7883;ch v&#7909; b&#7843;o h&#224;nh b&#7843;o tr&#236; tr&#7885;n g&#243;i. Cam k&#7871;t an to&#224;n, th&#7849;m m&#7929; v&#224; b&#7873;n b&#7881; theo th&#7901;i gian.
-        </p>
-      </div>
+    <div className="flex flex-col">
+      {/* Top: Floating Stats Box overlapping the Hero Banner (Image 2 style) */}
+      <div
+        ref={ref}
+        className="-mt-10 sm:-mt-12 lg:-mt-16 relative z-20 max-w-6xl mx-auto w-full px-2 sm:px-6 mb-4 sm:mb-5 lg:mb-6"
+      >
+        <div className="bg-white rounded-2xl sm:rounded-3xl shadow-xl shadow-slate-200/70 border border-slate-100 p-4 sm:p-5 lg:p-6 backdrop-blur-sm transition-shadow duration-300 hover:shadow-2xl hover:shadow-slate-300/50">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 lg:gap-0 lg:divide-x lg:divide-slate-100">
+            {/* Stat 1 */}
+            <div className="flex flex-col items-center justify-center text-center lg:px-4 space-y-1">
+              <div className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#285c9a] tracking-tight tabular-nums">
+                <CountUp end={10} suffix="+" started={isVisible} />
+              </div>
+              <div className="text-xs sm:text-sm text-slate-600 font-medium">Năm kinh nghiệm</div>
+            </div>
 
-      <div ref={ref} className="w-full lg:w-[460px] shrink-0 flex justify-between items-center">
-        <div className="space-y-8">
-          <div className="space-y-1.5">
-            <div className="text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight tabular-nums">
-              <CountUp end={10} suffix="+" started={isVisible} />
+            {/* Stat 2 */}
+            <div className="flex flex-col items-center justify-center text-center lg:px-4 space-y-1">
+              <div className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#285c9a] tracking-tight tabular-nums">
+                <CountUp end={1000} suffix="+" started={isVisible} />
+              </div>
+              <div className="text-xs sm:text-sm text-slate-600 font-medium">Dự án thành công</div>
             </div>
-            <div className="text-sm text-slate-400 font-medium">N&#259;m kinh nghi&#7879;m</div>
-          </div>
-          
-          <div className="space-y-1.5">
-            <div className="text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight tabular-nums">
-              <CountUp end={4000} suffix="+" started={isVisible} />
+
+            {/* Stat 3 */}
+            <div className="flex flex-col items-center justify-center text-center lg:px-4 space-y-1">
+              <div className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#285c9a] tracking-tight tabular-nums">
+                <CountUp end={4000} suffix="+" started={isVisible} />
+              </div>
+              <div className="text-xs sm:text-sm text-slate-600 font-medium">Thang máy lắp đặt</div>
             </div>
-            <div className="text-sm text-slate-400 font-medium">Thang m&#225;y l&#7855;p &#273;&#7863;t</div>
+
+            {/* Stat 4 */}
+            <div className="flex flex-col items-center justify-center text-center lg:px-4 space-y-1">
+              <div className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#285c9a] tracking-tight tabular-nums">
+                <CountUp end={95} suffix="%" started={isVisible} />
+              </div>
+              <div className="text-xs sm:text-sm text-slate-600 font-medium">Khách hàng hài lòng</div>
+            </div>
           </div>
         </div>
+      </div>
 
-        <div className="space-y-8">
-          <div className="space-y-1.5">
-            <div className="text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight tabular-nums">
-              <CountUp end={1000} suffix="+" started={isVisible} />
+      {/* Bottom: Title, Full Paragraph & CTA button wrapped in a styled card box */}
+      <div className="w-full">
+        <div className="bg-white rounded-2xl sm:rounded-3xl shadow-xl shadow-slate-200/60 border border-slate-100 px-5 sm:px-8 md:px-12 py-4 sm:py-5 lg:py-6 transition-shadow duration-300 hover:shadow-2xl hover:shadow-slate-300/40 space-y-3 sm:space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+            <div className="space-y-1">
+              <span className="text-[#285c9a] font-semibold tracking-widest uppercase text-xs sm:text-sm">
+                Về chúng tôi
+              </span>
+              <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 leading-tight">
+                Giới thiệu về Thang máy Hải Phát
+              </h2>
             </div>
-            <div className="text-sm text-slate-400 font-medium">D&#7921; &#225;n th&#224;nh c&#244;ng</div>
+            <div className="shrink-0">
+              <Link
+                href="/ve-chung-toi"
+                className="inline-flex items-center gap-2 bg-[#285c9a] hover:bg-[#1e4676] text-white px-5 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 shadow-sm hover:shadow-md group w-fit whitespace-nowrap"
+              >
+                <span>Tìm hiểu thêm về chúng tôi</span>
+                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </div>
           </div>
 
-          <div className="space-y-1.5">
-            <div className="text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight tabular-nums">
-              <CountUp end={95} suffix="%" started={isVisible} />
-            </div>
-            <div className="text-sm text-slate-400 font-medium">Kh&#225;ch h&#224;ng h&#224;i l&#242;ng</div>
-          </div>
+          <p className="text-slate-600 text-xs sm:text-sm lg:text-base leading-relaxed text-justify w-full">
+            Được thành lập vào năm 2020, Thang Máy Hải Phát có trụ sở tại Tầng 11, Tòa Nhà Đa Năng, 169 Đ. Nguyễn Ngọc Vũ, Yên Hòa, Hà Nội, Việt Nam và hoạt động trong lĩnh vực cung cấp, lắp đặt, bảo trì thang máy. Chúng tôi cung cấp các giải pháp thang máy toàn diện, cam kết mang đến những sản phẩm an toàn, bền bỉ và có tính thẩm mỹ cao. Hải Phát sử dụng thiết bị đồng bộ liên doanh từ các thương hiệu uy tín như Mitsubishi, Fuji, Sicor Italy, Montanari, Schneider và Ziehl-Abegg. Tất cả thiết bị, linh kiện chính đều có đầy đủ chứng chỉ CO (Certificate of Origin) và CQ (Certificate of Quality), đảm bảo nguồn gốc xuất xứ rõ ràng, chất lượng đạt tiêu chuẩn và mang đến sự an tâm cho khách hàng trong suốt quá trình sử dụng.
+          </p>
         </div>
       </div>
     </div>

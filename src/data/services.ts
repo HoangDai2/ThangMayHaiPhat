@@ -19,7 +19,7 @@ export const serviceItems: ServiceItem[] = [
     title: 'Khảo Sát - Báo Giá',
     subtitle: 'Khảo sát hiện trạng và báo giá minh bạch',
     icon: 'clipboard-search',
-    shortDescription: 'Đội ngũ kỹ sư đến tận công trình khảo sát, đo đạc, đánh giá hiện trạng và cung cấp báo giá chi tiết, minh bạch trong 24 giờ.',
+    shortDescription: 'Đối với sản phẩm đặc thù như thang máy, thang cuốn, mỗi khách hàng, mỗi công trình là mỗi yêu cầu khác nhau. Công ty Thang máy Hải Phát theo đuổi tư duy đặt khách hàng làm trọng tâm, chính xác tận tâm. Thang máy Hải Phát sẽ tiếp nhận những yêu cầu kĩ thuật của khách hàng, phân tích và tư vấn những giải pháp tối ưu nhất cho từng công trình từ khâu lên bản vẽ cho đến lúc thực thi.',
     fullDescription: `Dịch vụ khảo sát và báo giá của Hải Phát là bước đầu tiên trong quy trình cung cấp giải pháp thang máy. Đội ngũ kỹ sư giàu kinh nghiệm sẽ đến tận công trình để khảo sát hiện trạng, đo đạc không gian, đánh giá kết cấu và đề xuất giải pháp phù hợp nhất.
 
 Sau khi khảo sát, chúng tôi cung cấp báo giá chi tiết trong vòng 24 giờ, minh bạch từng hạng mục: thiết bị, vật tư, nhân công, vận hành thử và bảo hành. Không phát sinh chi phí ẩn, cam kết giá tốt nhất thị trường.`,
@@ -43,7 +43,7 @@ Sau khi khảo sát, chúng tôi cung cấp báo giá chi tiết trong vòng 24 
     title: 'Tư Vấn - Thiết Kế',
     subtitle: 'Tư vấn giải pháp và thiết kế kỹ thuật chuyên sâu',
     icon: 'ruler',
-    shortDescription: 'Tư vấn lựa chọn loại thang phù hợp, thiết kế bản vẽ kỹ thuật 2D/3D, phối cảnh cabin và bố trí giếng thang tối ưu.',
+    shortDescription: 'Thang máy Hải Phát luôn chú trọng đến việc làm hài lòng khách hàng thông qua dịch vụ tư vấn thiết kế và cung cấp giải pháp toàn diện, hiệu quả. Đội ngũ kĩ sư giàu kinh nghiệm của Công ty sẽ tư vấn công trình đảm bảo khai thác tối đa công năng sử dụng mà vẫn mang tính thẩm mỹ cao, hài hòa kiến trúc nội thất tổng thể của ngôi nhà. Dựa theo diện tích mặt bằng, số tầng và khả năng tài chính của gia chủ. Thang máy Hải Phát giúp quý khách đưa ra lựa chọn dễ dàng và hiệu quả nhất cho từng sản phẩm.',
     fullDescription: `Dịch vụ tư vấn và thiết kế của Hải Phát giúp khách hàng lựa chọn giải pháp thang máy tối ưu cho công trình. Đội ngũ kỹ sư và kiến trúc sư sẽ tư vấn về loại thang, tải trọng, tốc độ, cabin và nội thất phù hợp với nhu cầu và ngân sách.
 
 Sau khi thống nhất giải pháp, chúng tôi thiết kế bản vẽ kỹ thuật chi tiết 2D/3D, phối cảnh cabin, bố trí giếng thang và máy phòng. Thiết kế tuân thủ tiêu chuẩn QCVN 06:2022 và EN 81, đảm bảo an toàn và thẩm mỹ.`,

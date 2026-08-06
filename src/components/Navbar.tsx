@@ -56,13 +56,22 @@ export default function Navbar() {
         </nav>
 
         {/* CTA phone */}
-        <a
-          href="tel:0898424666"
-          className="hidden md:flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 bg-[#285c9a] text-white hover:bg-[#1e4a80]"
-        >
-          <Phone size={15} />
-          0898 424 666
-        </a>
+        <div className="hidden md:flex items-center gap-4">
+          <a
+            href="tel:0987603588"
+            className="flex items-center gap-2 px-4 py-2 rounded-lg border border-[#285c9a] text-sm font-semibold text-[#285c9a] hover:bg-blue-50 transition-all duration-200"
+          >
+            <Phone size={15} />
+            0987 603 588
+          </a>
+          <a
+            href="tel:0898424666"
+            className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 bg-[#285c9a] text-white hover:bg-[#1e4a80]"
+          >
+            <Phone size={15} />
+            0898 424 666
+          </a>
+        </div>
 
         {/* Mobile menu toggle */}
         <button
@@ -86,13 +95,22 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
-            <a
-              href="tel:0898424666"
-              className="mt-2 flex items-center justify-center gap-2 py-2.5 bg-[#285c9a] text-white rounded-lg font-semibold text-sm"
-            >
-              <Phone size={15} />
-              0898 424 666
-            </a>
+            <div className="mt-2 flex flex-col gap-2">
+              <a
+                href="tel:0987603588"
+                className="flex items-center justify-center gap-2 py-2.5 rounded-lg border border-[#285c9a] text-[#285c9a] font-semibold text-sm hover:bg-blue-50 transition-colors"
+              >
+                <Phone size={15} />
+                0987 603 588
+              </a>
+              <a
+                href="tel:0898424666"
+                className="flex items-center justify-center gap-2 py-2.5 bg-[#285c9a] text-white rounded-lg font-semibold text-sm"
+              >
+                <Phone size={15} />
+                0898 424 666
+              </a>
+            </div>
           </nav>
         </div>
       )}

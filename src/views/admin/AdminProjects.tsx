@@ -221,7 +221,7 @@ export default function AdminProjects() {
                     Sửa
                   </button>
                   <button
-                    onClick={() => handleDelete(project.id)}
+                    onClick={() => handleDelete(project.id, project.title)}
                     className="flex items-center justify-center p-2 bg-slate-50 border border-slate-200/70 text-slate-400 hover:text-rose-600 hover:bg-rose-50 hover:border-rose-200 rounded-xl transition-all"
                     title="Xóa dự án"
                   >

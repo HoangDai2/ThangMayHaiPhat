@@ -20,6 +20,7 @@ const emptyForm = (): Partial<Banner> => ({
   primary_button_link: '',
   secondary_button_text: '',
   secondary_button_link: '',
+  template_type: 'standard',
 });
 
 export default function AdminBanners() {
@@ -310,6 +311,20 @@ export default function AdminBanners() {
                       </div>
                     </div>
                     
+                    <div>
+                      <label className="block text-sm font-semibold text-slate-700 mb-1.5">Khuôn mẫu Banner (Template)</label>
+                      <select
+                        className="w-full px-3 py-2 rounded-xl border border-slate-300 focus:outline-none focus:border-[#285c9a] bg-white text-sm"
+                        value={form.template_type || 'standard'}
+                        onChange={(e) => setForm({ ...form, template_type: e.target.value })}
+                      >
+                        <option value="standard">Mẫu 1: Tiêu chuẩn (Căn trái + Backdrop)</option>
+                        <option value="centered">Mẫu 2: Sang trọng (Căn giữa + Glassmorphism)</option>
+                        <option value="split">Mẫu 3: Nổi bật tính năng (Chia 2 bên + Checkmarks)</option>
+                        <option value="accent">Mẫu 4: Công nghệ & Hiện đại (Dark Accent Tag)</option>
+                      </select>
+                    </div>
+
                     <div>
                       <label className="block text-sm font-semibold text-slate-700 mb-1.5">Thứ tự hiển thị</label>
                       <input

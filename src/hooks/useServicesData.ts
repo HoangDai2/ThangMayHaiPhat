@@ -14,7 +14,8 @@ export function useServicesData() {
         .from('services')
         .select('*');
       if (!error && data && data.length > 0) {
-        setServices(data.map(mapService));
+        // Tạm thời comment lại để hiển thị dữ liệu tĩnh (từ file services.ts)
+        // setServices(data.map(mapService));
       }
       setLoading(false);
     })();
