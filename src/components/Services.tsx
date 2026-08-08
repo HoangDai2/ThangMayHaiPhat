@@ -4,8 +4,6 @@ import {
   Building2,
   ShieldCheck,
   Settings,
-  Clock,
-  Headphones,
   ArrowRight,
   Home,
   Truck,
@@ -32,13 +30,6 @@ const serviceIconMap: Record<string, React.ComponentType<{ size?: number; classN
   wrench: Wrench,
   'shield-check': ShieldCheck,
 };
-
-const features = [
-  { icon: ShieldCheck, title: 'An toàn tuyệt đối', desc: 'Hệ thống phanh đa lớp, cảm biến quá tải, cửa an toàn chống kẹt.' },
-  { icon: Settings, title: 'Lắp đặt chuyên nghiệp', desc: 'Đội ngũ kỹ sư được chứng nhận, lắp đặt đúng tiến độ, không phá vỡ kết cấu.' },
-  { icon: Clock, title: 'Bảo hành 18 tháng', desc: 'Bảo hành toàn bộ linh kiện, bảo trì định kỳ miễn phí 2 tháng/lần.' },
-  { icon: Headphones, title: 'Hỗ trợ 24/7', desc: 'Đường dây nóng 24/7, xử lý sự cố trong vòng 2 giờ trên toàn quốc.' },
-];
 
 export default function Services() {
   const { products } = useProductsData();
@@ -146,21 +137,6 @@ export default function Services() {
           </div>
         </div>
 
-        {/* Feature grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {features.map(({ icon: Icon, title, desc }) => (
-            <div
-              key={title}
-              className="bg-white rounded-xl p-5 border border-gray-100 hover:border-[#285c9a]/20 hover:shadow-md transition-all duration-200"
-            >
-              <div className="w-10 h-10 rounded-xl bg-[#285c9a]/10 flex items-center justify-center mb-3">
-                <Icon size={20} className="text-[#285c9a]" />
-              </div>
-              <h4 className="font-semibold text-gray-900 text-sm mb-1.5">{title}</h4>
-              <p className="text-gray-500 text-xs leading-relaxed">{desc}</p>
-            </div>
-          ))}
-        </div>
       </div>
     </section>
   );
