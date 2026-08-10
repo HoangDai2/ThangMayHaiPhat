@@ -12,10 +12,10 @@ export function useServicesData() {
     (async () => {
       const { data, error } = await supabase
         .from('services')
-        .select('*');
+        .select('*')
+        .order('sort_order', { ascending: true });
       if (!error && data && data.length > 0) {
-        // Tạm thời comment lại để hiển thị dữ liệu tĩnh (từ file services.ts)
-        // setServices(data.map(mapService));
+        setServices(data.map(mapService));
       }
       setLoading(false);
     })();

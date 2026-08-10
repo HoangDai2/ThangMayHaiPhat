@@ -46,7 +46,7 @@ export function mapProduct(db: DbProduct): Product {
 
 export function mapService(db: DbService): ServiceItem {
   return {
-    id: db.id,
+    id: db.slug || db.id,
     title: db.title,
     subtitle: db.subtitle,
     icon: db.icon,

@@ -278,56 +278,56 @@ export default function Hero() {
                     {template === 'features' && (
                       <>
                         <div className="absolute inset-0 bg-[#285c9a]/90 sm:bg-gradient-to-r sm:from-[#1b3d68] sm:via-[#285c9a]/80 sm:to-transparent" />
-                        <div className="relative z-10 flex flex-col justify-center h-full px-5 sm:px-8 md:px-14 max-w-7xl mx-auto w-full">
-                          <div className="mb-6 sm:mb-10 max-w-2xl">
+                        <div className="relative z-10 flex flex-col justify-center h-full px-5 sm:px-8 md:px-14 max-w-7xl mx-auto w-full pb-10 sm:pb-16 lg:pb-0">
+                          <div className="mb-4 sm:mb-10 max-w-2xl mt-4 sm:mt-0">
                              {slide.subtitle && (
-                               <span className="inline-block text-amber-400 text-xs font-bold tracking-wider uppercase mb-2">
+                               <span className="inline-block text-amber-400 text-[10px] sm:text-xs font-bold tracking-wider uppercase mb-1.5 sm:mb-2">
                                  {slide.subtitle}
                                </span>
                              )}
-                             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-3 leading-snug">
+                             <h1 className="text-xl sm:text-3xl lg:text-4xl font-bold text-white mb-2 sm:mb-3 leading-snug">
                                {slide.title || 'Cam Kết Chất Lượng'}
                              </h1>
-                             <p className="text-sm lg:text-base text-white/80 leading-relaxed">
+                             <p className="text-xs sm:text-sm lg:text-base text-white/80 leading-relaxed line-clamp-2 sm:line-clamp-none">
                                {slide.description || 'Chúng tôi mang đến những giá trị tốt nhất cho khách hàng.'}
                              </p>
                           </div>
                           
-                          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 w-full">
+                          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-5 w-full">
                              {/* Feature 1 */}
-                             <div className="bg-white/10 backdrop-blur-md rounded-xl p-5 border border-white/20 hover:bg-white/15 transition-colors">
-                               <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center mb-3">
-                                 <ShieldCheck size={20} className="text-white" />
+                             <div className="bg-white/10 backdrop-blur-md rounded-xl p-3 sm:p-5 border border-white/20 hover:bg-white/15 transition-colors">
+                               <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-white/20 flex items-center justify-center mb-2 sm:mb-3">
+                                 <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                                </div>
-                               <h4 className="font-semibold text-white text-sm mb-1.5">An toàn tuyệt đối</h4>
-                               <p className="text-white/70 text-xs leading-relaxed">Hệ thống phanh đa lớp, cảm biến quá tải, cửa an toàn chống kẹt.</p>
+                               <h4 className="font-semibold text-white text-[11px] sm:text-sm mb-0 sm:mb-1.5 line-clamp-2 sm:line-clamp-1">An toàn tuyệt đối</h4>
+                               <p className="hidden sm:block text-white/70 text-xs leading-relaxed line-clamp-2">Hệ thống phanh đa lớp, cảm biến quá tải, cửa an toàn chống kẹt.</p>
                              </div>
                              
                              {/* Feature 2 */}
-                             <div className="bg-white/10 backdrop-blur-md rounded-xl p-5 border border-white/20 hover:bg-white/15 transition-colors">
-                               <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center mb-3">
-                                 <Settings size={20} className="text-white" />
+                             <div className="bg-white/10 backdrop-blur-md rounded-xl p-3 sm:p-5 border border-white/20 hover:bg-white/15 transition-colors">
+                               <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-white/20 flex items-center justify-center mb-2 sm:mb-3">
+                                 <Settings className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                                </div>
-                               <h4 className="font-semibold text-white text-sm mb-1.5">Lắp đặt chuyên nghiệp</h4>
-                               <p className="text-white/70 text-xs leading-relaxed">Đội ngũ kỹ sư được chứng nhận, lắp đặt đúng tiến độ, không phá vỡ kết cấu.</p>
+                               <h4 className="font-semibold text-white text-[11px] sm:text-sm mb-0 sm:mb-1.5 line-clamp-2 sm:line-clamp-1">Lắp đặt chuyên nghiệp</h4>
+                               <p className="hidden sm:block text-white/70 text-xs leading-relaxed line-clamp-2">Đội ngũ kỹ sư được chứng nhận, lắp đặt đúng tiến độ.</p>
                              </div>
                              
                              {/* Feature 3 */}
-                             <div className="bg-white/10 backdrop-blur-md rounded-xl p-5 border border-white/20 hover:bg-white/15 transition-colors">
-                               <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center mb-3">
-                                 <Clock size={20} className="text-white" />
+                             <div className="bg-white/10 backdrop-blur-md rounded-xl p-3 sm:p-5 border border-white/20 hover:bg-white/15 transition-colors">
+                               <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-white/20 flex items-center justify-center mb-2 sm:mb-3">
+                                 <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                                </div>
-                               <h4 className="font-semibold text-white text-sm mb-1.5">Bảo hành 18 tháng</h4>
-                               <p className="text-white/70 text-xs leading-relaxed">Bảo hành toàn bộ linh kiện, bảo trì định kỳ miễn phí 2 tháng/lần.</p>
+                               <h4 className="font-semibold text-white text-[11px] sm:text-sm mb-0 sm:mb-1.5 line-clamp-2 sm:line-clamp-1">Bảo hành 18 tháng</h4>
+                               <p className="hidden sm:block text-white/70 text-xs leading-relaxed line-clamp-2">Bảo hành toàn bộ linh kiện, bảo trì định kỳ miễn phí.</p>
                              </div>
                              
                              {/* Feature 4 */}
-                             <div className="bg-white/10 backdrop-blur-md rounded-xl p-5 border border-white/20 hover:bg-white/15 transition-colors">
-                               <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center mb-3">
-                                 <Headphones size={20} className="text-white" />
+                             <div className="bg-white/10 backdrop-blur-md rounded-xl p-3 sm:p-5 border border-white/20 hover:bg-white/15 transition-colors">
+                               <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-white/20 flex items-center justify-center mb-2 sm:mb-3">
+                                 <Headphones className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                                </div>
-                               <h4 className="font-semibold text-white text-sm mb-1.5">Hỗ trợ 24/7</h4>
-                               <p className="text-white/70 text-xs leading-relaxed">Đường dây nóng 24/7, xử lý sự cố trong vòng 2 giờ trên toàn quốc.</p>
+                               <h4 className="font-semibold text-white text-[11px] sm:text-sm mb-0 sm:mb-1.5 line-clamp-2 sm:line-clamp-1">Hỗ trợ 24/7</h4>
+                               <p className="hidden sm:block text-white/70 text-xs leading-relaxed line-clamp-2">Đường dây nóng 24/7, xử lý sự cố trong vòng 2 giờ.</p>
                              </div>
                           </div>
                         </div>

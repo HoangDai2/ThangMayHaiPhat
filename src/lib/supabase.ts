@@ -46,6 +46,7 @@ export interface DbProduct {
 
 export interface DbService {
   id: string;
+  slug: string;
   title: string;
   subtitle: string;
   icon: string;
