@@ -36,6 +36,7 @@ export default function Services() {
   const { services: serviceItems } = useServicesData();
   
   return (
+    <>
     <section id="services" className="py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Products header */}
@@ -98,18 +99,22 @@ export default function Services() {
           })}
         </div>
 
-        {/* Services strip */}
-        <div className="bg-white rounded-2xl p-8 border border-gray-100 mb-14">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-6 mb-8">
+      </div>
+    </section>
+
+    {/* Services strip — full-width section */}
+    <section className="bg-[#0d1f35] py-16 sm:py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-6 mb-10">
             <div>
-              <span className="inline-block text-[#285c9a] text-sm font-semibold tracking-widest uppercase mb-2">
+              <span className="inline-block text-[#a9d0ff] text-sm font-semibold tracking-widest uppercase mb-2">
                 Dịch vụ
               </span>
-              <h3 className="text-2xl font-bold text-gray-900">Quy Trình Dịch Vụ Chuyên Nghiệp</h3>
-              <p className="text-gray-500 text-sm mt-1">Đồng hành cùng bạn trong toàn bộ vòng đời thang máy</p>
+              <h3 className="text-2xl sm:text-3xl font-bold text-white">Quy Trình Dịch Vụ Chuyên Nghiệp</h3>
+              <p className="text-white/60 text-sm mt-2">Đồng hành cùng bạn trong toàn bộ vòng đời thang máy</p>
             </div>
             <Link href="/dich-vu"
-              className="group flex items-center gap-2 text-[#285c9a] font-semibold text-sm hover:gap-3 transition-all"
+              className="group flex items-center gap-2 text-[#a9d0ff] font-semibold text-sm hover:gap-3 transition-all"
             >
               Xem tất cả dịch vụ
               <ArrowRight size={16} className="group-hover:translate-x-0.5 transition-transform" />
@@ -121,23 +126,22 @@ export default function Services() {
               return (
                 <Link key={service.id}
                   href={`/dich-vu#${service.id}`}
-                  className="group flex items-start gap-4 p-5 rounded-xl bg-gray-50 hover:bg-[#285c9a]/5 hover:shadow-md transition-all duration-200"
+                  className="group flex items-start gap-4 p-5 rounded-xl bg-white/5 hover:bg-white/10 hover:shadow-lg transition-all duration-200 border border-white/10"
                 >
-                  <div className="w-11 h-11 rounded-xl bg-[#285c9a]/10 flex items-center justify-center flex-shrink-0">
-                    <Icon size={20} className="text-[#285c9a]" />
+                  <div className="w-11 h-11 rounded-xl bg-[#285c9a]/40 flex items-center justify-center flex-shrink-0">
+                    <Icon size={20} className="text-[#a9d0ff]" />
                   </div>
                   <div>
-                    <div className="text-gray-400 text-xs font-semibold mb-0.5">Bước {idx + 1}</div>
-                    <h4 className="font-semibold text-gray-900 text-sm mb-1">{service.title}</h4>
-                    <p className="text-gray-500 text-xs leading-relaxed line-clamp-2">{service.shortDescription}</p>
+                    <div className="text-white/40 text-xs font-semibold mb-0.5">Bước {idx + 1}</div>
+                    <h4 className="font-semibold text-white text-sm mb-1">{service.title}</h4>
+                    <p className="text-white/60 text-xs leading-relaxed line-clamp-2">{service.shortDescription}</p>
                   </div>
                 </Link>
               );
             })}
           </div>
         </div>
-
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
