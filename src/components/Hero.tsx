@@ -60,8 +60,8 @@ export default function Hero() {
     : <img src={image} alt={title} className="h-full w-full object-cover" />;
 
   return (
-    <section id="home" className="bg-[#f7f9fc] px-3 pb-24 pt-3 sm:px-6 lg:px-8 lg:pb-28 lg:pt-5">
-      <div className="relative mx-auto h-[540px] max-w-[1440px] overflow-hidden rounded-[24px] bg-[#173f70] shadow-[0_18px_45px_rgba(13,31,53,0.18)] sm:h-[580px] lg:h-[600px]">
+    <div id="home">
+      <div className="relative h-[540px] overflow-hidden bg-[#173f70] sm:h-[580px] lg:h-[600px]">
         <div className="absolute inset-0">{background}</div>
         <div className="absolute inset-0 bg-gradient-to-r from-[#0d3765]/95 via-[#174b83]/75 to-[#174b83]/10" />
         <div className="absolute inset-y-0 left-[40%] hidden w-px bg-white/10 lg:block" />
@@ -117,6 +117,6 @@ export default function Hero() {
           </div>
         ))}
       </div>
-    </section>
+    </div>
   );
 }

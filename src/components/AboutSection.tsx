@@ -5,7 +5,7 @@ import { companyInfo } from '../data/company';
 
 export default function AboutSection() {
   return (
-    <section id="about" className="bg-white px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+    <div id="about" className="bg-white px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
       <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
         <div className="relative">
           <div className="absolute -left-4 -top-4 h-28 w-28 rounded-2xl bg-[#e8f0fa]" />
@@ -48,6 +48,6 @@ export default function AboutSection() {
           </Link>
         </div>
       </div>
-    </section>
+    </div>
   );
 }
