@@ -36,7 +36,6 @@ export default function AdminDashboard() {
   const statCards = [
     { title: 'Dự án thang máy', count: counts.projects, icon: FolderKanban, href: '/admin/projects', permission: 'manage_projects' },
     { title: 'Sản phẩm & Linh kiện', count: counts.products, icon: Box, href: '/admin/products', permission: 'manage_products' },
-    { title: 'Dịch vụ kỹ thuật', count: counts.services, icon: Briefcase, href: '/admin/services', permission: 'manage_services' },
     { title: 'Bài viết tin tức', count: counts.articles, icon: FileText, href: '/admin/articles', permission: 'manage_articles' },
     { title: 'Đánh giá khách hàng', count: counts.reviews, icon: Star, href: '/admin/reviews', permission: 'manage_reviews' },
   ];
@@ -107,15 +106,7 @@ export default function AdminDashboard() {
               <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-[#285c9a] group-hover:translate-x-0.5 transition-all" />
             </Link>
           )}
-          {hasPermission('manage_services') && (
-            <Link href="/admin/services" className="flex items-center justify-between p-4 bg-slate-50/80 border border-slate-200/60 rounded-xl hover:bg-blue-50/50 hover:border-blue-200 transition-all group">
-              <div className="flex items-center gap-3">
-                <Briefcase className="w-5 h-5 text-[#285c9a]" />
-                <span className="text-sm font-semibold text-slate-700 group-hover:text-[#285c9a]">Quản lý dịch vụ</span>
-              </div>
-              <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-[#285c9a] group-hover:translate-x-0.5 transition-all" />
-            </Link>
-          )}
+
 
           {hasPermission('manage_articles') && (
             <Link href="/admin/articles" className="flex items-center justify-between p-4 bg-slate-50/80 border border-slate-200/60 rounded-xl hover:bg-blue-50/50 hover:border-blue-200 transition-all group">

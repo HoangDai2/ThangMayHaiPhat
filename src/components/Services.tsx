@@ -52,32 +52,61 @@ export default function Services() {
               <h3 className="text-2xl font-bold text-gray-900">Quy Trình Dịch Vụ Chuyên Nghiệp</h3>
               <p className="text-gray-500 text-sm mt-1">Đồng hành cùng bạn trong toàn bộ vòng đời thang máy</p>
             </div>
-            <Link href="/dich-vu"
-              className="group flex items-center gap-2 text-[#285c9a] font-semibold text-sm hover:gap-3 transition-all shrink-0"
-            >
-              Xem tất cả dịch vụ
-              <ArrowRight size={16} className="group-hover:translate-x-0.5 transition-transform" />
-            </Link>
           </div>
-          <div className="grid sm:grid-cols-2 gap-4">
-            {serviceItems.map((service, idx) => {
-              const Icon = serviceIconMap[service.icon] || Settings;
-              return (
-                <Link key={service.id}
-                  href={`/dich-vu#${service.id}`}
-                  className="group flex flex-col p-6 sm:p-8 rounded-2xl bg-gray-50 border border-transparent hover:border-gray-200 hover:bg-white hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-300 h-full"
-                >
-                  <div className="w-14 h-14 rounded-2xl bg-white shadow-sm flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-[#285c9a] transition-all duration-300 shrink-0">
-                    <Icon size={24} className="text-[#285c9a] group-hover:text-white transition-colors" />
+          <div className="relative mt-12 md:mt-16 max-w-6xl mx-auto w-full">
+            {/* Center Line for Desktop, Left Line for Mobile */}
+            <div className="absolute left-[27px] md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-gray-100 via-gray-200 to-gray-100 transform md:-translate-x-1/2"></div>
+            
+            <div className="space-y-12 md:space-y-0">
+              {serviceItems.map((service, idx) => {
+                const Icon = serviceIconMap[service.icon] || Settings;
+                const isEven = idx % 2 === 1; // 0-indexed, so 1 (Step 2) is even
+                const isLast = idx === serviceItems.length - 1;
+                
+                return (
+                  <div key={service.id} className={`relative flex flex-col md:flex-row items-start ${isEven ? 'md:flex-row-reverse' : ''} group ${!isLast ? 'md:pb-24' : ''}`}>
+                    
+                    {/* Icon Node */}
+                    <div className="absolute left-[27px] md:left-1/2 transform -translate-x-1/2 flex items-center justify-center w-[54px] h-[54px] rounded-full bg-white border-[4px] border-gray-50 shadow-md group-hover:border-[#285c9a]/20 group-hover:scale-110 transition-all duration-500 z-10">
+                      <div className="flex items-center justify-center w-full h-full rounded-full bg-gray-50 group-hover:bg-[#285c9a] transition-colors duration-500">
+                        <Icon size={22} className="text-[#285c9a] group-hover:text-white transition-colors duration-500" />
+                      </div>
+                    </div>
+                    
+                    {/* Content Card */}
+                    <div className={`w-full md:w-1/2 pl-20 md:pl-0 ${isEven ? 'md:pr-10' : 'md:pl-10'} mt-1 md:mt-0`}>
+                      <div className="block bg-white p-6 md:p-8 rounded-3xl shadow-sm hover:shadow-xl hover:shadow-[#285c9a]/10 border border-gray-100 transition-all duration-500 hover:-translate-y-1 relative overflow-hidden group-hover:border-[#285c9a]/30">
+                        
+                        {/* Decorative background element */}
+                        <div className={`absolute top-0 ${isEven ? 'right-0' : 'left-0'} w-1.5 h-full bg-gradient-to-b from-[#285c9a] to-[#3a7bd5] opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
+                        
+                        <div className="flex flex-col text-left">
+                          <div className="inline-flex items-center justify-center px-3 py-1 rounded-full bg-[#285c9a]/10 text-[#285c9a] text-xs font-bold tracking-widest uppercase mb-4 w-fit">
+                            Bước {idx + 1}
+                          </div>
+                          <h4 className="font-bold text-gray-900 text-xl md:text-2xl mb-4 group-hover:text-[#285c9a] transition-colors">{service.title}</h4>
+                          
+                          <div className="text-gray-600 text-sm md:text-base leading-relaxed">
+                            {service.shortDescription.includes('•') ? (
+                              <ul className="space-y-3">
+                                {service.shortDescription.split('•').filter(Boolean).map((part, i) => (
+                                  <li key={i} className="flex items-start">
+                                    <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-[#285c9a] mt-2 mr-3" />
+                                    <span>{part.trim()}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            ) : (
+                              <p>{service.shortDescription}</p>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex flex-col flex-1">
-                    <div className="text-[#285c9a] text-xs font-bold tracking-widest uppercase mb-2">Bước {idx + 1}</div>
-                    <h4 className="font-bold text-gray-900 text-lg mb-3">{service.title}</h4>
-                    <p className="text-gray-600 text-sm leading-relaxed">{service.shortDescription}</p>
-                  </div>
-                </Link>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>

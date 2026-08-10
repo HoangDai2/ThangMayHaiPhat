@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, CheckCircle2 } from 'lucide-react';
 
 interface CountUpProps {
   end: number;
@@ -103,32 +103,78 @@ export default function AboutUs() {
         </div>
       </div>
 
-      {/* Bottom: Title, Full Paragraph & CTA button wrapped in a styled card box */}
-      <div className="w-full">
-        <div className="bg-white rounded-2xl sm:rounded-3xl shadow-xl shadow-slate-200/60 border border-slate-100 px-5 sm:px-8 md:px-12 py-4 sm:py-5 lg:py-6 transition-shadow duration-300 hover:shadow-2xl hover:shadow-slate-300/40 space-y-3 sm:space-y-4">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-            <div className="space-y-1">
-              <span className="text-[#285c9a] font-semibold tracking-widest uppercase text-xs sm:text-sm">
-                Về chúng tôi
-              </span>
-              <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 leading-tight">
-                Giới thiệu về Thang máy Hải Phát
-              </h2>
+      {/* Bottom: 2-column Layout */}
+      <div className="w-full px-5 sm:px-8 md:px-14 mt-8 sm:mt-12 lg:mt-16 mb-12 sm:mb-16 lg:mb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          {/* Left: Image & Badge */}
+          <div className="relative">
+            {/* Decorative background shapes */}
+            <div className="absolute -top-6 -left-6 w-32 h-32 bg-[#f0f4f8] rounded-3xl -z-10"></div>
+            <div className="absolute -bottom-8 -right-8 w-40 h-40 border-[16px] border-[#f0f4f8] rounded-full -z-10"></div>
+
+            <div className="relative rounded-3xl overflow-hidden bg-[#f0f4f8] aspect-[4/3] flex items-center justify-center shadow-lg border border-slate-100">
+              <img
+                src="/472899435_953879650042855_3929925804925066729_n.jpg"
+                alt="Đội ngũ Hải Phát đang triển khai giải pháp thang máy"
+                className="w-full h-full object-cover text-sm text-slate-500"
+              />
             </div>
-            <div className="shrink-0">
-              <Link
-                href="/ve-chung-toi"
-                className="inline-flex items-center gap-2 bg-[#285c9a] hover:bg-[#1e4676] text-white px-5 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 shadow-sm hover:shadow-md group w-fit whitespace-nowrap"
-              >
-                <span>Tìm hiểu thêm về chúng tôi</span>
-                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-              </Link>
+
+            {/* Floating Badge */}
+            <div className="absolute -bottom-6 left-6 sm:left-10 bg-white rounded-2xl shadow-xl p-4 sm:p-5 flex flex-col gap-1 z-10 border border-slate-50">
+              <div className="text-3xl sm:text-4xl font-extrabold text-[#285c9a] flex items-center tracking-tight">
+                <CountUp end={5} suffix="+" started={isVisible} />
+              </div>
+              <div className="text-xs sm:text-sm text-slate-600 font-medium max-w-[130px] leading-snug">
+                Năm đồng hành cùng khách hàng
+              </div>
             </div>
           </div>
 
-          <p className="text-slate-600 text-xs sm:text-sm lg:text-base leading-relaxed text-justify w-full">
-            Được thành lập vào năm 2020, Thang Máy Hải Phát có trụ sở tại Tầng 11, Tòa Nhà Đa Năng, 169 Đ. Nguyễn Ngọc Vũ, Yên Hòa, Hà Nội, Việt Nam và hoạt động trong lĩnh vực cung cấp, lắp đặt, bảo trì thang máy. Chúng tôi cung cấp các giải pháp thang máy toàn diện, cam kết mang đến những sản phẩm an toàn, bền bỉ và có tính thẩm mỹ cao. Hải Phát sử dụng thiết bị đồng bộ liên doanh từ các thương hiệu uy tín như Mitsubishi, Fuji, Sicor Italy, Montanari, Schneider và Ziehl-Abegg. Tất cả thiết bị, linh kiện chính đều có đầy đủ chứng chỉ CO (Certificate of Origin) và CQ (Certificate of Quality), đảm bảo nguồn gốc xuất xứ rõ ràng, chất lượng đạt tiêu chuẩn và mang đến sự an tâm cho khách hàng trong suốt quá trình sử dụng.
-          </p>
+          {/* Right: Content */}
+          <div className="space-y-6 lg:space-y-8">
+            <div className="space-y-3 sm:space-y-4">
+              <div className="inline-block">
+                <span className="text-[#285c9a] font-bold tracking-widest uppercase text-xs sm:text-sm">
+                  Về chúng tôi
+                </span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#0f172a] leading-[1.2]">
+                Hải Phát – Nâng tầm không gian sống Việt
+              </h2>
+            </div>
+
+            <div className="space-y-4 text-slate-600 text-sm sm:text-base leading-relaxed">
+              <p>
+                Được thành lập vào năm 2015, <b>Thang Máy Hải Phát</b> có trụ sở tại <b>Tầng 11, Tòa Nhà Đa Năng, 169 Đ. Nguyễn Ngọc Vũ, Yên Hòa, Hà Nội, Việt Nam</b> và hoạt động trong lĩnh vực cung cấp, lắp đặt, bảo trì thang máy. Chúng tôi cung cấp các giải pháp thang máy toàn diện, cam kết mang đến những sản phẩm an toàn, bền bỉ và có tính thẩm mỹ cao. Hải Phát sử dụng thiết bị đồng bộ liên doanh từ các thương hiệu uy tín như Mitsubishi, Fuji, Sicor Italy, Montanari, Schneider và Ziehl-Abegg.              </p>
+              <p>
+                Tất cả thiết bị, linh kiện chính đều có đầy đủ chứng chỉ <b>CO (Certificate of Origin)</b> và <b>CQ (Certificate of Quality)</b>, đảm bảo nguồn gốc xuất xứ rõ ràng, chất lượng đạt tiêu chuẩn và mang đến sự an tâm cho khách hàng trong suốt quá trình sử dụng.              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-2 py-2">
+              {[
+                'Tư vấn giải pháp phù hợp',
+                'Thi công đúng tiến độ',
+                'Linh kiện chính hãng',
+                'Bảo hành và hỗ trợ 24/7'
+              ].map((item, index) => (
+                <div key={index} className="flex items-center gap-2.5">
+                  <CheckCircle2 className="w-5 h-5 text-[#285c9a] shrink-0" />
+                  <span className="text-slate-700 font-medium text-sm sm:text-base">{item}</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="pt-2">
+              <Link
+                href="/ve-chung-toi"
+                className="inline-flex items-center gap-2 bg-[#285c9a] hover:bg-[#1e4676] text-white px-6 py-3 rounded-xl text-sm font-semibold transition-all duration-300 shadow-md hover:shadow-lg group w-fit"
+              >
+                <span>Tìm hiểu về Hải Phát</span>
+                <ArrowRight size={18} className="group-hover:translate-x-1.5 transition-transform" />
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </div>

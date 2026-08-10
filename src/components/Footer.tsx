@@ -11,12 +11,6 @@ const quickLinks = [
   { label: 'Thang tải hàng', href: '/san-pham/thang-may-tai-hang' },
 ];
 
-const serviceLinks = [
-  { label: 'Khảo sát - Báo giá', href: '/dich-vu#khao-sat-bao-gia' },
-  { label: 'Tư vấn - Thiết kế', href: '/dich-vu#tu-van-thiet-ke' },
-  { label: 'Thi công - Lắp đặt', href: '/dich-vu#thi-cong-lap-dat' },
-  { label: 'Bảo hành - Bảo trì', href: '/dich-vu#bao-hanh-bao-tri' },
-];
 
 const companyLinks = [
   { label: 'Về Hải Phát', href: '/ve-chung-toi' }
@@ -115,24 +109,6 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Services links */}
-          <div>
-            <h4 className="text-white font-semibold text-sm mb-4 uppercase tracking-wide">
-              Dịch vụ
-            </h4>
-            <ul className="space-y-2.5">
-              {serviceLinks.map((l) => (
-                <li key={l.label}>
-                  <Link href={l.href}
-                    className="text-gray-400 text-sm hover:text-white transition-colors flex items-center gap-2 group"
-                  >
-                    <span className="w-1 h-1 rounded-full bg-[#285c9a] group-hover:bg-blue-300 transition-colors" />
-                    {l.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
 
           {/* Company */}
           <div>

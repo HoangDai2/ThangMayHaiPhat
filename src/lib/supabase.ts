@@ -44,20 +44,7 @@ export interface DbProduct {
   created_at: string;
 }
 
-export interface DbService {
-  id: string;
-  slug: string;
-  title: string;
-  subtitle: string;
-  icon: string;
-  short_description: string;
-  full_description: string;
-  highlights: string[];
-  process: { step: number; title: string; description: string }[];
-  sort_order: number;
-  is_published: boolean;
-  created_at: string;
-}
+
 
 
 

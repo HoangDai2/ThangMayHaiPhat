@@ -278,7 +278,7 @@ export default function Hero() {
                     {template === 'features' && (
                       <>
                         <div className="absolute inset-0 bg-[#285c9a]/90 sm:bg-gradient-to-r sm:from-[#1b3d68] sm:via-[#285c9a]/80 sm:to-transparent" />
-                        <div className="relative z-10 flex flex-col justify-center h-full px-5 sm:px-8 md:px-14 max-w-7xl mx-auto w-full pb-10 sm:pb-16 lg:pb-0">
+                        <div className="relative z-10 flex flex-col justify-center h-full px-5 sm:px-8 md:px-14 w-full pb-10 sm:pb-16 lg:pb-0">
                           <div className="mb-4 sm:mb-10 max-w-2xl mt-4 sm:mt-0">
                              {slide.subtitle && (
                                <span className="inline-block text-amber-400 text-[10px] sm:text-xs font-bold tracking-wider uppercase mb-1.5 sm:mb-2">

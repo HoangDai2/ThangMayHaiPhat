@@ -67,7 +67,7 @@ Sau khi thống nhất giải pháp, chúng tôi thiết kế bản vẽ kỹ th
     title: 'Thi Công - Lắp Đặt',
     subtitle: 'Thi công lắp đặt chuyên nghiệp, đúng tiến độ',
     icon: 'wrench',
-    shortDescription: 'Đội ngũ kỹ thuật được đào tạo bài bản, thi công lắp đặt theo tiêu chuẩn quốc tế, đúng tiến độ cam kết, không ảnh hưởng công trình.',
+    shortDescription: 'An Toàn - Chất Lượng - Tiến Độ - Chi Phí". Đây là bốn tiêu chí đánh giá hiệu quả của công tác thi công lắp đặt do Hải Phát giúp quý khách hàng đưa ra lựa chọn dễ dàng nhằm cải thiện và hoàn thiện chất lượng công trình.ật được đào tạo bài bản, thi công lắp đặt theo tiêu chuẩn quốc tế, đúng tiến độ cam kết, không ảnh hưởng công trình.',
     fullDescription: `Dịch vụ thi công và lắp đặt của Hải Phát được thực hiện bởi đội ngũ kỹ thuật được đào tạo bài bản, có chứng chỉ từ các nhà sản xuất hàng đầu. Chúng tôi thi công theo tiêu chuẩn QCVN 06:2022 và EN 81, đảm bảo an toàn tuyệt đối.
 
 Quá trình thi công được quản lý chặt chẽ, đúng tiến độ cam kết, không gây ảnh hưởng đến hoạt động của công trình. Vận hành thử, hiệu chỉnh và kiểm định trước khi bàn giao, đảm bảo thang vận hành êm ái và an toàn.`,
@@ -91,10 +91,10 @@ Quá trình thi công được quản lý chặt chẽ, đúng tiến độ cam 
     title: 'Bảo Hành - Bảo Trì',
     subtitle: 'Bảo hành 18 tháng và bảo trì định kỳ 2 tháng/lần',
     icon: 'shield-check',
-    shortDescription: 'Bảo hành 18 tháng toàn bộ thiết bị, bảo trì định kỳ miễn phí 2 tháng/lần trong thời gian bảo hành, hỗ trợ kỹ thuật 24/7, phản ứng sự cố trong 2 giờ.',
-    fullDescription: `Dịch vụ bảo hành và bảo trì của Hải Phát cam kết mang lại sự an tâm tuyệt đối cho khách hàng. Bảo hành 18 tháng toàn bộ thiết bị, bảo trì định kỳ miễn phí 2 tháng/lần trong suốt thời gian bảo hành.
-
-Đội ngũ kỹ thuật túc trực 24/7, phản ứng sự cố trong vòng 2 giờ tại nội thành. Cung cấp phụ tùng chính hãng với giá cạnh tranh, kho phụ tùng luôn sẵn các linh kiện thông dụng để đảm bảo thang vận hành ổn định.`,
+    shortDescription: `• Định kỳ 02 tháng/lân: kỹ thuật viên Thang máy Hải Phát đến kiểm tra các chức năng của hệ thống thang máy, vệ sinh thang và tra thêm dâu nhớt đảm bảo thang vận hành trơn tru, êm ái. Điều này giúp phát hiện kịp thời rủi ro và tình trạng thiết bị để nhanh chóng có biện pháp khắc phục, giảm thiểu rủi ro.
+• Khi phát hiện phụ tùng cần thay thế, chúng tôi khuyến cáo khách hàng sử dụng sản phẩm chính hãng để đạt được mức độ tương thích và đáp ứng cao nhất trong quá trình vận hành, kết hợp đảm bảo chất lượng cho tất cả thiết bị trong hệ thống.
+• Đảm bảo an toàn và chất lượng vượt trội: Cung cấp dịch vụ bảo trì NHANH CHÓNG, CHUYÊN NGHIỆP và TẬN TÂM bởi đội ngũ kỹ thuật viên được đào tạo bài bản và kinh nghiệm lâu năm. Giải quyết những khiếu nại của khách hàng trong quá trình sử dụng thang máy qua Call center 24/7.`,
+    fullDescription: `Dịch vụ bảo hành và bảo trì của Hải Phát cam kết mang lại sự an tâm tuyệt đối cho khách hàng. Bảo hành 18 tháng toàn bộ thiết bị, bảo trì định kỳ miễn phí 2 tháng/lần trong suốt thời gian bảo hành. Đội ngũ kỹ thuật túc trực 24/7, phản ứng sự cố trong vòng 2 giờ tại nội thành. Cung cấp phụ tùng chính hãng với giá cạnh tranh, kho phụ tùng luôn sẵn các linh kiện thông dụng để đảm bảo thang vận hành ổn định.`,
     highlights: [
       'Bảo hành 18 tháng toàn bộ thiết bị',
       'Bảo trì miễn phí 2 tháng/lần trong thời gian bảo hành',
