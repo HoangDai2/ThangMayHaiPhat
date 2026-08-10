@@ -103,49 +103,60 @@ export default function Services() {
     </section>
 
     {/* Services strip — full-screen section */}
-    <section className="relative flex min-h-screen items-center overflow-hidden bg-[#0d1f35] py-20">
-        <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(circle at 20% 30%, #285c9a 0, transparent 45%), radial-gradient(circle at 80% 70%, #1e4a80 0, transparent 45%)' }} />
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-6 mb-12">
-            <div>
-              <span className="inline-block text-[#a9d0ff] text-sm font-semibold tracking-widest uppercase mb-3">
-                Dịch vụ
-              </span>
-              <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight">Quy Trình Dịch Vụ Chuyên Nghiệp</h3>
-              <p className="text-white/60 text-base mt-3 max-w-xl">Đồng hành cùng bạn trong toàn bộ vòng đời thang máy — từ khảo sát đến bảo trì</p>
-            </div>
-            <Link href="/dich-vu"
-              className="group flex items-center gap-2 text-[#a9d0ff] font-semibold text-sm hover:gap-3 transition-all"
-            >
-              Xem tất cả dịch vụ
-              <ArrowRight size={16} className="group-hover:translate-x-0.5 transition-transform" />
-            </Link>
-          </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {serviceItems.map((service, idx) => {
-              const Icon = serviceIconMap[service.icon] || Settings;
-              return (
-                <Link key={service.id}
-                  href={`/dich-vu#${service.id}`}
-                  className="group flex flex-col gap-4 p-6 rounded-2xl bg-white/5 hover:bg-white/10 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-white/10"
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="w-14 h-14 rounded-2xl bg-[#285c9a]/40 flex items-center justify-center flex-shrink-0">
-                      <Icon size={26} className="text-[#a9d0ff]" />
-                    </div>
-                    <span className="text-4xl font-bold text-white/10">{idx + 1}</span>
-                  </div>
-                  <div>
-                    <div className="text-[#a9d0ff] text-xs font-semibold uppercase tracking-wide mb-1">Bước {idx + 1}</div>
-                    <h4 className="font-semibold text-white text-lg mb-2">{service.title}</h4>
-                    <p className="text-white/60 text-sm leading-relaxed line-clamp-3">{service.shortDescription}</p>
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
+    <section className="relative flex min-h-screen items-center overflow-hidden bg-gradient-to-br from-[#0a1929] via-[#0d1f35] to-[#102845]">
+      <div className="absolute inset-0">
+        <div className="absolute left-0 top-1/4 h-96 w-96 rounded-full bg-[#285c9a]/20 blur-[120px]" />
+        <div className="absolute bottom-1/4 right-0 h-96 w-96 rounded-full bg-[#1e4a80]/20 blur-[120px]" />
+      </div>
+
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="text-center mb-14">
+          <span className="inline-block text-[#a9d0ff] text-sm font-semibold tracking-widest uppercase mb-3">
+            Quy trình
+          </span>
+          <h3 className="text-3xl sm:text-4xl lg:text-[44px] font-bold text-white leading-tight max-w-2xl mx-auto">
+            Quy Trình Dịch Vụ Chuyên Nghiệp
+          </h3>
+          <p className="text-white/50 text-base mt-4 max-w-xl mx-auto">
+            Đồng hành cùng bạn trong toàn bộ vòng đời thang máy — từ khảo sát đến bảo trì
+          </p>
         </div>
-      </section>
+
+        <div className="relative grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="hidden lg:block absolute top-[72px] left-[12.5%] right-[12.5%] h-px bg-gradient-to-r from-transparent via-white/15 to-transparent" />
+
+          {serviceItems.map((service, idx) => {
+            const Icon = serviceIconMap[service.icon] || Settings;
+            return (
+              <Link key={service.id}
+                href={`/dich-vu#${service.id}`}
+                className="group relative flex flex-col items-center text-center p-6 rounded-2xl bg-white/[0.04] backdrop-blur-sm hover:bg-white/[0.08] hover:-translate-y-1.5 transition-all duration-300 border border-white/[0.08] hover:border-[#a9d0ff]/30"
+              >
+                <div className="relative mb-5">
+                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#285c9a] to-[#1e4a80] flex items-center justify-center shadow-lg shadow-[#285c9a]/30 ring-4 ring-[#0d1f35]">
+                    <Icon size={26} className="text-white" />
+                  </div>
+                  <span className="absolute -top-1.5 -right-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-[#a9d0ff] text-xs font-bold text-[#0d1f35]">
+                    {idx + 1}
+                  </span>
+                </div>
+                <h4 className="font-semibold text-white text-lg mb-2">{service.title}</h4>
+                <p className="text-white/50 text-sm leading-relaxed line-clamp-3">{service.shortDescription}</p>
+              </Link>
+            );
+          })}
+        </div>
+
+        <div className="text-center mt-12">
+          <Link href="/dich-vu"
+            className="group inline-flex items-center gap-2 rounded-xl bg-white/10 hover:bg-white/15 border border-white/20 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:-translate-y-0.5"
+          >
+            Xem tất cả dịch vụ
+            <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+          </Link>
+        </div>
+      </div>
+    </section>
     </>
   );
 }
