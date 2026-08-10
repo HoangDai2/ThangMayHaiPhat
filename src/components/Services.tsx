@@ -102,16 +102,17 @@ export default function Services() {
       </div>
     </section>
 
-    {/* Services strip — full-width section */}
-    <section className="bg-[#0d1f35] py-16 sm:py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-6 mb-10">
+    {/* Services strip — full-screen section */}
+    <section className="relative flex min-h-screen items-center overflow-hidden bg-[#0d1f35] py-20">
+        <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(circle at 20% 30%, #285c9a 0, transparent 45%), radial-gradient(circle at 80% 70%, #1e4a80 0, transparent 45%)' }} />
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-6 mb-12">
             <div>
-              <span className="inline-block text-[#a9d0ff] text-sm font-semibold tracking-widest uppercase mb-2">
+              <span className="inline-block text-[#a9d0ff] text-sm font-semibold tracking-widest uppercase mb-3">
                 Dịch vụ
               </span>
-              <h3 className="text-2xl sm:text-3xl font-bold text-white">Quy Trình Dịch Vụ Chuyên Nghiệp</h3>
-              <p className="text-white/60 text-sm mt-2">Đồng hành cùng bạn trong toàn bộ vòng đời thang máy</p>
+              <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight">Quy Trình Dịch Vụ Chuyên Nghiệp</h3>
+              <p className="text-white/60 text-base mt-3 max-w-xl">Đồng hành cùng bạn trong toàn bộ vòng đời thang máy — từ khảo sát đến bảo trì</p>
             </div>
             <Link href="/dich-vu"
               className="group flex items-center gap-2 text-[#a9d0ff] font-semibold text-sm hover:gap-3 transition-all"
@@ -120,21 +121,24 @@ export default function Services() {
               <ArrowRight size={16} className="group-hover:translate-x-0.5 transition-transform" />
             </Link>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {serviceItems.map((service, idx) => {
               const Icon = serviceIconMap[service.icon] || Settings;
               return (
                 <Link key={service.id}
                   href={`/dich-vu#${service.id}`}
-                  className="group flex items-start gap-4 p-5 rounded-xl bg-white/5 hover:bg-white/10 hover:shadow-lg transition-all duration-200 border border-white/10"
+                  className="group flex flex-col gap-4 p-6 rounded-2xl bg-white/5 hover:bg-white/10 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-white/10"
                 >
-                  <div className="w-11 h-11 rounded-xl bg-[#285c9a]/40 flex items-center justify-center flex-shrink-0">
-                    <Icon size={20} className="text-[#a9d0ff]" />
+                  <div className="flex items-center justify-between">
+                    <div className="w-14 h-14 rounded-2xl bg-[#285c9a]/40 flex items-center justify-center flex-shrink-0">
+                      <Icon size={26} className="text-[#a9d0ff]" />
+                    </div>
+                    <span className="text-4xl font-bold text-white/10">{idx + 1}</span>
                   </div>
                   <div>
-                    <div className="text-white/40 text-xs font-semibold mb-0.5">Bước {idx + 1}</div>
-                    <h4 className="font-semibold text-white text-sm mb-1">{service.title}</h4>
-                    <p className="text-white/60 text-xs leading-relaxed line-clamp-2">{service.shortDescription}</p>
+                    <div className="text-[#a9d0ff] text-xs font-semibold uppercase tracking-wide mb-1">Bước {idx + 1}</div>
+                    <h4 className="font-semibold text-white text-lg mb-2">{service.title}</h4>
+                    <p className="text-white/60 text-sm leading-relaxed line-clamp-3">{service.shortDescription}</p>
                   </div>
                 </Link>
               );
