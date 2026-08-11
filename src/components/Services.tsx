@@ -123,8 +123,8 @@ export default function Services() {
               Dòng Thang Máy Cao Cấp
             </h2>
             <p className="text-gray-500 max-w-xl mx-auto text-base leading-relaxed">
-              Đa dạng dòng thang máy đáp ứng mọi nhu cầu: từ homelift gia đình đến thang tải khách,
-              thang quan sát, thang bệnh viện và thang tải hàng.
+              Các dòng thang máy nhập khẩu & liên doanh chính hãng, đáp ứng đa dạng nhu cầu:
+              từ thang máy gia đình đến thang tải khách, thang quan sát
             </p>
           </div>
 

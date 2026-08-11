@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X, Phone } from 'lucide-react';
+import { supabase } from '../lib/supabase';
 
 const navLinks = [
   { label: 'Trang chủ', href: '/' },
@@ -15,7 +16,18 @@ const navLinks = [
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [hasArticles, setHasArticles] = useState(false);
   const pathname = usePathname();
+
+  useEffect(() => {
+    supabase
+      .from('articles')
+      .select('id', { count: 'exact', head: true })
+      .eq('is_published', true)
+      .then(({ count }) => {
+        setHasArticles((count || 0) > 0);
+      });
+  }, []);
 
   useEffect(() => {
     setMenuOpen(false);
@@ -29,6 +41,10 @@ export default function Navbar() {
       }, 50);
     }
   }, [pathname]);
+
+  const filteredNavLinks = navLinks.filter(
+    (link) => link.label !== 'Bài viết' || hasArticles
+  );
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white py-3 transition-all duration-300">
@@ -44,7 +60,7 @@ export default function Navbar() {
 
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-7">
-          {navLinks.map((link) => (
+          {filteredNavLinks.map((link) => (
             <Link key={link.href}
               href={link.href}
               className="text-sm font-medium text-gray-700 transition-colors duration-200 hover:text-[#285c9a]"
@@ -86,7 +102,7 @@ export default function Navbar() {
       {menuOpen && (
         <div className="md:hidden bg-white border-t border-gray-100 shadow-lg absolute top-full left-0 right-0">
           <nav className="flex flex-col px-4 py-3 gap-1">
-            {navLinks.map((link) => (
+            {filteredNavLinks.map((link) => (
               <Link key={link.href}
                 href={link.href}
                 className="py-2.5 px-3 text-gray-700 font-medium text-sm rounded-lg hover:bg-blue-50 hover:text-[#285c9a] transition-colors"

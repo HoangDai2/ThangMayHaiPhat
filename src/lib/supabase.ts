@@ -35,6 +35,7 @@ export interface DbProduct {
   short_description: string;
   full_description: string;
   features: string[];
+  gallery?: string[];
   specifications: { label: string; value: string }[];
   benefits: string[];
   faqs: { question: string; answer: string }[];

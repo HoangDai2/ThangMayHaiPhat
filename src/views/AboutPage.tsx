@@ -62,8 +62,8 @@ export default function AboutPage() {
                 </div>
               </div>
             </div>
-            <div className="hidden lg:block">
-              <div className="relative">
+            <div className="mt-10 lg:mt-0 relative w-full">
+              <div className="relative w-full max-w-lg mx-auto lg:max-w-none">
                 <img
                   src="https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=800&q=80"
                   alt="Hải Phát team"
@@ -103,34 +103,49 @@ export default function AboutPage() {
       </div>
 
       {/* Mission & Vision */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 sm:py-24 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="bg-white rounded-2xl p-8 border border-gray-100 hover:shadow-lg transition-shadow">
-              <div className="w-14 h-14 rounded-2xl bg-[#285c9a]/10 flex items-center justify-center mb-5">
-                <Target size={24} className="text-[#285c9a]" />
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            <div className="lg:col-span-5 h-[300px] sm:h-[400px] lg:h-full w-full rounded-3xl overflow-hidden relative shadow-lg">
+              <img 
+                src="https://images.pexels.com/photos/1181406/pexels-photo-1181406.jpeg?auto=compress&cs=tinysrgb&w=800&q=80" 
+                alt="Tầm nhìn và sứ mệnh"
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0d1f35]/80 via-transparent to-transparent"></div>
+              <div className="absolute bottom-6 left-6 right-6 text-white">
+                <h3 className="text-2xl font-bold mb-2">Định hướng tương lai</h3>
+                <p className="text-white/80 text-sm">Kiến tạo không gian sống hiện đại và an toàn cho mọi công trình.</p>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Sứ mệnh</h3>
-              <p className="text-gray-600 leading-relaxed text-sm">{companyInfo.mission}</p>
             </div>
-            <div className="bg-white rounded-2xl p-8 border border-gray-100 hover:shadow-lg transition-shadow">
-              <div className="w-14 h-14 rounded-2xl bg-[#285c9a]/10 flex items-center justify-center mb-5">
-                <Eye size={24} className="text-[#285c9a]" />
+            
+            <div className="lg:col-span-7 grid sm:grid-cols-2 gap-6">
+              <div className="bg-white rounded-3xl p-6 sm:p-8 border border-gray-100 hover:shadow-xl transition-shadow flex flex-col h-full">
+                <div className="w-14 h-14 rounded-2xl bg-[#285c9a]/10 flex items-center justify-center mb-5">
+                  <Target size={24} className="text-[#285c9a]" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Sứ mệnh</h3>
+                <p className="text-gray-600 leading-relaxed text-sm">{companyInfo.mission}</p>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Tầm nhìn</h3>
-              <p className="text-gray-600 leading-relaxed text-sm">{companyInfo.vision}</p>
+              <div className="bg-white rounded-3xl p-6 sm:p-8 border border-gray-100 hover:shadow-xl transition-shadow flex flex-col h-full">
+                <div className="w-14 h-14 rounded-2xl bg-[#285c9a]/10 flex items-center justify-center mb-5">
+                  <Eye size={24} className="text-[#285c9a]" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Tầm nhìn</h3>
+                <p className="text-gray-600 leading-relaxed text-sm">{companyInfo.vision}</p>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Story / Timeline */}
-      <section className="py-16">
+      <section className="py-16 sm:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">Hành trình phát triển</h2>
-            <p className="text-gray-500 text-sm max-w-xl mx-auto">
-              Từ một đội ngũ nhỏ đến thương hiệu thang máy uy tín trên toàn quốc
+          <div className="text-center mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Hành trình phát triển</h2>
+            <p className="text-gray-500 text-sm sm:text-base max-w-2xl mx-auto">
+              Từ một đội ngũ nhỏ đến thương hiệu thang máy uy tín trên toàn quốc, đồng hành cùng hàng ngàn công trình
             </p>
           </div>
 
@@ -138,22 +153,33 @@ export default function AboutPage() {
             {/* Timeline line */}
             <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-gray-200 -translate-x-1/2" />
 
-            <div className="space-y-10">
+            <div className="space-y-12 sm:space-y-20">
               {milestones.map((milestone, idx) => (
                 <div
                   key={milestone.year}
                   className={`flex flex-col md:flex-row gap-6 ${idx % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}
                 >
-                  <div className={`flex-1 ${idx % 2 === 0 ? 'md:text-right' : 'md:text-left'}`}>
-                    <div className={`bg-gray-50 rounded-2xl p-6 ${idx % 2 === 0 ? 'md:mr-8' : 'md:ml-8'}`}>
-                      <div className="text-[#285c9a] font-bold text-2xl mb-2">{milestone.year}</div>
-                      <h4 className="font-bold text-gray-900 text-lg mb-2">{milestone.title}</h4>
-                      <p className="text-gray-600 text-sm leading-relaxed">{milestone.description}</p>
+                  <div className={`flex-1 ${idx % 2 === 0 ? 'md:text-right md:pr-10' : 'md:text-left md:pl-10'}`}>
+                    <div className="bg-white rounded-3xl overflow-hidden shadow-lg border border-gray-100 group hover:shadow-xl transition-shadow duration-300">
+                      <div className="h-40 sm:h-48 overflow-hidden relative">
+                        <img 
+                          src={`https://picsum.photos/seed/${milestone.year}/600/300`} 
+                          alt={milestone.title} 
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
+                           <div className="text-white font-black text-3xl opacity-90 drop-shadow-md">{milestone.year}</div>
+                        </div>
+                      </div>
+                      <div className="p-6 text-left">
+                        <h4 className="font-bold text-gray-900 text-lg mb-2">{milestone.title}</h4>
+                        <p className="text-gray-600 text-sm leading-relaxed">{milestone.description}</p>
+                      </div>
                     </div>
                   </div>
                   {/* Center dot */}
-                  <div className="hidden md:flex items-center justify-center">
-                    <div className="w-4 h-4 rounded-full bg-[#285c9a] ring-4 ring-white shadow" />
+                  <div className="hidden md:flex flex-col items-center justify-start pt-6 z-10 relative">
+                    <div className="w-5 h-5 rounded-full bg-[#285c9a] ring-4 ring-white shadow-lg" />
                   </div>
                   <div className="flex-1" />
                 </div>
@@ -164,31 +190,53 @@ export default function AboutPage() {
       </section>
 
       {/* Core Values */}
-      <section className="py-16 bg-[#0d1f35]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">Giá trị cốt lõi</h2>
-            <p className="text-white/60 text-sm max-w-xl mx-auto">
-              Những nguyên tắc định hướng mọi hoạt động của Hải Phát
-            </p>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {coreValues.map((value) => {
-              const Icon = iconMap[value.icon] || CheckCircle;
-              return (
-                <div
-                  key={value.title}
-                  className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-colors"
-                >
-                  <div className="w-12 h-12 rounded-xl bg-[#285c9a]/30 flex items-center justify-center mb-4">
-                    <Icon size={22} className="text-blue-200" />
-                  </div>
-                  <h4 className="font-bold text-white text-sm mb-2">{value.title}</h4>
-                  <p className="text-white/60 text-xs leading-relaxed">{value.description}</p>
-                </div>
-              );
-            })}
+      <section className="py-16 sm:py-24 bg-[#0d1f35] relative overflow-hidden">
+        {/* Background elements */}
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#285c9a] rounded-full blur-[120px] opacity-20 translate-x-1/3 -translate-y-1/3"></div>
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#1e4a80] rounded-full blur-[100px] opacity-30 -translate-x-1/2 translate-y-1/2"></div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+            {/* Left side: Heading & Image */}
+            <div className="lg:col-span-5 text-center lg:text-left">
+              <span className="inline-block text-[#60a5fa] bg-blue-500/10 text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-full mb-4">
+                Lõi Niềm Tin
+              </span>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">Giá trị cốt lõi</h2>
+              <p className="text-white/60 text-sm sm:text-base mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                Những nguyên tắc định hướng mọi hoạt động của Hải Phát. Chúng tôi cam kết mang lại giá trị bền vững và trải nghiệm tốt nhất cho khách hàng.
+              </p>
+              
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl hidden lg:block h-[400px]">
+                 <img 
+                   src="https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=800&q=80" 
+                   alt="Giá trị cốt lõi" 
+                   className="w-full h-full object-cover" 
+                 />
+                 <div className="absolute inset-0 bg-gradient-to-t from-[#0d1f35] via-transparent to-transparent"></div>
+              </div>
+            </div>
+            
+            {/* Right side: Values Grid */}
+            <div className="lg:col-span-7">
+              <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
+                {coreValues.map((value) => {
+                  const Icon = iconMap[value.icon] || CheckCircle;
+                  return (
+                    <div
+                      key={value.title}
+                      className="group bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 hover:border-white/20 transition-all duration-300 backdrop-blur-sm"
+                    >
+                      <div className="w-12 h-12 rounded-xl bg-[#285c9a]/30 flex items-center justify-center mb-5 group-hover:bg-[#285c9a]/50 transition-colors">
+                        <Icon size={24} className="text-blue-300" />
+                      </div>
+                      <h4 className="font-bold text-white text-base mb-2">{value.title}</h4>
+                      <p className="text-white/60 text-sm leading-relaxed">{value.description}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
           </div>
         </div>
       </section>

@@ -35,6 +35,7 @@ export function mapProduct(db: DbProduct): Product {
     shortDescription: db.short_description,
     fullDescription: db.full_description,
     features: db.features || [],
+    gallery: db.gallery || [],
     specifications: db.specifications || [],
     benefits: db.benefits || [],
     process: (db as any).process || [],

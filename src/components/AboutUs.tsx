@@ -71,7 +71,7 @@ export default function AboutUs() {
             {/* Stat 1 */}
             <div className="flex flex-col items-center justify-center text-center lg:px-4 space-y-1">
               <div className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#285c9a] tracking-tight tabular-nums">
-                <CountUp end={10} suffix="+" started={isVisible} />
+                <CountUp end={5} suffix="+" started={isVisible} />
               </div>
               <div className="text-xs sm:text-sm text-slate-600 font-medium">Năm kinh nghiệm</div>
             </div>
@@ -87,15 +87,15 @@ export default function AboutUs() {
             {/* Stat 3 */}
             <div className="flex flex-col items-center justify-center text-center lg:px-4 space-y-1">
               <div className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#285c9a] tracking-tight tabular-nums">
-                <CountUp end={4000} suffix="+" started={isVisible} />
+                <CountUp end={34} started={isVisible} />
               </div>
-              <div className="text-xs sm:text-sm text-slate-600 font-medium">Thang máy lắp đặt</div>
+              <div className="text-xs sm:text-sm text-slate-600 font-medium">Tỉnh thành</div>
             </div>
 
             {/* Stat 4 */}
             <div className="flex flex-col items-center justify-center text-center lg:px-4 space-y-1">
               <div className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#285c9a] tracking-tight tabular-nums">
-                <CountUp end={95} suffix="%" started={isVisible} />
+                <CountUp end={98} suffix="%" started={isVisible} />
               </div>
               <div className="text-xs sm:text-sm text-slate-600 font-medium">Khách hàng hài lòng</div>
             </div>

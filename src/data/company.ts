@@ -29,10 +29,10 @@ export interface Certificate {
 export const companyInfo = {
   name: 'Hải Phát',
   fullName: 'Công Ty TNHH Thang Máy Hải Phát',
-  founded: 2021,
+  founded: 2020,
   yearsExperience: 5,
   slogan: 'Chất lượng khẳng định thương hiệu',
-  description: `Thang Máy Hải Phát là đơn vị chuyên lắp đặt, bảo trì và cung cấp giải pháp thang máy hàng đầu Việt Nam với hơn 5 năm kinh nghiệm. Chúng tôi tự hào đã hoàn thành hơn 1000 công trình trên toàn quốc, từ biệt thự gia đình đến các tòa nhà văn phòng, chung cư cao tầng.
+  description: `Thang Máy Hải Phát là đơn vị chuyên lắp đặt, bảo trì và cung cấp giải pháp thang máy hàng đầu Việt Nam với hơn 5 năm kinh nghiệm. Chúng tôi tự hào đã hoàn thành hơn 1000 công trình trên toàn quốc, từ biệt thự gia đình đến các tòa nhà văn phòng.
 
 Với đội ngũ kỹ sư giàu kinh nghiệm, được đào tạo bài bản từ các nhà sản xuất thang máy hàng đầu thế giới, Hải Phát cam kết mang đến sản phẩm chất lượng cao với dịch vụ hậu mãi chuyên nghiệp 24/7.`,
   mission: 'Cung cấp giải pháp thang máy an toàn, hiện đại và tiện nghi, nâng tầm chất lượng sống cho khách hàng.',
@@ -62,39 +62,29 @@ Với đội ngũ kỹ sư giàu kinh nghiệm, được đào tạo bài bản 
 
 export const milestones: Milestone[] = [
   {
-    year: '2009',
-    title: 'Khởi đầu',
-    description: 'Thành lập công ty với đội ngũ 5 kỹ sư thang máy, tập trung vào lắp đặt thang gia đình.',
-  },
-  {
-    year: '2012',
-    title: 'Mở rộng',
-    description: 'Trở thành đối tác chính thức của Mitsubishi Electric tại Việt Nam. Mở văn phòng tại TP.HCM.',
-  },
-  {
-    year: '2015',
-    title: 'Phát triển',
-    description: 'Hoàn thành dự án thang máy đầu tiên cho tòa nhà cao tầng 25 tầng. Đạt chứng nhận ISO 9001.',
-  },
-  {
-    year: '2018',
-    title: 'Bứt phá',
-    description: 'Trở thành đối tác của Otis và Schindler. Phủ sóng 30 tỉnh thành trên toàn quốc.',
-  },
-  {
     year: '2020',
-    title: 'Công nghệ mới',
-    description: 'Triển khai hệ thống giám sát thang máy từ xa. Ra mắt dịch vụ bảo trì dự đoán.',
+    title: 'Khởi đầu',
+    description: 'Lên ý tưởng và đặt nền móng đầu tiên cho sự ra đời của Hải Phát với đội ngũ kỹ sư nòng cốt.',
+  },
+  {
+    year: '2021',
+    title: 'Thành lập',
+    description: 'Chính thức thành lập Công Ty TNHH Thang Máy Hải Phát. Hoàn thành những dự án thang máy gia đình đầu tiên.',
+  },
+  {
+    year: '2022',
+    title: 'Mở rộng',
+    description: 'Trở thành đối tác của các thương hiệu lớn như Mitsubishi, Fuji. Triển khai công nghệ giám sát thang máy thông minh.',
   },
   {
     year: '2023',
-    title: 'Milestone',
-    description: 'Hoàn thành công trình thứ 500. Mở văn phòng tại Đà Nẵng và Cần Thơ. Phủ sóng 63 tỉnh thành.',
+    title: 'Bứt phá',
+    description: 'Hoàn thành công trình thứ 500. Mở rộng mạng lưới đối tác và dịch vụ bảo trì chuyên nghiệp trên toàn quốc.',
   },
   {
     year: '2024',
-    title: 'Tiếp tục',
-    description: 'Kỷ niệm 15 năm thành lập. Công bố chiến lược phát triển đến 2030.',
+    title: 'Vươn xa',
+    description: 'Đạt mốc 1000+ công trình. Tối ưu hóa quy trình quản lý và nâng cao chất lượng dịch vụ đạt chuẩn quốc tế.',
   },
 ];
 

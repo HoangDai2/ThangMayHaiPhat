@@ -7,6 +7,7 @@ export interface Product {
   shortDescription: string;
   fullDescription: string;
   features: string[];
+  gallery?: string[];
   specifications: {
     label: string;
     value: string;

@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import { Plus, Edit, Trash2, Search, X, Loader2, Image, ToggleLeft, ToggleRight } from 'lucide-react';
 import { supabase, DbProduct } from '../../lib/supabase';
 import ArrayInput from '../../components/admin/ArrayInput';
+import ImageUpload from '../../components/admin/ImageUpload';
+import MultiImageUpload from '../../components/admin/MultiImageUpload';
 
 const emptyForm = (): Partial<DbProduct> => ({
   id: '',
@@ -13,6 +15,7 @@ const emptyForm = (): Partial<DbProduct> => ({
   short_description: '',
   full_description: '',
   features: [],
+  gallery: [],
   specifications: [],
   benefits: [],
   faqs: [],
@@ -108,6 +111,7 @@ export default function AdminProducts() {
       short_description: form.short_description || '',
       full_description: form.full_description || '',
       features: form.features || [],
+      gallery: form.gallery || [],
       specifications: form.specifications || [],
       benefits: form.benefits || [],
       faqs: form.faqs || [],
@@ -339,17 +343,19 @@ export default function AdminProducts() {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">URL ảnh</label>
-                <input
-                  type="text"
+                <ImageUpload
                   value={form.image || ''}
-                  onChange={(e) => set('image', e.target.value)}
-                  placeholder="https://..."
-                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-[#285c9a] outline-none transition-all"
+                  onChange={(url) => set('image', url)}
+                  label="ẢNH SẢN PHẨM (ẢNH CHÍNH)"
                 />
-                {form.image && (
-                  <img src={form.image} alt="preview" className="mt-2 h-24 rounded-xl object-cover border border-slate-200" />
-                )}
+              </div>
+
+              <div>
+                <MultiImageUpload
+                  values={form.gallery || []}
+                  onChange={(urls) => set('gallery', urls)}
+                  label="THƯ VIỆN ẢNH (GALLERY)"
+                />
               </div>
 
               <div>

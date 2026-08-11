@@ -55,8 +55,7 @@ export function ProductsList() {
             Dòng Thang Máy Cao Cấp
           </h1>
           <p className="text-white/70 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
-            Đa dạng dòng thang máy đáp ứng mọi nhu cầu: từ homelift gia đình đến thang tải khách,
-            thang quan sát, thang bệnh viện và thang tải hàng công nghiệp.
+            Đa dạng dòng thang máy đáp ứng mọi nhu cầu: từ thang máy gia đình đến thang tải khách, thang quan sát
           </p>
         </div>
       </header>
@@ -207,7 +206,9 @@ function ProductDetail() {
   }
 
   const Icon = iconMap[product.icon] || Building2;
-  const gallery = [product.image, product.image, product.image, product.image];
+  const gallery = product.gallery && product.gallery.length > 0 
+    ? product.gallery 
+    : [product.image];
 
   return (
     <div className="min-h-screen bg-white">
@@ -277,11 +278,11 @@ function ProductDetail() {
                 <Layers size={20} className="text-[#285c9a]" />
                 Hình ảnh sản phẩm
               </h2>
-              <div className="relative rounded-2xl overflow-hidden mb-3">
+              <div className="relative rounded-2xl overflow-hidden mb-3 bg-gray-100">
                 <img
                   src={gallery[activeImage]}
                   alt={`${product.title} - Hình ${activeImage + 1}`}
-                  className="w-full h-64 object-cover"
+                  className="w-full aspect-[4/5] object-cover"
                 />
               </div>
               <div className="grid grid-cols-4 gap-2">
