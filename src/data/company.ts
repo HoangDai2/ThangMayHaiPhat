@@ -2,9 +2,7 @@ export interface TeamMember {
   id: string;
   name: string;
   role: string;
-  bio: string;
   image: string;
-  linkedin?: string;
   experience: string;
 }
 
@@ -126,36 +124,28 @@ export const teamMembers: TeamMember[] = [
     id: 'hoang-le-quang-hoa',
     name: 'Hoàng Lê Quang Hòa',
     role: 'CEO & Founder',
-    bio: 'Với hơn 10 năm kinh nghiệm trong ngành thang máy, anh Hòa đã sáng lập Hải Phát với tầm nhìn đưa thang máy chất lượng cao đại trà cho các gia đình Việt.',
     image: 'https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=400&q=80',
-    linkedin: '#',
     experience: '10+ năm',
   },
   {
     id: 'nguyen-thi-huong',
     name: 'Nguyễn Thị Hường',
     role: 'Phó Giám đốc',
-    bio: 'Chị Hường là người đứng sau ',
     image: 'https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=400&q=80',
-    linkedin: '#',
     experience: '18 năm',
   },
   {
     id: 'tran-cong-tinh',
     name: 'Trần Công Tình',
     role: 'Giám đốc Kinh doanh',
-    bio: 'Ông Tuấn có 15 năm kinh nghiệm trong lĩnh vực B2B, đã mở rộng mạng lưới khách hàng của Hải Phát trên 63 tỉnh thành.',
     image: 'https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=400&q=80',
-    linkedin: '#',
     experience: '15 năm',
   },
   {
     id: 'nguyen-huy-tuyen',
     name: 'Nguyễn Huy Tuyên',
     role: 'Giám đốc Dịch vụ',
-    bio: 'Bà Hoa phụ trách mảng bảo hành và hậu mãi, đảm bảo khách hàng luôn được hỗ trợ tốt nhất 24/7.',
     image: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=400&q=80',
-    linkedin: '#',
     experience: '12 năm',
   },
 ];

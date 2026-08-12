@@ -183,8 +183,8 @@ export default function Testimonials() {
         {/* Trust badges */}
         <div className="mt-14 grid grid-cols-2 sm:grid-cols-4 gap-4">
           {[
-            { value: '15+', label: 'Năm kinh nghiệm' },
-            { value: '500+', label: 'Công trình hoàn thành' },
+            { value: '5+', label: 'Năm kinh nghiệm' },
+            { value: '1000+', label: 'Công trình hoàn thành' },
             { value: '98%', label: 'Tỷ lệ hài lòng' },
             { value: '5★', label: 'Đánh giá trung bình' },
           ].map(({ value, label }) => (

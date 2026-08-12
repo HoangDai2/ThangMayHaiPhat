@@ -19,7 +19,7 @@ import {
   Target,
   Eye,
 } from 'lucide-react';
-import { companyInfo, milestones, coreValues, teamMembers, certificates, partners } from '../data/company';
+import { companyInfo, coreValues, teamMembers, certificates, partners } from '../data/company';
 
 const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
   shield: Shield,
@@ -65,7 +65,7 @@ export default function AboutPage() {
             <div className="mt-10 lg:mt-0 relative w-full">
               <div className="relative w-full max-w-lg mx-auto lg:max-w-none">
                 <img
-                  src="https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=800&q=80"
+                  src="/539928420_1207135848096542_3586556978112750775_n.jpg"
                   alt="Hải Phát team"
                   className="rounded-2xl shadow-2xl"
                 />
@@ -108,7 +108,7 @@ export default function AboutPage() {
           <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             <div className="lg:col-span-5 h-[300px] sm:h-[400px] lg:h-full w-full rounded-3xl overflow-hidden relative shadow-lg">
               <img 
-                src="https://images.pexels.com/photos/1181406/pexels-photo-1181406.jpeg?auto=compress&cs=tinysrgb&w=800&q=80" 
+                src="/682852976_1412723337537791_2243820393777372314_n.jpg" 
                 alt="Tầm nhìn và sứ mệnh"
                 className="absolute inset-0 w-full h-full object-cover"
               />
@@ -139,55 +139,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Story / Timeline */}
-      <section className="py-16 sm:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Hành trình phát triển</h2>
-            <p className="text-gray-500 text-sm sm:text-base max-w-2xl mx-auto">
-              Từ một đội ngũ nhỏ đến thương hiệu thang máy uy tín trên toàn quốc, đồng hành cùng hàng ngàn công trình
-            </p>
-          </div>
 
-          <div className="relative">
-            {/* Timeline line */}
-            <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-gray-200 -translate-x-1/2" />
-
-            <div className="space-y-12 sm:space-y-20">
-              {milestones.map((milestone, idx) => (
-                <div
-                  key={milestone.year}
-                  className={`flex flex-col md:flex-row gap-6 ${idx % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}
-                >
-                  <div className={`flex-1 ${idx % 2 === 0 ? 'md:text-right md:pr-10' : 'md:text-left md:pl-10'}`}>
-                    <div className="bg-white rounded-3xl overflow-hidden shadow-lg border border-gray-100 group hover:shadow-xl transition-shadow duration-300">
-                      <div className="h-40 sm:h-48 overflow-hidden relative">
-                        <img 
-                          src={`https://picsum.photos/seed/${milestone.year}/600/300`} 
-                          alt={milestone.title} 
-                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
-                           <div className="text-white font-black text-3xl opacity-90 drop-shadow-md">{milestone.year}</div>
-                        </div>
-                      </div>
-                      <div className="p-6 text-left">
-                        <h4 className="font-bold text-gray-900 text-lg mb-2">{milestone.title}</h4>
-                        <p className="text-gray-600 text-sm leading-relaxed">{milestone.description}</p>
-                      </div>
-                    </div>
-                  </div>
-                  {/* Center dot */}
-                  <div className="hidden md:flex flex-col items-center justify-start pt-6 z-10 relative">
-                    <div className="w-5 h-5 rounded-full bg-[#285c9a] ring-4 ring-white shadow-lg" />
-                  </div>
-                  <div className="flex-1" />
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Core Values */}
       <section className="py-16 sm:py-24 bg-[#0d1f35] relative overflow-hidden">
@@ -207,13 +159,13 @@ export default function AboutPage() {
                 Những nguyên tắc định hướng mọi hoạt động của Hải Phát. Chúng tôi cam kết mang lại giá trị bền vững và trải nghiệm tốt nhất cho khách hàng.
               </p>
               
-              <div className="relative rounded-3xl overflow-hidden shadow-2xl hidden lg:block h-[400px]">
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl hidden lg:block w-full aspect-square border border-white/10 group bg-[#0d1f35]">
                  <img 
-                   src="https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=800&q=80" 
+                   src="/475733604_967114985385988_6712307638728245450_n.jpg" 
                    alt="Giá trị cốt lõi" 
-                   className="w-full h-full object-cover" 
+                   className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105" 
                  />
-                 <div className="absolute inset-0 bg-gradient-to-t from-[#0d1f35] via-transparent to-transparent"></div>
+                 <div className="absolute inset-0 bg-gradient-to-t from-[#0d1f35]/30 via-transparent to-transparent pointer-events-none"></div>
               </div>
             </div>
             
@@ -257,31 +209,22 @@ export default function AboutPage() {
                 key={member.id}
                 className="group bg-white rounded-2xl overflow-hidden border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
               >
-                <div className="relative h-48 overflow-hidden">
+                <div className="relative h-56 overflow-hidden">
                   <img
                     src={member.image}
                     alt={member.name}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0d1f35]/60 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0d1f35]/60 via-transparent to-transparent" />
                   <div className="absolute bottom-3 left-3 right-3">
                     <div className="flex items-center justify-between">
                       <span className="text-white/70 text-xs">{member.experience}</span>
-                      {member.linkedin && (
-                        <a
-                          href={member.linkedin}
-                          className="w-7 h-7 rounded-full bg-white/15 flex items-center justify-center hover:bg-white/25 transition-colors"
-                        >
-                          <Linkedin size={14} className="text-white" />
-                        </a>
-                      )}
                     </div>
                   </div>
                 </div>
                 <div className="p-5">
                   <h4 className="font-bold text-gray-900 text-sm">{member.name}</h4>
                   <div className="text-[#285c9a] text-xs font-medium mt-0.5">{member.role}</div>
-                  <p className="text-gray-500 text-xs leading-relaxed mt-2 line-clamp-2">{member.bio}</p>
                 </div>
               </div>
             ))}
