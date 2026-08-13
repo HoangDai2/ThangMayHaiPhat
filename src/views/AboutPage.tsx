@@ -217,9 +217,6 @@ export default function AboutPage() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0d1f35]/60 via-transparent to-transparent" />
                   <div className="absolute bottom-3 left-3 right-3">
-                    <div className="flex items-center justify-between">
-                      <span className="text-white/70 text-xs">{member.experience}</span>
-                    </div>
                   </div>
                 </div>
                 <div className="p-5">

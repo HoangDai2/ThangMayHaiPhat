@@ -9,7 +9,7 @@ import AboutUs from './AboutUs';
 
 export default function Hero() {
   const { banners, loading } = useBannersData();
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [Autoplay({ delay: 5000, stopOnInteraction: false })]);
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [Autoplay({ delay: 5000, stopOnInteraction: false, stopOnMouseEnter: true })]);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const scrollPrev = useCallback(() => {
@@ -40,7 +40,7 @@ export default function Hero() {
     return (
       <section id="home" className="pt-20 pb-6 bg-gray-50 flex flex-col justify-center min-h-[calc(100vh-72px)]">
         <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
-          <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl bg-[#285c9a] h-[300px] sm:h-[370px] lg:h-[420px] flex items-center justify-center">
+          <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl bg-[#285c9a] h-[340px] sm:h-[400px] lg:h-[460px] flex items-center justify-center">
             <Loader2 className="w-12 h-12 text-white animate-spin opacity-50" />
           </div>
         </div>
@@ -66,7 +66,7 @@ export default function Hero() {
                 const titlePart3 = titleWords.slice(5).join(' ');
 
                 return (
-                  <div key={slide.id || index} className="relative min-w-0 flex-[0_0_100%] h-[360px] sm:h-[440px] md:h-[490px] lg:h-[520px] xl:h-[540px]">
+                  <div key={slide.id || index} className="relative min-w-0 flex-[0_0_100%] h-[380px] sm:h-[460px] md:h-[510px] lg:h-[550px] xl:h-[570px]">
                     {/* Background Image */}
                     <img
                       src={slide.image_url}
@@ -97,7 +97,7 @@ export default function Hero() {
                               </>
                             )}
                           </h1>
-                          <p className="text-xs sm:text-sm lg:text-base text-white/90 leading-relaxed mb-4 max-w-xl line-clamp-2">
+                          <p className="text-xs sm:text-sm lg:text-base text-white/90 leading-relaxed mb-4 max-w-xl">
                             {slide.description}
                           </p>
                           <div className="flex flex-wrap gap-3">
@@ -279,7 +279,7 @@ export default function Hero() {
                       <>
                         <div className="absolute inset-0 bg-[#285c9a]/90 sm:bg-gradient-to-r sm:from-[#1b3d68] sm:via-[#285c9a]/80 sm:to-transparent" />
                         <div className="relative z-10 flex flex-col justify-center h-full px-5 sm:px-8 md:px-14 w-full pb-10 sm:pb-16 lg:pb-0">
-                          <div className="mb-4 sm:mb-10 max-w-2xl mt-4 sm:mt-0">
+                          <div className="mb-4 sm:mb-10 max-w-xl mt-4 sm:mt-0">
                              {slide.subtitle && (
                                <span className="inline-block text-amber-400 text-[10px] sm:text-xs font-bold tracking-wider uppercase mb-1.5 sm:mb-2">
                                  {slide.subtitle}
@@ -288,7 +288,7 @@ export default function Hero() {
                              <h1 className="text-xl sm:text-3xl lg:text-4xl font-bold text-white mb-2 sm:mb-3 leading-snug">
                                {slide.title || 'Cam Kết Chất Lượng'}
                              </h1>
-                             <p className="text-xs sm:text-sm lg:text-base text-white/80 leading-relaxed line-clamp-2 sm:line-clamp-none">
+                             <p className="text-xs sm:text-sm lg:text-base text-white/80 leading-relaxed">
                                {slide.description || 'Chúng tôi mang đến những giá trị tốt nhất cho khách hàng.'}
                              </p>
                           </div>

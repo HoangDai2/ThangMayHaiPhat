@@ -3,7 +3,6 @@ export interface TeamMember {
   name: string;
   role: string;
   image: string;
-  experience: string;
 }
 
 export interface Milestone {
@@ -123,30 +122,26 @@ export const teamMembers: TeamMember[] = [
   {
     id: 'hoang-le-quang-hoa',
     name: 'Hoàng Lê Quang Hòa',
-    role: 'CEO & Founder',
-    image: 'https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=400&q=80',
-    experience: '10+ năm',
+    role: 'Giám đốc',
+    image: '/HUAN9016.jpg',
   },
   {
     id: 'nguyen-thi-huong',
     name: 'Nguyễn Thị Hường',
-    role: 'Phó Giám đốc',
-    image: 'https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=400&q=80',
-    experience: '18 năm',
+    role: 'Phó giám đốc',
+    image: '491251241_9696454253740362_974582290995260425_n.jpg',
   },
   {
     id: 'tran-cong-tinh',
     name: 'Trần Công Tình',
-    role: 'Giám đốc Kinh doanh',
-    image: 'https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=400&q=80',
-    experience: '15 năm',
+    role: 'Giám đốc kinh doanh',
+    image: 'HUAN9169.jpg',
   },
   {
     id: 'nguyen-huy-tuyen',
     name: 'Nguyễn Huy Tuyên',
-    role: 'Giám đốc Dịch vụ',
-    image: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=400&q=80',
-    experience: '12 năm',
+    role: 'Trưởng phòng kinh doanh',
+    image: '707329201_4259183531064219_330036999536634658_n.jpg',
   },
 ];
 

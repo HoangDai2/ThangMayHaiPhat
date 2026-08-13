@@ -40,9 +40,9 @@ export const FALLBACK_BANNERS: Banner[] = [
 
   {
     id: 'fallback-5',
-    title: 'Cam Kết Chất Lượng Dịch Vụ',
+    title: 'Cam Kết Chất Lượng',
     subtitle: 'Đồng Hành Cùng Bạn',
-    description: 'Chúng tôi tự hào mang đến sự an tâm tuyệt đối và dịch vụ hoàn hảo cho mọi khách hàng với các tiêu chuẩn khắt khe nhất.',
+    description: 'Chúng tôi tự hào mang đến sự an tâm tuyệt đối và dịch vụ hoàn hảo cho mọi khách hàng — từ tư vấn, thiết kế, lắp đặt đến bảo trì định kỳ, với các tiêu chuẩn chất lượng khắt khe nhất trong ngành.',
     image_url: 'https://images.unsplash.com/photo-1541888086-218a59400ad6?auto=format&fit=crop&w=1920&q=80',
     template_type: 'features'
   }
