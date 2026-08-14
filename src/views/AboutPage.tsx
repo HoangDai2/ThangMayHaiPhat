@@ -207,21 +207,19 @@ export default function AboutPage() {
             {teamMembers.map((member) => (
               <div
                 key={member.id}
-                className="group bg-white rounded-2xl overflow-hidden border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+                className="group bg-white rounded-2xl overflow-hidden border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col h-full"
               >
-                <div className="relative h-56 overflow-hidden">
+                <div className="relative aspect-[4/5] w-full overflow-hidden">
                   <img
-                    src={member.image}
+                    src={member.image.startsWith('/') ? member.image : `/${member.image}`}
                     alt={member.name}
-                    className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                    className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0d1f35]/60 via-transparent to-transparent" />
-                  <div className="absolute bottom-3 left-3 right-3">
-                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0d1f35]/60 via-transparent to-transparent pointer-events-none" />
                 </div>
-                <div className="p-5">
-                  <h4 className="font-bold text-gray-900 text-sm">{member.name}</h4>
-                  <div className="text-[#285c9a] text-xs font-medium mt-0.5">{member.role}</div>
+                <div className="p-5 flex-1 flex flex-col justify-end bg-white">
+                  <h4 className="font-bold text-gray-900 text-base">{member.name}</h4>
+                  <div className="text-[#285c9a] text-sm font-medium mt-1">{member.role}</div>
                 </div>
               </div>
             ))}

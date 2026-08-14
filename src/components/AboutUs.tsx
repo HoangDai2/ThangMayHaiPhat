@@ -139,7 +139,7 @@ export default function AboutUs() {
                   Về chúng tôi
                 </span>
               </div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#0f172a] leading-[1.2]">
+              <h2 className="text-3xl sm:text-4xl font-bold text-[#0f172a] leading-[1.2]">
                 Hải Phát – Nâng tầm không gian sống Việt
               </h2>
             </div>

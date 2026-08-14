@@ -49,7 +49,7 @@ export default function Services() {
               <span className="inline-block text-[#285c9a] text-sm font-semibold tracking-widest uppercase mb-2">
                 Dịch vụ
               </span>
-              <h3 className="text-2xl font-bold text-gray-900">Quy Trình Dịch Vụ Chuyên Nghiệp</h3>
+              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">Quy Trình Dịch Vụ Chuyên Nghiệp</h2>
               <p className="text-gray-500 text-sm mt-1">Đồng hành cùng bạn trong toàn bộ vòng đời thang máy</p>
             </div>
           </div>

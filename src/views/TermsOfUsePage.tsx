@@ -31,7 +31,7 @@ export default function TermsOfUsePage() {
           <div className="prose prose-blue max-w-none prose-headings:text-[#0d1f35] prose-a:text-[#285c9a]">
             
             <div className="bg-gray-50 rounded-2xl p-8 mb-10 border border-gray-100">
-              <h2 className="text-xl font-bold mb-4 flex items-center gap-3">
+              <h2 className="text-xl sm:text-2xl font-bold mb-4 flex items-center gap-3 text-gray-900">
                 <CheckCircle className="text-[#285c9a]" />
                 1. Chấp nhận các Điều khoản
               </h2>
@@ -41,7 +41,7 @@ export default function TermsOfUsePage() {
             </div>
 
             <div className="bg-gray-50 rounded-2xl p-8 mb-10 border border-gray-100">
-              <h2 className="text-xl font-bold mb-4 flex items-center gap-3">
+              <h2 className="text-xl sm:text-2xl font-bold mb-4 flex items-center gap-3 text-gray-900">
                 <ShieldCheck className="text-[#285c9a]" />
                 2. Quyền sở hữu trí tuệ
               </h2>
@@ -51,7 +51,7 @@ export default function TermsOfUsePage() {
             </div>
 
             <div className="bg-gray-50 rounded-2xl p-8 mb-10 border border-gray-100">
-              <h2 className="text-xl font-bold mb-4 flex items-center gap-3">
+              <h2 className="text-xl sm:text-2xl font-bold mb-4 flex items-center gap-3 text-gray-900">
                 <AlertTriangle className="text-[#285c9a]" />
                 3. Quy định sử dụng
               </h2>
@@ -65,7 +65,7 @@ export default function TermsOfUsePage() {
             </div>
 
             <div className="bg-gray-50 rounded-2xl p-8 mb-10 border border-gray-100">
-              <h2 className="text-xl font-bold mb-4 flex items-center gap-3">
+              <h2 className="text-xl sm:text-2xl font-bold mb-4 flex items-center gap-3 text-gray-900">
                 <Scale className="text-[#285c9a]" />
                 4. Giới hạn trách nhiệm
               </h2>
@@ -75,7 +75,7 @@ export default function TermsOfUsePage() {
             </div>
 
             <div className="bg-gray-50 rounded-2xl p-8 mb-10 border border-gray-100">
-              <h2 className="text-xl font-bold mb-4 flex items-center gap-3">
+              <h2 className="text-xl sm:text-2xl font-bold mb-4 flex items-center gap-3 text-gray-900">
                 <FileText className="text-[#285c9a]" />
                 5. Thay đổi Điều khoản
               </h2>

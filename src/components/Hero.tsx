@@ -87,7 +87,7 @@ export default function Hero() {
                               </span>
                             </div>
                           )}
-                          <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white leading-tight mb-2 sm:mb-3">
+                          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight mb-2 sm:mb-3">
                             {titlePart1}{' '}
                             {titlePart2 && <span className="text-blue-200">{titlePart2}</span>}
                             {titlePart3 && (
@@ -136,7 +136,7 @@ export default function Hero() {
                               </span>
                             </div>
                           )}
-                          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white leading-tight mb-3 drop-shadow-md">
+                          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight mb-3 drop-shadow-md">
                             {slide.title}
                           </h1>
                           <p className="text-xs sm:text-sm lg:text-base text-slate-200 leading-relaxed mb-5 max-w-2xl">
@@ -176,7 +176,7 @@ export default function Hero() {
                                 {slide.subtitle}
                               </span>
                             )}
-                            <h1 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-white mb-2 leading-snug">
+                            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-2 leading-snug">
                               {slide.title}
                             </h1>
                             <p className="text-xs sm:text-sm text-slate-300 mb-4 line-clamp-2">
@@ -245,7 +245,7 @@ export default function Hero() {
                             <span className="w-2 h-2 rounded-full bg-rose-500 animate-ping" />
                             {slide.subtitle || 'Dịch vụ khẩn cấp 24/7'}
                           </div>
-                          <h1 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-white mb-3 leading-tight">
+                          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-3 leading-tight">
                             {slide.title}
                           </h1>
                           <p className="text-xs sm:text-sm text-slate-300 mb-5 max-w-xl">
@@ -285,10 +285,10 @@ export default function Hero() {
                                  {slide.subtitle}
                                </span>
                              )}
-                             <h1 className="text-xl sm:text-3xl lg:text-4xl font-bold text-white mb-2 sm:mb-3 leading-snug">
+                             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-2 sm:mb-3 leading-snug">
                                {slide.title || 'Cam Kết Chất Lượng'}
                              </h1>
-                             <p className="text-xs sm:text-sm lg:text-base text-white/80 leading-relaxed">
+                             <p className="hidden sm:block text-xs sm:text-sm lg:text-base text-white/80 leading-relaxed">
                                {slide.description || 'Chúng tôi mang đến những giá trị tốt nhất cho khách hàng.'}
                              </p>
                           </div>

@@ -61,7 +61,7 @@ export function ProductsList() {
       </header>
 
       {/* Products Grid */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 -mt-8 relative z-20">
+      <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 py-12 -mt-8 relative z-20">
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {products.map((product) => {
             const Icon = iconMap[product.icon] || Building2;
@@ -119,7 +119,7 @@ export function ProductsList() {
       <section className="bg-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
               Tại sao chọn Hải Phát?
             </h2>
             <p className="text-gray-500 max-w-xl mx-auto text-sm">
@@ -264,7 +264,7 @@ function ProductDetail() {
           <div className="lg:col-span-2 space-y-10">
             {/* Description */}
             <section>
-              <h2 className="text-xl font-bold text-gray-900 mb-4">Giới thiệu sản phẩm</h2>
+              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Giới thiệu sản phẩm</h2>
               <div className="prose prose-sm text-gray-600 leading-relaxed">
                 {product.fullDescription.split('\n\n').map((para, idx) => (
                   <p key={idx} className="mb-4">{para}</p>
@@ -441,7 +441,7 @@ function ProductDetail() {
         {related.length > 0 && (
           <section className="mt-16 pt-10 border-t border-gray-100">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-bold text-gray-900">Sản phẩm liên quan</h2>
+              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">Sản phẩm liên quan</h2>
               <Link href="/san-pham"
                 className="group flex items-center gap-1.5 text-[#285c9a] font-semibold text-sm"
               >

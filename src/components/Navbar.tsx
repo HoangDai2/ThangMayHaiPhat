@@ -8,6 +8,7 @@ import { supabase } from '../lib/supabase';
 const navLinks = [
   { label: 'Trang chủ', href: '/' },
   { label: 'Sản phẩm', href: '/san-pham' },
+  { label: 'Dịch vụ', href: '/dich-vu' },
   { label: 'Dự án', href: '/du-an' },
   { label: 'Bài viết', href: '/bai-viet' },
   { label: 'Về chúng tôi', href: '/ve-chung-toi' },
