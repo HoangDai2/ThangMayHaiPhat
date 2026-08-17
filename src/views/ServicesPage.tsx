@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { ZaloIcon } from '../components/icons/ZaloIcon';
 
 export default function ServicesPage() {
   const [phoneInput, setPhoneInput] = useState('');
@@ -68,9 +69,16 @@ export default function ServicesPage() {
               <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
                 Giải Pháp Tối Ưu, Hoàn Toàn Miễn Phí
               </h2>
-              <p className="text-gray-600 text-base md:text-lg leading-relaxed mb-8">
-                Để nhận được báo giá chi tiết và bản vẽ thiết kế sơ bộ miễn phí, quý khách vui lòng liên hệ trực tiếp với chúng tôi. Đội ngũ kỹ sư giàu kinh nghiệm của Hải Phát sẵn sàng hỗ trợ bạn khảo sát tận nơi.
-              </p>
+              <div className="space-y-3 mb-8">
+                <div className="flex items-start gap-3">
+                  <CheckCircle2 className="w-6 h-6 text-[#285c9a] shrink-0 mt-0.5" />
+                  <p className="text-gray-600 text-base md:text-lg">Nhận báo giá chi tiết và bản vẽ sơ bộ hoàn toàn miễn phí.</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle2 className="w-6 h-6 text-[#285c9a] shrink-0 mt-0.5" />
+                  <p className="text-gray-600 text-base md:text-lg">Kỹ sư giàu kinh nghiệm trực tiếp khảo sát tận nơi.</p>
+                </div>
+              </div>
 
               <div className="flex gap-4 items-center mb-10">
                 <span className="inline-flex items-center gap-2 bg-blue-50 px-4 py-2 rounded-full text-sm font-semibold text-[#285c9a]">
@@ -82,10 +90,10 @@ export default function ServicesPage() {
               </div>
               
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <a href="https://zalo.me/yourzalonumber" target="_blank" rel="noopener noreferrer" 
+                <a href="https://zalo.me/0898424666" target="_blank" rel="noopener noreferrer" 
                   className="flex items-center gap-4 p-5 rounded-2xl bg-white hover:bg-blue-50 border border-gray-100 hover:border-blue-100 transition-all shadow-sm hover:shadow-md group/link">
-                  <div className="w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center flex-shrink-0 group-hover/link:scale-110 transition-transform">
-                    <MessageCircle className="text-white" size={24} />
+                  <div className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 group-hover/link:scale-110 transition-transform">
+                    <ZaloIcon size={48} className="text-[#0068FF]" />
                   </div>
                   <div>
                     <div className="font-bold text-gray-900">Chat qua Zalo</div>
@@ -111,7 +119,7 @@ export default function ServicesPage() {
                   </div>
                   <div className="flex-1">
                     <div className="font-bold text-white text-lg">Hotline Tư Vấn Trực Tiếp</div>
-                    <div className="text-emerald-400 font-bold">091.234.5678</div>
+                    <div className="text-emerald-400 font-bold">0898424666</div>
                   </div>
                 </a>
               </div>
@@ -126,11 +134,11 @@ export default function ServicesPage() {
 
             {/* Right Image */}
             <div className="w-full lg:w-1/2 flex">
-              <div className="relative rounded-3xl overflow-hidden w-full h-full min-h-[400px] shadow-2xl group">
+              <div className="relative rounded-3xl overflow-hidden w-full h-full min-h-[300px] lg:min-h-0 shadow-2xl group">
                 <img 
-                  src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80" 
+                  src="/493231919_1109987391144722_8013699268272707181_n.jpg" 
                   alt="Tư vấn lắp đặt thang máy" 
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0d1f35]/80 via-transparent to-transparent"></div>
                 <div className="absolute bottom-6 left-6 right-6 flex items-center gap-4 bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/20 text-white">
@@ -162,9 +170,16 @@ export default function ServicesPage() {
               <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
                 Bảo Hành & Bảo Trì Định Kỳ
               </h2>
-              <p className="text-gray-600 text-base md:text-lg leading-relaxed mb-8">
-                Dành riêng cho khách hàng cũ. Đảm bảo thang máy luôn vận hành êm ái, bền bỉ và an toàn tuyệt đối với dịch vụ chuyên nghiệp từ chính những kỹ thuật viên của Thang Máy Hải Phát.
-              </p>
+              <div className="space-y-3 mb-8">
+                <div className="flex items-start gap-3">
+                  <CheckCircle2 className="w-6 h-6 text-[#d97706] shrink-0 mt-0.5" />
+                  <p className="text-gray-600 text-base md:text-lg">Đảm bảo vận hành êm ái, bền bỉ và an toàn tuyệt đối.</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle2 className="w-6 h-6 text-[#d97706] shrink-0 mt-0.5" />
+                  <p className="text-gray-600 text-base md:text-lg">Dịch vụ chuyên nghiệp trực tiếp từ đội ngũ kỹ thuật Hải Phát.</p>
+                </div>
+              </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-10">
                 <div className="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
@@ -235,11 +250,11 @@ export default function ServicesPage() {
 
             {/* Right Visual Image */}
             <div className="w-full lg:w-1/2 flex">
-              <div className="relative rounded-3xl overflow-hidden w-full h-full min-h-[400px] shadow-2xl group">
+              <div className="relative rounded-3xl overflow-hidden w-full h-full min-h-[300px] lg:min-h-0 shadow-2xl group">
                 <img 
-                  src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=800&q=80" 
+                  src="/bhbt.png" 
                   alt="Bảo trì bảo dưỡng thang máy" 
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#f59e0b]/80 via-transparent to-transparent"></div>
                 <div className="absolute bottom-6 left-6 right-6 flex items-center gap-4 bg-black/20 backdrop-blur-md p-4 rounded-2xl border border-white/20 text-white">

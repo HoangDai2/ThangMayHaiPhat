@@ -55,37 +55,47 @@ export default function Services() {
           </div>
           <div className="relative mt-12 md:mt-16 max-w-6xl mx-auto w-full">
             {/* Center Line for Desktop, Left Line for Mobile */}
-            <div className="absolute left-[27px] md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-gray-100 via-gray-200 to-gray-100 transform md:-translate-x-1/2"></div>
-            
+            <div className="absolute left-[20px] md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-gray-100 via-gray-200 to-gray-100 transform md:-translate-x-1/2"></div>
+
             <div className="space-y-12 md:space-y-0">
               {serviceItems.map((service, idx) => {
                 const Icon = serviceIconMap[service.icon] || Settings;
                 const isEven = idx % 2 === 1; // 0-indexed, so 1 (Step 2) is even
                 const isLast = idx === serviceItems.length - 1;
-                
+
                 return (
                   <div key={service.id} className={`relative flex flex-col md:flex-row items-start ${isEven ? 'md:flex-row-reverse' : ''} group ${!isLast ? 'md:pb-24' : ''}`}>
-                    
+
                     {/* Icon Node */}
-                    <div className="absolute left-[27px] md:left-1/2 transform -translate-x-1/2 flex items-center justify-center w-[54px] h-[54px] rounded-full bg-white border-[4px] border-gray-50 shadow-md group-hover:border-[#285c9a]/20 group-hover:scale-110 transition-all duration-500 z-10">
+                    <div className="absolute left-[20px] md:left-1/2 transform -translate-x-1/2 flex items-center justify-center w-10 h-10 md:w-[54px] md:h-[54px] rounded-full bg-white border-[3px] md:border-[4px] border-gray-50 shadow-md group-hover:border-[#285c9a]/20 group-hover:scale-110 transition-all duration-500 z-10">
                       <div className="flex items-center justify-center w-full h-full rounded-full bg-gray-50 group-hover:bg-[#285c9a] transition-colors duration-500">
-                        <Icon size={22} className="text-[#285c9a] group-hover:text-white transition-colors duration-500" />
+                        <Icon className="w-5 h-5 md:w-[22px] md:h-[22px] text-[#285c9a] group-hover:text-white transition-colors duration-500" />
                       </div>
                     </div>
-                    
+
                     {/* Content Card */}
-                    <div className={`w-full md:w-1/2 pl-20 md:pl-0 ${isEven ? 'md:pr-10' : 'md:pl-10'} mt-1 md:mt-0`}>
+                    <div className={`w-full md:w-1/2 pl-12 md:pl-0 ${isEven ? 'md:pr-10' : 'md:pl-10'} mt-1 md:mt-0`}>
                       <div className="block bg-white p-6 md:p-8 rounded-3xl shadow-sm hover:shadow-xl hover:shadow-[#285c9a]/10 border border-gray-100 transition-all duration-500 hover:-translate-y-1 relative overflow-hidden group-hover:border-[#285c9a]/30">
-                        
+
                         {/* Decorative background element */}
                         <div className={`absolute top-0 ${isEven ? 'right-0' : 'left-0'} w-1.5 h-full bg-gradient-to-b from-[#285c9a] to-[#3a7bd5] opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
-                        
+
                         <div className="flex flex-col text-left">
+                          <img
+                            src={[
+                              'https://images.unsplash.com/photo-1541888046428-d81bb19240f5?auto=format&fit=crop&q=80&w=600&h=300',
+                              'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80&w=600&h=300',
+                              'https://images.unsplash.com/photo-1428366890462-dd4baecf492b?auto=format&fit=crop&q=80&w=600&h=300',
+                              'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=600&h=300'
+                            ][idx % 4]}
+                            alt={service.title}
+                            className="w-full h-40 object-cover rounded-2xl mb-6 shadow-sm"
+                          />
                           <div className="inline-flex items-center justify-center px-3 py-1 rounded-full bg-[#285c9a]/10 text-[#285c9a] text-xs font-bold tracking-widest uppercase mb-4 w-fit">
                             Bước {idx + 1}
                           </div>
                           <h4 className="font-bold text-gray-900 text-xl md:text-2xl mb-4 group-hover:text-[#285c9a] transition-colors">{service.title}</h4>
-                          
+
                           <div className="text-gray-600 text-sm md:text-base leading-relaxed">
                             {service.shortDescription.includes('•') ? (
                               <ul className="space-y-3">

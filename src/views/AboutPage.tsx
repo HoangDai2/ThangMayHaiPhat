@@ -19,7 +19,7 @@ import {
   Target,
   Eye,
 } from 'lucide-react';
-import { companyInfo, coreValues, teamMembers, certificates, partners } from '../data/company';
+import { companyInfo, coreValues, teamMembers, partners } from '../data/company';
 
 const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
   shield: Shield,
@@ -120,19 +120,30 @@ export default function AboutPage() {
             </div>
             
             <div className="lg:col-span-7 grid sm:grid-cols-2 gap-6">
-              <div className="bg-white rounded-3xl p-6 sm:p-8 border border-gray-100 hover:shadow-xl transition-shadow flex flex-col h-full">
-                <div className="w-14 h-14 rounded-2xl bg-[#285c9a]/10 flex items-center justify-center mb-5">
-                  <Target size={24} className="text-[#285c9a]" />
+              {/* Mission Card */}
+              <div className="relative rounded-3xl p-6 sm:p-8 overflow-hidden group hover:shadow-xl transition-shadow flex flex-col h-full min-h-[250px]">
+                <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80&w=600" alt="Mission" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0d1f35]/95 via-[#0d1f35]/70 to-[#0d1f35]/30" />
+                <div className="relative z-10 flex flex-col h-full justify-end">
+                  <div className="w-12 h-12 rounded-xl bg-white/20 backdrop-blur-md border border-white/20 flex items-center justify-center mb-4">
+                    <Target size={24} className="text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-2">Sứ mệnh</h3>
+                  <p className="text-white/80 leading-relaxed text-sm">{companyInfo.mission}</p>
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Sứ mệnh</h3>
-                <p className="text-gray-600 leading-relaxed text-sm">{companyInfo.mission}</p>
               </div>
-              <div className="bg-white rounded-3xl p-6 sm:p-8 border border-gray-100 hover:shadow-xl transition-shadow flex flex-col h-full">
-                <div className="w-14 h-14 rounded-2xl bg-[#285c9a]/10 flex items-center justify-center mb-5">
-                  <Eye size={24} className="text-[#285c9a]" />
+              
+              {/* Vision Card */}
+              <div className="relative rounded-3xl p-6 sm:p-8 overflow-hidden group hover:shadow-xl transition-shadow flex flex-col h-full min-h-[250px]">
+                <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=600" alt="Vision" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0d1f35]/95 via-[#0d1f35]/70 to-[#0d1f35]/30" />
+                <div className="relative z-10 flex flex-col h-full justify-end">
+                  <div className="w-12 h-12 rounded-xl bg-white/20 backdrop-blur-md border border-white/20 flex items-center justify-center mb-4">
+                    <Eye size={24} className="text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-2">Tầm nhìn</h3>
+                  <p className="text-white/80 leading-relaxed text-sm">{companyInfo.vision}</p>
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Tầm nhìn</h3>
-                <p className="text-gray-600 leading-relaxed text-sm">{companyInfo.vision}</p>
               </div>
             </div>
           </div>
@@ -172,18 +183,32 @@ export default function AboutPage() {
             {/* Right side: Values Grid */}
             <div className="lg:col-span-7">
               <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
-                {coreValues.map((value) => {
+                {coreValues.map((value, idx) => {
                   const Icon = iconMap[value.icon] || CheckCircle;
+                  const bgImages = [
+                    'https://images.unsplash.com/photo-1541888046428-d81bb19240f5?auto=format&fit=crop&q=80&w=400',
+                    'https://images.unsplash.com/photo-1428366890462-dd4baecf492b?auto=format&fit=crop&q=80&w=400',
+                    'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80&w=400',
+                    'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=400'
+                  ];
                   return (
                     <div
                       key={value.title}
-                      className="group bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 hover:border-white/20 transition-all duration-300 backdrop-blur-sm"
+                      className="relative group rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 min-h-[220px]"
                     >
-                      <div className="w-12 h-12 rounded-xl bg-[#285c9a]/30 flex items-center justify-center mb-5 group-hover:bg-[#285c9a]/50 transition-colors">
-                        <Icon size={24} className="text-blue-300" />
+                      <img 
+                        src={bgImages[idx % bgImages.length]} 
+                        alt={value.title} 
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#0d1f35]/95 via-[#0d1f35]/70 to-[#0d1f35]/30"></div>
+                      <div className="relative z-10 p-5 flex flex-col h-full justify-end">
+                        <div className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center mb-3 group-hover:bg-blue-500/50 transition-colors">
+                          <Icon size={20} className="text-white" />
+                        </div>
+                        <h4 className="font-bold text-white text-base mb-1">{value.title}</h4>
+                        <p className="text-white/80 text-sm leading-relaxed line-clamp-3">{value.description}</p>
                       </div>
-                      <h4 className="font-bold text-white text-base mb-2">{value.title}</h4>
-                      <p className="text-white/60 text-sm leading-relaxed">{value.description}</p>
                     </div>
                   );
                 })}
@@ -227,38 +252,16 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Certificates & Partners */}
+      {/* Partners */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Certificates */}
-          <div className="mb-14">
-            <div className="text-center mb-8">
-              <h2 className="text-xl font-bold text-gray-900 mb-2">Chứng nhận & Đối tác</h2>
-              <p className="text-gray-500 text-sm">
-                Cam kết chất lượng theo tiêu chuẩn quốc tế
-              </p>
-            </div>
-
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {certificates.map((cert) => (
-                <div
-                  key={cert.name}
-                  className="bg-white rounded-xl p-4 border border-gray-100 text-center hover:shadow-md transition-shadow"
-                >
-                  <div className="w-12 h-12 rounded-xl bg-[#285c9a]/10 flex items-center justify-center mx-auto mb-3">
-                    <Award size={20} className="text-[#285c9a]" />
-                  </div>
-                  <div className="font-semibold text-gray-900 text-xs">{cert.name}</div>
-                  <div className="text-gray-400 text-xs mt-0.5">{cert.issuer}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-
           {/* Partners Logos */}
           <div>
-            <div className="text-center mb-6">
-              <h3 className="text-sm font-semibold text-gray-700 mb-1">Đối tác thương hiệu</h3>
+            <div className="text-center mb-8">
+              <h2 className="text-xl font-bold text-gray-900 mb-2">Đối tác thương hiệu</h2>
+              <p className="text-gray-500 text-sm">
+                Đồng hành cùng những thương hiệu hàng đầu thế giới
+              </p>
             </div>
             <div className="flex flex-wrap justify-center items-center gap-8 opacity-60">
               {partners.map((partner) => (

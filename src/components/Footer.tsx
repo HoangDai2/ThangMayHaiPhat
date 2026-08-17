@@ -4,7 +4,7 @@ import { Phone, Mail, MapPin, Facebook, Youtube, ArrowUp } from 'lucide-react';
 import { ZaloIcon } from './icons/ZaloIcon';
 
 const quickLinks = [
-  { label: 'Thang Homelift', href: '/san-pham/thang-homelift' },
+
   { label: 'Thang tải khách', href: '/san-pham/thang-may-tai-khach' },
   { label: 'Thang quan sát', href: '/san-pham/thang-may-quan-sat' },
   { label: 'Thang bệnh viện', href: '/san-pham/thang-may-benh-vien' },
@@ -63,29 +63,33 @@ export default function Footer() {
             </p>
 
             {/* Social */}
-            <div className="flex gap-2">
+            <div className="flex gap-3">
               <a
                 href="#"
-                className="w-9 h-9 rounded-lg bg-white/8 flex items-center justify-center hover:bg-[#285c9a] transition-colors"
+                className="w-11 h-11 bg-[#1877F2] rounded-xl flex items-center justify-center hover:scale-110 transition-transform shadow-sm group"
                 aria-label="Facebook"
               >
-                <Facebook size={16} className="text-gray-400 hover:text-white" />
+                <svg width="24" height="24" viewBox="8 2 18 30" className="text-white" fill="currentColor">
+                  <path d="M19.25,32L19.25,19.55L23.42,19.55L24.04,14.7L19.25,14.7L19.25,11.61C19.25,10.2,19.64,9.25,21.64,9.25L24.19,9.25L24.19,4.91C23.75,4.85,22.23,4.72,20.46,4.72C16.78,4.72,14.25,6.97,14.25,11.17L14.25,14.7L10.07,14.7L10.07,19.55L14.25,19.55L14.25,32H19.25Z" />
+                </svg>
               </a>
               <a
                 href="https://zalo.me/0898.424.666"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-lg bg-white/8 flex items-center justify-center hover:bg-[#0068ff] transition-colors"
+                className="w-11 h-11 flex items-center justify-center hover:scale-110 transition-transform group"
                 aria-label="Zalo"
               >
-                <ZaloIcon size={16} className="text-gray-400 hover:text-white" />
+                <ZaloIcon size={44} />
               </a>
               <a
                 href="tel:0987603588"
-                className="w-9 h-9 rounded-lg bg-white/8 flex items-center justify-center hover:bg-[#285c9a] transition-colors"
+                className="w-11 h-11 bg-[#25D366] rounded-xl flex items-center justify-center hover:scale-110 transition-transform shadow-sm group"
                 aria-label="Phone"
               >
-                <Phone size={16} className="text-gray-400 hover:text-white" />
+                <svg width="22" height="22" viewBox="0 0 512 512" className="text-white" fill="currentColor">
+                  <path d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z" />
+                </svg>
               </a>
             </div>
           </div>

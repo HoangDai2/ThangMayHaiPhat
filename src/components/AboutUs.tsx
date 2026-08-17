@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { ArrowRight, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, CheckCircle2, ShieldCheck, Building2 } from 'lucide-react';
 
 interface CountUpProps {
   end: number;
@@ -144,11 +144,20 @@ export default function AboutUs() {
               </h2>
             </div>
 
-            <div className="space-y-4 text-slate-600 text-sm sm:text-base leading-relaxed">
-              <p>
-                Được thành lập vào năm 2015, <b>Thang Máy Hải Phát</b> có trụ sở tại <b>Tầng 11, Tòa Nhà Đa Năng, 169 Đ. Nguyễn Ngọc Vũ, Yên Hòa, Hà Nội, Việt Nam</b> và hoạt động trong lĩnh vực cung cấp, lắp đặt, bảo trì thang máy. Chúng tôi cung cấp các giải pháp thang máy toàn diện, cam kết mang đến những sản phẩm an toàn, bền bỉ và có tính thẩm mỹ cao. Hải Phát sử dụng thiết bị đồng bộ liên doanh từ các thương hiệu uy tín như Mitsubishi, Fuji, Sicor Italy, Montanari, Schneider và Ziehl-Abegg.              </p>
-              <p>
-                Tất cả thiết bị, linh kiện chính đều có đầy đủ chứng chỉ <b>CO (Certificate of Origin)</b> và <b>CQ (Certificate of Quality)</b>, đảm bảo nguồn gốc xuất xứ rõ ràng, chất lượng đạt tiêu chuẩn và mang đến sự an tâm cho khách hàng trong suốt quá trình sử dụng.              </p>
+            <div className="space-y-4">
+              <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+                Được thành lập năm 2015, <b>Thang Máy Hải Phát</b> chuyên cung cấp giải pháp lắp đặt và bảo trì thang máy toàn diện, mang đến sản phẩm an toàn, bền bỉ và thẩm mỹ.
+              </p>
+              <div className="flex flex-wrap gap-2 pt-1">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-50 text-blue-700 text-xs font-semibold border border-blue-100">
+                  <ShieldCheck size={14} />
+                  Chứng chỉ CO/CQ
+                </span>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-50 text-slate-700 text-xs font-semibold border border-slate-200">
+                  <Building2 size={14} />
+                  Thiết bị Liên doanh Chính hãng
+                </span>
+              </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-2 py-2">

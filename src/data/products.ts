@@ -32,7 +32,7 @@ export const products: Product[] = [
     subtitle: 'Giải pháp thang máy cao cấp cho không gian sống',
     icon: 'home',
     image: 'https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=1200&q=80',
-    shortDescription: 'Thiết kế sang trọng, tối ưu không gian. Phù hợp với nhà phố, biệt thự với cabin kính toàn phần hoặc inox mờ cao cấp.',
+    shortDescription: 'Thiết kế sang trọng, tối ưu không gian. Phù hợp với nhà phố, biệt thự.',
     fullDescription: `Thang Homelift Hải Phát được thiết kế riêng biệt cho từng không gian sống, mang đến sự tiện nghi và đẳng cấp cho gia đình bạn. Với công nghệ tiên tiến từ các thương hiệu hàng đầu thế giới như Mitsubishi, Otis, Schindler, chúng tôi cam kết mang đến sản phẩm chất lượng cao với vận hành êm ái, an toàn tuyệt đối.
 
 Dòng thang Homelift của chúng tôi phù hợp với nhiều kiểu kiến trúc khác nhau - từ nhà phố liền kề, biệt thự cổ điển đến biệt thự hiện đại. Cabin có thể tùy chỉnh với nhiều vật liệu cao cấp: kính cường lực trong suốt, inox mờ, gỗ tự nhiên hay laminate chống trầy xước.`,
@@ -86,7 +86,7 @@ Dòng thang Homelift của chúng tôi phù hợp với nhiều kiểu kiến tr
     subtitle: 'Hiệu suất cao cho tòa nhà văn phòng và chung cư',
     icon: 'building',
     image: 'https://images.pexels.com/photos/2467285/pexels-photo-2467285.jpeg?auto=compress&cs=tinysrgb&w=1200&q=80',
-    shortDescription: 'Giải pháp lý tưởng cho tòa nhà, văn phòng, bệnh viện, khách sạn. Tải trọng lớn, vận hành êm ái, đáp ứng tiêu chuẩn QCVN và EN 81.',
+    shortDescription: 'Giải pháp lý tưởng cho cao ốc, văn phòng, khách sạn với vận hành êm ái, đáp ứng tiêu chuẩn QCVN và EN 81.',
     fullDescription: `Thang máy tải khách Hải Phát là giải pháp vận chuyển tối ưu cho các công trình thương mại, văn phòng, chung cư cao tầng với lưu lượng người lớn. Với công nghệ điều khiển nhóm thông minh, hệ thống phân bổ luồng người tự động giúp giảm thời gian chờ đợi và tăng hiệu suất vận hành.
 
 Chúng tôi cung cấp các dòng thang từ tốc độ tiêu chuẩn 1.0 m/s đến tốc độ cao 2.5 m/s cho các tòa nhà cao tầng. Thiết kế cabin hiện đại với nhiều lựa chọn nội thất cao cấp, đáp ứng mọi yêu cầu thẩm mỹ khắt khe nhất.`,
@@ -140,7 +140,7 @@ Chúng tôi cung cấp các dòng thang từ tốc độ tiêu chuẩn 1.0 m/s �
     subtitle: 'Giải pháp vận chuyển hàng hóa công nghiệp',
     icon: 'truck',
     image: 'https://images.pexels.com/photos/3557590/pexels-photo-3557590.jpeg?auto=compress&cs=tinysrgb&w=1200&q=80',
-    shortDescription: 'Thang máy chuyên dụng cho nhà kho, nhà máy sản xuất, bệnh viện với tải trọng lớn và sàn cabin chịu lực cao.',
+    shortDescription: 'Thang máy chuyên dụng tải trọng lớn, sàn cabin chịu lực cao cho nhà kho, nhà máy sản xuất.',
     fullDescription: `Thang máy tải hàng Hải Phát được thiết kế chuyên biệt cho các nhu cầu vận chuyển hàng hóa trong nhà kho, nhà xưởng, bệnh viện. Với sàn cabin bằng thép chịu lực hoặc gạch granit dày, hệ thống cửa chắn gờ chắc chắn, tải trọng từ 1000kg đến 5000kg.
 
 Dòng thang tải hàng có thể tùy chỉnh theo nhu cầu đặc biệt: thang chở xe đẩy, thang tải ô tô, thang chuyên dụng cho bệnh viện với kích thước cabin lớn để vận chuyển giường bệnh.`,
@@ -194,7 +194,7 @@ Dòng thang tải hàng có thể tùy chỉnh theo nhu cầu đặc biệt: tha
     subtitle: 'Thang máy kính toàn cảnh cho kiến trúc nổi bật',
     icon: 'eye',
     image: 'https://images.pexels.com/photos/32260201/pexels-photo-32260201.jpeg?auto=compress&cs=tinysrgb&w=1200&q=80',
-    shortDescription: 'Thang máy kính toàn cảnh lắp ngoài công trình, mang lại điểm nhấn kiến trúc độc đáo và trải nghiệm thị giác ấn tượng cho người sử dụng.',
+    shortDescription: 'Thang kính toàn cảnh mang lại điểm nhấn kiến trúc độc đáo và trải nghiệm thị giác ấn tượng.',
     fullDescription: `Thang máy quan sát Hải Phát được thiết kế với cabin kính toàn cảnh, lắp đặt bên ngoài các công trình cao tầng như khách sạn, trung tâm thương mại, tòa nhà văn phòng và các công trình biểu tượng. Với tầm nhìn 360 độ, thang máy quan sát không chỉ là phương tiện di chuyển mà còn là một điểm nhấn kiến trúc độc đáo, nâng tầm giá trị thẩm mỹ cho công trình.
 
 Cabin kính được chế tạo từ kính cường lực an toàn đa lớp, chịu được chênh lệch áp suất và điều kiện thời tiết khắc nghiệt. Hệ thống dẫn hướng và đối trọng được bố trí khéo léo để không cản trở tầm nhìn, kết hợp với hệ thống chiếu sáng LED tạo hiệu ứng ánh sáng ấn tượng về đêm.`,
@@ -248,7 +248,7 @@ Cabin kính được chế tạo từ kính cường lực an toàn đa lớp, c
     subtitle: 'Thang máy y tế chuyên dụng cho giường bệnh và băng ca',
     icon: 'heart-pulse',
     image: 'https://images.pexels.com/photos/263402/pexels-photo-263402.jpeg?auto=compress&cs=tinysrgb&w=1200&q=80',
-    shortDescription: 'Thang máy y tế chuyên dụng với cabin rộng, sàn chịu lực cao, vận chuyển giường bệnh, băng ca và thiết bị y tế an toàn, êm ái.',
+    shortDescription: 'Thang y tế chuyên dụng: cabin rộng, vận hành êm ái để vận chuyển giường bệnh và thiết bị y tế.',
     fullDescription: `Thang máy bệnh viện Hải Phát được thiết kế chuyên biệt cho các cơ sở y tế như bệnh viện, phòng khám, trung tâm chăm sóc sức khỏe. Với cabin rộng rãi để vận chuyển giường bệnh, băng ca, xe lăn và thiết bị y tế cồng kềnh, sàn cabin chịu lực cao và vận hành êm ái đặc biệt để đảm bảo sự thoải mái cho bệnh nhân.
 
 Thang máy bệnh viện tuân thủ các tiêu chuẩn y tế khắt khe: hệ thống cửa mở rộng để giường bệnh ra vào dễ dàng, chế độ vận hành êm ái đặc biệt giảm tối đa rung động, hệ thống ưu tiên cho ca khẩn cấp, và khả năng tích hợp với hệ thống điều hành trung tâm của bệnh viện.`,

@@ -40,11 +40,10 @@ export default function Projects() {
             <button
               key={cat}
               onClick={() => setActive(cat)}
-              className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
-                active === cat
+              className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 ${active === cat
                   ? 'bg-[#285c9a] text-white shadow-md shadow-[#285c9a]/25'
                   : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-              }`}
+                }`}
             >
               {cat}
             </button>

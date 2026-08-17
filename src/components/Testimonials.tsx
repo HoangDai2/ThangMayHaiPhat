@@ -28,10 +28,10 @@ export default function Testimonials() {
 
   const visible = reviews.length > 0
     ? [
-        reviews[current],
-        reviews[(current + 1) % reviews.length],
-        reviews[(current + 2) % reviews.length],
-      ]
+      reviews[current],
+      reviews[(current + 1) % reviews.length],
+      reviews[(current + 2) % reviews.length],
+    ]
     : [];
 
   return (
@@ -112,11 +112,10 @@ export default function Testimonials() {
             {visible.map((t, i) => (
               <div
                 key={t.id}
-                className={`bg-white rounded-2xl p-6 border transition-all duration-300 ${
-                  i === 0
+                className={`bg-white rounded-2xl p-6 border transition-all duration-300 ${i === 0
                     ? 'border-[#285c9a]/30 shadow-lg shadow-[#285c9a]/5'
                     : 'border-gray-100 shadow-sm'
-                }`}
+                  }`}
               >
                 <div className="flex items-start justify-between mb-4">
                   <Quote size={28} className="text-[#285c9a]/15 fill-[#285c9a]/10" />
@@ -171,9 +170,8 @@ export default function Testimonials() {
               <button
                 key={i}
                 onClick={() => setCurrent(i)}
-                className={`rounded-full transition-all duration-200 ${
-                  i === current ? 'w-6 h-2 bg-[#285c9a]' : 'w-2 h-2 bg-gray-300 hover:bg-gray-400'
-                }`}
+                className={`rounded-full transition-all duration-200 ${i === current ? 'w-6 h-2 bg-[#285c9a]' : 'w-2 h-2 bg-gray-300 hover:bg-gray-400'
+                  }`}
                 aria-label={`Go to ${i + 1}`}
               />
             ))}

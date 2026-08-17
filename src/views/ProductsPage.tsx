@@ -264,11 +264,29 @@ function ProductDetail() {
           <div className="lg:col-span-2 space-y-10">
             {/* Description */}
             <section>
-              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Giới thiệu sản phẩm</h2>
-              <div className="prose prose-sm text-gray-600 leading-relaxed">
-                {product.fullDescription.split('\n\n').map((para, idx) => (
-                  <p key={idx} className="mb-4">{para}</p>
-                ))}
+              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-8">Giới thiệu sản phẩm</h2>
+              <div className="space-y-8">
+                {product.fullDescription.split('\n\n').map((para, idx) => {
+                  const isEven = idx % 2 === 0;
+                  const imgSrc = gallery[idx % gallery.length] || product.image;
+                  
+                  return (
+                    <div key={idx} className={`flex flex-col gap-6 items-center ${isEven ? 'sm:flex-row' : 'sm:flex-row-reverse'}`}>
+                      <div className="flex-1">
+                        <p className="text-gray-600 leading-relaxed text-sm sm:text-base">{para}</p>
+                      </div>
+                      <div className="flex-1 w-full">
+                        <div className="rounded-2xl overflow-hidden shadow-lg border border-gray-100 relative group">
+                          <img 
+                            src={imgSrc} 
+                            alt="" 
+                            className="w-full aspect-[4/3] object-cover transition-transform duration-700 group-hover:scale-105"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </section>
 
