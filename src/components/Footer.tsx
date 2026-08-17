@@ -2,22 +2,20 @@
 import Link from 'next/link';
 import { Phone, Mail, MapPin, Facebook, Youtube, ArrowUp } from 'lucide-react';
 import { ZaloIcon } from './icons/ZaloIcon';
-
-const quickLinks = [
-
-  { label: 'Thang tải khách', href: '/san-pham/thang-may-tai-khach' },
-  { label: 'Thang quan sát', href: '/san-pham/thang-may-quan-sat' },
-  { label: 'Thang bệnh viện', href: '/san-pham/thang-may-benh-vien' },
-  { label: 'Thang tải hàng', href: '/san-pham/thang-may-tai-hang' },
-];
-
+import { useProductsData } from '../hooks/useProductsData';
 
 const companyLinks = [
-  { label: 'Về Hải Phát', href: '/ve-chung-toi' }
+  { label: 'Về Hải Phát', href: '/ve-chung-toi' },
+  { label: 'Dự án', href: '/du-an' },
+  { label: 'Dịch vụ', href: '/dich-vu' },
+  { label: 'Bài viết', href: '/bai-viet' },
+  { label: 'Liên hệ', href: '/lien-he' }
 ];
 
 export default function Footer() {
   const scrollTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+  const { products } = useProductsData();
+  const dynamicQuickLinks = products.map(p => ({ label: p.title, href: `/san-pham/${p.id}` }));
 
   return (
     <footer className="bg-[#0d1f35] text-white">
@@ -100,7 +98,7 @@ export default function Footer() {
               Sản phẩm
             </h4>
             <ul className="space-y-2.5">
-              {quickLinks.map((l) => (
+              {dynamicQuickLinks.map((l) => (
                 <li key={l.label}>
                   <Link href={l.href}
                     className="text-gray-400 text-sm hover:text-white transition-colors flex items-center gap-2 group"
