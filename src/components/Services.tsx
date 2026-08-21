@@ -83,13 +83,13 @@ export default function Services() {
                         <div className="flex flex-col text-left">
                           <img
                             src={[
-                              'https://images.unsplash.com/photo-1541888046428-d81bb19240f5?auto=format&fit=crop&q=80&w=600&h=300',
-                              'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80&w=600&h=300',
-                              'https://images.unsplash.com/photo-1428366890462-dd4baecf492b?auto=format&fit=crop&q=80&w=600&h=300',
-                              'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=600&h=300'
+                              '/189644056_157443963019765_6705723621810017597_n.jpg',
+                              '/763701258_1499177482225709_114956793849319926_n.jpg',
+                              '/483100261_1075555607921234_7097560171354795472_n.jpg',
+                              '/762974441_1501082972035160_5634679056048782805_n.jpg'
                             ][idx % 4]}
                             alt={service.title}
-                            className="w-full h-40 object-cover rounded-2xl mb-6 shadow-sm"
+                            className="w-full h-56 md:h-64 object-cover rounded-2xl mb-6 shadow-sm"
                           />
                           <div className="inline-flex items-center justify-center px-3 py-1 rounded-full bg-[#285c9a]/10 text-[#285c9a] text-xs font-bold tracking-widest uppercase mb-4 w-fit">
                             Bước {idx + 1}

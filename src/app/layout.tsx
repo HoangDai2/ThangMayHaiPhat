@@ -13,8 +13,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="vi" suppressHydrationWarning>
-      <body suppressHydrationWarning>
-        {children}
+      <body className="overflow-x-hidden" suppressHydrationWarning>
+        <main className="overflow-x-hidden w-full flex flex-col min-h-screen">
+          {children}
+        </main>
       </body>
     </html>
   );
