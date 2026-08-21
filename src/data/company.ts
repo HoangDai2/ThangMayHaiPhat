@@ -2,10 +2,7 @@ export interface TeamMember {
   id: string;
   name: string;
   role: string;
-  bio: string;
   image: string;
-  linkedin?: string;
-  experience: string;
 }
 
 export interface Milestone {
@@ -29,10 +26,10 @@ export interface Certificate {
 export const companyInfo = {
   name: 'Hải Phát',
   fullName: 'Công Ty TNHH Thang Máy Hải Phát',
-  founded: 2021,
+  founded: 2020,
   yearsExperience: 5,
   slogan: 'Chất lượng khẳng định thương hiệu',
-  description: `Thang Máy Hải Phát là đơn vị chuyên lắp đặt, bảo trì và cung cấp giải pháp thang máy hàng đầu Việt Nam với hơn 5 năm kinh nghiệm. Chúng tôi tự hào đã hoàn thành hơn 1000 công trình trên toàn quốc, từ biệt thự gia đình đến các tòa nhà văn phòng, chung cư cao tầng.
+  description: `Thang Máy Hải Phát là đơn vị chuyên lắp đặt, bảo trì và cung cấp giải pháp thang máy hàng đầu Việt Nam với hơn 5 năm kinh nghiệm. Chúng tôi tự hào đã hoàn thành hơn 1000 công trình trên toàn quốc, từ biệt thự gia đình đến các tòa nhà văn phòng.
 
 Với đội ngũ kỹ sư giàu kinh nghiệm, được đào tạo bài bản từ các nhà sản xuất thang máy hàng đầu thế giới, Hải Phát cam kết mang đến sản phẩm chất lượng cao với dịch vụ hậu mãi chuyên nghiệp 24/7.`,
   mission: 'Cung cấp giải pháp thang máy an toàn, hiện đại và tiện nghi, nâng tầm chất lượng sống cho khách hàng.',
@@ -62,39 +59,29 @@ Với đội ngũ kỹ sư giàu kinh nghiệm, được đào tạo bài bản 
 
 export const milestones: Milestone[] = [
   {
-    year: '2009',
-    title: 'Khởi đầu',
-    description: 'Thành lập công ty với đội ngũ 5 kỹ sư thang máy, tập trung vào lắp đặt thang gia đình.',
-  },
-  {
-    year: '2012',
-    title: 'Mở rộng',
-    description: 'Trở thành đối tác chính thức của Mitsubishi Electric tại Việt Nam. Mở văn phòng tại TP.HCM.',
-  },
-  {
-    year: '2015',
-    title: 'Phát triển',
-    description: 'Hoàn thành dự án thang máy đầu tiên cho tòa nhà cao tầng 25 tầng. Đạt chứng nhận ISO 9001.',
-  },
-  {
-    year: '2018',
-    title: 'Bứt phá',
-    description: 'Trở thành đối tác của Otis và Schindler. Phủ sóng 30 tỉnh thành trên toàn quốc.',
-  },
-  {
     year: '2020',
-    title: 'Công nghệ mới',
-    description: 'Triển khai hệ thống giám sát thang máy từ xa. Ra mắt dịch vụ bảo trì dự đoán.',
+    title: 'Khởi đầu',
+    description: 'Lên ý tưởng và đặt nền móng đầu tiên cho sự ra đời của Hải Phát với đội ngũ kỹ sư nòng cốt.',
+  },
+  {
+    year: '2021',
+    title: 'Thành lập',
+    description: 'Chính thức thành lập Công Ty TNHH Thang Máy Hải Phát. Hoàn thành những dự án thang máy gia đình đầu tiên.',
+  },
+  {
+    year: '2022',
+    title: 'Mở rộng',
+    description: 'Trở thành đối tác của các thương hiệu lớn như Mitsubishi, Fuji. Triển khai công nghệ giám sát thang máy thông minh.',
   },
   {
     year: '2023',
-    title: 'Milestone',
-    description: 'Hoàn thành công trình thứ 500. Mở văn phòng tại Đà Nẵng và Cần Thơ. Phủ sóng 63 tỉnh thành.',
+    title: 'Bứt phá',
+    description: 'Hoàn thành công trình thứ 500. Mở rộng mạng lưới đối tác và dịch vụ bảo trì chuyên nghiệp trên toàn quốc.',
   },
   {
     year: '2024',
-    title: 'Tiếp tục',
-    description: 'Kỷ niệm 15 năm thành lập. Công bố chiến lược phát triển đến 2030.',
+    title: 'Vươn xa',
+    description: 'Đạt mốc 1000+ công trình. Tối ưu hóa quy trình quản lý và nâng cao chất lượng dịch vụ đạt chuẩn quốc tế.',
   },
 ];
 
@@ -135,38 +122,26 @@ export const teamMembers: TeamMember[] = [
   {
     id: 'hoang-le-quang-hoa',
     name: 'Hoàng Lê Quang Hòa',
-    role: 'CEO & Founder',
-    bio: 'Với hơn 10 năm kinh nghiệm trong ngành thang máy, anh Hòa đã sáng lập Hải Phát với tầm nhìn đưa thang máy chất lượng cao đại trà cho các gia đình Việt.',
-    image: 'https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=400&q=80',
-    linkedin: '#',
-    experience: '10+ năm',
+    role: 'Giám đốc',
+    image: '/HUAN9016.jpg',
   },
   {
     id: 'nguyen-thi-huong',
     name: 'Nguyễn Thị Hường',
-    role: 'Phó Giám đốc',
-    bio: 'Chị Hường là người đứng sau ',
-    image: 'https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=400&q=80',
-    linkedin: '#',
-    experience: '18 năm',
+    role: 'Phó giám đốc',
+    image: '491251241_9696454253740362_974582290995260425_n.jpg',
   },
   {
     id: 'tran-cong-tinh',
     name: 'Trần Công Tình',
-    role: 'Giám đốc Kinh doanh',
-    bio: 'Ông Tuấn có 15 năm kinh nghiệm trong lĩnh vực B2B, đã mở rộng mạng lưới khách hàng của Hải Phát trên 63 tỉnh thành.',
-    image: 'https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=400&q=80',
-    linkedin: '#',
-    experience: '15 năm',
+    role: 'Giám đốc kinh doanh',
+    image: 'HUAN9169.jpg',
   },
   {
     id: 'nguyen-huy-tuyen',
     name: 'Nguyễn Huy Tuyên',
-    role: 'Giám đốc Dịch vụ',
-    bio: 'Bà Hoa phụ trách mảng bảo hành và hậu mãi, đảm bảo khách hàng luôn được hỗ trợ tốt nhất 24/7.',
-    image: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=400&q=80',
-    linkedin: '#',
-    experience: '12 năm',
+    role: 'Trưởng phòng kinh doanh',
+    image: '707329201_4259183531064219_330036999536634658_n.jpg',
   },
 ];
 

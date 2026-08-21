@@ -1,7 +1,6 @@
 import { Project, ProjectCategory } from '../data/projects';
 import { Product } from '../data/products';
-import { ServiceItem } from '../data/services';
-import { DbProject, DbProduct, DbService } from './types';
+import { DbProject, DbProduct } from './supabase';
 
 export function mapProject(db: DbProject): Project {
   return {
@@ -36,6 +35,7 @@ export function mapProduct(db: DbProduct): Product {
     shortDescription: db.short_description,
     fullDescription: db.full_description,
     features: db.features || [],
+    gallery: db.gallery || [],
     specifications: db.specifications || [],
     benefits: db.benefits || [],
     process: (db as any).process || [],
@@ -44,15 +44,4 @@ export function mapProduct(db: DbProduct): Product {
   };
 }
 
-export function mapService(db: DbService): ServiceItem {
-  return {
-    id: db.id,
-    title: db.title,
-    subtitle: db.subtitle,
-    icon: db.icon,
-    shortDescription: db.short_description,
-    fullDescription: db.full_description,
-    highlights: db.highlights || [],
-    process: db.process || [],
-  };
-}
+

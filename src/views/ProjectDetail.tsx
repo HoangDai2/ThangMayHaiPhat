@@ -211,7 +211,7 @@ function ProjectDetail() {
         {related.length > 0 && (
           <section className="mt-16 pt-10 border-t border-gray-100">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-bold text-gray-900">Dự án liên quan</h2>
+              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">Dự án liên quan</h2>
               <Link href="/du-an"
                 className="group flex items-center gap-1.5 text-[#285c9a] font-semibold text-sm hover:gap-2.5 transition-all duration-200"
               >
@@ -264,7 +264,7 @@ function ProjectsList() {
       {/* Header */}
       <header className="bg-[#0d1f35] pt-36 pb-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-3xl sm:text-4xl font-bold text-white mb-3">Dự án tiêu biểu</h1>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-3">Dự án tiêu biểu</h1>
           <p className="text-white/70 text-sm max-w-xl mx-auto">
             Khám phá các công trình thang máy đã hoàn thành on toàn quốc.
             Từ biệt thự gia đình đến tòa nhà thương mại cao cấp.
@@ -272,7 +272,7 @@ function ProjectsList() {
         </div>
       </header>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 py-10">
         {/* Filters */}
         <div className="flex flex-wrap gap-2 mb-8">
           {categories.map((cat) => (
@@ -300,7 +300,7 @@ function ProjectsList() {
               <img
                 src={p.image}
                 alt={p.title}
-                className="w-full h-52 object-cover transition-transform duration-500 group-hover:scale-105"
+                className="w-full h-72 object-cover transition-transform duration-500 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#0d1f35]/70 via-transparent to-transparent" />
               <span className="absolute top-4 right-4 bg-[#285c9a] text-white text-xs font-semibold px-3 py-1 rounded-full">
@@ -329,21 +329,21 @@ function ProjectsList() {
         </div>
 
         {/* Stats */}
-        <div className="mt-12 text-center">
-          <div className="inline-flex items-center gap-8 bg-white rounded-2xl border border-gray-100 px-10 py-6 shadow-sm">
-            <div>
-              <div className="text-3xl font-bold text-[#285c9a]">{projects.length}+</div>
-              <div className="text-gray-500 text-xs">Dự án hoàn thành</div>
+        <div className="mt-16 text-center">
+          <div className="flex justify-between items-center w-full max-w-4xl mx-auto bg-white rounded-2xl border border-gray-100 px-10 sm:px-24 py-8 shadow-sm">
+            <div className="flex-1">
+              <div className="text-4xl font-bold text-[#285c9a] mb-2">{projects.length}+</div>
+              <div className="text-gray-500 text-sm font-medium">Dự án hoàn thành</div>
             </div>
-            <div className="w-px h-12 bg-gray-200" />
-            <div>
-              <div className="text-3xl font-bold text-[#285c9a]">15+</div>
-              <div className="text-gray-500 text-xs">Tỉnh thành</div>
+            <div className="w-px h-16 bg-gray-200" />
+            <div className="flex-1">
+              <div className="text-4xl font-bold text-[#285c9a] mb-2">15+</div>
+              <div className="text-gray-500 text-sm font-medium">Tỉnh thành</div>
             </div>
-            <div className="w-px h-12 bg-gray-200" />
-            <div>
-              <div className="text-3xl font-bold text-[#285c9a]">98%</div>
-              <div className="text-gray-500 text-xs">Hài lòng</div>
+            <div className="w-px h-16 bg-gray-200" />
+            <div className="flex-1">
+              <div className="text-4xl font-bold text-[#285c9a] mb-2">98%</div>
+              <div className="text-gray-500 text-sm font-medium">Hài lòng</div>
             </div>
           </div>
         </div>

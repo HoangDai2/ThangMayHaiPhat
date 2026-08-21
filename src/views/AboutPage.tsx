@@ -19,7 +19,7 @@ import {
   Target,
   Eye,
 } from 'lucide-react';
-import { companyInfo, milestones, coreValues, teamMembers, certificates, partners } from '../data/company';
+import { companyInfo, coreValues, teamMembers, partners } from '../data/company';
 
 const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
   shield: Shield,
@@ -62,10 +62,10 @@ export default function AboutPage() {
                 </div>
               </div>
             </div>
-            <div className="hidden lg:block">
-              <div className="relative">
+            <div className="mt-10 lg:mt-0 relative w-full">
+              <div className="relative w-full max-w-lg mx-auto lg:max-w-none">
                 <img
-                  src="https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=800&q=80"
+                  src="/539928420_1207135848096542_3586556978112750775_n.jpg"
                   alt="Hải Phát team"
                   className="rounded-2xl shadow-2xl"
                 />
@@ -103,92 +103,117 @@ export default function AboutPage() {
       </div>
 
       {/* Mission & Vision */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 sm:py-24 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="bg-white rounded-2xl p-8 border border-gray-100 hover:shadow-lg transition-shadow">
-              <div className="w-14 h-14 rounded-2xl bg-[#285c9a]/10 flex items-center justify-center mb-5">
-                <Target size={24} className="text-[#285c9a]" />
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            <div className="lg:col-span-5 h-[300px] sm:h-[400px] lg:h-full w-full rounded-3xl overflow-hidden relative shadow-lg">
+              <img 
+                src="/682852976_1412723337537791_2243820393777372314_n.jpg" 
+                alt="Tầm nhìn và sứ mệnh"
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0d1f35]/80 via-transparent to-transparent"></div>
+              <div className="absolute bottom-6 left-6 right-6 text-white">
+                <h3 className="text-2xl font-bold mb-2">Định hướng tương lai</h3>
+                <p className="text-white/80 text-sm">Kiến tạo không gian sống hiện đại và an toàn cho mọi công trình.</p>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Sứ mệnh</h3>
-              <p className="text-gray-600 leading-relaxed text-sm">{companyInfo.mission}</p>
             </div>
-            <div className="bg-white rounded-2xl p-8 border border-gray-100 hover:shadow-lg transition-shadow">
-              <div className="w-14 h-14 rounded-2xl bg-[#285c9a]/10 flex items-center justify-center mb-5">
-                <Eye size={24} className="text-[#285c9a]" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Tầm nhìn</h3>
-              <p className="text-gray-600 leading-relaxed text-sm">{companyInfo.vision}</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Story / Timeline */}
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">Hành trình phát triển</h2>
-            <p className="text-gray-500 text-sm max-w-xl mx-auto">
-              Từ một đội ngũ nhỏ đến thương hiệu thang máy uy tín trên toàn quốc
-            </p>
-          </div>
-
-          <div className="relative">
-            {/* Timeline line */}
-            <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-gray-200 -translate-x-1/2" />
-
-            <div className="space-y-10">
-              {milestones.map((milestone, idx) => (
-                <div
-                  key={milestone.year}
-                  className={`flex flex-col md:flex-row gap-6 ${idx % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}
-                >
-                  <div className={`flex-1 ${idx % 2 === 0 ? 'md:text-right' : 'md:text-left'}`}>
-                    <div className={`bg-gray-50 rounded-2xl p-6 ${idx % 2 === 0 ? 'md:mr-8' : 'md:ml-8'}`}>
-                      <div className="text-[#285c9a] font-bold text-2xl mb-2">{milestone.year}</div>
-                      <h4 className="font-bold text-gray-900 text-lg mb-2">{milestone.title}</h4>
-                      <p className="text-gray-600 text-sm leading-relaxed">{milestone.description}</p>
-                    </div>
+            
+            <div className="lg:col-span-7 grid sm:grid-cols-2 gap-6">
+              {/* Mission Card */}
+              <div className="relative rounded-3xl p-6 sm:p-8 overflow-hidden group hover:shadow-xl transition-shadow flex flex-col h-full min-h-[250px]">
+                <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80&w=600" alt="Mission" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0d1f35]/95 via-[#0d1f35]/70 to-[#0d1f35]/30" />
+                <div className="relative z-10 flex flex-col h-full justify-end">
+                  <div className="w-12 h-12 rounded-xl bg-white/20 backdrop-blur-md border border-white/20 flex items-center justify-center mb-4">
+                    <Target size={24} className="text-white" />
                   </div>
-                  {/* Center dot */}
-                  <div className="hidden md:flex items-center justify-center">
-                    <div className="w-4 h-4 rounded-full bg-[#285c9a] ring-4 ring-white shadow" />
-                  </div>
-                  <div className="flex-1" />
+                  <h3 className="text-xl font-bold text-white mb-2">Sứ mệnh</h3>
+                  <p className="text-white/80 leading-relaxed text-sm">{companyInfo.mission}</p>
                 </div>
-              ))}
+              </div>
+              
+              {/* Vision Card */}
+              <div className="relative rounded-3xl p-6 sm:p-8 overflow-hidden group hover:shadow-xl transition-shadow flex flex-col h-full min-h-[250px]">
+                <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=600" alt="Vision" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0d1f35]/95 via-[#0d1f35]/70 to-[#0d1f35]/30" />
+                <div className="relative z-10 flex flex-col h-full justify-end">
+                  <div className="w-12 h-12 rounded-xl bg-white/20 backdrop-blur-md border border-white/20 flex items-center justify-center mb-4">
+                    <Eye size={24} className="text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-2">Tầm nhìn</h3>
+                  <p className="text-white/80 leading-relaxed text-sm">{companyInfo.vision}</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
+
+
 
       {/* Core Values */}
-      <section className="py-16 bg-[#0d1f35]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">Giá trị cốt lõi</h2>
-            <p className="text-white/60 text-sm max-w-xl mx-auto">
-              Những nguyên tắc định hướng mọi hoạt động của Hải Phát
-            </p>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {coreValues.map((value) => {
-              const Icon = iconMap[value.icon] || CheckCircle;
-              return (
-                <div
-                  key={value.title}
-                  className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-colors"
-                >
-                  <div className="w-12 h-12 rounded-xl bg-[#285c9a]/30 flex items-center justify-center mb-4">
-                    <Icon size={22} className="text-blue-200" />
-                  </div>
-                  <h4 className="font-bold text-white text-sm mb-2">{value.title}</h4>
-                  <p className="text-white/60 text-xs leading-relaxed">{value.description}</p>
-                </div>
-              );
-            })}
+      <section className="py-16 sm:py-24 bg-[#0d1f35] relative overflow-hidden">
+        {/* Background elements */}
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#285c9a] rounded-full blur-[120px] opacity-20 translate-x-1/3 -translate-y-1/3"></div>
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#1e4a80] rounded-full blur-[100px] opacity-30 -translate-x-1/2 translate-y-1/2"></div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+            {/* Left side: Heading & Image */}
+            <div className="lg:col-span-5 text-center lg:text-left">
+              <span className="inline-block text-[#60a5fa] bg-blue-500/10 text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-full mb-4">
+                Lõi Niềm Tin
+              </span>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">Giá trị cốt lõi</h2>
+              <p className="text-white/60 text-sm sm:text-base mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                Những nguyên tắc định hướng mọi hoạt động của Hải Phát. Chúng tôi cam kết mang lại giá trị bền vững và trải nghiệm tốt nhất cho khách hàng.
+              </p>
+              
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl hidden lg:block w-full aspect-square border border-white/10 group bg-[#0d1f35]">
+                 <img 
+                   src="/475733604_967114985385988_6712307638728245450_n.jpg" 
+                   alt="Giá trị cốt lõi" 
+                   className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105" 
+                 />
+                 <div className="absolute inset-0 bg-gradient-to-t from-[#0d1f35]/30 via-transparent to-transparent pointer-events-none"></div>
+              </div>
+            </div>
+            
+            {/* Right side: Values Grid */}
+            <div className="lg:col-span-7">
+              <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
+                {coreValues.map((value, idx) => {
+                  const Icon = iconMap[value.icon] || CheckCircle;
+                  const bgImages = [
+                    'https://images.unsplash.com/photo-1541888046428-d81bb19240f5?auto=format&fit=crop&q=80&w=400',
+                    'https://images.unsplash.com/photo-1428366890462-dd4baecf492b?auto=format&fit=crop&q=80&w=400',
+                    'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80&w=400',
+                    'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=400'
+                  ];
+                  return (
+                    <div
+                      key={value.title}
+                      className="relative group rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 min-h-[220px]"
+                    >
+                      <img 
+                        src={bgImages[idx % bgImages.length]} 
+                        alt={value.title} 
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#0d1f35]/95 via-[#0d1f35]/70 to-[#0d1f35]/30"></div>
+                      <div className="relative z-10 p-5 flex flex-col h-full justify-end">
+                        <div className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center mb-3 group-hover:bg-blue-500/50 transition-colors">
+                          <Icon size={20} className="text-white" />
+                        </div>
+                        <h4 className="font-bold text-white text-base mb-1">{value.title}</h4>
+                        <p className="text-white/80 text-sm leading-relaxed line-clamp-3">{value.description}</p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -207,33 +232,19 @@ export default function AboutPage() {
             {teamMembers.map((member) => (
               <div
                 key={member.id}
-                className="group bg-white rounded-2xl overflow-hidden border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+                className="group bg-white rounded-2xl overflow-hidden border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col h-full"
               >
-                <div className="relative h-48 overflow-hidden">
+                <div className="relative aspect-[4/5] w-full overflow-hidden">
                   <img
-                    src={member.image}
+                    src={member.image.startsWith('/') ? member.image : `/${member.image}`}
                     alt={member.name}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0d1f35]/60 to-transparent" />
-                  <div className="absolute bottom-3 left-3 right-3">
-                    <div className="flex items-center justify-between">
-                      <span className="text-white/70 text-xs">{member.experience}</span>
-                      {member.linkedin && (
-                        <a
-                          href={member.linkedin}
-                          className="w-7 h-7 rounded-full bg-white/15 flex items-center justify-center hover:bg-white/25 transition-colors"
-                        >
-                          <Linkedin size={14} className="text-white" />
-                        </a>
-                      )}
-                    </div>
-                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0d1f35]/60 via-transparent to-transparent pointer-events-none" />
                 </div>
-                <div className="p-5">
-                  <h4 className="font-bold text-gray-900 text-sm">{member.name}</h4>
-                  <div className="text-[#285c9a] text-xs font-medium mt-0.5">{member.role}</div>
-                  <p className="text-gray-500 text-xs leading-relaxed mt-2 line-clamp-2">{member.bio}</p>
+                <div className="p-5 flex-1 flex flex-col justify-end bg-white">
+                  <h4 className="font-bold text-gray-900 text-base">{member.name}</h4>
+                  <div className="text-[#285c9a] text-sm font-medium mt-1">{member.role}</div>
                 </div>
               </div>
             ))}
@@ -241,38 +252,16 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Certificates & Partners */}
+      {/* Partners */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Certificates */}
-          <div className="mb-14">
-            <div className="text-center mb-8">
-              <h2 className="text-xl font-bold text-gray-900 mb-2">Chứng nhận & Đối tác</h2>
-              <p className="text-gray-500 text-sm">
-                Cam kết chất lượng theo tiêu chuẩn quốc tế
-              </p>
-            </div>
-
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {certificates.map((cert) => (
-                <div
-                  key={cert.name}
-                  className="bg-white rounded-xl p-4 border border-gray-100 text-center hover:shadow-md transition-shadow"
-                >
-                  <div className="w-12 h-12 rounded-xl bg-[#285c9a]/10 flex items-center justify-center mx-auto mb-3">
-                    <Award size={20} className="text-[#285c9a]" />
-                  </div>
-                  <div className="font-semibold text-gray-900 text-xs">{cert.name}</div>
-                  <div className="text-gray-400 text-xs mt-0.5">{cert.issuer}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-
           {/* Partners Logos */}
           <div>
-            <div className="text-center mb-6">
-              <h3 className="text-sm font-semibold text-gray-700 mb-1">Đối tác thương hiệu</h3>
+            <div className="text-center mb-8">
+              <h2 className="text-xl font-bold text-gray-900 mb-2">Đối tác thương hiệu</h2>
+              <p className="text-gray-500 text-sm">
+                Đồng hành cùng những thương hiệu hàng đầu thế giới
+              </p>
             </div>
             <div className="flex flex-wrap justify-center items-center gap-8 opacity-60">
               {partners.map((partner) => (

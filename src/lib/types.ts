@@ -28,6 +28,7 @@ export interface DbProduct {
   short_description: string;
   full_description: string;
   features: string[];
+  gallery?: string[];
   specifications: { label: string; value: string }[];
   benefits: string[];
   faqs: { question: string; answer: string }[];
@@ -37,34 +38,9 @@ export interface DbProduct {
   created_at: string;
 }
 
-export interface DbService {
-  id: string;
-  title: string;
-  subtitle: string;
-  icon: string;
-  short_description: string;
-  full_description: string;
-  highlights: string[];
-  process: { step: number; title: string; description: string }[];
-  sort_order: number;
-  is_published: boolean;
-  created_at: string;
-}
 
-export interface DbBanner {
-  id: string;
-  title: string;
-  subtitle: string;
-  description: string;
-  image_url: string;
-  video_url: string;
-  media_type: 'image' | 'video';
-  link_url: string;
-  position: string;
-  sort_order: number;
-  is_active: boolean;
-  created_at: string;
-}
+
+
 
 export interface DbArticle {
   id: string;

@@ -28,15 +28,15 @@ export default function Testimonials() {
 
   const visible = reviews.length > 0
     ? [
-        reviews[current],
-        reviews[(current + 1) % reviews.length],
-        reviews[(current + 2) % reviews.length],
-      ]
+      reviews[current],
+      reviews[(current + 1) % reviews.length],
+      reviews[(current + 2) % reviews.length],
+    ]
     : [];
 
   return (
     <section className="py-20 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-12">
           <div>
@@ -112,11 +112,10 @@ export default function Testimonials() {
             {visible.map((t, i) => (
               <div
                 key={t.id}
-                className={`bg-white rounded-2xl p-6 border transition-all duration-300 ${
-                  i === 0
+                className={`bg-white rounded-2xl p-6 border transition-all duration-300 ${i === 0
                     ? 'border-[#285c9a]/30 shadow-lg shadow-[#285c9a]/5'
                     : 'border-gray-100 shadow-sm'
-                }`}
+                  }`}
               >
                 <div className="flex items-start justify-between mb-4">
                   <Quote size={28} className="text-[#285c9a]/15 fill-[#285c9a]/10" />
@@ -171,9 +170,8 @@ export default function Testimonials() {
               <button
                 key={i}
                 onClick={() => setCurrent(i)}
-                className={`rounded-full transition-all duration-200 ${
-                  i === current ? 'w-6 h-2 bg-[#285c9a]' : 'w-2 h-2 bg-gray-300 hover:bg-gray-400'
-                }`}
+                className={`rounded-full transition-all duration-200 ${i === current ? 'w-6 h-2 bg-[#285c9a]' : 'w-2 h-2 bg-gray-300 hover:bg-gray-400'
+                  }`}
                 aria-label={`Go to ${i + 1}`}
               />
             ))}
@@ -183,8 +181,8 @@ export default function Testimonials() {
         {/* Trust badges */}
         <div className="mt-14 grid grid-cols-2 sm:grid-cols-4 gap-4">
           {[
-            { value: '15+', label: 'Năm kinh nghiệm' },
-            { value: '500+', label: 'Công trình hoàn thành' },
+            { value: '5+', label: 'Năm kinh nghiệm' },
+            { value: '1000+', label: 'Công trình hoàn thành' },
             { value: '98%', label: 'Tỷ lệ hài lòng' },
             { value: '5★', label: 'Đánh giá trung bình' },
           ].map(({ value, label }) => (

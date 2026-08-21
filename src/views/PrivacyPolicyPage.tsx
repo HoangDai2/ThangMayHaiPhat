@@ -30,7 +30,7 @@ export default function PrivacyPolicyPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="prose prose-blue max-w-none prose-headings:text-[#0d1f35] prose-a:text-[#285c9a]">
             <div className="bg-gray-50 rounded-2xl p-8 mb-10 border border-gray-100">
-              <h2 className="text-xl font-bold mb-4 flex items-center gap-3">
+              <h2 className="text-xl sm:text-2xl font-bold mb-4 flex items-center gap-3 text-gray-900">
                 <Database className="text-[#285c9a]" />
                 1. Mục đích và phạm vi thu thập
               </h2>
@@ -40,7 +40,7 @@ export default function PrivacyPolicyPage() {
             </div>
 
             <div className="bg-gray-50 rounded-2xl p-8 mb-10 border border-gray-100">
-              <h2 className="text-xl font-bold mb-4 flex items-center gap-3">
+              <h2 className="text-xl sm:text-2xl font-bold mb-4 flex items-center gap-3 text-gray-900">
                 <Eye className="text-[#285c9a]" />
                 2. Phạm vi sử dụng thông tin
               </h2>
@@ -55,7 +55,7 @@ export default function PrivacyPolicyPage() {
             </div>
 
             <div className="bg-gray-50 rounded-2xl p-8 mb-10 border border-gray-100">
-              <h2 className="text-xl font-bold mb-4 flex items-center gap-3">
+              <h2 className="text-xl sm:text-2xl font-bold mb-4 flex items-center gap-3 text-gray-900">
                 <Lock className="text-[#285c9a]" />
                 3. Thời gian lưu trữ thông tin
               </h2>
@@ -65,7 +65,7 @@ export default function PrivacyPolicyPage() {
             </div>
 
             <div className="bg-gray-50 rounded-2xl p-8 mb-10 border border-gray-100">
-              <h2 className="text-xl font-bold mb-4 flex items-center gap-3">
+              <h2 className="text-xl sm:text-2xl font-bold mb-4 flex items-center gap-3 text-gray-900">
                 <UserCheck className="text-[#285c9a]" />
                 4. Những người hoặc tổ chức có thể được tiếp cận với thông tin
               </h2>
@@ -76,7 +76,7 @@ export default function PrivacyPolicyPage() {
             </div>
 
             <div className="bg-gray-50 rounded-2xl p-8 mb-10 border border-gray-100">
-              <h2 className="text-xl font-bold mb-4 flex items-center gap-3">
+              <h2 className="text-xl sm:text-2xl font-bold mb-4 flex items-center gap-3 text-gray-900">
                 <FileText className="text-[#285c9a]" />
                 5. Cam kết bảo mật thông tin cá nhân khách hàng
               </h2>

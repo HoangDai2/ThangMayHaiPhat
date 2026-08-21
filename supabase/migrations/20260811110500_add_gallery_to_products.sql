@@ -1,0 +1,1 @@
+ALTER TABLE products ADD COLUMN IF NOT EXISTS gallery jsonb NOT NULL DEFAULT '[]';

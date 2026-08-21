@@ -19,7 +19,7 @@ export const serviceItems: ServiceItem[] = [
     title: 'Khảo Sát - Báo Giá',
     subtitle: 'Khảo sát hiện trạng và báo giá minh bạch',
     icon: 'clipboard-search',
-    shortDescription: 'Đội ngũ kỹ sư đến tận công trình khảo sát, đo đạc, đánh giá hiện trạng và cung cấp báo giá chi tiết, minh bạch trong 24 giờ.',
+    shortDescription: 'Tiếp nhận yêu cầu kỹ thuật, khảo sát hiện trạng, phân tích và tư vấn giải pháp tối ưu nhất cho từng công trình từ bản vẽ đến thực thi.',
     fullDescription: `Dịch vụ khảo sát và báo giá của Hải Phát là bước đầu tiên trong quy trình cung cấp giải pháp thang máy. Đội ngũ kỹ sư giàu kinh nghiệm sẽ đến tận công trình để khảo sát hiện trạng, đo đạc không gian, đánh giá kết cấu và đề xuất giải pháp phù hợp nhất.
 
 Sau khi khảo sát, chúng tôi cung cấp báo giá chi tiết trong vòng 24 giờ, minh bạch từng hạng mục: thiết bị, vật tư, nhân công, vận hành thử và bảo hành. Không phát sinh chi phí ẩn, cam kết giá tốt nhất thị trường.`,
@@ -43,7 +43,7 @@ Sau khi khảo sát, chúng tôi cung cấp báo giá chi tiết trong vòng 24 
     title: 'Tư Vấn - Thiết Kế',
     subtitle: 'Tư vấn giải pháp và thiết kế kỹ thuật chuyên sâu',
     icon: 'ruler',
-    shortDescription: 'Tư vấn lựa chọn loại thang phù hợp, thiết kế bản vẽ kỹ thuật 2D/3D, phối cảnh cabin và bố trí giếng thang tối ưu.',
+    shortDescription: 'Tư vấn giải pháp và thiết kế đảm bảo công năng sử dụng cũng như tính thẩm mỹ cao, phù hợp với kiến trúc, diện tích và tài chính của gia chủ.',
     fullDescription: `Dịch vụ tư vấn và thiết kế của Hải Phát giúp khách hàng lựa chọn giải pháp thang máy tối ưu cho công trình. Đội ngũ kỹ sư và kiến trúc sư sẽ tư vấn về loại thang, tải trọng, tốc độ, cabin và nội thất phù hợp với nhu cầu và ngân sách.
 
 Sau khi thống nhất giải pháp, chúng tôi thiết kế bản vẽ kỹ thuật chi tiết 2D/3D, phối cảnh cabin, bố trí giếng thang và máy phòng. Thiết kế tuân thủ tiêu chuẩn QCVN 06:2022 và EN 81, đảm bảo an toàn và thẩm mỹ.`,
@@ -67,7 +67,7 @@ Sau khi thống nhất giải pháp, chúng tôi thiết kế bản vẽ kỹ th
     title: 'Thi Công - Lắp Đặt',
     subtitle: 'Thi công lắp đặt chuyên nghiệp, đúng tiến độ',
     icon: 'wrench',
-    shortDescription: 'Đội ngũ kỹ thuật được đào tạo bài bản, thi công lắp đặt theo tiêu chuẩn quốc tế, đúng tiến độ cam kết, không ảnh hưởng công trình.',
+    shortDescription: 'Thi công lắp đặt bởi đội ngũ kỹ thuật bài bản, tuân thủ tiêu chuẩn quốc tế và cam kết 4 tiêu chí: An Toàn - Chất Lượng - Tiến Độ - Chi Phí.',
     fullDescription: `Dịch vụ thi công và lắp đặt của Hải Phát được thực hiện bởi đội ngũ kỹ thuật được đào tạo bài bản, có chứng chỉ từ các nhà sản xuất hàng đầu. Chúng tôi thi công theo tiêu chuẩn QCVN 06:2022 và EN 81, đảm bảo an toàn tuyệt đối.
 
 Quá trình thi công được quản lý chặt chẽ, đúng tiến độ cam kết, không gây ảnh hưởng đến hoạt động của công trình. Vận hành thử, hiệu chỉnh và kiểm định trước khi bàn giao, đảm bảo thang vận hành êm ái và an toàn.`,
@@ -91,10 +91,8 @@ Quá trình thi công được quản lý chặt chẽ, đúng tiến độ cam 
     title: 'Bảo Hành - Bảo Trì',
     subtitle: 'Bảo hành 18 tháng và bảo trì định kỳ 2 tháng/lần',
     icon: 'shield-check',
-    shortDescription: 'Bảo hành 18 tháng toàn bộ thiết bị, bảo trì định kỳ miễn phí 2 tháng/lần trong thời gian bảo hành, hỗ trợ kỹ thuật 24/7, phản ứng sự cố trong 2 giờ.',
-    fullDescription: `Dịch vụ bảo hành và bảo trì của Hải Phát cam kết mang lại sự an tâm tuyệt đối cho khách hàng. Bảo hành 18 tháng toàn bộ thiết bị, bảo trì định kỳ miễn phí 2 tháng/lần trong suốt thời gian bảo hành.
-
-Đội ngũ kỹ thuật túc trực 24/7, phản ứng sự cố trong vòng 2 giờ tại nội thành. Cung cấp phụ tùng chính hãng với giá cạnh tranh, kho phụ tùng luôn sẵn các linh kiện thông dụng để đảm bảo thang vận hành ổn định.`,
+    shortDescription: '• Bảo dưỡng định kỳ 02 tháng/lần giúp thang vận hành trơn tru.\n• Thay thế bằng linh kiện chính hãng 100%.\n• Hỗ trợ xử lý sự cố nhanh chóng qua Call center 24/7.',
+    fullDescription: `Dịch vụ bảo hành và bảo trì của Hải Phát cam kết mang lại sự an tâm tuyệt đối cho khách hàng. Bảo hành 18 tháng toàn bộ thiết bị, bảo trì định kỳ miễn phí 2 tháng/lần trong suốt thời gian bảo hành. Đội ngũ kỹ thuật túc trực 24/7, phản ứng sự cố trong vòng 2 giờ tại nội thành. Cung cấp phụ tùng chính hãng với giá cạnh tranh, kho phụ tùng luôn sẵn các linh kiện thông dụng để đảm bảo thang vận hành ổn định.`,
     highlights: [
       'Bảo hành 18 tháng toàn bộ thiết bị',
       'Bảo trì miễn phí 2 tháng/lần trong thời gian bảo hành',

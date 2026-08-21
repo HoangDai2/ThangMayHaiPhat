@@ -15,7 +15,7 @@ export default function Projects() {
 
   return (
     <section id="projects" className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
           <div>
@@ -40,11 +40,10 @@ export default function Projects() {
             <button
               key={cat}
               onClick={() => setActive(cat)}
-              className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
-                active === cat
+              className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 ${active === cat
                   ? 'bg-[#285c9a] text-white shadow-md shadow-[#285c9a]/25'
                   : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-              }`}
+                }`}
             >
               {cat}
             </button>
@@ -89,7 +88,7 @@ export default function Projects() {
         <div className="mt-12 text-center">
           <div className="inline-flex items-center gap-6 bg-[#285c9a]/5 border border-[#285c9a]/10 rounded-2xl px-8 py-5">
             <div className="text-left">
-              <div className="text-2xl font-bold text-[#285c9a]">500+</div>
+              <div className="text-2xl font-bold text-[#285c9a]">1000+</div>
               <div className="text-gray-500 text-xs">Công trình trên toàn quốc</div>
             </div>
             <div className="w-px h-10 bg-gray-200" />

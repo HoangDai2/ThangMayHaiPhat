@@ -55,14 +55,13 @@ export function ProductsList() {
             Dòng Thang Máy Cao Cấp
           </h1>
           <p className="text-white/70 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
-            Đa dạng dòng thang máy đáp ứng mọi nhu cầu: từ homelift gia đình đến thang tải khách,
-            thang quan sát, thang bệnh viện và thang tải hàng công nghiệp.
+            Đa dạng dòng thang máy đáp ứng mọi nhu cầu: từ thang máy gia đình đến thang tải khách, thang quan sát
           </p>
         </div>
       </header>
 
       {/* Products Grid */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 -mt-8 relative z-20">
+      <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 py-12 -mt-8 relative z-20">
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {products.map((product) => {
             const Icon = iconMap[product.icon] || Building2;
@@ -120,7 +119,7 @@ export function ProductsList() {
       <section className="bg-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
               Tại sao chọn Hải Phát?
             </h2>
             <p className="text-gray-500 max-w-xl mx-auto text-sm">
@@ -207,7 +206,9 @@ function ProductDetail() {
   }
 
   const Icon = iconMap[product.icon] || Building2;
-  const gallery = [product.image, product.image, product.image, product.image];
+  const gallery = product.gallery && product.gallery.length > 0 
+    ? product.gallery 
+    : [product.image];
 
   return (
     <div className="min-h-screen bg-white">
@@ -263,11 +264,29 @@ function ProductDetail() {
           <div className="lg:col-span-2 space-y-10">
             {/* Description */}
             <section>
-              <h2 className="text-xl font-bold text-gray-900 mb-4">Giới thiệu sản phẩm</h2>
-              <div className="prose prose-sm text-gray-600 leading-relaxed">
-                {product.fullDescription.split('\n\n').map((para, idx) => (
-                  <p key={idx} className="mb-4">{para}</p>
-                ))}
+              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-8">Giới thiệu sản phẩm</h2>
+              <div className="space-y-8">
+                {product.fullDescription.split('\n\n').map((para, idx) => {
+                  const isEven = idx % 2 === 0;
+                  const imgSrc = gallery[idx % gallery.length] || product.image;
+                  
+                  return (
+                    <div key={idx} className={`flex flex-col gap-6 items-center ${isEven ? 'sm:flex-row' : 'sm:flex-row-reverse'}`}>
+                      <div className="flex-1">
+                        <p className="text-gray-600 leading-relaxed text-sm sm:text-base">{para}</p>
+                      </div>
+                      <div className="flex-1 w-full">
+                        <div className="rounded-2xl overflow-hidden shadow-lg border border-gray-100 relative group">
+                          <img 
+                            src={imgSrc} 
+                            alt="" 
+                            className="w-full aspect-[4/3] object-cover transition-transform duration-700 group-hover:scale-105"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </section>
 
@@ -277,11 +296,11 @@ function ProductDetail() {
                 <Layers size={20} className="text-[#285c9a]" />
                 Hình ảnh sản phẩm
               </h2>
-              <div className="relative rounded-2xl overflow-hidden mb-3">
+              <div className="relative rounded-2xl overflow-hidden mb-3 bg-gray-100">
                 <img
                   src={gallery[activeImage]}
                   alt={`${product.title} - Hình ${activeImage + 1}`}
-                  className="w-full h-64 object-cover"
+                  className="w-full aspect-[4/5] object-cover"
                 />
               </div>
               <div className="grid grid-cols-4 gap-2">
@@ -440,7 +459,7 @@ function ProductDetail() {
         {related.length > 0 && (
           <section className="mt-16 pt-10 border-t border-gray-100">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-bold text-gray-900">Sản phẩm liên quan</h2>
+              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">Sản phẩm liên quan</h2>
               <Link href="/san-pham"
                 className="group flex items-center gap-1.5 text-[#285c9a] font-semibold text-sm"
               >

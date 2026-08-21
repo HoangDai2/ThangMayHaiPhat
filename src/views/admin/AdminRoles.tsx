@@ -1,250 +1,247 @@
 "use client";
 import { useState, useEffect } from 'react';
-import { Shield, Plus, Edit, Trash2, Search, Loader2, X } from 'lucide-react';
-import api from '../../lib/api';
-
-interface DbRole {
-  id: number;
-  name: string;
-  permissions?: { name: string }[];
-}
+import { supabase, DbRole, DbPermission } from '../../lib/supabase';
+import { Shield, Plus, Trash2, Check, X } from 'lucide-react';
+import { usePermissions } from '../../hooks/usePermissions';
+import { useRouter } from 'next/navigation';
 
 export default function AdminRoles() {
+  const { hasPermission, loading: permissionsLoading } = usePermissions();
   const [roles, setRoles] = useState<DbRole[]>([]);
-  const [permissionsList, setPermissionsList] = useState<{ name: string }[]>([]);
+  const [permissions, setPermissions] = useState<DbPermission[]>([]);
+  const [rolePermissions, setRolePermissions] = useState<Record<string, string[]>>({});
   const [loading, setLoading] = useState(true);
-  
-  const [modalOpen, setModalOpen] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
-  const [saving, setSaving] = useState(false);
-  const [error, setError] = useState('');
-  
-  const [form, setForm] = useState({
-    id: 0,
-    name: '',
-    permissions: [] as string[],
-  });
+
+  const [isAddingRole, setIsAddingRole] = useState(false);
+  const [newRoleName, setNewRoleName] = useState('');
+  const [newRoleDescription, setNewRoleDescription] = useState('');
+
+  const [editingRole, setEditingRole] = useState<string | null>(null);
+
+  const router = useRouter();
+
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      const [rolesRes, permsRes, rolePermsRes] = await Promise.all([
+        supabase.from('roles').select('*').order('created_at'),
+        supabase.from('permissions').select('*').order('name'),
+        supabase.from('role_permissions').select('*')
+      ]);
+
+      if (rolesRes.data) setRoles(rolesRes.data);
+      if (permsRes.data) setPermissions(permsRes.data);
+      
+      if (rolePermsRes.data) {
+        const rpMap: Record<string, string[]> = {};
+        rolePermsRes.data.forEach((rp: { role_id: string; permission_id: string }) => {
+          if (!rpMap[rp.role_id]) rpMap[rp.role_id] = [];
+          rpMap[rp.role_id].push(rp.permission_id);
+        });
+        setRolePermissions(rpMap);
+      }
+    } catch (error) {
+      console.error('Error fetching roles:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (!permissionsLoading && !hasPermission('manage_all')) {
+      router.replace('/admin');
+    }
+  }, [hasPermission, permissionsLoading, router]);
 
   useEffect(() => {
     fetchData();
   }, []);
 
-  const fetchData = async () => {
-    setLoading(true);
+  if (permissionsLoading || !hasPermission('manage_all')) return null;
+
+  const handleAddRole = async () => {
+    if (!newRoleName) return;
     try {
-      const [rolesRes, permsRes] = await Promise.all([
-        api.get('/admin/roles'),
-        api.get('/admin/permissions')
-      ]);
-      setRoles(rolesRes.data);
-      setPermissionsList(permsRes.data);
-    } catch (e) {
-      console.error(e);
+      const { data, error } = await supabase
+        .from('roles')
+        .insert([{ name: newRoleName, description: newRoleDescription }])
+        .select()
+        .single();
+
+      if (error) throw error;
+      setRoles([...roles, data]);
+      setIsAddingRole(false);
+      setNewRoleName('');
+      setNewRoleDescription('');
+    } catch (error) {
+      console.error('Error adding role:', error);
+      alert('Có lỗi xảy ra khi thêm vai trò.');
     }
-    setLoading(false);
   };
 
-  const openAdd = () => {
-    setForm({ id: 0, name: '', permissions: [] });
-    setIsEditing(false);
-    setError('');
-    setModalOpen(true);
-  };
-
-  const openEdit = (role: DbRole) => {
-    setForm({
-      id: role.id,
-      name: role.name,
-      permissions: role.permissions ? role.permissions.map(p => p.name) : [],
-    });
-    setIsEditing(true);
-    setError('');
-    setModalOpen(true);
-  };
-
-  const handleSave = async () => {
-    if (!form.name.trim()) {
-      setError('Tên vai trò là bắt buộc');
-      return;
-    }
-
-    setSaving(true);
-    setError('');
-
+  const handleDeleteRole = async (roleId: string) => {
+    if (!confirm('Bạn có chắc chắn muốn xóa vai trò này?')) return;
     try {
-      if (isEditing) {
-        await api.put(`/admin/roles/${form.id}`, form);
+      const { error } = await supabase.from('roles').delete().eq('id', roleId);
+      if (error) throw error;
+      setRoles(roles.filter(r => r.id !== roleId));
+    } catch (error) {
+      console.error('Error deleting role:', error);
+      alert('Có lỗi xảy ra khi xóa vai trò.');
+    }
+  };
+
+  const handleTogglePermission = async (roleId: string, permissionId: string, hasPerm: boolean) => {
+    try {
+      if (hasPerm) {
+        // Xóa permission
+        await supabase
+          .from('role_permissions')
+          .delete()
+          .match({ role_id: roleId, permission_id: permissionId });
+        
+        setRolePermissions(prev => ({
+          ...prev,
+          [roleId]: (prev[roleId] || []).filter(id => id !== permissionId)
+        }));
       } else {
-        await api.post('/admin/roles', form);
+        // Thêm permission
+        await supabase
+          .from('role_permissions')
+          .insert([{ role_id: roleId, permission_id: permissionId }]);
+        
+        setRolePermissions(prev => ({
+          ...prev,
+          [roleId]: [...(prev[roleId] || []), permissionId]
+        }));
       }
-      await fetchData();
-      setModalOpen(false);
-    } catch (error: any) {
-      setError(error.response?.data?.message || 'Có lỗi xảy ra');
-    }
-    setSaving(false);
-  };
-
-  const handleDelete = async (id: number, name: string) => {
-    if (name === 'Super Admin') {
-      alert('Không thể xóa Super Admin');
-      return;
-    }
-    if (!window.confirm(`Xóa vai trò "${name}"?`)) return;
-    try {
-      await api.delete(`/admin/roles/${id}`);
-      await fetchData();
-    } catch (e) {
-      console.error(e);
-      alert('Xóa thất bại');
+    } catch (error) {
+      console.error('Error toggling permission:', error);
+      alert('Có lỗi xảy ra khi cập nhật quyền.');
     }
   };
 
-  const togglePermission = (permName: string) => {
-    setForm(prev => {
-      const permissions = prev.permissions.includes(permName)
-        ? prev.permissions.filter(p => p !== permName)
-        : [...prev.permissions, permName];
-      return { ...prev, permissions };
-    });
-  };
+  if (loading) return <div>Đang tải dữ liệu...</div>;
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center mb-8">
-        <div>
-          <h1 className="text-3xl font-bold text-slate-800 flex items-center gap-2">
-            <Shield className="w-8 h-8 text-orange-500" />
-            Quản lý Vai trò (Roles)
-          </h1>
-          <p className="text-slate-500 mt-1">Phân quyền truy cập hệ thống</p>
-        </div>
+      <div className="flex justify-between items-center">
+        <h1 className="text-2xl font-bold text-slate-800 flex items-center gap-2">
+          <Shield className="w-6 h-6 text-[#285c9a]" />
+          Quản Lý Phân Quyền
+        </h1>
         <button
-          onClick={openAdd}
-          className="flex items-center gap-2 bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors"
+          onClick={() => setIsAddingRole(true)}
+          className="bg-[#285c9a] text-white px-5 py-2.5 rounded-xl font-medium text-sm flex items-center gap-2 hover:bg-[#1e4a80] shadow-md shadow-blue-900/10 transition-all"
         >
-          <Plus className="w-5 h-5" />
-          Thêm vai trò
+          <Plus className="w-4 h-4" />
+          Thêm Vai Trò
         </button>
       </div>
 
-      {loading ? (
-        <div className="flex justify-center py-20">
-          <Loader2 className="w-8 h-8 animate-spin text-orange-500" />
-        </div>
-      ) : (
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {roles.map((role) => (
-            <div key={role.id} className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden flex flex-col">
-              <div className="p-5 border-b border-slate-100 flex items-center justify-between bg-slate-50">
-                <h3 className="font-bold text-lg text-slate-800">{role.name}</h3>
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => openEdit(role)}
-                    className="p-1.5 text-slate-400 hover:text-blue-500 hover:bg-blue-50 rounded-lg transition-colors"
-                  >
-                    <Edit className="w-4 h-4" />
-                  </button>
-                  {role.name !== 'Super Admin' && (
-                    <button
-                      onClick={() => handleDelete(role.id, role.name)}
-                      className="p-1.5 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
-                  )}
-                </div>
-              </div>
-              <div className="p-5 flex-1 bg-white">
-                <p className="text-sm font-medium text-slate-500 mb-3">Quyền hạn ({role.permissions?.length || 0}):</p>
-                <div className="flex flex-wrap gap-2">
-                  {role.permissions?.map(p => (
-                    <span key={p.name} className="px-2.5 py-1 bg-slate-100 text-slate-600 rounded-md text-xs">
-                      {p.name}
-                    </span>
-                  ))}
-                  {(!role.permissions || role.permissions.length === 0) && (
-                    <span className="text-sm text-slate-400 italic">Chưa có quyền nào</span>
-                  )}
-                </div>
-              </div>
+      {isAddingRole && (
+        <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+          <h2 className="text-base font-bold text-slate-800 mb-4">Thêm Vai Trò Mới</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Tên Vai Trò</label>
+              <input
+                type="text"
+                value={newRoleName}
+                onChange={e => setNewRoleName(e.target.value)}
+                className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-[#285c9a] outline-none transition-all"
+                placeholder="VD: Biên tập viên"
+              />
             </div>
-          ))}
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Mô tả</label>
+              <input
+                type="text"
+                value={newRoleDescription}
+                onChange={e => setNewRoleDescription(e.target.value)}
+                className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-[#285c9a] outline-none transition-all"
+                placeholder="VD: Quản lý nội dung bài viết"
+              />
+            </div>
+          </div>
+          <div className="flex gap-2">
+            <button onClick={handleAddRole} className="bg-[#285c9a] hover:bg-[#1e4a80] text-white px-5 py-2 rounded-xl text-xs font-semibold shadow-sm transition-all">Lưu</button>
+            <button onClick={() => setIsAddingRole(false)} className="bg-slate-100 hover:bg-slate-200 text-slate-700 px-5 py-2 rounded-xl text-xs font-semibold transition-all">Hủy</button>
+          </div>
         </div>
       )}
 
-      {/* Modal */}
-      {modalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
-          <div className="bg-white rounded-2xl w-full max-w-xl shadow-xl overflow-hidden flex flex-col max-h-[90vh]">
-            <div className="flex items-center justify-between p-6 border-b border-slate-100">
-              <h2 className="text-xl font-bold text-slate-800">
-                {isEditing ? 'Sửa vai trò' : 'Thêm vai trò mới'}
-              </h2>
-              <button
-                onClick={() => setModalOpen(false)}
-                className="text-slate-400 hover:text-slate-600 transition-colors"
-              >
-                <X className="w-6 h-6" />
-              </button>
-            </div>
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full text-left">
+            <thead className="bg-slate-50 border-b border-slate-200 text-xs font-semibold uppercase tracking-wider text-slate-600">
+              <tr>
+                <th className="px-6 py-4">Vai trò</th>
+                <th className="px-6 py-4">Mô tả</th>
+                <th className="px-6 py-4">Thao tác</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100 text-sm">
+              {roles.map((role) => (
+                <tr key={role.id} className="hover:bg-slate-50/60 transition-colors">
+                  <td className="px-6 py-4">
+                    <div className="font-semibold text-slate-800">{role.name}</div>
+                  </td>
+                  <td className="px-6 py-4 text-slate-600 text-xs">
+                    {role.description}
+                  </td>
+                  <td className="px-6 py-4">
+                    <div className="flex items-center gap-2">
+                      <button 
+                        onClick={() => setEditingRole(editingRole === role.id ? null : role.id)}
+                        className="p-2 text-[#285c9a] hover:bg-blue-50 rounded-xl transition-colors"
+                        title="Cấu hình quyền"
+                      >
+                        <Shield className="w-4 h-4" />
+                      </button>
+                      {role.name !== 'Quản lý' && (
+                        <button 
+                          onClick={() => handleDeleteRole(role.id)}
+                          className="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition-colors"
+                          title="Xóa"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      )}
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
 
-            <div className="p-6 overflow-y-auto">
-              {error && (
-                <div className="mb-6 p-4 bg-red-50 text-red-600 rounded-lg text-sm border border-red-100">
-                  {error}
-                </div>
-              )}
-
-              <div className="space-y-6">
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Tên vai trò</label>
-                  <input
-                    type="text"
-                    value={form.name}
-                    onChange={e => setForm({ ...form, name: e.target.value })}
-                    className="w-full p-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 outline-none"
-                    placeholder="VD: Content Editor"
-                    disabled={isEditing && form.name === 'Super Admin'}
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-3">Phân quyền (Permissions)</label>
-                  <div className="grid grid-cols-2 gap-3">
-                    {permissionsList.map(perm => (
-                      <label key={perm.name} className="flex items-center gap-3 p-3 border border-slate-200 rounded-lg cursor-pointer hover:bg-slate-50 transition-colors">
-                        <input
-                          type="checkbox"
-                          className="w-4 h-4 text-orange-500 rounded border-slate-300 focus:ring-orange-500"
-                          checked={form.permissions.includes(perm.name)}
-                          onChange={() => togglePermission(perm.name)}
-                          disabled={isEditing && form.name === 'Super Admin'} // Super admin should have all
-                        />
-                        <span className="text-sm font-medium text-slate-700">{perm.name}</span>
-                      </label>
-                    ))}
+      {editingRole && (
+        <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200/80 mt-6">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-base font-bold text-slate-800">
+              Cấu hình quyền: <span className="text-[#285c9a]">{roles.find(r => r.id === editingRole)?.name}</span>
+            </h2>
+            <button onClick={() => setEditingRole(null)} className="p-1 text-slate-400 hover:text-slate-600"><X className="w-5 h-5" /></button>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {permissions.map(permission => {
+              const hasPerm = (rolePermissions[editingRole] || []).includes(permission.id);
+              return (
+                <div 
+                  key={permission.id} 
+                  className={`p-4 border rounded-xl flex items-center justify-between cursor-pointer transition-all ${hasPerm ? 'border-[#285c9a] bg-blue-50/60 shadow-sm' : 'border-slate-200/80 hover:border-slate-300'}`}
+                  onClick={() => handleTogglePermission(editingRole, permission.id, hasPerm)}
+                >
+                  <div>
+                    <div className={`font-semibold text-xs ${hasPerm ? 'text-[#285c9a]' : 'text-slate-700'}`}>{permission.name}</div>
+                    <div className="text-[11px] text-slate-500 mt-0.5">{permission.description}</div>
                   </div>
+                  {hasPerm && <Check className="w-4 h-4 text-[#285c9a] flex-shrink-0" />}
                 </div>
-              </div>
-            </div>
-
-            <div className="p-6 border-t border-slate-100 bg-slate-50 flex justify-end gap-3">
-              <button
-                onClick={() => setModalOpen(false)}
-                className="px-5 py-2.5 text-slate-600 font-medium hover:bg-slate-200 rounded-xl transition-colors"
-              >
-                Hủy
-              </button>
-              <button
-                onClick={handleSave}
-                disabled={saving}
-                className="flex items-center gap-2 bg-orange-500 text-white px-5 py-2.5 rounded-xl font-medium hover:bg-orange-600 transition-colors disabled:opacity-50"
-              >
-                {saving && <Loader2 className="w-4 h-4 animate-spin" />}
-                {isEditing ? 'Cập nhật' : 'Tạo mới'}
-              </button>
-            </div>
+              );
+            })}
           </div>
         </div>
       )}
