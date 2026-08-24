@@ -206,8 +206,8 @@ function ProductDetail() {
   }
 
   const Icon = iconMap[product.icon] || Building2;
-  const gallery = product.gallery && product.gallery.length > 0 
-    ? product.gallery 
+  const gallery = product.gallery && product.gallery.length > 0
+    ? product.gallery
     : [product.image];
 
   return (
@@ -269,7 +269,7 @@ function ProductDetail() {
                 {product.fullDescription.split('\n\n').map((para, idx) => {
                   const isEven = idx % 2 === 0;
                   const imgSrc = gallery[idx % gallery.length] || product.image;
-                  
+
                   return (
                     <div key={idx} className={`flex flex-col gap-6 items-center ${isEven ? 'sm:flex-row' : 'sm:flex-row-reverse'}`}>
                       <div className="flex-1">
@@ -277,9 +277,9 @@ function ProductDetail() {
                       </div>
                       <div className="flex-1 w-full">
                         <div className="rounded-2xl overflow-hidden shadow-lg border border-gray-100 relative group">
-                          <img 
-                            src={imgSrc} 
-                            alt="" 
+                          <img
+                            src={imgSrc}
+                            alt=""
                             className="w-full aspect-[4/3] object-cover transition-transform duration-700 group-hover:scale-105"
                           />
                         </div>
@@ -303,16 +303,15 @@ function ProductDetail() {
                   className="w-full aspect-[4/5] object-cover"
                 />
               </div>
-              <div className="grid grid-cols-4 gap-2">
+              <div className="grid grid-cols-5 sm:grid-cols-6 gap-2">
                 {gallery.map((img, idx) => (
                   <button
                     key={idx}
                     onClick={() => setActiveImage(idx)}
-                    className={`rounded-lg overflow-hidden border-2 transition-all ${
-                      activeImage === idx ? 'border-[#285c9a] ring-2 ring-[#285c9a]/30' : 'border-transparent'
-                    }`}
+                    className={`rounded-lg overflow-hidden border-2 transition-all ${activeImage === idx ? 'border-[#285c9a] ring-2 ring-[#285c9a]/30' : 'border-transparent'
+                      }`}
                   >
-                    <img src={img} alt="" className="w-full h-14 object-cover" />
+                    <img src={img} alt="" className="w-full aspect-[4/5] object-cover" />
                   </button>
                 ))}
               </div>
@@ -379,9 +378,8 @@ function ProductDetail() {
                       <span className="font-medium text-gray-900 text-sm pr-4">{faq.question}</span>
                       <ChevronRight
                         size={16}
-                        className={`text-gray-400 transition-transform flex-shrink-0 ${
-                          activeFaq === idx ? 'rotate-90' : ''
-                        }`}
+                        className={`text-gray-400 transition-transform flex-shrink-0 ${activeFaq === idx ? 'rotate-90' : ''
+                          }`}
                       />
                     </button>
                     {activeFaq === idx && (

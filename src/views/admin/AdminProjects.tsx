@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import { Plus, Edit, Trash2, Search, X, Loader2, Image } from 'lucide-react';
 import { supabase, DbProject } from '../../lib/supabase';
 import ArrayInput from '../../components/admin/ArrayInput';
+import ImageUpload from '../../components/admin/ImageUpload';
+import MultiImageUpload from '../../components/admin/MultiImageUpload';
 
 const CATEGORIES = ['Gia đình', 'Tải khách', 'Thương mại', 'Tải hàng'];
 
@@ -319,18 +321,12 @@ export default function AdminProjects() {
                 </div>
               </div>
 
-              <div>
-                <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">URL ảnh đại diện</label>
-                <input
-                  type="text"
+              <div className="mb-4">
+                <ImageUpload
+                  label="Ảnh đại diện"
                   value={form.image || ''}
-                  onChange={(e) => set('image', e.target.value)}
-                  placeholder="https://..."
-                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-[#285c9a] outline-none transition-all"
+                  onChange={(url) => set('image', url)}
                 />
-                {form.image && (
-                  <img src={form.image} alt="preview" className="mt-2 h-24 rounded-xl object-cover border border-slate-200" />
-                )}
               </div>
 
               <div>
@@ -417,12 +413,13 @@ export default function AdminProjects() {
                 placeholder="Nhập tính năng rồi Enter..."
               />
 
-              <ArrayInput
-                label="Gallery (URL ảnh)"
-                values={form.gallery || []}
-                onChange={(v) => set('gallery', v)}
-                placeholder="https://..."
-              />
+              <div className="pt-2">
+                <MultiImageUpload
+                  label="Gallery (Thư viện ảnh)"
+                  values={form.gallery || []}
+                  onChange={(v) => set('gallery', v)}
+                />
+              </div>
             </div>
 
             <div className="p-4 sm:p-6 border-t border-slate-100 bg-slate-50/50 flex gap-3 justify-end">

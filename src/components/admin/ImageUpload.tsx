@@ -1,7 +1,8 @@
 "use client";
 import { useState } from 'react';
-import { Upload, Loader2, Link as LinkIcon, X } from 'lucide-react';
+import { Upload, Loader2, Link as LinkIcon, X, Image as ImageIcon } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
+import MediaLibraryModal from './MediaLibraryModal';
 
 interface Props {
   value: string;
@@ -13,6 +14,15 @@ export default function ImageUpload({ value, onChange, label = 'Hình ảnh' }: 
   const [uploading, setUploading] = useState(false);
   const [showUrl, setShowUrl] = useState(false);
   const [urlInput, setUrlInput] = useState('');
+  const [showLibrary, setShowLibrary] = useState(false);
+
+  const processDriveUrl = (url: string) => {
+    const match = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+    if (match && match[1]) {
+      return `https://drive.google.com/uc?export=view&id=${match[1]}`;
+    }
+    return url;
+  };
 
   const handleFile = async (file: File) => {
     if (!file) return;
@@ -29,7 +39,8 @@ export default function ImageUpload({ value, onChange, label = 'Hình ảnh' }: 
 
   const addUrl = () => {
     if (urlInput.trim()) {
-      onChange(urlInput.trim());
+      const processedUrl = processDriveUrl(urlInput.trim());
+      onChange(processedUrl);
       setUrlInput('');
       setShowUrl(false);
     }
@@ -39,14 +50,24 @@ export default function ImageUpload({ value, onChange, label = 'Hình ảnh' }: 
     <div>
       <div className="flex items-center justify-between mb-1">
         <label className="block text-sm font-medium text-slate-700">{label}</label>
-        <button
-          type="button"
-          onClick={() => setShowUrl(!showUrl)}
-          className="text-xs text-orange-500 hover:text-orange-600 flex items-center gap-1"
-        >
-          <LinkIcon className="w-3 h-3" />
-          Dùng URL
-        </button>
+        <div className="flex gap-3">
+          <button
+            type="button"
+            onClick={() => setShowLibrary(true)}
+            className="text-xs text-[#285c9a] hover:text-blue-700 flex items-center gap-1"
+          >
+            <ImageIcon className="w-3 h-3" />
+            Thư viện ảnh
+          </button>
+          <button
+            type="button"
+            onClick={() => setShowUrl(!showUrl)}
+            className="text-xs text-orange-500 hover:text-orange-600 flex items-center gap-1"
+          >
+            <LinkIcon className="w-3 h-3" />
+            Dùng URL / GDrive
+          </button>
+        </div>
       </div>
 
       {showUrl && (
@@ -55,15 +76,15 @@ export default function ImageUpload({ value, onChange, label = 'Hình ảnh' }: 
             type="text"
             value={urlInput}
             onChange={(e) => setUrlInput(e.target.value)}
-            placeholder="https://..."
+            placeholder="Dán link ảnh hoặc link Google Drive (quyền: Bất kỳ ai có liên kết)..."
             className="flex-1 px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none"
           />
           <button
             type="button"
             onClick={addUrl}
-            className="px-3 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 text-sm"
+            className="px-3 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 text-sm whitespace-nowrap"
           >
-            OK
+            Thêm URL
           </button>
         </div>
       )}
@@ -78,7 +99,7 @@ export default function ImageUpload({ value, onChange, label = 'Hình ảnh' }: 
           ) : (
             <>
               <Upload className="w-4 h-4" />
-              Chọn file để tải lên
+              Chọn file từ máy tính
             </>
           )}
           <input
@@ -89,7 +110,7 @@ export default function ImageUpload({ value, onChange, label = 'Hình ảnh' }: 
           />
         </label>
         {value && (
-          <div className="relative">
+          <div className="relative shrink-0">
             <img src={value} alt="preview" className="h-16 w-16 rounded-lg object-cover border" />
             <button
               type="button"
@@ -101,6 +122,15 @@ export default function ImageUpload({ value, onChange, label = 'Hình ảnh' }: 
           </div>
         )}
       </div>
+
+      {showLibrary && (
+        <MediaLibraryModal
+          onClose={() => setShowLibrary(false)}
+          onSelect={(url) => {
+            onChange(url);
+          }}
+        />
+      )}
     </div>
   );
 }

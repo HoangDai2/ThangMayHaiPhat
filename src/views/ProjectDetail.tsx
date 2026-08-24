@@ -1,7 +1,7 @@
 "use client";
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
-import { MapPin, Building2, Zap, Calendar, Shield, ChevronLeft, ArrowRight, Star, Phone, Clock, Layers, Ruler, Gauge, Loader2 } from 'lucide-react';
+import { MapPin, Building2, Zap, Calendar, Shield, ChevronLeft, ArrowRight, Star, Phone, Clock, Layers, Ruler, Gauge, Loader2, AlignLeft } from 'lucide-react';
 import { useState } from 'react';
 import { useProjectsData } from '../hooks/useProjectsData';
 
@@ -89,35 +89,30 @@ function ProjectDetail() {
                 <Layers size={20} className="text-[#285c9a]" />
                 Hình ảnh dự án
               </h2>
-              <div className="relative rounded-2xl overflow-hidden mb-3">
-                <img
-                  src={project.gallery[activeImage]}
-                  alt={`${project.title} - Hình ${activeImage + 1}`}
-                  className="w-full h-64 sm:h-80 object-cover"
-                />
+              <div className="flex flex-col sm:flex-row gap-4 h-auto sm:h-[600px]">
+                {/* Main Image */}
+                <div className="flex-1 relative rounded-2xl overflow-hidden bg-gray-100 flex items-center justify-center h-[400px] sm:h-full">
+                  <img
+                    src={project.gallery[activeImage]}
+                    alt={`${project.title} - Hình ${activeImage + 1}`}
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+                {/* Thumbnails */}
+                <div className="flex sm:flex-col gap-2 overflow-x-auto sm:overflow-y-auto sm:w-28 lg:w-32 sm:h-full pb-2 sm:pb-0 sm:pr-2 scrollbar-thin scrollbar-thumb-gray-300">
+                  {project.gallery.map((img, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setActiveImage(idx)}
+                      className={`relative rounded-lg overflow-hidden border-2 transition-all flex-shrink-0 w-24 sm:w-full sm:aspect-[4/5] ${
+                        activeImage === idx ? 'border-[#285c9a] ring-2 ring-[#285c9a]/30' : 'border-transparent hover:border-gray-300'
+                      }`}
+                    >
+                      <img src={img} alt="" className="absolute inset-0 w-full h-full object-cover" />
+                    </button>
+                  ))}
+                </div>
               </div>
-              <div className="grid grid-cols-4 gap-2">
-                {project.gallery.map((img, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => setActiveImage(idx)}
-                    className={`rounded-lg overflow-hidden border-2 transition-all ${
-                      activeImage === idx ? 'border-[#285c9a] ring-2 ring-[#285c9a]/30' : 'border-transparent'
-                    }`}
-                  >
-                    <img src={img} alt="" className="w-full h-16 object-cover" />
-                  </button>
-                ))}
-              </div>
-            </section>
-
-            {/* Description */}
-            <section>
-              <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                <Building2 size={20} className="text-[#285c9a]" />
-                Mô tả dự án
-              </h2>
-              <p className="text-gray-600 leading-relaxed">{project.description}</p>
             </section>
 
             {/* Features */}
@@ -187,6 +182,18 @@ function ProjectDetail() {
                   </div>
                 ))}
               </div>
+
+              {project.description && (
+                <div className="mt-6 pt-6 border-t border-gray-200">
+                  <h3 className="font-bold text-gray-900 mb-5 flex items-center gap-2">
+                    <AlignLeft size={18} className="text-[#285c9a]" />
+                    Mô tả dự án
+                  </h3>
+                  <p className="text-gray-600 text-sm whitespace-pre-line leading-relaxed">
+                    {project.description}
+                  </p>
+                </div>
+              )}
 
               {/* CTA */}
               <div className="mt-6 pt-6 border-t border-gray-200 space-y-3">
@@ -279,11 +286,10 @@ function ProjectsList() {
             <button
               key={cat}
               onClick={() => setCategory(cat)}
-              className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
-                category === cat
-                  ? 'bg-[#285c9a] text-white shadow-md shadow-[#285c9a]/25'
-                  : 'bg-white text-gray-600 border border-gray-200 hover:border-[#285c9a]/30'
-              }`}
+              className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 ${category === cat
+                ? 'bg-[#285c9a] text-white shadow-md shadow-[#285c9a]/25'
+                : 'bg-white text-gray-600 border border-gray-200 hover:border-[#285c9a]/30'
+                }`}
             >
               {cat}
             </button>
