@@ -1,6 +1,7 @@
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import { FloatingButtons } from '../../components/FloatingButtons';
+import PromoPopup from '../../components/PromoPopup';
 
 export default function PublicLayout({
   children,
@@ -15,6 +16,7 @@ export default function PublicLayout({
       </main>
       <Footer />
       <FloatingButtons />
+      <PromoPopup />
     </div>
   );
 }

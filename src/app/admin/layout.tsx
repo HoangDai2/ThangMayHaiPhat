@@ -26,6 +26,7 @@ import {
 const sidebarItems = [
   { path: '/admin', label: 'Tổng quan', icon: LayoutDashboard, permission: null },
   { path: '/admin/banners', label: 'Banner & Slider', icon: Layout, permission: 'manage_settings' },
+  { path: '/admin/promotions', label: 'Khuyến mãi', icon: Star, permission: 'manage_settings' },
   { path: '/admin/projects', label: 'Dự án', icon: FolderKanban, permission: 'manage_projects' },
   { path: '/admin/products', label: 'Sản phẩm', icon: Box, permission: 'manage_products' },
   { path: '/admin/articles', label: 'Bài viết', icon: FileText, permission: 'manage_articles' },
