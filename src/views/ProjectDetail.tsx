@@ -80,7 +80,7 @@ function ProjectDetail() {
 
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <div className="grid lg:grid-cols-3 gap-8">
+        <div className="flex flex-col lg:grid lg:grid-cols-3 gap-8">
           {/* Left: Main Content */}
           <div className="lg:col-span-2 space-y-10">
             {/* Gallery */}
@@ -95,7 +95,7 @@ function ProjectDetail() {
                   <img
                     src={project.gallery[activeImage]}
                     alt={`${project.title} - Hình ${activeImage + 1}`}
-                    className="w-full h-full object-contain"
+                    className="w-full h-full object-cover"
                   />
                 </div>
                 {/* Thumbnails */}
@@ -104,7 +104,7 @@ function ProjectDetail() {
                     <button
                       key={idx}
                       onClick={() => setActiveImage(idx)}
-                      className={`relative rounded-lg overflow-hidden border-2 transition-all flex-shrink-0 w-24 sm:w-full sm:aspect-[4/5] ${
+                      className={`relative rounded-lg overflow-hidden border-2 transition-all flex-shrink-0 w-24 aspect-square sm:aspect-[4/5] sm:w-full ${
                         activeImage === idx ? 'border-[#285c9a] ring-2 ring-[#285c9a]/30' : 'border-transparent hover:border-gray-300'
                       }`}
                     >
@@ -177,7 +177,7 @@ function ProjectDetail() {
                     </div>
                     <div>
                       <div className="text-gray-400 text-xs">{label}</div>
-                      <div className="text-gray-900 font-medium text-sm">{value}</div>
+                      <div className="text-gray-900 font-medium text-sm break-words">{value}</div>
                     </div>
                   </div>
                 ))}
@@ -189,9 +189,9 @@ function ProjectDetail() {
                     <AlignLeft size={18} className="text-[#285c9a]" />
                     Mô tả dự án
                   </h3>
-                  <p className="text-gray-600 text-sm whitespace-pre-line leading-relaxed">
+                  <div className="text-gray-600 text-sm whitespace-pre-wrap break-words leading-relaxed overflow-hidden">
                     {project.description}
-                  </p>
+                  </div>
                 </div>
               )}
 

@@ -60,11 +60,11 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-7">
+        <nav className="hidden lg:flex items-center gap-4 xl:gap-7">
           {filteredNavLinks.map((link) => (
             <Link key={link.href}
               href={link.href}
-              className="text-sm font-medium text-gray-700 transition-colors duration-200 hover:text-[#285c9a]"
+              className="text-sm font-medium text-gray-700 transition-colors duration-200 hover:text-[#285c9a] whitespace-nowrap"
             >
               {link.label}
             </Link>
@@ -72,17 +72,18 @@ export default function Navbar() {
         </nav>
 
         {/* CTA phone */}
-        <div className="hidden md:flex items-center gap-4">
+        <div className="hidden lg:flex items-center gap-3 xl:gap-4">
           <a
             href="tel:0987603588"
-            className="flex items-center gap-2 px-4 py-2 rounded-lg border border-[#285c9a] text-sm font-semibold text-[#285c9a] hover:bg-blue-50 transition-all duration-200"
+            className="flex items-center gap-1.5 xl:gap-2 px-3 xl:px-4 py-2 rounded-lg border border-[#285c9a] text-sm font-semibold text-[#285c9a] hover:bg-blue-50 transition-all duration-200 whitespace-nowrap"
           >
             <Phone size={15} />
-            0987 603 588
+            <span className="hidden xl:inline">0987 603 588</span>
+            <span className="xl:hidden">0987...</span>
           </a>
           <a
             href="tel:0898424666"
-            className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 bg-[#285c9a] text-white hover:bg-[#1e4a80]"
+            className="flex items-center gap-1.5 xl:gap-2 px-3 xl:px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 bg-[#285c9a] text-white hover:bg-[#1e4a80] whitespace-nowrap"
           >
             <Phone size={15} />
             0898 424 666
@@ -91,7 +92,7 @@ export default function Navbar() {
 
         {/* Mobile menu toggle */}
         <button
-          className="md:hidden p-2 rounded-lg transition-colors text-gray-700 hover:bg-gray-100"
+          className="lg:hidden p-2 rounded-lg transition-colors text-gray-700 hover:bg-gray-100"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
         >
@@ -101,7 +102,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="md:hidden bg-white border-t border-gray-100 shadow-lg absolute top-full left-0 right-0">
+        <div className="lg:hidden bg-white border-t border-gray-100 shadow-lg absolute top-full left-0 right-0">
           <nav className="flex flex-col px-4 py-3 gap-1">
             {filteredNavLinks.map((link) => (
               <Link key={link.href}
