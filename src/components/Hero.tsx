@@ -2,13 +2,13 @@
 import { useCallback, useEffect, useState } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
-import { ArrowRight, ChevronLeft, ChevronRight, Loader2, ShieldCheck, Settings, Clock, Headphones } from 'lucide-react';
-import { useBannersData, FALLBACK_BANNERS, Banner } from '../hooks/useBannersData';
+import { ArrowRight, ChevronLeft, ChevronRight, ShieldCheck, Settings, Clock, Headphones } from 'lucide-react';
+import { FALLBACK_BANNERS, Banner } from '../hooks/useBannersData';
 import Link from 'next/link';
+import Image from 'next/image';
 import AboutUs from './AboutUs';
 
-export default function Hero() {
-  const { banners, loading } = useBannersData();
+export default function Hero({ initialBanners }: { initialBanners: Banner[] }) {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [Autoplay({ delay: 5000, stopOnInteraction: false, stopOnMouseEnter: true })]);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -36,20 +36,8 @@ export default function Hero() {
     };
   }, [emblaApi]);
 
-  if (loading) {
-    return (
-      <section id="home" className="pt-20 pb-6 bg-gray-50 flex flex-col justify-center min-h-[calc(100vh-72px)]">
-        <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
-          <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl bg-[#285c9a] h-[340px] sm:h-[400px] lg:h-[460px] flex items-center justify-center">
-            <Loader2 className="w-12 h-12 text-white animate-spin opacity-50" />
-          </div>
-        </div>
-      </section>
-    );
-  }
-
   // Fallback if no banners
-  const displayBanners: Banner[] = banners.length > 0 ? banners : FALLBACK_BANNERS;
+  const displayBanners: Banner[] = initialBanners.length > 0 ? initialBanners : FALLBACK_BANNERS;
 
   return (
     <section id="home" className="pt-20 pb-2 lg:pb-4 bg-gray-50 flex flex-col justify-center min-h-[calc(100vh-72px)]">
@@ -68,10 +56,13 @@ export default function Hero() {
                 return (
                   <div key={slide.id || index} className="relative min-w-0 flex-[0_0_100%] h-[380px] sm:h-[460px] md:h-[510px] lg:h-[550px] xl:h-[570px]">
                     {/* Background Image */}
-                    <img
+                    <Image
                       src={slide.image_url}
-                      alt={slide.title}
-                      className="absolute inset-0 w-full h-full object-cover"
+                      alt={slide.title || 'Banner'}
+                      fill
+                      priority={index === 0}
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1800px"
+                      className="object-cover"
                     />
 
                     {/* TEMPLATE 1: STANDARD (Left-aligned gradient) */}

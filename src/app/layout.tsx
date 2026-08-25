@@ -1,5 +1,8 @@
 import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
 import '../index.css';
+
+const inter = Inter({ subsets: ['latin', 'vietnamese'], display: 'swap' });
 
 export const metadata: Metadata = {
   title: 'Thang Máy Hải Phát - Chuyên Lắp Đặt Thang Máy Hiện Đại, Uy Tín',
@@ -16,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="vi" suppressHydrationWarning>
-      <body className="overflow-x-hidden" suppressHydrationWarning>
+      <body className={`${inter.className} overflow-x-hidden`} suppressHydrationWarning>
         <main className="overflow-x-hidden w-full flex flex-col min-h-screen">
           {children}
         </main>
