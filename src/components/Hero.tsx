@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
 import { ArrowRight, ChevronLeft, ChevronRight, ShieldCheck, Settings, Clock, Headphones } from 'lucide-react';
-import { FALLBACK_BANNERS, Banner } from '../hooks/useBannersData';
+import { FALLBACK_BANNERS, Banner } from '../data/banners';
 import Link from 'next/link';
 import Image from 'next/image';
 import AboutUs from './AboutUs';

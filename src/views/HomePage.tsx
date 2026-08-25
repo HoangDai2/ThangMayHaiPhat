@@ -4,7 +4,7 @@ import Projects from '../components/Projects';
 import Testimonials from '../components/Testimonials';
 import ContactSection from '../components/ContactSection';
 import { supabase } from '../lib/supabase';
-import { FALLBACK_BANNERS, Banner } from '../hooks/useBannersData';
+import { FALLBACK_BANNERS, Banner } from '../data/banners';
 
 async function getBanners(): Promise<Banner[]> {
   const { data, error } = await supabase
