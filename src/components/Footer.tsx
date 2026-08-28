@@ -53,7 +53,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-1">
             <div className="mb-4">
-              <img src="/image.png" alt="Thang Máy Hải Phát" className="h-12 w-auto object-contain" />
+              <img src="/image.webp" alt="Thang Máy Hải Phát" className="h-12 w-auto object-contain" />
             </div>
             <p className="text-gray-400 text-sm leading-relaxed mb-5">
               Chuyên lắp đặt thang máy gia đình và thang máy tải khách cao cấp. Hơn 5 năm

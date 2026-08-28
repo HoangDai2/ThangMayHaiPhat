@@ -65,7 +65,7 @@ export default function AboutPage() {
             <div className="mt-10 lg:mt-0 relative w-full">
               <div className="relative w-full max-w-lg mx-auto lg:max-w-none">
                 <img
-                  src="/539928420_1207135848096542_3586556978112750775_n.jpg"
+                  src="/539928420_1207135848096542_3586556978112750775_n.webp"
                   alt="Hải Phát team"
                   className="rounded-2xl shadow-2xl"
                 />
@@ -108,7 +108,7 @@ export default function AboutPage() {
           <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             <div className="lg:col-span-5 h-[300px] sm:h-[400px] lg:h-full w-full rounded-3xl overflow-hidden relative shadow-lg">
               <img 
-                src="/682852976_1412723337537791_2243820393777372314_n.jpg" 
+                src="/682852976_1412723337537791_2243820393777372314_n.webp" 
                 alt="Tầm nhìn và sứ mệnh"
                 className="absolute inset-0 w-full h-full object-cover"
               />
@@ -172,7 +172,7 @@ export default function AboutPage() {
               
               <div className="relative rounded-3xl overflow-hidden shadow-2xl hidden lg:block w-full aspect-square border border-white/10 group bg-[#0d1f35]">
                  <img 
-                   src="/475733604_967114985385988_6712307638728245450_n.jpg" 
+                   src="/475733604_967114985385988_6712307638728245450_n.webp" 
                    alt="Giá trị cốt lõi" 
                    className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105" 
                  />

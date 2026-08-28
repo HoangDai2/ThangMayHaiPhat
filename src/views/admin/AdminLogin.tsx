@@ -56,7 +56,7 @@ export default function AdminLogin() {
       <div className="bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-white/20 p-8 w-full max-w-md relative z-10">
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center p-2 rounded-full bg-gradient-to-b from-blue-50 to-slate-100 border border-slate-200/80 mb-3 shadow-md">
-            <img src="/logo-icon.png" alt="Thang Máy Hải Phát" className="w-16 h-16 object-contain rounded-full" />
+            <img src="/logo-icon.webp" alt="Thang Máy Hải Phát" className="w-16 h-16 object-contain rounded-full" />
           </div>
           <h1 className="text-2xl font-bold text-slate-800">Đăng Nhập Quản Trị</h1>
           <p className="text-slate-500 text-sm mt-1">Hệ Thống Thang Máy Hải Phát</p>

@@ -136,7 +136,7 @@ export default function ServicesPage() {
             <div className="w-full lg:w-1/2 flex">
               <div className="relative rounded-3xl overflow-hidden w-full h-full min-h-[300px] lg:min-h-0 shadow-2xl group">
                 <img 
-                  src="/493231919_1109987391144722_8013699268272707181_n.jpg" 
+                  src="/493231919_1109987391144722_8013699268272707181_n.webp" 
                   alt="Tư vấn lắp đặt thang máy" 
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
@@ -252,7 +252,7 @@ export default function ServicesPage() {
             <div className="w-full lg:w-1/2 flex">
               <div className="relative rounded-3xl overflow-hidden w-full h-full min-h-[300px] lg:min-h-0 shadow-2xl group">
                 <img 
-                  src="/bhbt.png" 
+                  src="/bhbt.webp" 
                   alt="Bảo trì bảo dưỡng thang máy" 
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />

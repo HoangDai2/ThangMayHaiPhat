@@ -114,7 +114,7 @@ export default function AboutUs() {
 
             <div className="relative rounded-3xl overflow-hidden bg-[#f0f4f8] aspect-[4/3] flex items-center justify-center shadow-lg border border-slate-100">
               <img
-                src="/472899435_953879650042855_3929925804925066729_n.jpg"
+                src="/472899435_953879650042855_3929925804925066729_n.webp"
                 alt="Đội ngũ Hải Phát đang triển khai giải pháp thang máy"
                 className="w-full h-full object-cover text-sm text-slate-500"
               />

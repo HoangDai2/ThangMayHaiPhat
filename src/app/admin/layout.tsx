@@ -101,7 +101,7 @@ export default function AdminLayout({
               {sidebarOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
             <div className="hidden sm:flex items-center gap-2.5">
-              <img src="/logo-icon.png" alt="Logo" className="w-6 h-6 object-contain rounded-full border border-slate-200" />
+              <img src="/logo-icon.webp" alt="Logo" className="w-6 h-6 object-contain rounded-full border border-slate-200" />
               <span className="w-2 h-2 rounded-full bg-[#285c9a] animate-pulse"></span>
               <h2 className="text-xs font-bold text-slate-800 uppercase tracking-wider">Hệ Thống Quản Trị Hải Phát</h2>
             </div>
@@ -153,7 +153,7 @@ export default function AdminLayout({
 
           <Link href="/" className="flex flex-col items-center gap-3 group w-full">
             <div className="relative p-1.5 rounded-full bg-gradient-to-b from-blue-400/20 via-blue-500/10 to-transparent border border-blue-400/20 group-hover:border-blue-400/50 group-hover:scale-105 transition-all shadow-lg shadow-blue-950/60">
-              <img src="/logo-icon.png" alt="Thang Máy Hải Phát" className="w-14 h-14 object-contain rounded-full" />
+              <img src="/logo-icon.webp" alt="Thang Máy Hải Phát" className="w-14 h-14 object-contain rounded-full" />
             </div>
             <div className="flex flex-col items-center gap-1">
               <span className="text-sm font-extrabold text-white tracking-wide block">THANG MÁY HẢI PHÁT</span>

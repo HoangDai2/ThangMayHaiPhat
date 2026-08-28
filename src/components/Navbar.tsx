@@ -53,7 +53,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link href="/" className="flex items-center group">
           <img
-            src="/logohp.png"
+            src="/logohp.webp"
             alt="Thang Máy Hải Phát"
             className="h-12 w-auto object-contain"
           />

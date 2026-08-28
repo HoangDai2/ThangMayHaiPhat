@@ -123,25 +123,25 @@ export const teamMembers: TeamMember[] = [
     id: 'hoang-le-quang-hoa',
     name: 'Hoàng Lê Quang Hòa',
     role: 'Giám đốc',
-    image: '/HUAN9016.jpg',
+    image: '/HUAN9016.webp',
   },
   {
     id: 'nguyen-thi-huong',
     name: 'Nguyễn Thị Hường',
     role: 'Phó giám đốc',
-    image: '491251241_9696454253740362_974582290995260425_n.jpg',
+    image: '491251241_9696454253740362_974582290995260425_n.webp',
   },
   {
     id: 'tran-cong-tinh',
     name: 'Trần Công Tình',
     role: 'Giám đốc kinh doanh',
-    image: 'HUAN9169.jpg',
+    image: 'HUAN9169.webp',
   },
   {
     id: 'nguyen-huy-tuyen',
     name: 'Nguyễn Huy Tuyên',
     role: 'Trưởng phòng kinh doanh',
-    image: '707329201_4259183531064219_330036999536634658_n.jpg',
+    image: '707329201_4259183531064219_330036999536634658_n.webp',
   },
 ];
 
