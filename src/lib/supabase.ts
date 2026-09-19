@@ -28,6 +28,7 @@ export interface DbProject {
 
 export interface DbProduct {
   id: string;
+  slug: string;
   title: string;
   subtitle: string;
   icon: string;

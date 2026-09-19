@@ -26,6 +26,7 @@ import {
 import { Product } from '../data/products';
 import { useProductsData } from '../hooks/useProductsData';
 import { Loader2 } from 'lucide-react';
+import ImageGalleryMasonry from '../components/ImageGalleryMasonry';
 
 const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
   home: Home,
@@ -290,32 +291,12 @@ function ProductDetail() {
               </div>
             </section>
 
-            {/* Gallery */}
-            <section>
-              <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                <Layers size={20} className="text-[#285c9a]" />
-                Hình ảnh sản phẩm
-              </h2>
-              <div className="relative rounded-2xl overflow-hidden mb-3 bg-gray-100">
-                <img
-                  src={gallery[activeImage]}
-                  alt={`${product.title} - Hình ${activeImage + 1}`}
-                  className="w-full aspect-[4/5] object-cover"
-                />
-              </div>
-              <div className="grid grid-cols-5 sm:grid-cols-6 gap-2">
-                {gallery.map((img, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => setActiveImage(idx)}
-                    className={`rounded-lg overflow-hidden border-2 transition-all ${activeImage === idx ? 'border-[#285c9a] ring-2 ring-[#285c9a]/30' : 'border-transparent'
-                      }`}
-                  >
-                    <img src={img} alt="" className="w-full aspect-[4/5] object-cover" />
-                  </button>
-                ))}
-              </div>
-            </section>
+            {/* Gallery (Pinterest-style Masonry Full View) */}
+            <ImageGalleryMasonry
+              images={gallery}
+              title={product.title}
+              sectionTitle="Hình ảnh sản phẩm"
+            />
 
             {/* Features */}
             <section>

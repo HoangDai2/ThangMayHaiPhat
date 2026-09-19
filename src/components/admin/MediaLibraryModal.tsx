@@ -34,18 +34,18 @@ export default function MediaLibraryModal({ onClose, onSelect }: MediaLibraryMod
     }
 
     if (data) {
-      const fileUrls = data
+      const fileUrls: MediaFile[] = data
         .filter((file) => file.name !== '.emptyFolderPlaceholder')
         .map((file) => {
           const { data: urlData } = supabase.storage.from('images').getPublicUrl(file.name);
           return {
             name: file.name,
             url: urlData.publicUrl,
-            id: file.id,
-            created_at: file.created_at,
+            id: file.id || file.name,
+            created_at: file.created_at || '',
           };
         })
-        .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+        .sort((a, b) => new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime());
       setFiles(fileUrls);
     }
     setLoading(false);

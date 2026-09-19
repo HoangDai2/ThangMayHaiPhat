@@ -2,17 +2,18 @@
 import { useState, useEffect } from 'react';
 import { Plus, Edit, Trash2, Search, X, Loader2, Image } from 'lucide-react';
 import { supabase, DbProject } from '../../lib/supabase';
+import { products as staticProducts } from '../../data/products';
 import ArrayInput from '../../components/admin/ArrayInput';
 import ImageUpload from '../../components/admin/ImageUpload';
 import MultiImageUpload from '../../components/admin/MultiImageUpload';
 
-const CATEGORIES = ['Gia đình', 'Tải khách', 'Thương mại', 'Tải hàng'];
+const DEFAULT_CATEGORIES = ['Thang Máy Quan Sát', 'Thang Máy Gia Đình', 'Thang Máy Tải Khách'];
 
-const emptyForm = (): Partial<DbProject> => ({
+const emptyForm = (defaultCategory: string = 'Thang Máy Quan Sát'): Partial<DbProject> => ({
   slug: '',
   title: '',
   location: '',
-  category: 'Gia đình',
+  category: defaultCategory,
   image: '',
   specs: '',
   description: '',
@@ -29,6 +30,7 @@ const emptyForm = (): Partial<DbProject> => ({
 
 export default function AdminProjects() {
   const [projects, setProjects] = useState<DbProject[]>([]);
+  const [productCategories, setProductCategories] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -40,7 +42,24 @@ export default function AdminProjects() {
 
   useEffect(() => {
     fetchProjects();
+    fetchProductCategories();
   }, []);
+
+  const fetchProductCategories = async () => {
+    const { data, error } = await supabase
+      .from('products')
+      .select('title')
+      .order('created_at', { ascending: true });
+    if (!error && data && data.length > 0) {
+      setProductCategories(data.map((p) => p.title).filter(Boolean));
+    } else {
+      setProductCategories(staticProducts.map((p) => p.title));
+    }
+  };
+
+  const categories = productCategories.length > 0
+    ? productCategories
+    : DEFAULT_CATEGORIES;
 
   const fetchProjects = async () => {
     setLoading(true);
@@ -53,7 +72,7 @@ export default function AdminProjects() {
   };
 
   const openAdd = () => {
-    setForm(emptyForm());
+    setForm(emptyForm(categories[0] || 'Thang Máy Quan Sát'));
     setEditingId(null);
     setError('');
     setModalOpen(true);
@@ -163,7 +182,7 @@ export default function AdminProjects() {
           />
         </div>
         <div className="flex gap-2 flex-wrap items-center">
-          {['all', ...CATEGORIES].map((cat) => (
+          {['all', ...categories].map((cat) => (
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
@@ -274,12 +293,12 @@ export default function AdminProjects() {
                     Danh mục
                   </label>
                   <select
-                    value={form.category || 'Gia đình'}
+                    value={form.category || categories[0] || ''}
                     onChange={(e) => set('category', e.target.value)}
                     className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-[#285c9a] outline-none transition-all"
                   >
-                    {CATEGORIES.map((c) => (
-                      <option key={c}>{c}</option>
+                    {categories.map((c) => (
+                      <option key={c} value={c}>{c}</option>
                     ))}
                   </select>
                 </div>

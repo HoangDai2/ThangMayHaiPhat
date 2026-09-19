@@ -5,11 +5,11 @@ import { MapPin, ArrowRight } from 'lucide-react';
 import { ProjectCategory } from '../data/projects';
 import { useProjectsData } from '../hooks/useProjectsData';
 
-const categories: ProjectCategory[] = ['Gia đình', 'Tải khách', 'Thương mại'];
-
 export default function Projects() {
-  const [active, setActive] = useState<ProjectCategory | 'Tất cả'>('Tất cả');
+  const [active, setActive] = useState<string>('Tất cả');
   const { projects } = useProjectsData();
+
+  const categories = ['Tất cả', ...Array.from(new Set(projects.map((p) => p.category).filter(Boolean)))];
 
   const filtered = active === 'Tất cả' ? projects : projects.filter((p) => p.category === active);
 
@@ -36,7 +36,7 @@ export default function Projects() {
 
         {/* Filter tabs */}
         <div className="flex flex-wrap gap-2 mb-8">
-          {(['Tất cả', ...categories] as const).map((cat) => (
+          {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setActive(cat)}

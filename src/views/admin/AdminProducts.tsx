@@ -6,8 +6,36 @@ import ArrayInput from '../../components/admin/ArrayInput';
 import ImageUpload from '../../components/admin/ImageUpload';
 import MultiImageUpload from '../../components/admin/MultiImageUpload';
 
+// Vietnamese diacritics to ASCII mapping for slug generation
+const generateSlug = (text: string): string => {
+  const vietnameseMap: Record<string, string> = {
+    'à': 'a', 'á': 'a', 'ả': 'a', 'ã': 'a', 'ạ': 'a',
+    'ă': 'a', 'ằ': 'a', 'ắ': 'a', 'ẳ': 'a', 'ẵ': 'a', 'ặ': 'a',
+    'â': 'a', 'ầ': 'a', 'ấ': 'a', 'ẩ': 'a', 'ẫ': 'a', 'ậ': 'a',
+    'đ': 'd',
+    'è': 'e', 'é': 'e', 'ẻ': 'e', 'ẽ': 'e', 'ẹ': 'e',
+    'ê': 'e', 'ề': 'e', 'ế': 'e', 'ể': 'e', 'ễ': 'e', 'ệ': 'e',
+    'ì': 'i', 'í': 'i', 'ỉ': 'i', 'ĩ': 'i', 'ị': 'i',
+    'ò': 'o', 'ó': 'o', 'ỏ': 'o', 'õ': 'o', 'ọ': 'o',
+    'ô': 'o', 'ồ': 'o', 'ố': 'o', 'ổ': 'o', 'ỗ': 'o', 'ộ': 'o',
+    'ơ': 'o', 'ờ': 'o', 'ớ': 'o', 'ở': 'o', 'ỡ': 'o', 'ợ': 'o',
+    'ù': 'u', 'ú': 'u', 'ủ': 'u', 'ũ': 'u', 'ụ': 'u',
+    'ư': 'u', 'ừ': 'u', 'ứ': 'u', 'ử': 'u', 'ữ': 'u', 'ự': 'u',
+    'ỳ': 'y', 'ý': 'y', 'ỷ': 'y', 'ỹ': 'y', 'ỵ': 'y',
+  };
+  return text
+    .toLowerCase()
+    .split('')
+    .map((char) => vietnameseMap[char] || char)
+    .join('')
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '');
+};
+
 const emptyForm = (): Partial<DbProduct> => ({
-  id: '',
+  slug: '',
   title: '',
   subtitle: '',
   icon: '',
@@ -95,15 +123,19 @@ export default function AdminProducts() {
     set('faqs', (form.faqs || []).filter((_, idx) => idx !== i));
 
   const handleSave = async () => {
-    if (!form.title?.trim() || !form.id?.trim()) {
-      setError('ID (slug) và Tiêu đề là bắt buộc');
+    if (!form.title?.trim()) {
+      setError('Tên sản phẩm là bắt buộc');
+      return;
+    }
+    if (!form.slug?.trim()) {
+      setError('Slug không được tạo tự động. Vui lòng nhập tên sản phẩm.');
       return;
     }
     setSaving(true);
     setError('');
 
     const payload: Record<string, any> = {
-      id: form.id!.trim(),
+      slug: form.slug!.trim(),
       title: form.title!.trim(),
       subtitle: form.subtitle || '',
       icon: form.icon || '',
@@ -167,7 +199,7 @@ export default function AdminProducts() {
 
   const filtered = products.filter((p) =>
     p.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    p.id.toLowerCase().includes(searchTerm.toLowerCase())
+    (p.slug || '').toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -224,7 +256,7 @@ export default function AdminProducts() {
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/20 to-transparent" />
                 <div className="absolute bottom-3 left-3 right-3">
                   <p className="text-white font-bold text-sm leading-tight">{product.title}</p>
-                  <p className="text-blue-100/90 text-xs font-mono mt-0.5">{product.id}</p>
+                  <p className="text-blue-100/90 text-xs font-mono mt-0.5">{product.slug || product.id}</p>
                 </div>
               </div>
               <div className="p-4">
@@ -297,15 +329,18 @@ export default function AdminProducts() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">
-                    ID (slug) <span className="text-rose-500">*</span>
+                    Slug (URL) <span className="text-rose-500">*</span>
+                    <span className="text-slate-400 font-normal normal-case tracking-normal ml-1">
+                      {!isEditing ? '(tự động sinh từ tên)' : ''}
+                    </span>
                   </label>
                   <input
                     type="text"
-                    value={form.id || ''}
-                    onChange={(e) => set('id', e.target.value)}
-                    disabled={isEditing}
-                    placeholder="thang-homelift"
-                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-[#285c9a] outline-none transition-all disabled:bg-slate-100 disabled:text-slate-400"
+                    value={form.slug || ''}
+                    readOnly
+                    disabled
+                    placeholder="tự-động-sinh-từ-tên"
+                    className="w-full px-3.5 py-2.5 bg-slate-100 border border-slate-200 rounded-xl text-sm text-slate-400 outline-none transition-all cursor-not-allowed"
                   />
                 </div>
                 <div>
@@ -327,7 +362,13 @@ export default function AdminProducts() {
                 <input
                   type="text"
                   value={form.title || ''}
-                  onChange={(e) => set('title', e.target.value)}
+                  onChange={(e) => {
+                    const newTitle = e.target.value;
+                    set('title', newTitle);
+                    if (!isEditing) {
+                      set('slug', generateSlug(newTitle));
+                    }
+                  }}
                   className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-[#285c9a] outline-none transition-all"
                 />
               </div>

@@ -1,4 +1,4 @@
-export type ProjectCategory = 'Gia đình' | 'Tải khách' | 'Thương mại' | 'Tải hàng';
+export type ProjectCategory = string;
 
 export interface Project {
   id: string;
@@ -31,7 +31,7 @@ export const projects: Project[] = [
     id: 'villa-ecopark',
     title: 'Biệt thự Vinhomes Ocean Park',
     location: 'Gia Lâm, Hà Nội',
-    category: 'Gia đình',
+    category: 'Thang Máy Gia Đình',
     image: 'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=1200&q=80',
     specs: 'Thang máy gia đình · 4 tầng',
     description: 'Dự án biệt thự cao cấp tại Ocean Park với giải pháp thang máy gia đình cabin kính toàn phần, thiết kế sang trọng phù hợp với kiến trúc hiện đại của ngôi nhà. Thang máy được lắp đặt trong giếng trời, tận dụng ánh sáng tự nhiên và tạo điểm nhấn kiến trúc ấn tượng.',
@@ -61,7 +61,7 @@ export const projects: Project[] = [
     id: 'landmark-office',
     title: 'Tòa nhà văn phòng Landmark 81',
     location: 'Bình Thạnh, TP.HCM',
-    category: 'Tải khách',
+    category: 'Thang Máy Tải Khách',
     image: 'https://images.pexels.com/photos/1105766/pexels-photo-1105766.jpeg?auto=compress&cs=tinysrgb&w=1200&q=80',
     specs: 'Thang máy tải khách · 20 tầng',
     description: 'Hệ thống thang máy tải khách cao tốc cho tòa nhà văn phòng hạng A tại Landmark 81. Được thiết kế để phục vụ lưu lượng khách lớn trong giờ cao điểm, với hệ thống điều khiển thông minh phân bổ luồng người tối ưu.',
@@ -91,7 +91,7 @@ export const projects: Project[] = [
     id: 'sheraton-da-nang',
     title: 'Khách sạn Sheraton Đà Nẵng',
     location: 'Ngũ Hành Sơn, Đà Nẵng',
-    category: 'Thương mại',
+    category: 'Thang Máy Quan Sát',
     image: 'https://images.pexels.com/photos/271639/pexels-photo-271639.jpeg?auto=compress&cs=tinysrgb&w=1200&q=80',
     specs: 'Thang máy khách sạn · 15 tầng',
     description: 'Dự án trang bị hệ thống thang máy cao cấp cho khách sạn 5 sao Sheraton Đà Nẵng. Với thiết kế nội thất sang trọng, vận hành êm ái đáp ứng tiêu chuẩn quốc tế của thương hiệu khách sạn hạng sang.',
@@ -115,7 +115,7 @@ export const projects: Project[] = [
     id: 'house-thao-dien',
     title: 'Nhà phố Thảo Điền',
     location: 'Quận 2, TP.HCM',
-    category: 'Gia đình',
+    category: 'Thang Máy Gia Đình',
     image: 'https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=1200&q=80',
     specs: 'Thang máy gia đình · 5 tầng',
     description: 'Giải pháp thang máy gia đình mini cho nhà phố liền kề tại khu vực Thảo Điền cao cấp. Thiết kế nhỏ gọn, tiết kiệm diện tích nhưng vẫn đảm bảo công năng và thẩm mỹ.',
@@ -145,7 +145,7 @@ export const projects: Project[] = [
     id: 'aeon-long-bien',
     title: 'Trung tâm thương mại AEON',
     location: 'Long Biên, Hà Nội',
-    category: 'Thương mại',
+    category: 'Thang Máy Tải Khách',
     image: 'https://images.pexels.com/photos/264636/pexels-photo-264636.jpeg?auto=compress&cs=tinysrgb&w=1200&q=80',
     specs: 'Thang cuốn & thang máy · 3 tầng',
     description: 'Hệ thống thang cuốn và thang máy cho trung tâm thương mại AEON Long Biên. Được thiết kế để phục vụ lượng khách lớn trong giờ cao điểm cuối tuần với độ bền cao và vận hành liên tục.',
@@ -169,7 +169,7 @@ export const projects: Project[] = [
     id: 'vinmec-times-city',
     title: 'Bệnh viện Vinmec Times City',
     location: 'Hai Bà Trưng, Hà Nội',
-    category: 'Tải khách',
+    category: 'Thang Máy Tải Khách',
     image: 'https://images.pexels.com/photos/668300/pexels-photo-668300.jpeg?auto=compress&cs=tinysrgb&w=1200&q=80',
     specs: 'Thang máy bệnh viện · 8 tầng',
     description: 'Hệ thống thang máy chuyên dụng cho bệnh viện với khả năng chở giường bệnh, kích thước cabin lớn, vận hành êm ái. Trang bị hệ thống ưu tiên cho cấp cứu và xe cứu thương.',

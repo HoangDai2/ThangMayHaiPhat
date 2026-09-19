@@ -5,12 +5,13 @@ import { MapPin, Building2, Zap, Calendar, Shield, ChevronLeft, ArrowRight, Star
 import { useState } from 'react';
 import { useProjectsData } from '../hooks/useProjectsData';
 
+import ImageGalleryMasonry from '../components/ImageGalleryMasonry';
+
 function ProjectDetail() {
   const { id } = useParams<{ id: string }>();
   const { loading, getById, getRelated } = useProjectsData();
   const project = getById(id || '');
   const related = getRelated(id || '', 3);
-  const [activeImage, setActiveImage] = useState(0);
 
   if (loading) {
     return (
@@ -41,6 +42,10 @@ function ProjectDetail() {
     { icon: Calendar, label: 'Hoàn thành', value: project.details.completionDate },
     { icon: Shield, label: 'Bảo hành', value: project.details.warranty },
   ];
+
+  const galleryImages = project.gallery && project.gallery.length > 0 
+    ? project.gallery 
+    : [project.image];
 
   return (
     <div className="min-h-screen bg-white">
@@ -83,37 +88,25 @@ function ProjectDetail() {
         <div className="flex flex-col lg:grid lg:grid-cols-3 gap-8">
           {/* Left: Main Content */}
           <div className="lg:col-span-2 space-y-10">
-            {/* Gallery */}
-            <section>
-              <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                <Layers size={20} className="text-[#285c9a]" />
-                Hình ảnh dự án
-              </h2>
-              <div className="flex flex-col sm:flex-row gap-4 h-auto sm:h-[600px]">
-                {/* Main Image */}
-                <div className="flex-1 relative rounded-2xl overflow-hidden bg-gray-100 flex items-center justify-center h-[400px] sm:h-full">
-                  <img
-                    src={project.gallery[activeImage]}
-                    alt={`${project.title} - Hình ${activeImage + 1}`}
-                    className="w-full h-full object-cover"
-                  />
+            {/* Project Description */}
+            {project.description && (
+              <section className="bg-gray-50/70 border border-gray-100 rounded-2xl p-6 sm:p-7">
+                <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                  <AlignLeft size={20} className="text-[#285c9a]" />
+                  Mô tả dự án
+                </h2>
+                <div className="text-gray-700 text-sm sm:text-base whitespace-pre-wrap break-words leading-relaxed">
+                  {project.description}
                 </div>
-                {/* Thumbnails */}
-                <div className="flex sm:flex-col gap-2 overflow-x-auto sm:overflow-y-auto sm:w-28 lg:w-32 sm:h-full pb-2 sm:pb-0 sm:pr-2 scrollbar-thin scrollbar-thumb-gray-300">
-                  {project.gallery.map((img, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => setActiveImage(idx)}
-                      className={`relative rounded-lg overflow-hidden border-2 transition-all flex-shrink-0 w-24 aspect-square sm:aspect-[4/5] sm:w-full ${
-                        activeImage === idx ? 'border-[#285c9a] ring-2 ring-[#285c9a]/30' : 'border-transparent hover:border-gray-300'
-                      }`}
-                    >
-                      <img src={img} alt="" className="absolute inset-0 w-full h-full object-cover" />
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </section>
+              </section>
+            )}
+
+            {/* Gallery (Pinterest-style Masonry Full View) */}
+            <ImageGalleryMasonry
+              images={galleryImages}
+              title={project.title}
+              sectionTitle="Hình ảnh dự án"
+            />
 
             {/* Features */}
             <section>
@@ -163,52 +156,48 @@ function ProjectDetail() {
 
           {/* Right: Sidebar */}
           <div className="lg:col-span-1">
-            {/* Project Details Card */}
-            <div className="bg-gray-50 rounded-2xl p-6 sticky top-20">
-              <h3 className="font-bold text-gray-900 mb-5 flex items-center gap-2">
-                <Clock size={18} className="text-[#285c9a]" />
-                Thông số kỹ thuật
-              </h3>
-              <div className="space-y-4">
-                {detailItems.map(({ icon: Icon, label, value }) => (
-                  <div key={label} className="flex items-start gap-3">
-                    <div className="w-9 h-9 rounded-lg bg-[#285c9a]/10 flex items-center justify-center flex-shrink-0">
-                      <Icon size={16} className="text-[#285c9a]" />
+            <div className="sticky top-20 space-y-5">
+              {/* Specifications Card */}
+              <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100 shadow-sm">
+                <h3 className="font-bold text-gray-900 mb-5 flex items-center gap-2">
+                  <Clock size={18} className="text-[#285c9a]" />
+                  Thông số kỹ thuật
+                </h3>
+                <div className="space-y-4">
+                  {detailItems.map(({ icon: Icon, label, value }) => (
+                    <div key={label} className="flex items-start gap-3">
+                      <div className="w-9 h-9 rounded-lg bg-[#285c9a]/10 flex items-center justify-center flex-shrink-0">
+                        <Icon size={16} className="text-[#285c9a]" />
+                      </div>
+                      <div>
+                        <div className="text-gray-400 text-xs">{label}</div>
+                        <div className="text-gray-900 font-medium text-sm break-words">{value}</div>
+                      </div>
                     </div>
-                    <div>
-                      <div className="text-gray-400 text-xs">{label}</div>
-                      <div className="text-gray-900 font-medium text-sm break-words">{value}</div>
-                    </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
 
-              {project.description && (
-                <div className="mt-6 pt-6 border-t border-gray-200">
-                  <h3 className="font-bold text-gray-900 mb-5 flex items-center gap-2">
-                    <AlignLeft size={18} className="text-[#285c9a]" />
-                    Mô tả dự án
-                  </h3>
-                  <div className="text-gray-600 text-sm whitespace-pre-wrap break-words leading-relaxed overflow-hidden">
-                    {project.description}
-                  </div>
-                </div>
-              )}
-
               {/* CTA */}
-              <div className="mt-6 pt-6 border-t border-gray-200 space-y-3">
-                <a
-                  href="tel:0898424666"
-                  className="flex items-center justify-center gap-2 bg-[#285c9a] text-white py-3 rounded-xl font-semibold text-sm hover:bg-[#1e4a80] transition-colors w-full"
-                >
-                  <Phone size={16} />
-                  Hotline: 0898 424 666
-                </a>
-                <Link href="/lien-he"
-                  className="flex items-center justify-center gap-1.5 border border-[#285c9a] text-[#285c9a] py-3 rounded-xl font-semibold text-sm hover:bg-[#285c9a]/5 transition-colors w-full"
-                >
-                  Yêu cầu tư vấn
-                </Link>
+              <div className="bg-white border border-gray-200 rounded-2xl p-6 text-center shadow-sm">
+                <h4 className="font-bold text-gray-900 mb-2">Cần tư vấn công trình tương tự?</h4>
+                <p className="text-gray-500 text-xs mb-4">
+                  Liên hệ ngay kỹ sư Thang Máy Hải Phát để được khảo sát và báo giá miễn phí
+                </p>
+                <div className="space-y-2.5">
+                  <a
+                    href="tel:0898424666"
+                    className="flex items-center justify-center gap-2 bg-[#285c9a] text-white py-3 rounded-xl font-semibold text-sm hover:bg-[#1e4a80] transition-colors w-full shadow-md shadow-[#285c9a]/20"
+                  >
+                    <Phone size={16} />
+                    Hotline: 0898 424 666
+                  </a>
+                  <Link href="/lien-he"
+                    className="flex items-center justify-center gap-1.5 border border-[#285c9a] text-[#285c9a] py-3 rounded-xl font-semibold text-sm hover:bg-[#285c9a]/5 transition-colors w-full"
+                  >
+                    Yêu cầu khảo sát
+                  </Link>
+                </div>
               </div>
             </div>
           </div>

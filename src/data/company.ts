@@ -149,17 +149,17 @@ export const certificates: Certificate[] = [
   {
     name: 'Chứng nhận Hợp chuẩn QCVN 06:2022',
     issuer: 'Bộ Xây dựng',
-    image: 'https://images.pexels.com/photos/5900/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=200&q=80',
+    image: 'https://images.pexels.com/photos/5900/pexels-photo.jpeg?auto=compress&cs=tinysrgb&w=200&q=80',
   },
   {
     name: 'Chứng nhận Hợp chuẩn QCVN 13:2021',
     issuer: 'Bộ Xây dựng',
-    image: 'https://images.pexels.com/photos/5900/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=200&q=80',
+    image: 'https://images.pexels.com/photos/5900/pexels-photo.jpeg?auto=compress&cs=tinysrgb&w=200&q=80',
   },
   {
     name: 'Đối tác Otis',
     issuer: 'Otis Elevator Company',
-    image: 'https://images.pexels.com/photos/5900/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=200&q=80',
+    image: 'https://images.pexels.com/photos/5900/pexels-photo.jpeg?auto=compress&cs=tinysrgb&w=200&q=80',
   },
 ];
 

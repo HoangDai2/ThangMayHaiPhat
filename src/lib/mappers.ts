@@ -27,7 +27,7 @@ export function mapProject(db: DbProject): Project {
 
 export function mapProduct(db: DbProduct): Product {
   return {
-    id: db.id,
+    id: db.slug || db.id,
     title: db.title,
     subtitle: db.subtitle,
     icon: db.icon,
