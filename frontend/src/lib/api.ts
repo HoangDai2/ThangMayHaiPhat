@@ -20,4 +20,16 @@ api.interceptors.request.use((config) => {
   return Promise.reject(error);
 });
 
+// Interceptor to handle responses
+api.interceptors.response.use((response) => {
+  return response;
+}, (error) => {
+  if (error.response?.status === 403) {
+    if (typeof window !== 'undefined') {
+      window.location.href = '/admin/403';
+    }
+  }
+  return Promise.reject(error);
+});
+
 export default api;

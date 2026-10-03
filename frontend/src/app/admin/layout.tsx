@@ -20,19 +20,22 @@ import {
   Shield,
   ExternalLink,
   UserCheck,
-  Settings
+  Settings,
+  Mail
 } from 'lucide-react';
 
 const sidebarItems = [
   { path: '/admin', label: 'Tổng quan', icon: LayoutDashboard, permission: null },
-  { path: '/admin/banners', label: 'Banner & Slider', icon: Layout, permission: 'manage_settings' },
-  { path: '/admin/projects', label: 'Dự án', icon: FolderKanban, permission: 'manage_projects' },
-  { path: '/admin/products', label: 'Sản phẩm', icon: Box, permission: 'manage_products' },
-  { path: '/admin/articles', label: 'Bài viết', icon: FileText, permission: 'manage_articles' },
-  { path: '/admin/reviews', label: 'Đánh giá', icon: Star, permission: 'manage_reviews' },
-  { path: '/admin/images', label: 'Hình ảnh', icon: ImageIcon, permission: 'manage_images' },
-  { path: '/admin/users', label: 'Tài khoản', icon: Users, permission: 'manage_all' },
-  { path: '/admin/roles', label: 'Phân quyền', icon: Shield, permission: 'manage_all' },
+  { path: '/admin/contacts', label: 'Yêu cầu tư vấn', icon: Mail, permission: 'manage-contacts' },
+  { path: '/admin/promotions', label: 'Popup Khuyến Mãi', icon: Star, permission: 'manage-promotions' },
+  { path: '/admin/projects', label: 'Dự án', icon: FolderKanban, permission: 'manage-projects' },
+  { path: '/admin/products', label: 'Sản phẩm', icon: Box, permission: 'manage-products' },
+  { path: '/admin/articles', label: 'Bài viết', icon: FileText, permission: 'manage-articles' },
+  { path: '/admin/reviews', label: 'Đánh giá', icon: Star, permission: 'manage-reviews' },
+  { path: '/admin/images', label: 'Hình ảnh', icon: ImageIcon, permission: 'manage-images' },
+  { path: '/admin/users', label: 'Tài khoản', icon: Users, permission: 'manage-users' },
+  { path: '/admin/roles', label: 'Phân quyền', icon: Shield, permission: 'manage-users' },
+  { path: '/admin/bitrix', label: 'Dữ liệu bitrix', icon: Briefcase, permission: 'manage-projects' },
 ];
 
 export default function AdminLayout({

@@ -2,12 +2,21 @@
 .DS_Store
 Thumbs.db
 
+# Dependencies
+node_modules/
+
 # IDE
 .idea/
 .vscode/
 *.swp
 *.swo
 
+# Temporary test scripts/files
+backend/test_*.php
+backend/task*.json
+frontend/process_*.js
+
 # Gemini / Agents
 .agents/
 .gemini/
+

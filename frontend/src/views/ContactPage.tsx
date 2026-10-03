@@ -52,37 +52,24 @@ export default function ContactPage() {
     setError(false);
     
     try {
-      const response = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          access_key: "e183c617-e789-41ad-97c7-35d2ddc8a7dc",
-          subject: "Yêu cầu tư vấn mới từ Trang Liên Hệ",
-          from_name: formData.name,
-          Họ_tên: formData.name,
-          Số_điện_thoại: formData.phone,
-          Email: formData.email || 'Không có',
-          Sản_phẩm_quan_tâm: productOptions.find(p => p.id === formData.service)?.label || formData.service || 'Chưa chọn',
-          Mô_tả: formData.message || 'Không có',
-        })
+      const { default: api } = await import('../lib/api');
+      
+      await api.post('/public/contacts', {
+        name: formData.name,
+        phone: formData.phone,
+        email: formData.email,
+        service: productOptions.find(p => p.id === formData.service)?.label || formData.service || 'Chưa chọn',
+        message: formData.message || 'Không có',
       });
 
-      const data = await response.json();
-
-      if (data.success) {
-        setSubmitted(true);
-        setFormData({ name: '', phone: '', email: '', service: '', message: '' });
-      } else {
-        setError(true);
-      }
-    } catch (err) {
+      setSubmitted(true);
+      setFormData({ name: '', phone: '', email: '', service: '', message: '' });
+    } catch (err: any) {
+      console.log('Submission error:', err.response?.data || err.message);
       setError(true);
+    } finally {
+      setLoading(false);
     }
-    
-    setLoading(false);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {

@@ -12,32 +12,19 @@ export default function ContactSection() {
     setStatus('submitting');
 
     try {
-      const response = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          access_key: "e183c617-e789-41ad-97c7-35d2ddc8a7dc", // <-- ĐĂNG KÝ MIỄN PHÍ TẠI web3forms.com VÀ DÁN ACCESS KEY VÀO ĐÂY
-          subject: "Yêu cầu tư vấn thang máy mới từ Website",
-          from_name: form.name,
-          Họ_tên: form.name,
-          Số_điện_thoại: form.phone,
-          Loại_thang_máy: form.service || 'Chưa chọn',
-          Mô_tả: form.message || 'Không có',
-        })
+      const { default: api } = await import('../lib/api');
+      
+      await api.post('/public/contacts', {
+        name: form.name,
+        phone: form.phone,
+        service: form.service || 'Chưa chọn',
+        message: form.message || 'Không có',
       });
 
-      const data = await response.json();
-
-      if (data.success) {
-        setStatus('success');
-        setForm({ name: '', phone: '', service: '', message: '' });
-      } else {
-        setStatus('error');
-      }
-    } catch (error) {
+      setStatus('success');
+      setForm({ name: '', phone: '', service: '', message: '' });
+    } catch (error: any) {
+      console.log('Submission error:', error.response?.data || error.message);
       setStatus('error');
     }
 
@@ -179,11 +166,9 @@ export default function ContactSection() {
                   className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:border-[#285c9a] focus:ring-1 focus:ring-[#285c9a]/20 transition-colors"
                 >
                   <option value="">-- Chọn loại thang máy --</option>
-                  <option>Thang Homelift</option>
                   <option>Thang máy tải khách</option>
                   <option>Thang máy quan sát</option>
-                  <option>Thang máy bệnh viện</option>
-                  <option>Thang máy tải hàng</option>
+                  <option>Thang máy gia đình</option>
                 </select>
               </div>
 

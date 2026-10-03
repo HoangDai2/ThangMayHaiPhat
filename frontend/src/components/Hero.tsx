@@ -2,13 +2,12 @@
 import { useCallback, useEffect, useState } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
-import { ArrowRight, ChevronLeft, ChevronRight, Loader2, ShieldCheck, Settings, Clock, Headphones } from 'lucide-react';
-import { useBannersData, FALLBACK_BANNERS, Banner } from '../hooks/useBannersData';
+import { ArrowRight, ChevronLeft, ChevronRight, ShieldCheck, Settings, Clock, Headphones } from 'lucide-react';
+import { DEFAULT_BANNERS, BannerSlide } from '../data/banners';
 import Link from 'next/link';
 import AboutUs from './AboutUs';
 
 export default function Hero() {
-  const { banners, loading } = useBannersData();
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [Autoplay({ delay: 5000, stopOnInteraction: false, stopOnMouseEnter: true })]);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -36,20 +35,7 @@ export default function Hero() {
     };
   }, [emblaApi]);
 
-  if (loading) {
-    return (
-      <section id="home" className="pt-20 pb-6 bg-gray-50 flex flex-col justify-center min-h-[calc(100vh-72px)]">
-        <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
-          <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl bg-[#285c9a] h-[340px] sm:h-[400px] lg:h-[460px] flex items-center justify-center">
-            <Loader2 className="w-12 h-12 text-white animate-spin opacity-50" />
-          </div>
-        </div>
-      </section>
-    );
-  }
-
-  // Fallback if no banners
-  const displayBanners: Banner[] = banners.length > 0 ? banners : FALLBACK_BANNERS;
+  const displayBanners: BannerSlide[] = DEFAULT_BANNERS;
 
   return (
     <section id="home" className="pt-20 pb-2 lg:pb-4 bg-gray-50 flex flex-col justify-center min-h-[calc(100vh-72px)]">
@@ -58,7 +44,7 @@ export default function Hero() {
           {/* Embla Viewport */}
           <div className="overflow-hidden" ref={emblaRef}>
             <div className="flex">
-              {displayBanners.map((slide: Banner, index: number) => {
+              {displayBanners.map((slide: BannerSlide, index: number) => {
                 const template = slide.template_type || (index % 5 === 0 ? 'standard' : index % 5 === 1 ? 'centered' : index % 5 === 2 ? 'split' : index % 5 === 3 ? 'accent' : 'features');
                 const titleWords = (slide.title || '').split(' ');
                 const titlePart1 = titleWords.slice(0, 2).join(' ');

@@ -4,6 +4,7 @@ namespace App\Traits;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Cache;
 
 trait CrudTrait
 {
@@ -12,19 +13,51 @@ trait CrudTrait
      */
     abstract protected function getModelClass(): string;
 
+    /**
+     * Get the current cache version for the model
+     */
+    protected function getCacheVersion(): int
+    {
+        $modelName = class_basename($this->getModelClass());
+        return Cache::get("{$modelName}_cache_version", 1);
+    }
+
+    /**
+     * Increment the cache version to invalidate old caches
+     */
+    protected function incrementCacheVersion()
+    {
+        $modelName = class_basename($this->getModelClass());
+        if (!Cache::has("{$modelName}_cache_version")) {
+            Cache::put("{$modelName}_cache_version", 1);
+        }
+        Cache::increment("{$modelName}_cache_version");
+    }
+
     public function index(Request $request)
     {
         $modelClass = $this->getModelClass();
-        $query = $modelClass::query();
+        $modelName = class_basename($modelClass);
 
-        // Support sorting (e.g. sort_by=created_at&sort_dir=desc)
-        if ($request->has('sort_by')) {
-            $query->orderBy($request->sort_by, $request->input('sort_dir', 'asc'));
-        } else {
-            $query->latest();
-        }
+        // Generate a cache key that includes the version
+        $cacheVersion = $this->getCacheVersion();
+        $cacheKey = "{$modelName}_index_v{$cacheVersion}_" . md5(json_encode($request->all()));
 
-        return response()->json($query->get());
+        // Cache for 60 minutes
+        $data = Cache::remember($cacheKey, 60 * 60, function () use ($modelClass, $request) {
+            $query = $modelClass::query();
+
+            // Support sorting (e.g. sort_by=created_at&sort_dir=desc)
+            if ($request->has('sort_by')) {
+                $query->orderBy($request->sort_by, $request->input('sort_dir', 'asc'));
+            } else {
+                $query->latest();
+            }
+
+            return $query->get()->toArray();
+        });
+
+        return response()->json($data);
     }
 
     /**
@@ -52,13 +85,25 @@ trait CrudTrait
         }
 
         $item = $modelClass::create($data);
+        
+        // Invalidate cache
+        $this->incrementCacheVersion();
+
         return response()->json($item, 201);
     }
 
     public function show($id)
     {
         $modelClass = $this->getModelClass();
-        $item = $modelClass::findOrFail($id);
+        
+        $modelName = class_basename($modelClass);
+        $cacheVersion = $this->getCacheVersion();
+        $cacheKey = "{$modelName}_show_{$id}_v{$cacheVersion}";
+
+        $item = Cache::remember($cacheKey, 60 * 60, function () use ($modelClass, $id) {
+            return $modelClass::findOrFail($id)->toArray();
+        });
+
         return response()->json($item);
     }
 
@@ -72,6 +117,10 @@ trait CrudTrait
         $modelClass = $this->getModelClass();
         $item = $modelClass::findOrFail($id);
         $item->update($request->all());
+        
+        // Invalidate cache
+        $this->incrementCacheVersion();
+
         return response()->json($item);
     }
 
@@ -80,6 +129,10 @@ trait CrudTrait
         $modelClass = $this->getModelClass();
         $item = $modelClass::findOrFail($id);
         $item->delete();
+        
+        // Invalidate cache
+        $this->incrementCacheVersion();
+
         return response()->json(null, 204);
     }
 }
