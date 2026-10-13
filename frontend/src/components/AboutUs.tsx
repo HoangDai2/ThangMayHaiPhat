@@ -61,50 +61,8 @@ export default function AboutUs() {
 
   return (
     <div className="flex flex-col">
-      {/* Top: Floating Stats Box overlapping the Hero Banner (Image 2 style) */}
-      <div
-        ref={ref}
-        className="-mt-10 sm:-mt-12 lg:-mt-16 relative z-20 max-w-6xl mx-auto w-full px-2 sm:px-6 mb-4 sm:mb-5 lg:mb-6"
-      >
-        <div className="bg-white rounded-2xl sm:rounded-3xl shadow-xl shadow-slate-200/70 border border-slate-100 p-4 sm:p-5 lg:p-6 backdrop-blur-sm transition-shadow duration-300 hover:shadow-2xl hover:shadow-slate-300/50">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 lg:gap-0 lg:divide-x lg:divide-slate-100">
-            {/* Stat 1 */}
-            <div className="flex flex-col items-center justify-center text-center lg:px-4 space-y-1">
-              <div className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#285c9a] tracking-tight tabular-nums">
-                <CountUp end={5} suffix="+" started={isVisible} />
-              </div>
-              <div className="text-xs sm:text-sm text-slate-600 font-medium">Năm kinh nghiệm</div>
-            </div>
-
-            {/* Stat 2 */}
-            <div className="flex flex-col items-center justify-center text-center lg:px-4 space-y-1">
-              <div className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#285c9a] tracking-tight tabular-nums">
-                <CountUp end={1000} suffix="+" started={isVisible} />
-              </div>
-              <div className="text-xs sm:text-sm text-slate-600 font-medium">Dự án thành công</div>
-            </div>
-
-            {/* Stat 3 */}
-            <div className="flex flex-col items-center justify-center text-center lg:px-4 space-y-1">
-              <div className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#285c9a] tracking-tight tabular-nums">
-                <CountUp end={34} started={isVisible} />
-              </div>
-              <div className="text-xs sm:text-sm text-slate-600 font-medium">Tỉnh thành</div>
-            </div>
-
-            {/* Stat 4 */}
-            <div className="flex flex-col items-center justify-center text-center lg:px-4 space-y-1">
-              <div className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#285c9a] tracking-tight tabular-nums">
-                <CountUp end={98} suffix="%" started={isVisible} />
-              </div>
-              <div className="text-xs sm:text-sm text-slate-600 font-medium">Khách hàng hài lòng</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Bottom: 2-column Layout */}
-      <div className="w-full px-5 sm:px-8 md:px-14 mt-8 sm:mt-12 lg:mt-16 mb-12 sm:mb-16 lg:mb-20">
+      {/* 2-column Layout */}
+      <div className="w-full px-5 sm:px-8 md:px-14 mt-4 sm:mt-8 lg:mt-12 mb-12 sm:mb-16 lg:mb-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Left: Image & Badge */}
           <div className="relative">

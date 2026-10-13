@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from 'react';
-import { supabase, DbRole, DbPermission } from '../../lib/supabase';
+import { DbRole, DbPermission } from '../../lib/types';
+import api from '../../lib/api';
 import { Shield, Plus, Trash2, Check, X } from 'lucide-react';
 import { usePermissions } from '../../hooks/usePermissions';
 import { useRouter } from 'next/navigation';
@@ -23,23 +24,13 @@ export default function AdminRoles() {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const [rolesRes, permsRes, rolePermsRes] = await Promise.all([
-        supabase.from('roles').select('*').order('created_at'),
-        supabase.from('permissions').select('*').order('name'),
-        supabase.from('role_permissions').select('*')
+      const [rolesRes, permsRes] = await Promise.all([
+        api.get('/roles'),
+        api.get('/permissions')
       ]);
 
       if (rolesRes.data) setRoles(rolesRes.data);
       if (permsRes.data) setPermissions(permsRes.data);
-      
-      if (rolePermsRes.data) {
-        const rpMap: Record<string, string[]> = {};
-        rolePermsRes.data.forEach((rp: { role_id: string; permission_id: string }) => {
-          if (!rpMap[rp.role_id]) rpMap[rp.role_id] = [];
-          rpMap[rp.role_id].push(rp.permission_id);
-        });
-        setRolePermissions(rpMap);
-      }
     } catch (error) {
       console.error('Error fetching roles:', error);
     } finally {
@@ -48,7 +39,7 @@ export default function AdminRoles() {
   };
 
   useEffect(() => {
-    if (!permissionsLoading && !hasPermission('manage_all')) {
+    if (!permissionsLoading && !hasPermission('manage-users')) {
       router.replace('/admin');
     }
   }, [hasPermission, permissionsLoading, router]);
@@ -57,19 +48,13 @@ export default function AdminRoles() {
     fetchData();
   }, []);
 
-  if (permissionsLoading || !hasPermission('manage_all')) return null;
+  if (permissionsLoading || !hasPermission('manage-users')) return null;
 
   const handleAddRole = async () => {
     if (!newRoleName) return;
     try {
-      const { data, error } = await supabase
-        .from('roles')
-        .insert([{ name: newRoleName, description: newRoleDescription }])
-        .select()
-        .single();
-
-      if (error) throw error;
-      setRoles([...roles, data]);
+      const res = await api.post('/roles', { name: newRoleName, description: newRoleDescription });
+      setRoles([...roles, res.data]);
       setIsAddingRole(false);
       setNewRoleName('');
       setNewRoleDescription('');
@@ -82,42 +67,11 @@ export default function AdminRoles() {
   const handleDeleteRole = async (roleId: string) => {
     if (!confirm('Bạn có chắc chắn muốn xóa vai trò này?')) return;
     try {
-      const { error } = await supabase.from('roles').delete().eq('id', roleId);
-      if (error) throw error;
+      await api.delete(`/roles/${roleId}`);
       setRoles(roles.filter(r => r.id !== roleId));
     } catch (error) {
       console.error('Error deleting role:', error);
       alert('Có lỗi xảy ra khi xóa vai trò.');
-    }
-  };
-
-  const handleTogglePermission = async (roleId: string, permissionId: string, hasPerm: boolean) => {
-    try {
-      if (hasPerm) {
-        // Xóa permission
-        await supabase
-          .from('role_permissions')
-          .delete()
-          .match({ role_id: roleId, permission_id: permissionId });
-        
-        setRolePermissions(prev => ({
-          ...prev,
-          [roleId]: (prev[roleId] || []).filter(id => id !== permissionId)
-        }));
-      } else {
-        // Thêm permission
-        await supabase
-          .from('role_permissions')
-          .insert([{ role_id: roleId, permission_id: permissionId }]);
-        
-        setRolePermissions(prev => ({
-          ...prev,
-          [roleId]: [...(prev[roleId] || []), permissionId]
-        }));
-      }
-    } catch (error) {
-      console.error('Error toggling permission:', error);
-      alert('Có lỗi xảy ra khi cập nhật quyền.');
     }
   };
 

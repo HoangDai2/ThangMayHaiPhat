@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from 'react';
 import { Plus, Edit, Trash2, Search, X, Loader2, Image, ToggleLeft, ToggleRight, Eye } from 'lucide-react';
-import { supabase } from '../../lib/supabase';
+import api from '../../lib/api';
 import { DbArticle } from '../../lib/types';
 import ImageUpload from '../../components/admin/ImageUpload';
 import ArrayInput from '../../components/admin/ArrayInput';
@@ -40,11 +40,12 @@ export default function AdminArticles() {
 
   const fetchArticles = async () => {
     setLoading(true);
-    const { data, error } = await supabase
-      .from('articles')
-      .select('*')
-      .order('published_at', { ascending: false });
-    if (!error && data) setArticles(data);
+    try {
+      const response = await api.get('/articles');
+      if (response.data) setArticles(response.data);
+    } catch (err) {
+      console.error(err);
+    }
     setLoading(false);
   };
 
@@ -97,16 +98,14 @@ export default function AdminArticles() {
 
     try {
       if (editingId) {
-        const { error } = await supabase.from('articles').update(payload).eq('id', editingId);
-        if (error) throw error;
+        await api.put(`/articles/${editingId}`, payload);
       } else {
-        const { error } = await supabase.from('articles').insert([payload]);
-        if (error) throw error;
+        await api.post('/articles', payload);
       }
       await fetchArticles();
       closeModal();
     } catch (error: any) {
-      setError(error.message || 'Có lỗi xảy ra');
+      setError(error.response?.data?.message || error.message || 'Có lỗi xảy ra');
     }
     setSaving(false);
   };
@@ -114,8 +113,7 @@ export default function AdminArticles() {
   const handleDelete = async (id: string, title: string) => {
     if (!window.confirm(`Xóa bài viết "${title}"?`)) return;
     try {
-      const { error } = await supabase.from('articles').delete().eq('id', id);
-      if (error) throw error;
+      await api.delete(`/articles/${id}`);
       await fetchArticles();
     } catch (e) {
       console.error(e);
@@ -129,8 +127,7 @@ export default function AdminArticles() {
         is_published: !article.is_published,
         published_at: !article.is_published ? new Date().toISOString() : article.published_at,
       };
-      const { error } = await supabase.from('articles').update(payload).eq('id', article.id);
-      if (error) throw error;
+      await api.put(`/articles/${article.id}`, payload);
       await fetchArticles();
     } catch (e) {
       console.error(e);

@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
-import { supabase } from '../../lib/supabase';
+import Cookies from 'js-cookie';
 import { usePermissions } from '../../hooks/usePermissions';
 import {
   LayoutDashboard,
@@ -50,10 +50,8 @@ export default function AdminLayout({
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
-    import('js-cookie').then((Cookies) => {
-      const token = Cookies.default.get('admin_token');
-      setIsAuthenticated(!!token);
-    });
+    const token = Cookies.get('admin_token');
+    setIsAuthenticated(!!token);
   }, [pathname]);
 
   useEffect(() => {
@@ -62,7 +60,7 @@ export default function AdminLayout({
     }
   }, [isAuthenticated, router]);
 
-  if (isAuthenticated === null || permissionsLoading) {
+  if (isAuthenticated === null || (isAuthenticated && permissionsLoading)) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#f8fafc]">
         <div className="flex flex-col items-center gap-3">
@@ -78,10 +76,8 @@ export default function AdminLayout({
   }
 
   const handleLogout = async () => {
-    import('js-cookie').then((Cookies) => {
-      Cookies.default.remove('admin_token');
-      router.push('/admin/login');
-    });
+    Cookies.remove('admin_token');
+    router.push('/admin/login');
   };
 
   return (

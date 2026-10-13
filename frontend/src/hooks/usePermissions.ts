@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import api from '../lib/api';
+import Cookies from 'js-cookie';
 
 export function usePermissions() {
   const [permissions, setPermissions] = useState<string[]>([]);
@@ -8,6 +9,12 @@ export function usePermissions() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const token = Cookies.get('admin_token');
+    if (!token) {
+      setLoading(false);
+      return;
+    }
+
     const fetchUser = async () => {
       try {
         const response = await api.get('/user');
@@ -24,8 +31,10 @@ export function usePermissions() {
 
         const userPermissions = user.permissions?.map((p: any) => p.name) || [];
         setPermissions(userPermissions);
-      } catch (error) {
-        console.error("Lỗi khi tải thông tin user:", error);
+      } catch (error: any) {
+        if (error.response?.status !== 401) {
+          console.error("Lỗi khi tải thông tin user:", error);
+        }
       } finally {
         setLoading(false);
       }

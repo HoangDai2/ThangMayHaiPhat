@@ -64,7 +64,7 @@ export const DEFAULT_BANNERS: BannerSlide[] = [
     title: 'Cam Kết Chất Lượng Vượt Trội',
     subtitle: 'Giá trị cốt lõi Hải Phát',
     description: 'Chúng tôi tự hào mang đến sự an tâm tuyệt đối và dịch vụ hoàn hảo cho mọi khách hàng — từ tư vấn, thiết kế, lắp đặt đến bảo trì định kỳ, với các tiêu chuẩn chất lượng khắt khe nhất trong ngành.',
-    image_url: 'https://images.unsplash.com/photo-1541888086-218a59400ad6?auto=format&fit=crop&w=1920&q=80',
+    image_url: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1920&q=80',
     template_type: 'features'
   }
 ];

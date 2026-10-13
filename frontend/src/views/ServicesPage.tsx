@@ -6,16 +6,16 @@ import {
   Clock, 
   ShieldCheck, 
   Users, 
-  Facebook, 
   Phone, 
   MessageCircle, 
-  Send,
-  CheckCircle2,
+  Send, 
+  CheckCircle2, 
   ArrowRight
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ZaloIcon } from '../components/icons/ZaloIcon';
+import { FacebookIcon } from '../components/icons/FacebookIcon';
 
 export default function ServicesPage() {
   const [phoneInput, setPhoneInput] = useState('');
@@ -104,7 +104,7 @@ export default function ServicesPage() {
                 <a href="https://facebook.com/thangmayhaiphat" target="_blank" rel="noopener noreferrer" 
                   className="flex items-center gap-4 p-5 rounded-2xl bg-white hover:bg-indigo-50 border border-gray-100 hover:border-indigo-100 transition-all shadow-sm hover:shadow-md group/link">
                   <div className="w-12 h-12 rounded-full bg-[#1877F2] flex items-center justify-center flex-shrink-0 group-hover/link:scale-110 transition-transform">
-                    <Facebook className="text-white" size={24} />
+                    <FacebookIcon className="text-white" size={24} />
                   </div>
                   <div>
                     <div className="font-bold text-gray-900">Nhắn tin Facebook</div>

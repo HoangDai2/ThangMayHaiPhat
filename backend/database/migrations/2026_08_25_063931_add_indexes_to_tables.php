@@ -23,10 +23,12 @@ return new class extends Migration
             $table->index('created_at');
             $table->index('is_published');
         });
-        Schema::table('banners', function (Blueprint $table) {
-            $table->index('created_at');
-            $table->index('sort_order');
-        });
+        if (Schema::hasTable('banners')) {
+            Schema::table('banners', function (Blueprint $table) {
+                $table->index('created_at');
+                $table->index('sort_order');
+            });
+        }
         Schema::table('reviews', function (Blueprint $table) {
             $table->index('created_at');
         });
@@ -52,10 +54,12 @@ return new class extends Migration
             $table->dropIndex(['created_at']);
             $table->dropIndex(['is_published']);
         });
-        Schema::table('banners', function (Blueprint $table) {
-            $table->dropIndex(['created_at']);
-            $table->dropIndex(['sort_order']);
-        });
+        if (Schema::hasTable('banners')) {
+            Schema::table('banners', function (Blueprint $table) {
+                $table->dropIndex(['created_at']);
+                $table->dropIndex(['sort_order']);
+            });
+        }
         Schema::table('reviews', function (Blueprint $table) {
             $table->dropIndex(['created_at']);
         });

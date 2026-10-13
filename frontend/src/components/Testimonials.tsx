@@ -26,13 +26,15 @@ export default function Testimonials() {
   const prev = () => setCurrent((c) => (c - 1 + reviews.length) % reviews.length);
   const next = () => setCurrent((c) => (c + 1) % reviews.length);
 
-  const visible = reviews.length > 0
-    ? [
-      reviews[current],
-      reviews[(current + 1) % reviews.length],
-      reviews[(current + 2) % reviews.length],
-    ]
-    : [];
+  const visible = reviews.length === 0
+    ? []
+    : reviews.length < 3
+      ? reviews
+      : [
+          reviews[current],
+          reviews[(current + 1) % reviews.length],
+          reviews[(current + 2) % reviews.length],
+        ];
 
   return (
     <section className="py-20 bg-gray-50">
@@ -111,7 +113,7 @@ export default function Testimonials() {
           <div className="grid md:grid-cols-3 gap-5">
             {visible.map((t, i) => (
               <div
-                key={t.id}
+                key={`${t.id || 'review'}-${i}`}
                 className={`bg-white rounded-2xl p-6 border transition-all duration-300 ${i === 0
                     ? 'border-[#285c9a]/30 shadow-lg shadow-[#285c9a]/5'
                     : 'border-gray-100 shadow-sm'

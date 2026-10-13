@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from 'react';
 import { Plus, Edit, Trash2, X, Loader2, Star, ToggleLeft, ToggleRight } from 'lucide-react';
-import { supabase } from '../../lib/supabase';
+import api from '../../lib/api';
 import { DbReview } from '../../lib/types';
 import ImageUpload from '../../components/admin/ImageUpload';
 
@@ -31,11 +31,12 @@ export default function AdminReviews() {
 
   const fetchReviews = async () => {
     setLoading(true);
-    const { data, error } = await supabase
-      .from('reviews')
-      .select('*')
-      .order('sort_order', { ascending: true });
-    if (!error && data) setReviews(data);
+    try {
+      const response = await api.get('/reviews');
+      if (response.data) setReviews(response.data);
+    } catch (err) {
+      console.error(err);
+    }
     setLoading(false);
   };
 
@@ -84,16 +85,14 @@ export default function AdminReviews() {
 
     try {
       if (editingId) {
-        const { error } = await supabase.from('reviews').update(payload).eq('id', editingId);
-        if (error) throw error;
+        await api.put(`/reviews/${editingId}`, payload);
       } else {
-        const { error } = await supabase.from('reviews').insert([payload]);
-        if (error) throw error;
+        await api.post('/reviews', payload);
       }
       await fetchReviews();
       closeModal();
     } catch (error: any) {
-      setError(error.message || 'Có lỗi xảy ra');
+      setError(error.response?.data?.message || error.message || 'Có lỗi xảy ra');
     }
     setSaving(false);
   };
@@ -101,8 +100,7 @@ export default function AdminReviews() {
   const handleDelete = async (id: string, name: string) => {
     if (!window.confirm(`Xóa đánh giá của "${name}"?`)) return;
     try {
-      const { error } = await supabase.from('reviews').delete().eq('id', id);
-      if (error) throw error;
+      await api.delete(`/reviews/${id}`);
       await fetchReviews();
     } catch (e) {
       console.error(e);
@@ -112,8 +110,7 @@ export default function AdminReviews() {
 
   const togglePublish = async (review: DbReview) => {
     try {
-      const { error } = await supabase.from('reviews').update({ is_published: !review.is_published }).eq('id', review.id);
-      if (error) throw error;
+      await api.put(`/reviews/${review.id}`, { is_published: !review.is_published });
       await fetchReviews();
     } catch (e) {
       console.error(e);

@@ -14,12 +14,11 @@ import {
   Truck,
   Wrench,
   CheckCircle,
-  Facebook,
-  Youtube,
   Headphones,
 } from 'lucide-react';
 import { companyInfo } from '../data/company';
 import { useProductsData } from '../hooks/useProductsData';
+import { FacebookIcon } from '../components/icons/FacebookIcon';
 
 const reasons = [
   { icon: Home, title: 'Tư vấn thang máy gia đình', desc: 'Lắp mới, thay thế, nâng cấp' },
@@ -345,7 +344,7 @@ export default function ContactPage() {
                     href="https://www.facebook.com/thangmayhaiphat"
                     className="w-10 h-10 rounded-xl bg-gray-100 flex items-center justify-center hover:bg-[#285c9a] hover:text-white text-gray-500 transition-colors"
                   >
-                    <Facebook size={18} />
+                    <FacebookIcon size={18} />
                   </a> 
                   <a
                     href="https://zalo.me/0898.424.666"

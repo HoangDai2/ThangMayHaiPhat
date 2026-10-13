@@ -1,6 +1,6 @@
 "use client";
 import Link from 'next/link';
-import { Phone, Mail, MapPin, Facebook, Youtube, ArrowUp } from 'lucide-react';
+import { Phone, Mail, MapPin, ArrowUp } from 'lucide-react';
 import { ZaloIcon } from './icons/ZaloIcon';
 import { useProductsData } from '../hooks/useProductsData';
 
@@ -15,7 +15,7 @@ const companyLinks = [
 export default function Footer() {
   const scrollTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
   const { products } = useProductsData();
-  const dynamicQuickLinks = products.map(p => ({ label: p.title, href: `/san-pham/${p.id}` }));
+  const dynamicQuickLinks = products.map(p => ({ id: p.id, label: p.title, href: `/san-pham/${p.id}` }));
 
   return (
     <footer className="bg-[#0d1f35] text-white">
@@ -53,7 +53,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-1">
             <div className="mb-4">
-              <img src="/image.png" alt="Thang Máy Hải Phát" className="h-12 w-auto object-contain" />
+              <img src="/image.png" alt="Thang Máy Hải Phát" className="h-14 sm:h-16 w-auto object-contain" />
             </div>
             <p className="text-gray-400 text-sm leading-relaxed mb-5">
               Chuyên lắp đặt thang máy gia đình và thang máy tải khách cao cấp. Hơn 5 năm
@@ -98,8 +98,8 @@ export default function Footer() {
               Sản phẩm
             </h4>
             <ul className="space-y-2.5">
-              {dynamicQuickLinks.map((l) => (
-                <li key={l.label}>
+              {dynamicQuickLinks.map((l, i) => (
+                <li key={l.id ? `${l.id}-${i}` : `${l.href}-${i}`}>
                   <Link href={l.href}
                     className="text-gray-400 text-sm hover:text-white transition-colors flex items-center gap-2 group"
                   >
@@ -111,15 +111,14 @@ export default function Footer() {
             </ul>
           </div>
 
-
           {/* Company */}
           <div>
             <h4 className="text-white font-semibold text-sm mb-4 uppercase tracking-wide">
               Công ty
             </h4>
             <ul className="space-y-2.5">
-              {companyLinks.map((l) => (
-                <li key={l.label}>
+              {companyLinks.map((l, i) => (
+                <li key={`${l.href}-${i}`}>
                   <Link href={l.href}
                     className="text-gray-400 text-sm hover:text-white transition-colors flex items-center gap-2 group"
                   >

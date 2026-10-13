@@ -24,7 +24,12 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use((response) => {
   return response;
 }, (error) => {
-  if (error.response?.status === 403) {
+  if (error.response?.status === 401) {
+    Cookies.remove('admin_token');
+    if (typeof window !== 'undefined' && !window.location.pathname.includes('/admin/login')) {
+      window.location.href = '/admin/login';
+    }
+  } else if (error.response?.status === 403) {
     if (typeof window !== 'undefined') {
       window.location.href = '/admin/403';
     }

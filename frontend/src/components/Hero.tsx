@@ -2,13 +2,27 @@
 import { useCallback, useEffect, useState } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
-import { ArrowRight, ChevronLeft, ChevronRight, ShieldCheck, Settings, Clock, Headphones } from 'lucide-react';
+import {
+  ArrowRight,
+  ChevronLeft,
+  ChevronRight,
+  ShieldCheck,
+  Phone,
+  Sparkles,
+  CheckCircle2,
+  Award,
+  Clock,
+  Building2
+} from 'lucide-react';
 import { DEFAULT_BANNERS, BannerSlide } from '../data/banners';
 import Link from 'next/link';
 import AboutUs from './AboutUs';
 
 export default function Hero() {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [Autoplay({ delay: 5000, stopOnInteraction: false, stopOnMouseEnter: true })]);
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    { loop: true, duration: 30 },
+    [Autoplay({ delay: 5000, stopOnInteraction: false, stopOnMouseEnter: true })]
+  );
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const scrollPrev = useCallback(() => {
@@ -38,322 +52,220 @@ export default function Hero() {
   const displayBanners: BannerSlide[] = DEFAULT_BANNERS;
 
   return (
-    <section id="home" className="pt-20 pb-2 lg:pb-4 bg-gray-50 flex flex-col justify-center min-h-[calc(100vh-72px)]">
-      <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 w-full flex flex-col">
-        <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl bg-[#1e4474] shrink-0">
-          {/* Embla Viewport */}
-          <div className="overflow-hidden" ref={emblaRef}>
-            <div className="flex">
-              {displayBanners.map((slide: BannerSlide, index: number) => {
-                const template = slide.template_type || (index % 5 === 0 ? 'standard' : index % 5 === 1 ? 'centered' : index % 5 === 2 ? 'split' : index % 5 === 3 ? 'accent' : 'features');
-                const titleWords = (slide.title || '').split(' ');
-                const titlePart1 = titleWords.slice(0, 2).join(' ');
-                const titlePart2 = titleWords.slice(2, 5).join(' ');
-                const titlePart3 = titleWords.slice(5).join(' ');
+    <section id="home" className="pt-0 lg:pt-24 pb-6 bg-[#f8fafc] flex flex-col justify-center">
+      <div className="max-w-[1800px] mx-auto px-0 sm:px-6 lg:px-8 w-full">
 
-                return (
-                  <div key={slide.id || index} className="relative min-w-0 flex-[0_0_100%] h-[380px] sm:h-[460px] md:h-[510px] lg:h-[550px] xl:h-[570px]">
-                    {/* Background Image */}
-                    <img
-                      src={slide.image_url}
-                      alt={slide.title}
-                      className="absolute inset-0 w-full h-full object-cover"
-                    />
+        {/* DESKTOP (Split 50/50) & MOBILE (100% Fullscreen Viewport) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 lg:gap-10 items-center">
 
-                    {/* TEMPLATE 1: STANDARD (Left-aligned gradient) */}
-                    {template === 'standard' && (
-                      <>
-                        <div className="absolute inset-0 bg-[#285c9a]/85 sm:bg-transparent sm:bg-gradient-to-r sm:from-[#1b3d68] sm:via-[#285c9a]/80 sm:to-transparent" />
-                        <div className="relative z-10 flex flex-col justify-center h-full px-5 sm:px-8 md:px-14 max-w-3xl">
-                          {slide.subtitle && (
-                            <div className="hidden sm:inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-3 py-1 mb-3 w-fit">
-                              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                              <span className="text-white/90 text-xs font-semibold tracking-wide uppercase">
-                                {slide.subtitle}
-                              </span>
-                            </div>
-                          )}
-                          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight mb-2 sm:mb-3">
-                            {titlePart1}{' '}
-                            {titlePart2 && <span className="text-blue-200">{titlePart2}</span>}
-                            {titlePart3 && (
-                              <>
-                                <br />
-                                {titlePart3}
-                              </>
-                            )}
-                          </h1>
-                          <p className="text-xs sm:text-sm lg:text-base text-white/90 leading-relaxed mb-4 max-w-xl">
-                            {slide.description}
-                          </p>
-                          <div className="flex flex-wrap gap-3">
-                            {slide.primary_button_text?.trim() && (
-                              <Link
-                                href={slide.primary_button_link || '#contact'}
-                                className="group flex items-center gap-2 bg-white text-[#285c9a] px-4 py-2 sm:px-5 sm:py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all duration-200 shadow-md hover:shadow-lg hover:-translate-y-0.5"
-                              >
-                                {slide.primary_button_text}
-                                <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform" />
-                              </Link>
-                            )}
-                            {slide.secondary_button_text?.trim() && (
-                              <Link
-                                href={slide.secondary_button_link || '#projects'}
-                                className="flex items-center gap-2 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/30 text-white px-4 py-2 sm:px-5 sm:py-2.5 rounded-xl font-semibold text-xs sm:text-sm transition-all duration-200 hover:-translate-y-0.5"
-                              >
-                                {slide.secondary_button_text}
-                              </Link>
-                            )}
-                          </div>
-                        </div>
-                      </>
-                    )}
+          {/* CỘT TRÁI TRÊN MÁY TÍNH (Chiếm 50% - lg:col-span-6): Giới thiệu thương hiệu & Uy tín */}
+          <div className="hidden lg:flex lg:col-span-6 flex-col justify-center space-y-6 pr-4">
 
-                    {/* TEMPLATE 2: CENTERED LUXURY */}
-                    {template === 'centered' && (
-                      <>
-                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-900/60 to-slate-900/40" />
-                        <div className="relative z-10 flex flex-col items-center justify-center text-center h-full px-5 sm:px-10 max-w-4xl mx-auto">
-                          {slide.subtitle && (
-                            <div className="inline-flex items-center gap-2 bg-amber-500/20 backdrop-blur-md border border-amber-400/40 rounded-full px-4 py-1 mb-3">
-                              <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
-                              <span className="text-amber-200 text-xs font-bold tracking-wider uppercase">
-                                {slide.subtitle}
-                              </span>
-                            </div>
-                          )}
-                          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight mb-3 drop-shadow-md">
-                            {slide.title}
-                          </h1>
-                          <p className="text-xs sm:text-sm lg:text-base text-slate-200 leading-relaxed mb-5 max-w-2xl">
-                            {slide.description}
-                          </p>
-                          <div className="flex flex-wrap items-center justify-center gap-3">
-                            {slide.primary_button_text?.trim() && (
-                              <Link
-                                href={slide.primary_button_link || '#contact'}
-                                className="group flex items-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all shadow-lg hover:shadow-amber-500/20 hover:-translate-y-0.5"
-                              >
-                                {slide.primary_button_text}
-                                <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform" />
-                              </Link>
-                            )}
-                            {slide.secondary_button_text?.trim() && (
-                              <Link
-                                href={slide.secondary_button_link || '#products'}
-                                className="flex items-center gap-2 bg-white/15 hover:bg-white/25 backdrop-blur-md border border-white/25 text-white px-5 py-2.5 rounded-xl font-semibold text-xs sm:text-sm transition-all hover:-translate-y-0.5"
-                              >
-                                {slide.secondary_button_text}
-                              </Link>
-                            )}
-                          </div>
-                        </div>
-                      </>
-                    )}
-
-                    {/* TEMPLATE 3: SPLIT LAYOUT WITH FEATURE BULLETS & SHOWCASE CARD */}
-                    {template === 'split' && (
-                      <>
-                        <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/70 to-slate-900/30" />
-                        <div className="relative z-10 grid lg:grid-cols-12 items-center h-full px-5 sm:px-8 md:px-14 max-w-7xl mx-auto gap-6">
-                          <div className="lg:col-span-7 flex flex-col justify-center">
-                            {slide.subtitle && (
-                              <span className="text-cyan-400 font-bold text-xs uppercase tracking-wider mb-2">
-                                {slide.subtitle}
-                              </span>
-                            )}
-                            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-2 leading-snug">
-                              {slide.title}
-                            </h1>
-                            <p className="text-xs sm:text-sm text-slate-300 mb-4 line-clamp-2">
-                              {slide.description}
-                            </p>
-
-                            {/* Feature list bullets */}
-                            {slide.features && slide.features.length > 0 && (
-                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-5">
-                                {slide.features.map((feat, idx) => (
-                                  <div key={idx} className="flex items-center gap-2 text-xs sm:text-sm text-slate-200">
-                                    <span className="w-4 h-4 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-[10px] font-bold">✓</span>
-                                    <span>{feat}</span>
-                                  </div>
-                                ))}
-                              </div>
-                            )}
-
-                            <div className="flex flex-wrap gap-3">
-                              {slide.primary_button_text?.trim() && (
-                                <Link
-                                  href={slide.primary_button_link || '#products'}
-                                  className="flex items-center gap-2 bg-cyan-500 hover:bg-cyan-600 text-slate-950 px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all shadow-md hover:-translate-y-0.5"
-                                >
-                                  {slide.primary_button_text}
-                                  <ArrowRight size={15} />
-                                </Link>
-                              )}
-                              {slide.secondary_button_text?.trim() && (
-                                <Link
-                                  href={slide.secondary_button_link || '#contact'}
-                                  className="flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white px-5 py-2.5 rounded-xl font-semibold text-xs sm:text-sm transition-all"
-                                >
-                                  {slide.secondary_button_text}
-                                </Link>
-                              )}
-                            </div>
-                          </div>
-
-                          {/* Right floating card */}
-                          <div className="hidden lg:flex lg:col-span-5 justify-end">
-                            <div className="bg-white/10 backdrop-blur-xl border border-white/20 p-6 rounded-2xl shadow-2xl max-w-sm text-white space-y-3">
-                              <div className="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-300 flex items-center justify-center font-bold text-lg">
-                                360°
-                              </div>
-                              <h3 className="font-bold text-lg text-white">Kiến Trúc Kính Hiện Đại</h3>
-                              <p className="text-xs text-slate-300 leading-relaxed">
-                                Đột phá phong cách thiết kế với khung kính chịu lực sang trọng, tối đa góc nhìn toàn cảnh.
-                              </p>
-                              <div className="pt-2 border-t border-white/10 flex items-center justify-between text-xs font-semibold text-cyan-300">
-                                <span>{slide.highlight_tag || 'Công nghệ Châu Âu'}</span>
-                                <span>★ 4.9/5</span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </>
-                    )}
-
-                    {/* TEMPLATE 4: ACCENT / HIGH-TECH */}
-                    {template === 'accent' && (
-                      <>
-                        <div className="absolute inset-0 bg-gradient-to-r from-blue-950 via-slate-900/90 to-transparent" />
-                        <div className="relative z-10 flex flex-col justify-center h-full px-5 sm:px-8 md:px-14 max-w-3xl">
-                          <div className="inline-flex items-center gap-2 bg-rose-500/20 border border-rose-500/40 text-rose-300 rounded-lg px-3 py-1 mb-3 text-xs font-bold w-fit">
-                            <span className="w-2 h-2 rounded-full bg-rose-500 animate-ping" />
-                            {slide.subtitle || 'Dịch vụ khẩn cấp 24/7'}
-                          </div>
-                          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-3 leading-tight">
-                            {slide.title}
-                          </h1>
-                          <p className="text-xs sm:text-sm text-slate-300 mb-5 max-w-xl">
-                            {slide.description}
-                          </p>
-                          <div className="flex flex-wrap gap-3">
-                            {slide.primary_button_text?.trim() && (
-                              <Link
-                                href={slide.primary_button_link || '#contact'}
-                                className="flex items-center gap-2 bg-rose-600 hover:bg-rose-700 text-white px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all shadow-lg hover:shadow-rose-600/30 hover:-translate-y-0.5"
-                              >
-                                {slide.primary_button_text}
-                                <ArrowRight size={15} />
-                              </Link>
-                            )}
-                            {slide.secondary_button_text?.trim() && (
-                              <Link
-                                href={slide.secondary_button_link || '#services'}
-                                className="flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white px-5 py-2.5 rounded-xl font-semibold text-xs sm:text-sm transition-all"
-                              >
-                                {slide.secondary_button_text}
-                              </Link>
-                            )}
-                          </div>
-                        </div>
-                      </>
-                    )}
-
-                    {/* TEMPLATE 5: FEATURES */}
-                    {template === 'features' && (
-                      <>
-                        <div className="absolute inset-0 bg-[#285c9a]/90 sm:bg-gradient-to-r sm:from-[#1b3d68] sm:via-[#285c9a]/80 sm:to-transparent" />
-                        <div className="relative z-10 flex flex-col justify-center h-full px-5 sm:px-8 md:px-14 w-full pb-10 sm:pb-16 lg:pb-0">
-                          <div className="mb-4 sm:mb-10 max-w-xl mt-4 sm:mt-0">
-                            {slide.subtitle && (
-                              <span className="inline-block text-amber-400 text-[10px] sm:text-xs font-bold tracking-wider uppercase mb-1.5 sm:mb-2">
-                                {slide.subtitle}
-                              </span>
-                            )}
-                            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-2 sm:mb-3 leading-snug">
-                              {slide.title || 'Cam Kết Chất Lượng'}
-                            </h1>
-                            <p className="hidden sm:block text-xs sm:text-sm lg:text-base text-white/80 leading-relaxed">
-                              {slide.description || 'Chúng tôi mang đến những giá trị tốt nhất cho khách hàng.'}
-                            </p>
-                          </div>
-
-                          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-5 w-full">
-                            {/* Feature 1 */}
-                            <div className="bg-white/10 backdrop-blur-md rounded-xl p-3 sm:p-5 border border-white/20 hover:bg-white/15 transition-colors flex items-center gap-3 sm:block">
-                              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-white/20 flex items-center justify-center sm:mb-3 shrink-0">
-                                <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
-                              </div>
-                              <h4 className="font-semibold text-white text-[11px] sm:text-sm line-clamp-2 sm:line-clamp-1">An toàn tuyệt đối</h4>
-                            </div>
-
-                            {/* Feature 2 */}
-                            <div className="bg-white/10 backdrop-blur-md rounded-xl p-3 sm:p-5 border border-white/20 hover:bg-white/15 transition-colors flex items-center gap-3 sm:block">
-                              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-white/20 flex items-center justify-center sm:mb-3 shrink-0">
-                                <Settings className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
-                              </div>
-                              <h4 className="font-semibold text-white text-[11px] sm:text-sm line-clamp-2 sm:line-clamp-1">Lắp đặt chuyên nghiệp</h4>
-                            </div>
-
-                            {/* Feature 3 */}
-                            <div className="bg-white/10 backdrop-blur-md rounded-xl p-3 sm:p-5 border border-white/20 hover:bg-white/15 transition-colors flex items-center gap-3 sm:block">
-                              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-white/20 flex items-center justify-center sm:mb-3 shrink-0">
-                                <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
-                              </div>
-                              <h4 className="font-semibold text-white text-[11px] sm:text-sm line-clamp-2 sm:line-clamp-1">Bảo hành 18 tháng</h4>
-                            </div>
-
-                            {/* Feature 4 */}
-                            <div className="bg-white/10 backdrop-blur-md rounded-xl p-3 sm:p-5 border border-white/20 hover:bg-white/15 transition-colors flex items-center gap-3 sm:block">
-                              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-white/20 flex items-center justify-center sm:mb-3 shrink-0">
-                                <Headphones className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
-                              </div>
-                              <h4 className="font-semibold text-white text-[11px] sm:text-sm line-clamp-2 sm:line-clamp-1">Hỗ trợ 24/7</h4>
-                            </div>
-                          </div>
-                        </div>
-                      </>
-                    )}
-
-                  </div>
-                );
-              })}
+            {/* Tag Uy Tín */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-[#285c9a] text-xs font-bold tracking-wide uppercase w-fit shadow-sm">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span>Tiêu chuẩn Châu Âu EN 81 · ISO 9001</span>
             </div>
+
+            {/* Tiêu đề lớn Desktop */}
+            <div className="space-y-3">
+              <h1 className="text-4xl xl:text-5xl 2xl:text-6xl font-extrabold text-[#0d1f35] leading-[1.15] tracking-tight">
+                Kiến Tạo <span className="text-[#285c9a]">Kiệt Tác Thang Máy</span> Cho Biệt Thự & Nhà Phố
+              </h1>
+              <p className="text-slate-600 text-base xl:text-lg leading-relaxed max-w-xl">
+                Giải pháp thang máy may đo tinh tế, tích hợp công nghệ biến tần Fuji Nhật Bản & Montanari Ý. Thiết kế hố PIT siêu nông, tối ưu 100% diện tích không gian sống.
+              </p>
+            </div>
+
+            {/* 4 Điểm nhấn dịch vụ */}
+            <div className="grid grid-cols-2 gap-3 pt-1">
+              {[
+                'Hố PIT nông từ 200mm',
+                'Linh kiện nhập khẩu 100%',
+                'Bảo hành chính hãng 36T',
+                'Cứu hộ 24/7 có mặt 30 phút'
+              ].map((item, idx) => (
+                <div key={idx} className="flex items-center gap-2.5 text-sm font-semibold text-slate-700">
+                  <CheckCircle2 className="w-4 h-4 text-[#285c9a] shrink-0" />
+                  <span>{item}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Nút Call To Action */}
+            <div className="flex items-center gap-4 pt-3">
+              <Link
+                href="/lien-he"
+                className="group inline-flex items-center gap-2.5 bg-[#285c9a] hover:bg-[#1e4676] text-white px-7 py-3.5 rounded-full font-bold text-sm xl:text-base transition-all duration-300 shadow-lg shadow-blue-900/20 hover:shadow-xl hover:scale-[1.02]"
+              >
+                <span>Nhận Tư Vấn & Báo Giá 3D</span>
+                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+              </Link>
+
+              <a
+                href="tel:0898424666"
+                className="inline-flex items-center gap-2 bg-white hover:bg-slate-50 text-slate-800 border border-slate-200 px-6 py-3.5 rounded-full font-semibold text-sm xl:text-base transition-colors shadow-sm"
+              >
+                <Phone size={15} className="text-[#285c9a]" />
+                <span>0898.424.666</span>
+              </a>
+            </div>
+
+            {/* Micro Stats Bar */}
+            <div className="pt-6 border-t border-slate-200 grid grid-cols-3 gap-4">
+              <div>
+                <div className="text-2xl font-extrabold text-[#0d1f35]">5+ Năm</div>
+                <div className="text-xs text-slate-500 font-medium">Kinh nghiệm chuyên sâu</div>
+              </div>
+              <div>
+                <div className="text-2xl font-extrabold text-[#285c9a]">1.000+</div>
+                <div className="text-xs text-slate-500 font-medium">Công trình hoàn thành</div>
+              </div>
+              <div>
+                <div className="text-2xl font-extrabold text-emerald-600">98%</div>
+                <div className="text-xs text-slate-500 font-medium">Khách hàng hài lòng</div>
+              </div>
+            </div>
+
           </div>
 
-          {/* Navigation Arrows */}
-          <button
-            onClick={scrollPrev}
-            className="absolute top-1/2 left-4 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-black/30 hover:bg-black/60 text-white backdrop-blur-md transition-colors z-20 hidden md:flex border border-white/20"
-            aria-label="Previous slide"
-          >
-            <ChevronLeft size={24} />
-          </button>
-          <button
-            onClick={scrollNext}
-            className="absolute top-1/2 right-4 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-black/30 hover:bg-black/60 text-white backdrop-blur-md transition-colors z-20 hidden md:flex border border-white/20"
-            aria-label="Next slide"
-          >
-            <ChevronRight size={24} />
-          </button>
+          {/* CỘT PHẢI TRÊN MÁY TÍNH (Chiếm 50% - lg:col-span-6) & TOÀN MÀN HÌNH TRÊN MOBILE (100% Viewport) */}
+          <div className="w-full lg:col-span-6 flex justify-center items-center">
 
-          {/* Dots */}
-          <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-20">
-            {displayBanners.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => scrollTo(index)}
-                className={`h-2.5 rounded-full transition-all duration-300 ${index === selectedIndex ? 'bg-white w-7' : 'bg-white/40 hover:bg-white/70 w-2.5'
-                  }`}
-                aria-label={`Go to slide ${index + 1}`}
-              />
-            ))}
+            {/* Phone/Cinematic Frame Container: Fullscreen on mobile, 50% on desktop */}
+            <div className="relative w-full h-[100dvh] sm:h-[680px] lg:h-[640px] xl:h-[700px] rounded-none sm:rounded-[36px] overflow-hidden shadow-2xl bg-[#091524] border-0 sm:border sm:border-slate-800/80">
+
+              {/* Embla Viewport */}
+              <div className="overflow-hidden h-full" ref={emblaRef}>
+                <div className="flex h-full">
+                  {displayBanners.map((slide: BannerSlide, index: number) => {
+                    const isActive = selectedIndex === index;
+
+                    return (
+                      <div
+                        key={slide.id || index}
+                        className="relative min-w-0 flex-[0_0_100%] h-full flex flex-col justify-between pt-24 sm:pt-8 pb-8 sm:pb-8 p-5 sm:p-8 lg:p-10 select-none"
+                      >
+                        {/* Background Image with warm architectural dusk lights */}
+                        <div className="absolute inset-0 overflow-hidden">
+                          <img
+                            src={slide.image_url}
+                            alt={slide.title}
+                            className={`w-full h-full object-cover object-center transition-transform duration-[7000ms] ease-out ${isActive ? 'scale-105' : 'scale-100'
+                              }`}
+                          />
+                          {/* Dark Ambient Fade Overlay */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-[#091524] via-[#091524]/60 to-black/35" />
+                          <div className="absolute inset-0 bg-gradient-to-r from-[#091524]/70 via-transparent to-[#091524]/40" />
+                        </div>
+
+                        {/* TOP HEADER: Glass Badge / Highlight Tag */}
+                        <div className="relative z-10 flex items-center justify-between gap-3 w-full pt-1">
+                          <div className="hidden sm:flex items-center gap-2 bg-black/40 backdrop-blur-md border border-white/20 px-3.5 py-1.5 rounded-full shadow-lg">
+                            <img
+                              src="/logo-icon.png"
+                              alt="Logo"
+                              className="w-4 h-4 object-contain rounded-full border border-white/30"
+                            />
+                            <span className="text-white text-[11px] sm:text-xs font-bold tracking-wider uppercase">
+                              Hải Phát Elevator
+                            </span>
+                          </div>
+
+                          {slide.highlight_tag && (
+                            <div className="flex items-center gap-1.5 bg-gradient-to-r from-amber-500/20 to-blue-500/20 backdrop-blur-md border border-amber-400/30 text-amber-200 px-3 py-1 rounded-full text-[11px] font-semibold shadow-md ml-auto sm:ml-0">
+                              <Sparkles size={11} className="text-amber-300" />
+                              <span className="truncate max-w-[180px] sm:max-w-none">{slide.highlight_tag}</span>
+                            </div>
+                          )}
+                        </div>
+
+                        {/* BOTTOM CONTENT: Serif Headline, Subtitle & White Pill CTA */}
+                        <div className="relative z-10 space-y-3.5 sm:space-y-4 mt-auto pb-4 sm:pb-2">
+
+                          {slide.subtitle && (
+                            <div className="inline-flex items-center gap-2 text-blue-300 text-[11px] sm:text-xs font-bold tracking-wider uppercase bg-blue-500/20 backdrop-blur-md border border-blue-400/30 px-3 py-0.5 rounded-full">
+                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                              <span className="truncate max-w-[240px] sm:max-w-none">{slide.subtitle}</span>
+                            </div>
+                          )}
+
+                          {/* Tiêu đề chính đậm chất sang trọng */}
+                          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight leading-snug drop-shadow-md">
+                            {slide.title}
+                          </h2>
+
+                          {/* Đoạn mô tả ngắn gọn */}
+                          <p className="text-xs sm:text-sm text-slate-200/90 leading-relaxed line-clamp-3 font-normal drop-shadow">
+                            {slide.description}
+                          </p>
+
+                          {/* Nút bấm trắng Pill Button nổi bật */}
+                          <div className="pt-2">
+                            {slide.primary_button_text && (
+                              <Link
+                                href={slide.primary_button_link || '/san-pham'}
+                                className="group w-full flex items-center justify-center gap-2 bg-white text-[#0d1f35] hover:bg-blue-50 py-3.5 sm:py-4 rounded-full font-bold text-sm sm:text-base transition-all duration-300 shadow-2xl hover:scale-[1.02] active:scale-[0.98]"
+                              >
+                                <span>{slide.primary_button_text}</span>
+                                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                              </Link>
+                            )}
+                          </div>
+
+                        </div>
+
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Navigation Indicators & Dots */}
+              <div className="absolute bottom-3 right-4 z-20 flex items-center gap-2">
+                <div className="flex items-center gap-1.5 bg-black/40 backdrop-blur-md border border-white/15 px-2.5 py-1.5 rounded-full">
+                  {displayBanners.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => scrollTo(i)}
+                      className={`h-1.5 rounded-full transition-all duration-300 ${i === selectedIndex
+                        ? 'w-6 bg-white shadow-sm'
+                        : 'w-2 bg-white/40 hover:bg-white/70'
+                        }`}
+                      aria-label={`Chuyển đến slide ${i + 1}`}
+                    />
+                  ))}
+                </div>
+
+                <div className="hidden sm:flex items-center gap-1">
+                  <button
+                    onClick={scrollPrev}
+                    className="w-7 h-7 rounded-full bg-black/40 hover:bg-black/70 backdrop-blur-md border border-white/20 text-white flex items-center justify-center transition-all"
+                    aria-label="Previous"
+                  >
+                    <ChevronLeft size={14} />
+                  </button>
+                  <button
+                    onClick={scrollNext}
+                    className="w-7 h-7 rounded-full bg-black/40 hover:bg-black/70 backdrop-blur-md border border-white/20 text-white flex items-center justify-center transition-all"
+                    aria-label="Next"
+                  >
+                    <ChevronRight size={14} />
+                  </button>
+                </div>
+              </div>
+
+            </div>
+
           </div>
+
         </div>
 
-        {/* About Us */}
-        <AboutUs />
+        {/* PHẦN GIỚI THIỆU & NĂNG LỰC DOANH NGHIỆP */}
+        <div className="mt-8 sm:mt-12 px-4 sm:px-0">
+          <AboutUs />
+        </div>
+
       </div>
     </section>
   );
