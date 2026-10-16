@@ -1,14 +1,20 @@
 "use client";
+
 import { useState, useEffect } from 'react';
-import { Star, ChevronLeft, ChevronRight, Quote } from 'lucide-react';
+import { Star, ChevronLeft, ChevronRight, Quote, Plus } from 'lucide-react';
 import { useReviewsData } from '../hooks/useReviewsData';
 import ReviewForm from './ReviewForm';
+import SectionHeader from './shared/SectionHeader';
 
 function Stars({ count }: { count: number }) {
   return (
-    <div className="flex gap-0.5">
+    <div className="flex gap-1" aria-label={`${count} sao`}>
       {Array.from({ length: 5 }).map((_, i) => (
-        <Star key={i} size={13} className={i < count ? 'text-amber-400 fill-amber-400' : 'text-gray-200'} />
+        <Star
+          key={i}
+          size={14}
+          className={i < count ? 'text-amber-400 fill-amber-400' : 'text-slate-200'}
+        />
       ))}
     </div>
   );
@@ -26,9 +32,10 @@ export default function Testimonials() {
   const prev = () => setCurrent((c) => (c - 1 + reviews.length) % reviews.length);
   const next = () => setCurrent((c) => (c + 1) % reviews.length);
 
-  const visible = reviews.length === 0
-    ? []
-    : reviews.length < 3
+  const visible =
+    reviews.length === 0
+      ? []
+      : reviews.length < 3
       ? reviews
       : [
           reviews[current],
@@ -37,183 +44,190 @@ export default function Testimonials() {
         ];
 
   return (
-    <section className="py-20 bg-gray-50">
-      <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-12">
+    <section className="py-16 sm:py-24 bg-slate-50 border-b border-slate-200/60">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section Header with Actions */}
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
           <div>
-            <span className="inline-block text-[#285c9a] text-sm font-semibold tracking-widest uppercase mb-3">
-              Khách hàng nói gì
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">
-              Đánh Giá Từ Khách Hàng
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200/60 text-[#285c9a] font-mono text-xs font-semibold uppercase tracking-wider mb-3">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#285c9a] animate-pulse" />
+              <span>Phản Hồi & Trải Nghiệm Khách Hàng</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#0d1f35] tracking-tight leading-tight">
+              Đánh Giá Thực Tế Từ Các Gia Chủ
             </h2>
+            <p className="mt-3 text-slate-600 text-sm sm:text-base leading-relaxed max-w-2xl">
+              Sự hài lòng và an tâm tuyệt đối của khách hàng chính là thước đo giá trị cao nhất cho chất lượng công trình của Thang Máy Hải Phát.
+            </p>
           </div>
 
-          {/* Navigation + CTA */}
-          <div className="flex items-center gap-3">
-            <div className="flex gap-2">
+          {/* Navigation Controls & Write Review CTA */}
+          <div className="flex items-center gap-3 shrink-0">
+            <div className="flex items-center gap-1.5 bg-white border border-slate-200/80 p-1 rounded-xl shadow-sm">
               <button
                 onClick={prev}
                 disabled={reviews.length < 3}
-                className="w-10 h-10 rounded-xl border border-gray-200 flex items-center justify-center text-gray-500 hover:border-[#285c9a] hover:text-[#285c9a] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-                aria-label="Previous"
+                className="w-9 h-9 rounded-lg flex items-center justify-center text-slate-600 hover:text-[#285c9a] hover:bg-slate-100 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                aria-label="Đánh giá trước"
               >
                 <ChevronLeft size={18} />
               </button>
               <button
                 onClick={next}
                 disabled={reviews.length < 3}
-                className="w-10 h-10 rounded-xl border border-gray-200 flex items-center justify-center text-gray-500 hover:border-[#285c9a] hover:text-[#285c9a] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-                aria-label="Next"
+                className="w-9 h-9 rounded-lg flex items-center justify-center text-slate-600 hover:text-[#285c9a] hover:bg-slate-100 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                aria-label="Đánh giá tiếp theo"
               >
                 <ChevronRight size={18} />
               </button>
             </div>
+
             <button
               onClick={() => setShowForm(true)}
-              className="flex items-center gap-2 px-4 py-2 bg-[#285c9a] text-white rounded-xl text-sm font-semibold hover:bg-[#1e4a80] transition-colors"
+              className="group inline-flex items-center gap-2 px-4 py-2.5 bg-[#285c9a] hover:bg-[#1e4a80] text-white rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 shadow-sm shadow-[#285c9a]/20 active:scale-[0.98]"
             >
-              <Star size={15} className="fill-white" />
-              Viết đánh giá
+              <Plus size={15} className="group-hover:rotate-90 transition-transform" />
+              <span>Gửi đánh giá</span>
             </button>
           </div>
         </div>
 
-        {/* Cards */}
+        {/* Reviews Grid */}
         {loading ? (
-          <div className="grid md:grid-cols-3 gap-5">
+          <div className="grid md:grid-cols-3 gap-6">
             {[0, 1, 2].map((i) => (
-              <div key={i} className="bg-white rounded-2xl p-6 border border-gray-100 animate-pulse">
-                <div className="flex justify-between mb-4">
-                  <div className="w-7 h-7 rounded bg-gray-100" />
-                  <div className="flex gap-0.5">
-                    {[0, 1, 2, 3, 4].map((s) => (
-                      <div key={s} className="w-3 h-3 rounded bg-gray-100" />
-                    ))}
-                  </div>
+              <div key={i} className="bg-white rounded-2xl p-6 border border-slate-200/80 animate-pulse space-y-4">
+                <div className="flex justify-between items-center">
+                  <div className="w-8 h-8 rounded bg-slate-100" />
+                  <div className="w-20 h-4 bg-slate-100 rounded" />
                 </div>
-                <div className="space-y-2 mb-5">
-                  <div className="h-3 bg-gray-100 rounded w-full" />
-                  <div className="h-3 bg-gray-100 rounded w-4/5" />
-                  <div className="h-3 bg-gray-100 rounded w-3/4" />
+                <div className="space-y-2">
+                  <div className="h-3 bg-slate-100 rounded w-full" />
+                  <div className="h-3 bg-slate-100 rounded w-4/5" />
+                  <div className="h-3 bg-slate-100 rounded w-2/3" />
                 </div>
-                <div className="h-5 bg-gray-100 rounded-full w-40 mb-5" />
-                <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
-                  <div className="w-10 h-10 rounded-full bg-gray-100" />
+                <div className="pt-4 border-t border-slate-100 flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-slate-100" />
                   <div className="space-y-1">
-                    <div className="h-3 bg-gray-100 rounded w-24" />
-                    <div className="h-2 bg-gray-100 rounded w-16" />
+                    <div className="h-3 bg-slate-100 rounded w-24" />
+                    <div className="h-2 bg-slate-100 rounded w-16" />
                   </div>
                 </div>
               </div>
             ))}
           </div>
         ) : visible.length > 0 ? (
-          <div className="grid md:grid-cols-3 gap-5">
+          <div className="grid md:grid-cols-3 gap-6">
             {visible.map((t, i) => (
               <div
                 key={`${t.id || 'review'}-${i}`}
-                className={`bg-white rounded-2xl p-6 border transition-all duration-300 ${i === 0
-                    ? 'border-[#285c9a]/30 shadow-lg shadow-[#285c9a]/5'
-                    : 'border-gray-100 shadow-sm'
-                  }`}
+                className="bg-white rounded-2xl p-6 sm:p-7 border border-slate-200/80 shadow-sm hover:shadow-xl hover:border-[#285c9a]/30 transition-all duration-300 flex flex-col justify-between"
               >
-                <div className="flex items-start justify-between mb-4">
-                  <Quote size={28} className="text-[#285c9a]/15 fill-[#285c9a]/10" />
-                  <Stars count={t.rating} />
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <Quote size={28} className="text-[#285c9a]/20 fill-[#285c9a]/10" />
+                    <Stars count={t.rating} />
+                  </div>
+
+                  <p className="text-slate-700 text-sm leading-relaxed mb-5 line-clamp-4 italic">
+                    "{t.text}"
+                  </p>
                 </div>
 
-                <p className="text-gray-600 text-sm leading-relaxed mb-5 line-clamp-4">{t.text}</p>
-
-                {t.project && (
-                  <div className="text-xs text-[#285c9a] font-medium bg-[#285c9a]/8 px-3 py-1.5 rounded-full inline-block mb-5">
-                    {t.project}
-                  </div>
-                )}
-
-                <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
-                  {t.avatar ? (
-                    <img
-                      src={t.avatar}
-                      alt={t.name}
-                      className="w-10 h-10 rounded-full object-cover flex-shrink-0"
-                    />
-                  ) : (
-                    <div className="w-10 h-10 rounded-full bg-[#285c9a]/10 flex items-center justify-center text-[#285c9a] font-semibold text-sm flex-shrink-0">
-                      {t.name.charAt(0)}
+                <div>
+                  {t.project && (
+                    <div className="inline-block text-xs font-semibold text-[#285c9a] bg-blue-50 border border-blue-100 px-3 py-1 rounded-lg mb-4">
+                      {t.project}
                     </div>
                   )}
-                  <div>
-                    <div className="text-gray-900 font-semibold text-sm">{t.name}</div>
-                    {t.role && <div className="text-gray-400 text-xs">{t.role}</div>}
+
+                  <div className="flex items-center gap-3 pt-4 border-t border-slate-100">
+                    {t.avatar ? (
+                      <img
+                        src={t.avatar}
+                        alt={t.name}
+                        className="w-10 h-10 rounded-full object-cover border border-slate-200"
+                      />
+                    ) : (
+                      <div className="w-10 h-10 rounded-full bg-[#285c9a] text-white flex items-center justify-center font-bold text-sm shadow-sm">
+                        {t.name.charAt(0)}
+                      </div>
+                    )}
+                    <div>
+                      <div className="text-slate-900 font-bold text-sm">{t.name}</div>
+                      {t.role && <div className="text-slate-500 text-xs">{t.role}</div>}
+                    </div>
                   </div>
                 </div>
               </div>
             ))}
           </div>
         ) : (
-          <div className="bg-white rounded-2xl p-12 text-center border border-gray-100">
-            <p className="text-gray-500 text-sm mb-4">Chưa có đánh giá nào. Hãy là người đầu tiên chia sẻ!</p>
+          <div className="bg-white rounded-2xl p-12 text-center border border-slate-200/80">
+            <p className="text-slate-500 text-sm mb-4">Chưa có phản hồi nào được hiển thị.</p>
             <button
               onClick={() => setShowForm(true)}
               className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#285c9a] text-white rounded-xl text-sm font-semibold hover:bg-[#1e4a80] transition-colors"
             >
               <Star size={15} className="fill-white" />
-              Viết đánh giá đầu tiên
+              <span>Gửi đánh giá đầu tiên</span>
             </button>
           </div>
         )}
 
-        {/* Dot indicators */}
-        {reviews.length > 0 && (
+        {/* Carousel Dots */}
+        {reviews.length > 3 && (
           <div className="flex justify-center gap-2 mt-8">
             {reviews.map((_, i) => (
               <button
                 key={i}
                 onClick={() => setCurrent(i)}
-                className={`rounded-full transition-all duration-200 ${i === current ? 'w-6 h-2 bg-[#285c9a]' : 'w-2 h-2 bg-gray-300 hover:bg-gray-400'
-                  }`}
-                aria-label={`Go to ${i + 1}`}
+                className={`rounded-full transition-all duration-200 ${
+                  i === current ? 'w-6 h-2 bg-[#285c9a]' : 'w-2 h-2 bg-slate-300 hover:bg-slate-400'
+                }`}
+                aria-label={`Chuyển đến đánh giá ${i + 1}`}
               />
             ))}
           </div>
         )}
 
-        {/* Trust badges */}
+        {/* Telemetry Proof Strip */}
         <div className="mt-14 grid grid-cols-2 sm:grid-cols-4 gap-4">
           {[
-            { value: '5+', label: 'Năm kinh nghiệm' },
-            { value: '1000+', label: 'Công trình hoàn thành' },
-            { value: '98%', label: 'Tỷ lệ hài lòng' },
-            { value: '5★', label: 'Đánh giá trung bình' },
+            { value: '5+ Năm', label: 'Kinh nghiệm chuyên môn' },
+            { value: '1.000+', label: 'Công trình bàn giao' },
+            { value: '98%', label: 'Tỷ lệ hài lòng tuyệt đối' },
+            { value: '5.0 / 5★', label: 'Điểm đánh giá dịch vụ' },
           ].map(({ value, label }) => (
-            <div key={label} className="text-center py-5 bg-white rounded-xl border border-gray-100">
-              <div className="text-2xl font-bold text-[#285c9a] mb-1">{value}</div>
-              <div className="text-xs text-gray-500">{label}</div>
+            <div key={label} className="text-center p-5 bg-white rounded-2xl border border-slate-200/80 shadow-sm">
+              <div className="text-xl sm:text-2xl font-extrabold text-[#285c9a] font-mono mb-1">{value}</div>
+              <div className="text-xs text-slate-500 font-medium">{label}</div>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Review Form Modal */}
+      {/* Review Modal */}
       {showForm && (
         <div
-          className="fixed inset-0 bg-black/50 z-50 flex items-start justify-center p-4 overflow-y-auto"
+          className="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-50 flex items-start justify-center p-4 overflow-y-auto"
           onClick={() => setShowForm(false)}
         >
           <div
-            className="bg-white rounded-2xl w-full max-w-xl my-8 shadow-2xl"
+            className="bg-white rounded-2xl w-full max-w-xl my-8 shadow-2xl border border-slate-200 overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between p-6 border-b border-gray-100">
-              <h2 className="text-xl font-bold text-gray-900">Viết đánh giá</h2>
+            <div className="flex items-center justify-between p-6 border-b border-slate-100 bg-[#0d1f35] text-white">
+              <div>
+                <h3 className="text-lg font-bold">Chia Sẻ Đánh Giá Của Bạn</h3>
+                <p className="text-xs text-blue-200 mt-0.5">Ý kiến đóng góp giúp Hải Phát hoàn thiện dịch vụ tốt hơn</p>
+              </div>
               <button
                 onClick={() => setShowForm(false)}
-                className="text-gray-400 hover:text-gray-600 transition-colors"
-                aria-label="Đóng"
+                className="text-slate-300 hover:text-white p-1 rounded-lg hover:bg-white/10 transition-colors"
+                aria-label="Đóng biểu mẫu"
               >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+                ✕
               </button>
             </div>
             <div className="p-6">

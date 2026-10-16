@@ -11,6 +11,11 @@ export interface BannerSlide {
   template_type?: 'standard' | 'centered' | 'split' | 'accent' | 'features';
   features?: string[];
   highlight_tag?: string;
+  stats?: Array<{
+    value: string;
+    label: string;
+    color?: string;
+  }>;
 }
 
 /**
@@ -34,7 +39,7 @@ export const DEFAULT_BANNERS: BannerSlide[] = [
   },
   {
     id: 'slide-2',
-    title: 'Thang Máy Kính Panorama Toàn Cảnh',
+    title: 'Thang Máy Khung Thép Vách Kính',
     subtitle: 'Kiến trúc sang trọng cho biệt thự & nhà phố',
     description: 'Nâng tầm không gian sống với thiết kế kính cường lực trong suốt, tối ưu ánh sáng tự nhiên và mở rộng tầm nhìn toàn cảnh ngôi nhà của bạn.',
     image_url: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1920&q=80',
@@ -65,6 +70,11 @@ export const DEFAULT_BANNERS: BannerSlide[] = [
     subtitle: 'Giá trị cốt lõi Hải Phát',
     description: 'Chúng tôi tự hào mang đến sự an tâm tuyệt đối và dịch vụ hoàn hảo cho mọi khách hàng — từ tư vấn, thiết kế, lắp đặt đến bảo trì định kỳ, với các tiêu chuẩn chất lượng khắt khe nhất trong ngành.',
     image_url: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1920&q=80',
-    template_type: 'features'
+    template_type: 'features',
+    stats: [
+      { value: '5+ Năm', label: 'Kinh nghiệm chuyên sâu', color: 'text-white' },
+      { value: '1.000+', label: 'Công trình hoàn thành', color: 'text-white' },
+      { value: '98%', label: 'Khách hàng hài lòng', color: 'text-white' }
+    ]
   }
 ];

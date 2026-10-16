@@ -84,11 +84,25 @@ class SyncBitrixData extends Command
         $bar = $this->output->createProgressBar(count($projects));
         $bar->start();
         foreach ($projects as $project) {
+            $startDate = null;
+            if (!empty($project['PROJECT_DATE_START'])) {
+                $startDate = date('Y-m-d H:i:s', strtotime($project['PROJECT_DATE_START']));
+            } elseif (!empty($project['DATE_CREATE'])) {
+                $startDate = date('Y-m-d H:i:s', strtotime($project['DATE_CREATE']));
+            }
+
+            $endDate = null;
+            if (!empty($project['PROJECT_DATE_FINISH'])) {
+                $endDate = date('Y-m-d H:i:s', strtotime($project['PROJECT_DATE_FINISH']));
+            }
+
             BitrixProject::updateOrCreate(
                 ['bitrix_id' => $project['ID']],
                 [
                     'name' => $project['NAME'] ?? null,
                     'description' => $project['DESCRIPTION'] ?? null,
+                    'start_date' => $startDate,
+                    'end_date' => $endDate,
                     'raw_data' => json_encode($project)
                 ]
             );
@@ -124,6 +138,8 @@ class SyncBitrixData extends Command
                     'created_by' => $task['createdBy'] ?? null,
                     'responsible_id' => $task['responsibleId'] ?? null,
                     'deadline' => !empty($task['deadline']) ? date('Y-m-d H:i:s', strtotime($task['deadline'])) : null,
+                    'activity_date' => !empty($task['activityDate']) ? date('Y-m-d H:i:s', strtotime($task['activityDate'])) : (!empty($task['changedDate']) ? date('Y-m-d H:i:s', strtotime($task['changedDate'])) : null),
+                    'new_comments_count' => $task['newCommentsCount'] ?? 0,
                     'raw_data' => json_encode($task)
                 ]
             );
@@ -135,6 +151,19 @@ class SyncBitrixData extends Command
         }
         $bar->finish();
         $this->newLine();
+
+        // Cập nhật ngày kết thúc dự án từ hạn chót của các tác vụ (nếu dự án chưa có ngày kết thúc riêng)
+        \Illuminate\Support\Facades\DB::statement("
+            UPDATE bitrix_projects p
+            JOIN (
+                SELECT project_id, MAX(deadline) as max_deadline
+                FROM bitrix_tasks
+                WHERE project_id IS NOT NULL AND deadline IS NOT NULL
+                GROUP BY project_id
+            ) t ON p.id = t.project_id
+            SET p.end_date = t.max_deadline
+            WHERE p.end_date IS NULL
+        ");
 
         $this->info('Đồng bộ hoàn tất! Xin vui lòng chạy `php artisan queue:work` để hệ thống tải ảnh và comment ẩn dưới nền.');
     }

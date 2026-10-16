@@ -1,4 +1,5 @@
 "use client";
+
 import Link from 'next/link';
 import {
   Phone,
@@ -15,11 +16,13 @@ import {
   Building2,
   Calendar,
   Star,
-  Linkedin,
   Target,
   Eye,
+  CheckCircle2,
 } from 'lucide-react';
 import { companyInfo, coreValues, teamMembers, partners } from '../data/company';
+import PageHeader from '../components/shared/PageHeader';
+import SectionHeader from '../components/shared/SectionHeader';
 
 const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
   shield: Shield,
@@ -33,68 +36,28 @@ const iconMap: Record<string, React.ComponentType<{ size?: number; className?: s
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-white">
-      {/* Hero Header */}
-      <header className="bg-[#0d1f35] pt-36 pb-32 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#285c9a] rounded-full blur-3xl" />
-          <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-[#285c9a] rounded-full blur-3xl" />
-        </div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-10 items-center">
-            <div>
-              <span className="inline-block text-[#285c9a] bg-[#285c9a]/15 text-xs font-semibold tracking-widest uppercase px-3 py-1 rounded-full mb-4">
-                Về chúng tôi
-              </span>
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-5">
-                Nâng Tầm Cuộc Sống Việt
-              </h1>
-              <p className="text-white/70 text-base leading-relaxed mb-6">
-                {companyInfo.description.split('\n\n')[0]}
-              </p>
-              <div className="flex flex-wrap gap-4">
-                <div className="flex items-center gap-2 text-white/80 text-sm">
-                  <Calendar size={16} className="text-[#285c9a]" />
-                  Thành lập {companyInfo.founded}
-                </div>
-                <div className="flex items-center gap-2 text-white/80 text-sm">
-                  <Building2 size={16} className="text-[#285c9a]" />
-                  {companyInfo.yearsExperience}+ năm kinh nghiệm
-                </div>
-              </div>
-            </div>
-            <div className="mt-10 lg:mt-0 relative w-full">
-              <div className="relative w-full max-w-lg mx-auto lg:max-w-none">
-                <img
-                  src="/539928420_1207135848096542_3586556978112750775_n.jpg"
-                  alt="Hải Phát team"
-                  className="rounded-2xl shadow-2xl"
-                />
-                <div className="absolute -bottom-5 -left-5 bg-white rounded-xl p-4 shadow-lg">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-xl bg-[#285c9a] flex items-center justify-center">
-                      <Award size={24} className="text-white" />
-                    </div>
-                    <div>
-                      <div className="text-gray-400 text-xs">Đạt chứng nhận</div>
-                      <div className="font-bold text-gray-900 text-sm">ISO 9001:2015</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
+      {/* Unified PageHeader */}
+      <PageHeader
+        badge="Hồ Sơ Doanh Nghiệp"
+        title="Thang Máy Hải Phát – Nâng Tầm Không Gian Sống Việt"
+        subtitle="Hơn 5 năm tiên phong trong lĩnh vực tư vấn, thiết kế, thi công lắp đặt và bảo trì thang máy đạt chuẩn Châu Âu EN 81. Cam kết an toàn tuyệt đối và giá trị bền vững cho mọi công trình."
+        breadcrumbs={[{ label: 'Về chúng tôi' }]}
+        telemetryTag="ISO 9001:2015 // THÀNH LẬP 2015"
+      />
 
       {/* Stats Bar */}
-      <div className="bg-white border-b border-gray-100 py-8 -mt-6 relative z-20">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-4">
-              {companyInfo.stats.map((stat) => (
-                <div key={stat.label} className="text-center">
-                  <div className="text-3xl sm:text-4xl font-bold text-[#285c9a]">{stat.value}</div>
-                  <div className="text-gray-500 text-xs mt-1">{stat.label}</div>
+      <div className="bg-slate-50 border-b border-slate-200/80 py-10 relative z-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6 sm:p-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 divide-y sm:divide-y-0 sm:divide-x divide-slate-100">
+              {companyInfo.stats.map((stat, idx) => (
+                <div key={stat.label} className={`text-center ${idx > 0 ? 'pt-4 sm:pt-0' : ''}`}>
+                  <div className="text-3xl sm:text-4xl font-extrabold text-[#285c9a] font-mono tracking-tight">
+                    {stat.value}
+                  </div>
+                  <div className="text-slate-600 text-xs sm:text-sm font-medium mt-1">
+                    {stat.label}
+                  </div>
                 </div>
               ))}
             </div>
@@ -102,47 +65,80 @@ export default function AboutPage() {
         </div>
       </div>
 
-      {/* Mission & Vision */}
-      <section className="py-16 sm:py-24 bg-gray-50">
+      {/* Mission & Vision Showcase */}
+      <section className="py-16 sm:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-            <div className="lg:col-span-5 h-[300px] sm:h-[400px] lg:h-full w-full rounded-3xl overflow-hidden relative shadow-lg">
-              <img 
-                src="/682852976_1412723337537791_2243820393777372314_n.jpg" 
-                alt="Tầm nhìn và sứ mệnh"
-                className="absolute inset-0 w-full h-full object-cover"
+            {/* Visual Frame */}
+            <div className="lg:col-span-5 h-[340px] sm:h-[420px] lg:h-[480px] w-full rounded-3xl overflow-hidden relative shadow-xl border border-slate-200 bg-slate-900 group">
+              <img
+                src="/682852976_1412723337537791_2243820393777372314_n.jpg"
+                alt="Định hướng phát triển Thang Máy Hải Phát"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0d1f35]/80 via-transparent to-transparent"></div>
-              <div className="absolute bottom-6 left-6 right-6 text-white">
-                <h3 className="text-2xl font-bold mb-2">Định hướng tương lai</h3>
-                <p className="text-white/80 text-sm">Kiến tạo không gian sống hiện đại và an toàn cho mọi công trình.</p>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0d1f35]/95 via-[#0d1f35]/40 to-transparent" />
+              <div className="absolute bottom-6 left-6 right-6 text-white space-y-1.5">
+                <span className="font-mono text-xs uppercase tracking-wider text-blue-300">
+                  Tôn Chỉ Hoạt Động
+                </span>
+                <h3 className="text-xl sm:text-2xl font-bold">Kiến Tạo Không Gian Sống Tiện Nghi</h3>
+                <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                  Đồng hành cùng hàng ngàn tổ ấm Việt với giải pháp may đo cơ điện an toàn nhất.
+                </p>
               </div>
             </div>
-            
+
+            {/* Mission & Vision Dual Cards */}
             <div className="lg:col-span-7 grid sm:grid-cols-2 gap-6">
               {/* Mission Card */}
-              <div className="relative rounded-3xl p-6 sm:p-8 overflow-hidden group hover:shadow-xl transition-shadow flex flex-col h-full min-h-[250px]">
-                <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80&w=600" alt="Mission" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0d1f35]/95 via-[#0d1f35]/70 to-[#0d1f35]/30" />
-                <div className="relative z-10 flex flex-col h-full justify-end">
+              <div className="relative rounded-3xl p-6 sm:p-8 overflow-hidden group hover:shadow-xl transition-all duration-300 flex flex-col justify-between min-h-[300px] border border-slate-200 bg-slate-900 text-white">
+                <img
+                  src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80&w=600"
+                  alt="Sứ mệnh"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-40"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0d1f35] via-[#0d1f35]/80 to-transparent" />
+
+                <div className="relative z-10">
                   <div className="w-12 h-12 rounded-xl bg-white/20 backdrop-blur-md border border-white/20 flex items-center justify-center mb-4">
                     <Target size={24} className="text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-2">Sứ mệnh</h3>
-                  <p className="text-white/80 leading-relaxed text-sm">{companyInfo.mission}</p>
+                  <span className="font-mono text-xs text-blue-300 uppercase tracking-widest block mb-1">
+                    Trọng Tâm Sứ Mệnh
+                  </span>
+                  <h3 className="text-xl font-bold text-white mb-2">Sứ Mệnh Doanh Nghiệp</h3>
+                </div>
+
+                <div className="relative z-10 pt-4">
+                  <p className="text-slate-200 text-sm leading-relaxed">
+                    {companyInfo.mission}
+                  </p>
                 </div>
               </div>
-              
+
               {/* Vision Card */}
-              <div className="relative rounded-3xl p-6 sm:p-8 overflow-hidden group hover:shadow-xl transition-shadow flex flex-col h-full min-h-[250px]">
-                <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=600" alt="Vision" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0d1f35]/95 via-[#0d1f35]/70 to-[#0d1f35]/30" />
-                <div className="relative z-10 flex flex-col h-full justify-end">
+              <div className="relative rounded-3xl p-6 sm:p-8 overflow-hidden group hover:shadow-xl transition-all duration-300 flex flex-col justify-between min-h-[300px] border border-slate-200 bg-slate-900 text-white">
+                <img
+                  src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=600"
+                  alt="Tầm nhìn"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-40"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0d1f35] via-[#0d1f35]/80 to-transparent" />
+
+                <div className="relative z-10">
                   <div className="w-12 h-12 rounded-xl bg-white/20 backdrop-blur-md border border-white/20 flex items-center justify-center mb-4">
                     <Eye size={24} className="text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-2">Tầm nhìn</h3>
-                  <p className="text-white/80 leading-relaxed text-sm">{companyInfo.vision}</p>
+                  <span className="font-mono text-xs text-blue-300 uppercase tracking-widest block mb-1">
+                    Định Hướng Chiến Lược
+                  </span>
+                  <h3 className="text-xl font-bold text-white mb-2">Tầm Nhìn 2030</h3>
+                </div>
+
+                <div className="relative z-10 pt-4">
+                  <p className="text-slate-200 text-sm leading-relaxed">
+                    {companyInfo.vision}
+                  </p>
                 </div>
               </div>
             </div>
@@ -150,101 +146,76 @@ export default function AboutPage() {
         </div>
       </section>
 
-
-
-      {/* Core Values */}
-      <section className="py-16 sm:py-24 bg-[#0d1f35] relative overflow-hidden">
-        {/* Background elements */}
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#285c9a] rounded-full blur-[120px] opacity-20 translate-x-1/3 -translate-y-1/3"></div>
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#1e4a80] rounded-full blur-[100px] opacity-30 -translate-x-1/2 translate-y-1/2"></div>
-        
+      {/* Core Values Section (Dark Mechanical Theme) */}
+      <section className="py-16 sm:py-24 bg-[#0d1f35] text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-grid-blueprint opacity-10 pointer-events-none" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
-            {/* Left side: Heading & Image */}
-            <div className="lg:col-span-5 text-center lg:text-left">
-              <span className="inline-block text-[#60a5fa] bg-blue-500/10 text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-full mb-4">
-                Lõi Niềm Tin
-              </span>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">Giá trị cốt lõi</h2>
-              <p className="text-white/60 text-sm sm:text-base mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed">
-                Những nguyên tắc định hướng mọi hoạt động của Hải Phát. Chúng tôi cam kết mang lại giá trị bền vững và trải nghiệm tốt nhất cho khách hàng.
-              </p>
-              
-              <div className="relative rounded-3xl overflow-hidden shadow-2xl hidden lg:block w-full aspect-square border border-white/10 group bg-[#0d1f35]">
-                 <img 
-                   src="/475733604_967114985385988_6712307638728245450_n.jpg" 
-                   alt="Giá trị cốt lõi" 
-                   className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105" 
-                 />
-                 <div className="absolute inset-0 bg-gradient-to-t from-[#0d1f35]/30 via-transparent to-transparent pointer-events-none"></div>
-              </div>
-            </div>
-            
-            {/* Right side: Values Grid */}
-            <div className="lg:col-span-7">
-              <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
-                {coreValues.map((value, idx) => {
-                  const Icon = iconMap[value.icon] || CheckCircle;
-                  const bgImages = [
-                    'https://images.unsplash.com/photo-1541888046428-d81bb19240f5?auto=format&fit=crop&q=80&w=400',
-                    'https://images.unsplash.com/photo-1428366890462-dd4baecf492b?auto=format&fit=crop&q=80&w=400',
-                    'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80&w=400',
-                    'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=400'
-                  ];
-                  return (
-                    <div
-                      key={value.title}
-                      className="relative group rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 min-h-[220px]"
-                    >
-                      <img 
-                        src={bgImages[idx % bgImages.length]} 
-                        alt={value.title} 
-                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#0d1f35]/95 via-[#0d1f35]/70 to-[#0d1f35]/30"></div>
-                      <div className="relative z-10 p-5 flex flex-col h-full justify-end">
-                        <div className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center mb-3 group-hover:bg-blue-500/50 transition-colors">
-                          <Icon size={20} className="text-white" />
-                        </div>
-                        <h4 className="font-bold text-white text-base mb-1">{value.title}</h4>
-                        <p className="text-white/80 text-sm leading-relaxed line-clamp-3">{value.description}</p>
-                      </div>
+          <SectionHeader
+            badge="Hệ Giá Trị Cốt Lõi"
+            title={<span className="text-white">Kim Chỉ Nam Định Hướng Mọi Hoạt Động</span>}
+            subtitle={<span className="text-slate-300">Những nguyên tắc kỹ thuật và đạo đức nghề nghiệp bất biến trong từng công trình của Hải Phát.</span>}
+          />
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {coreValues.map((value, idx) => {
+              const Icon = iconMap[value.icon] || CheckCircle;
+              return (
+                <div
+                  key={value.title}
+                  className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/25 transition-all duration-300 flex flex-col justify-between"
+                >
+                  <div>
+                    <div className="w-12 h-12 rounded-xl bg-[#285c9a]/40 border border-[#4a7bbf]/40 flex items-center justify-center text-blue-300 mb-4">
+                      <Icon size={22} />
                     </div>
-                  );
-                })}
-              </div>
-            </div>
+                    <div className="font-mono text-xs text-blue-300 font-semibold mb-1">
+                      GIÁ TRỊ 0{idx + 1}
+                    </div>
+                    <h3 className="font-bold text-white text-base sm:text-lg mb-2">{value.title}</h3>
+                    <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">{value.description}</p>
+                  </div>
+
+                  <div className="mt-6 pt-3 border-t border-white/10 font-mono text-[11px] text-slate-400">
+                    TIÊU CHUẨN ISO 9001
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* Team */}
-      <section className="py-16">
+      {/* Leadership Team */}
+      <section className="py-16 sm:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">Đội ngũ lãnh đạo</h2>
-            <p className="text-gray-500 text-sm max-w-xl mx-auto">
-              Những người đã xây dựng và phát triển Hải Phát trong suốt chặng đường
-            </p>
-          </div>
+          <SectionHeader
+            badge="Nhân Sự Chuyên Trách"
+            title="Đội Ngũ Lãnh Đạo & Kỹ Sư Trưởng"
+            subtitle="Đội ngũ sáng lập và quản lý kỹ thuật giàu kinh nghiệm thực chiến trong ngành cơ điện thang máy."
+          />
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {teamMembers.map((member) => (
               <div
                 key={member.id}
-                className="group bg-white rounded-2xl overflow-hidden border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col h-full"
+                className="group bg-white rounded-2xl overflow-hidden border border-slate-200/80 hover:shadow-xl hover:border-[#285c9a]/40 transition-all duration-300 hover:-translate-y-1 flex flex-col h-full"
               >
-                <div className="relative aspect-[4/5] w-full overflow-hidden">
+                <div className="relative aspect-[4/5] w-full overflow-hidden bg-slate-100">
                   <img
                     src={member.image.startsWith('/') ? member.image : `/${member.image}`}
                     alt={member.name}
-                    className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0d1f35]/60 via-transparent to-transparent pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0d1f35]/70 via-transparent to-transparent pointer-events-none" />
                 </div>
-                <div className="p-5 flex-1 flex flex-col justify-end bg-white">
-                  <h4 className="font-bold text-gray-900 text-base">{member.name}</h4>
-                  <div className="text-[#285c9a] text-sm font-medium mt-1">{member.role}</div>
+                <div className="p-5 flex-1 flex flex-col justify-between bg-white border-t border-slate-100">
+                  <div>
+                    <h4 className="font-extrabold text-[#0d1f35] text-base">{member.name}</h4>
+                    <div className="text-[#285c9a] text-xs sm:text-sm font-semibold mt-0.5">{member.role}</div>
+                  </div>
+                  <div className="mt-3 pt-2 border-t border-slate-100 font-mono text-[11px] text-slate-400">
+                    Chuyên gia cơ điện
+                  </div>
                 </div>
               </div>
             ))}
@@ -252,54 +223,58 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Partners */}
-      <section className="py-16 bg-gray-50">
+      {/* Global Brand Partners */}
+      <section className="py-16 bg-slate-50 border-t border-slate-200/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Partners Logos */}
-          <div>
-            <div className="text-center mb-8">
-              <h2 className="text-xl font-bold text-gray-900 mb-2">Đối tác thương hiệu</h2>
-              <p className="text-gray-500 text-sm">
-                Đồng hành cùng những thương hiệu hàng đầu thế giới
-              </p>
-            </div>
-            <div className="flex flex-wrap justify-center items-center gap-8 opacity-60">
-              {partners.map((partner) => (
-                <div key={partner.name} className="flex items-center justify-center">
-                  <img
-                    src={partner.logo}
-                    alt={partner.name}
-                    className="h-8 object-contain grayscale hover:grayscale-0 transition-all"
-                  />
-                </div>
-              ))}
-            </div>
+          <div className="text-center mb-8">
+            <span className="font-mono text-xs uppercase tracking-widest text-[#285c9a] font-semibold">
+              Đối Tác Toàn Cầu
+            </span>
+            <h3 className="text-xl sm:text-2xl font-bold text-[#0d1f35] mt-1">
+              Hợp Tác Chiến Lược Cùng Các Hãng Công Nghệ Hàng Đầu
+            </h3>
+          </div>
+
+          <div className="flex flex-wrap justify-center items-center gap-8 sm:gap-12 opacity-75">
+            {partners.map((partner) => (
+              <div key={partner.name} className="flex items-center justify-center p-3 rounded-xl bg-white border border-slate-200/60 shadow-sm">
+                <img
+                  src={partner.logo}
+                  alt={partner.name}
+                  className="h-7 sm:h-8 object-contain grayscale hover:grayscale-0 transition-all"
+                />
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-14 bg-gradient-to-r from-[#285c9a] to-[#1e4a80]">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h3 className="text-xl sm:text-2xl font-bold text-white mb-3">
-            Sẵn sàng nâng cấp không gian sống?
+      {/* Conversion Banner */}
+      <section className="py-16 bg-gradient-to-r from-[#285c9a] to-[#1e4a80] text-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
+          <span className="font-mono text-xs uppercase tracking-widest text-blue-200">
+            Đồng Hành Cùng Không Gian Sống Của Bạn
+          </span>
+          <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
+            Liên Hệ Với Kỹ Sư Trưởng Hải Phát Ngay Hôm Nay
           </h3>
-          <p className="text-blue-100 text-sm mb-6 max-w-xl mx-auto">
-            Liên hệ ngay với chúng tôi để nhận tư vấn miễn phí về giải pháp thang máy phù hợp nhất.
+          <p className="text-blue-100/90 text-sm sm:text-base leading-relaxed max-w-xl mx-auto">
+            Nhận tư vấn giải pháp giếng thang và khảo sát hiện trạng hoàn toàn miễn phí.
           </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+          <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
             <a
-              href={`tel:${companyInfo.headquarters.hotline.replace(/\s/g, '')}`}
-              className="flex items-center justify-center gap-2 bg-white text-[#285c9a] px-6 py-3 rounded-xl font-semibold text-sm hover:bg-blue-50 transition-colors"
+              href="tel:0898424666"
+              className="inline-flex items-center gap-2 bg-white text-[#0d1f35] px-6 py-3 rounded-xl font-bold text-sm hover:bg-blue-50 transition-colors shadow active:scale-[0.98]"
             >
-              <Phone size={16} />
-              {companyInfo.headquarters.hotline}
+              <Phone size={15} className="text-[#285c9a]" />
+              <span className="font-mono">0898.424.666</span>
             </a>
-            <Link href="/lien-he"
-              className="flex items-center justify-center gap-2 bg-white/15 border border-white/30 text-white px-6 py-3 rounded-xl font-semibold text-sm hover:bg-white/25 transition-colors"
+            <Link
+              href="/lien-he"
+              className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white px-6 py-3 rounded-xl font-semibold text-sm transition-colors active:scale-[0.98]"
             >
-              Liên hệ tư vấn
-              <ArrowRight size={16} />
+              <span>Gửi Yêu Cầu Tư Vấn</span>
+              <ArrowRight size={15} />
             </Link>
           </div>
         </div>

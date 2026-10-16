@@ -1,92 +1,81 @@
 "use client";
+
 import { FileText, CheckCircle, AlertTriangle, Scale, ShieldCheck } from 'lucide-react';
 import { companyInfo } from '../data/company';
+import PageHeader from '../components/shared/PageHeader';
 
 export default function TermsOfUsePage() {
   return (
-    <div className="min-h-screen bg-white">
-      {/* Hero Header */}
-      <header className="bg-[#0d1f35] pt-36 pb-20 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#285c9a] rounded-full blur-3xl" />
-          <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-[#285c9a] rounded-full blur-3xl" />
-        </div>
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <span className="inline-flex items-center gap-2 text-[#285c9a] bg-[#285c9a]/15 text-xs font-semibold tracking-widest uppercase px-3 py-1 rounded-full mb-4">
-            <FileText size={14} />
-            Quy định chung
-          </span>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-5">
-            Điều Khoản Sử Dụng
-          </h1>
-          <p className="text-white/70 text-base leading-relaxed mb-6">
-            Bằng việc truy cập và sử dụng website của chúng tôi, bạn đồng ý tuân thủ các điều khoản và điều kiện dưới đây.
-          </p>
-        </div>
-      </header>
+    <div className="min-h-screen bg-slate-50">
+      {/* Unified PageHeader */}
+      <PageHeader
+        badge="Quy Định & Pháp Lý"
+        title="Điều Khoản & Điều Kiện Sử Dụng"
+        subtitle="Vui lòng đọc kỹ các điều khoản dưới đây trước khi tham khảo dữ liệu kỹ thuật, sử dụng dịch vụ hoặc gửi thông tin khảo sát trên website Thang Máy Hải Phát."
+        breadcrumbs={[{ label: 'Điều khoản sử dụng' }]}
+        telemetryTag="QUY ĐỊNH PHÁP LÝ // TIÊU CHUẨN XÂY DỰNG"
+      />
 
-      {/* Content */}
+      {/* Content Container */}
       <section className="py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="prose prose-blue max-w-none prose-headings:text-[#0d1f35] prose-a:text-[#285c9a]">
-            
-            <div className="bg-gray-50 rounded-2xl p-8 mb-10 border border-gray-100">
-              <h2 className="text-xl sm:text-2xl font-bold mb-4 flex items-center gap-3 text-gray-900">
-                <CheckCircle className="text-[#285c9a]" />
-                1. Chấp nhận các Điều khoản
+          <div className="bg-white rounded-3xl border border-slate-200/80 p-8 sm:p-12 shadow-sm space-y-8">
+            <div className="bg-slate-50 rounded-2xl p-6 sm:p-8 border border-slate-200/80">
+              <h2 className="text-lg sm:text-xl font-bold mb-3 flex items-center gap-3 text-[#0d1f35]">
+                <CheckCircle className="text-[#285c9a]" size={20} />
+                <span>1. Chấp nhận các điều khoản</span>
               </h2>
-              <p className="text-gray-600 mb-4">
-                Khi sử dụng website của {companyInfo.name}, bạn xác nhận rằng bạn đã đọc, hiểu và đồng ý chịu ràng buộc bởi các Điều khoản Sử dụng này. Nếu bạn không đồng ý với bất kỳ phần nào của các điều khoản, vui lòng không sử dụng website của chúng tôi.
+              <p className="text-slate-600 text-sm leading-relaxed">
+                Khi truy cập và tra cứu thông số kỹ thuật trên website của {companyInfo.name}, bạn xác nhận đã đọc, hiểu và đồng ý tuân thủ các quy định được công bố tại đây. Nếu không đồng ý với bất kỳ nội dung nào, bạn có thể ngừng truy cập website.
               </p>
             </div>
 
-            <div className="bg-gray-50 rounded-2xl p-8 mb-10 border border-gray-100">
-              <h2 className="text-xl sm:text-2xl font-bold mb-4 flex items-center gap-3 text-gray-900">
-                <ShieldCheck className="text-[#285c9a]" />
-                2. Quyền sở hữu trí tuệ
+            <div className="bg-slate-50 rounded-2xl p-6 sm:p-8 border border-slate-200/80">
+              <h2 className="text-lg sm:text-xl font-bold mb-3 flex items-center gap-3 text-[#0d1f35]">
+                <ShieldCheck className="text-[#285c9a]" size={20} />
+                <span>2. Quyền sở hữu trí tuệ & bản quyền hình ảnh</span>
               </h2>
-              <p className="text-gray-600 mb-4">
-                Tất cả nội dung trên website này, bao gồm nhưng không giới hạn ở văn bản, đồ họa, logo, biểu tượng, hình ảnh, clip âm thanh, tải xuống kỹ thuật số và biên soạn dữ liệu, đều là tài sản của {companyInfo.name} hoặc các nhà cung cấp nội dung của chúng tôi và được bảo vệ bởi luật bản quyền Việt Nam và quốc tế.
+              <p className="text-slate-600 text-sm leading-relaxed">
+                Toàn bộ tài liệu kỹ thuật, hình ảnh công trình thực tế, phối cảnh 3D cabin và nhãn hiệu "Thang Máy Hải Phát" đều thuộc quyền sở hữu độc quyền của công ty hoặc các đối tác chuyển giao công nghệ. Nghiêm cấm sao chép vì mục đích thương mại khi chưa có sự chấp thuận bằng văn bản.
               </p>
             </div>
 
-            <div className="bg-gray-50 rounded-2xl p-8 mb-10 border border-gray-100">
-              <h2 className="text-xl sm:text-2xl font-bold mb-4 flex items-center gap-3 text-gray-900">
-                <AlertTriangle className="text-[#285c9a]" />
-                3. Quy định sử dụng
+            <div className="bg-slate-50 rounded-2xl p-6 sm:p-8 border border-slate-200/80">
+              <h2 className="text-lg sm:text-xl font-bold mb-3 flex items-center gap-3 text-[#0d1f35]">
+                <AlertTriangle className="text-[#285c9a]" size={20} />
+                <span>3. Trách nhiệm của người sử dụng</span>
               </h2>
-              <p className="text-gray-600 mb-4">Bạn đồng ý KHÔNG sử dụng website này để:</p>
-              <ul className="list-disc pl-5 text-gray-600 space-y-2">
-                <li>Thực hiện bất kỳ hành vi vi phạm pháp luật hoặc quy định hiện hành nào.</li>
-                <li>Xâm phạm quyền sở hữu trí tuệ hoặc các quyền hợp pháp khác của chúng tôi hoặc của bất kỳ bên thứ ba nào.</li>
-                <li>Đăng tải hoặc truyền phát bất kỳ tài liệu có chứa virus phần mềm hoặc bất kỳ mã máy tính, tập tin hoặc chương trình nào khác được thiết kế để làm gián đoạn, phá hủy hoặc hạn chế chức năng của bất kỳ phần mềm hoặc phần cứng máy tính nào.</li>
-                <li>Thực hiện các hành vi gây cản trở hoặc phá vỡ tính năng an toàn, bảo mật của website.</li>
+              <p className="text-slate-600 text-sm leading-relaxed mb-3">Người sử dụng cam kết không thực hiện các hành vi:</p>
+              <ul className="list-disc pl-5 text-slate-600 text-sm space-y-2">
+                <li>Cung cấp số điện thoại hoặc thông tin sai lệch nhằm mục đích phá rối kênh tư vấn.</li>
+                <li>Sử dụng các công cụ tự động quét dữ liệu làm gián đoạn hệ thống máy chủ.</li>
+                <li>Đăng tải các nội dung vi phạm thuần phong mỹ tục hoặc pháp luật Việt Nam.</li>
               </ul>
             </div>
 
-            <div className="bg-gray-50 rounded-2xl p-8 mb-10 border border-gray-100">
-              <h2 className="text-xl sm:text-2xl font-bold mb-4 flex items-center gap-3 text-gray-900">
-                <Scale className="text-[#285c9a]" />
-                4. Giới hạn trách nhiệm
+            <div className="bg-slate-50 rounded-2xl p-6 sm:p-8 border border-slate-200/80">
+              <h2 className="text-lg sm:text-xl font-bold mb-3 flex items-center gap-3 text-[#0d1f35]">
+                <Scale className="text-[#285c9a]" size={20} />
+                <span>4. Giới hạn trách nhiệm về dữ liệu tham khảo</span>
               </h2>
-              <p className="text-gray-600 mb-4">
-                {companyInfo.name} không chịu trách nhiệm đối với bất kỳ thiệt hại trực tiếp, gián tiếp, ngẫu nhiên, đặc biệt hoặc mang tính hậu quả nào phát sinh từ việc sử dụng hoặc không thể sử dụng website này. Mặc dù chúng tôi luôn nỗ lực đảm bảo thông tin trên website là chính xác và cập nhật, nhưng không đưa ra bất kỳ sự đảm bảo nào về tính hoàn thiện hoặc chính xác tuyệt đối.
+              <p className="text-slate-600 text-sm leading-relaxed">
+                Các bảng thông số kỹ thuật (kích thước giếng thang, hố PIT, OH) được đăng tải mang tính chất quy chuẩn tham khảo. Mọi số liệu thi công chính thức sẽ được kỹ sư Hải Phát thẩm định và chốt trên bản vẽ thiết kế kết cấu kèm theo hợp đồng kinh tế.
               </p>
             </div>
 
-            <div className="bg-gray-50 rounded-2xl p-8 mb-10 border border-gray-100">
-              <h2 className="text-xl sm:text-2xl font-bold mb-4 flex items-center gap-3 text-gray-900">
-                <FileText className="text-[#285c9a]" />
-                5. Thay đổi Điều khoản
+            <div className="bg-slate-50 rounded-2xl p-6 sm:p-8 border border-slate-200/80">
+              <h2 className="text-lg sm:text-xl font-bold mb-3 flex items-center gap-3 text-[#0d1f35]">
+                <FileText className="text-[#285c9a]" size={20} />
+                <span>5. Điều chỉnh và hiệu lực áp dụng</span>
               </h2>
-              <p className="text-gray-600 mb-4">
-                Chúng tôi bảo lưu quyền cập nhật hoặc thay đổi các Điều khoản Sử dụng này vào bất kỳ lúc nào mà không cần thông báo trước. Việc bạn tiếp tục sử dụng website sau khi có những thay đổi như vậy đồng nghĩa với việc bạn chấp nhận các thay đổi đó.
+              <p className="text-slate-600 text-sm leading-relaxed">
+                Hải Phát có quyền cập nhật các điều khoản này theo yêu cầu thực tế của pháp luật và công nghệ. Các thay đổi sẽ có hiệu lực ngay khi được công bố công khai trên website.
               </p>
             </div>
-            
-            <div className="mt-12 text-center text-gray-500 text-sm">
-              <p>Cập nhật lần cuối: {new Date().toLocaleDateString('vi-VN')}</p>
-              <p className="mt-2">Nếu bạn có bất kỳ câu hỏi nào về Điều khoản sử dụng này, vui lòng liên hệ với chúng tôi qua hotline: {companyInfo.headquarters.hotline}</p>
+
+            <div className="pt-6 border-t border-slate-200 text-center text-slate-500 text-xs font-mono">
+              <p>Phiên bản cập nhật năm {new Date().getFullYear()} · Công Ty Thang Máy Hải Phát</p>
+              <p className="mt-1">Hotline giải đáp thắc mắc: {companyInfo.headquarters.hotline}</p>
             </div>
           </div>
         </div>

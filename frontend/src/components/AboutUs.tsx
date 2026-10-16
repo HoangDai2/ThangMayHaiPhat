@@ -1,7 +1,8 @@
 "use client";
+
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { ArrowRight, CheckCircle2, ShieldCheck, Building2 } from 'lucide-react';
+import { ArrowRight, CheckCircle2, ShieldCheck, Building2, Award } from 'lucide-react';
 
 interface CountUpProps {
   end: number;
@@ -10,8 +11,8 @@ interface CountUpProps {
   started: boolean;
 }
 
-function CountUp({ end, suffix = '', duration = 2000, started }: CountUpProps) {
-  const [count, setCount] = useState(0);
+function CountUp({ end, suffix = '', duration = 1200, started }: CountUpProps) {
+  const [count, setCount] = useState(end);
 
   useEffect(() => {
     if (!started) return;
@@ -33,11 +34,12 @@ function CountUp({ end, suffix = '', duration = 2000, started }: CountUpProps) {
       }
     };
 
+    setCount(0);
     animationFrame = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(animationFrame);
   }, [end, duration, started]);
 
-  return <>{started ? count : 0}{suffix}</>;
+  return <>{count}{suffix}</>;
 }
 
 export default function AboutUs() {
@@ -52,7 +54,7 @@ export default function AboutUs() {
           observer.disconnect();
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.15 }
     );
 
     if (ref.current) observer.observe(ref.current);
@@ -60,87 +62,86 @@ export default function AboutUs() {
   }, []);
 
   return (
-    <div className="flex flex-col">
-      {/* 2-column Layout */}
-      <div className="w-full px-5 sm:px-8 md:px-14 mt-4 sm:mt-8 lg:mt-12 mb-12 sm:mb-16 lg:mb-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          {/* Left: Image & Badge */}
-          <div className="relative">
-            {/* Decorative background shapes */}
-            <div className="absolute -top-6 -left-6 w-32 h-32 bg-[#f0f4f8] rounded-3xl -z-10"></div>
-            <div className="absolute -bottom-8 -right-8 w-40 h-40 border-[16px] border-[#f0f4f8] rounded-full -z-10"></div>
-
-            <div className="relative rounded-3xl overflow-hidden bg-[#f0f4f8] aspect-[4/3] flex items-center justify-center shadow-lg border border-slate-100">
+    <div ref={ref} className="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-10 lg:p-12 shadow-sm">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        {/* Left: Double-Bezel Media Frame */}
+        <div className="lg:col-span-6 relative">
+          <div className="card-double-bezel">
+            <div className="card-inner-core overflow-hidden relative aspect-[4/3] rounded-[calc(1rem-1px)]">
               <img
                 src="/472899435_953879650042855_3929925804925066729_n.jpg"
-                alt="Đội ngũ Hải Phát đang triển khai giải pháp thang máy"
-                className="w-full h-full object-cover text-sm text-slate-500"
+                alt="Đội ngũ kỹ sư Thang Máy Hải Phát triển khai dự án"
+                className="w-full h-full object-cover"
               />
-            </div>
-
-            {/* Floating Badge */}
-            <div className="absolute -bottom-6 left-6 sm:left-10 bg-white rounded-2xl shadow-xl p-4 sm:p-5 flex flex-col gap-1 z-10 border border-slate-50">
-              <div className="text-3xl sm:text-4xl font-extrabold text-[#285c9a] flex items-center tracking-tight">
-                <CountUp end={5} suffix="+" started={isVisible} />
-              </div>
-              <div className="text-xs sm:text-sm text-slate-600 font-medium max-w-[130px] leading-snug">
-                Năm đồng hành cùng khách hàng
-              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0d1f35]/60 via-transparent to-transparent" />
             </div>
           </div>
 
-          {/* Right: Content */}
-          <div className="space-y-6 lg:space-y-8">
-            <div className="space-y-3 sm:space-y-4">
-              <div className="inline-block">
-                <span className="text-[#285c9a] font-bold tracking-widest uppercase text-xs sm:text-sm">
-                  Về chúng tôi
-                </span>
-              </div>
-              <h2 className="text-3xl sm:text-4xl font-bold text-[#0f172a] leading-[1.2]">
-                Hải Phát – Nâng tầm không gian sống Việt
-              </h2>
+          {/* Floating Telemetry Badge */}
+          <div className="absolute -bottom-5 left-6 sm:left-8 bg-white/95 backdrop-blur-md rounded-2xl shadow-xl p-4 sm:p-5 flex items-center gap-4 border border-slate-200/80">
+            <div className="w-12 h-12 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-[#285c9a]">
+              <Award size={26} />
             </div>
-
-            <div className="space-y-4">
-              <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-                Được thành lập năm 2015, <b>Thang Máy Hải Phát</b> chuyên cung cấp giải pháp lắp đặt và bảo trì thang máy toàn diện, mang đến sản phẩm an toàn, bền bỉ và thẩm mỹ.
-              </p>
-              <div className="flex flex-wrap gap-2 pt-1">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-50 text-blue-700 text-xs font-semibold border border-blue-100">
-                  <ShieldCheck size={14} />
-                  Chứng chỉ CO/CQ
-                </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-50 text-slate-700 text-xs font-semibold border border-slate-200">
-                  <Building2 size={14} />
-                  Thiết bị Liên doanh Chính hãng
-                </span>
+            <div>
+              <div className="text-2xl sm:text-3xl font-extrabold text-[#285c9a] font-mono tracking-tight">
+                <CountUp end={5} suffix="+" started={isVisible} />
+              </div>
+              <div className="text-xs text-slate-600 font-medium">
+                Năm đồng hành kiến tạo
               </div>
             </div>
+          </div>
+        </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-2 py-2">
-              {[
-                'Tư vấn giải pháp phù hợp',
-                'Thi công đúng tiến độ',
-                'Linh kiện chính hãng',
-                'Bảo hành và hỗ trợ 24/7'
-              ].map((item, index) => (
-                <div key={index} className="flex items-center gap-2.5">
-                  <CheckCircle2 className="w-5 h-5 text-[#285c9a] shrink-0" />
-                  <span className="text-slate-700 font-medium text-sm sm:text-base">{item}</span>
-                </div>
-              ))}
+        {/* Right: Content & Core Pillars */}
+        <div className="lg:col-span-6 space-y-6">
+          <div className="space-y-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-[#285c9a] font-mono text-xs font-semibold uppercase tracking-wider">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#285c9a]" />
+              <span>Năng Lực & Uy Tín Doanh Nghiệp</span>
             </div>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#0d1f35] tracking-tight leading-tight">
+              Hải Phát – Nâng Tầm Không Gian Sống Việt
+            </h2>
+          </div>
 
-            <div className="pt-2">
-              <Link
-                href="/ve-chung-toi"
-                className="inline-flex items-center gap-2 bg-[#285c9a] hover:bg-[#1e4676] text-white px-6 py-3 rounded-xl text-sm font-semibold transition-all duration-300 shadow-md hover:shadow-lg group w-fit"
-              >
-                <span>Tìm hiểu về Hải Phát</span>
-                <ArrowRight size={18} className="group-hover:translate-x-1.5 transition-transform" />
-              </Link>
-            </div>
+          <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+            Được thành lập với sứ mệnh định hình chuẩn mực an toàn và thẩm mỹ cơ điện, <b>Thang Máy Hải Phát</b> cung cấp giải pháp lắp đặt, hiện đại hóa và bảo trì toàn diện. Mọi chi tiết kỹ thuật đều được đo kiểm nghiêm ngặt trước khi bàn giao.
+          </p>
+
+          <div className="flex flex-wrap gap-2.5">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-50 text-blue-700 text-xs font-semibold border border-blue-100">
+              <ShieldCheck size={14} className="text-[#285c9a]" />
+              Chứng chỉ CO/CQ 100%
+            </span>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 text-xs font-semibold border border-slate-200">
+              <Building2 size={14} className="text-slate-600" />
+              Linh kiện chính hãng Fuji & Montanari
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 py-2 border-y border-slate-100">
+            {[
+              'Tư vấn giải pháp may đo chuẩn kiến trúc',
+              'Thi công đúng tiến độ cam kết trong hợp đồng',
+              'Linh kiện nhập khẩu nguyên đai nguyên kiện',
+              'Đội ngũ kỹ sư chính hãng đào tạo chuyên sâu'
+            ].map((item, index) => (
+              <div key={index} className="flex items-start gap-2.5">
+                <CheckCircle2 className="w-4 h-4 text-[#285c9a] shrink-0 mt-0.5" />
+                <span className="text-slate-700 text-xs sm:text-sm font-medium leading-snug">{item}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="pt-1">
+            <Link
+              href="/ve-chung-toi"
+              className="group inline-flex items-center gap-2 bg-[#285c9a] hover:bg-[#1e4a80] text-white px-6 py-3 rounded-xl text-sm font-semibold transition-all duration-300 shadow-md shadow-[#285c9a]/20 hover:shadow-lg active:scale-[0.98]"
+            >
+              <span>Tìm hiểu về Hải Phát</span>
+              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+            </Link>
           </div>
         </div>
       </div>

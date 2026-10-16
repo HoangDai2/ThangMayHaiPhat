@@ -1,11 +1,10 @@
 "use client";
+
 import Link from 'next/link';
 import {
   Building2,
   ShieldCheck,
   Settings,
-  Clock,
-  Headphones,
   ArrowRight,
   Home,
   Truck,
@@ -14,9 +13,11 @@ import {
   Search,
   Ruler,
   Wrench,
+  CheckCircle2,
 } from 'lucide-react';
 import { useProductsData } from '../hooks/useProductsData';
 import { useServicesData } from '../hooks/useServicesData';
+import SectionHeader from './shared/SectionHeader';
 
 const productIconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
   home: Home,
@@ -33,156 +34,171 @@ const serviceIconMap: Record<string, React.ComponentType<{ size?: number; classN
   'shield-check': ShieldCheck,
 };
 
-
-
 export default function Services() {
   const { products } = useProductsData();
   const { services: serviceItems } = useServicesData();
 
   return (
-    <section id="services" className="pt-8 pb-16 sm:pb-20 bg-gray-50 flex flex-col space-y-12 sm:space-y-14">
-      {/* Services strip (Full Width Edge-to-Edge) */}
-      <div className="w-full bg-white border-y border-gray-100 shadow-sm py-16 sm:py-24">
-        <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-6 mb-8 text-center sm:text-left">
-            <div>
-              <span className="inline-block text-[#285c9a] text-sm font-semibold tracking-widest uppercase mb-2">
-                Dịch vụ
-              </span>
-              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">Quy Trình Dịch Vụ Chuyên Nghiệp</h2>
-              <p className="text-gray-500 text-sm mt-1">Đồng hành cùng bạn trong toàn bộ vòng đời thang máy</p>
-            </div>
-          </div>
-          <div className="relative mt-12 md:mt-16 max-w-6xl mx-auto w-full">
-            {/* Center Line for Desktop, Left Line for Mobile */}
-            <div className="absolute left-[20px] md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-gray-100 via-gray-200 to-gray-100 transform md:-translate-x-1/2"></div>
+    <section id="services" className="py-16 sm:py-24 bg-slate-50 border-b border-slate-200/60">
+      {/* 1. PROFESSIONAL SERVICE WORKFLOW */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <SectionHeader
+          badge="Tiêu Chuẩn Kỹ Thuật"
+          title="Quy Trình Dịch Vụ Cơ Điện Chuyên Nghiệp"
+          subtitle="Đồng hành khép kín cùng gia chủ trong toàn bộ vòng đời sản phẩm từ khảo sát thực địa đến vận hành và bảo trì trọn đời."
+        />
 
-            <div className="space-y-12 md:space-y-0">
-              {serviceItems.map((service, idx) => {
-                const Icon = serviceIconMap[service.icon] || Settings;
-                const isEven = idx % 2 === 1; // 0-indexed, so 1 (Step 2) is even
-                const isLast = idx === serviceItems.length - 1;
+        {/* Timeline Workflow */}
+        <div className="relative mt-12 max-w-5xl mx-auto w-full">
+          {/* Vertical Track Line */}
+          <div className="absolute left-[20px] md:left-1/2 top-4 bottom-4 w-0.5 bg-gradient-to-b from-[#285c9a]/20 via-slate-300 to-[#285c9a]/20 transform md:-translate-x-1/2" />
 
-                return (
-                  <div key={service.id} className={`relative flex flex-col md:flex-row items-start ${isEven ? 'md:flex-row-reverse' : ''} group ${!isLast ? 'md:pb-24' : ''}`}>
+          <div className="space-y-12 md:space-y-0">
+            {serviceItems.map((service, idx) => {
+              const Icon = serviceIconMap[service.icon] || Settings;
+              const isEven = idx % 2 === 1;
+              const isLast = idx === serviceItems.length - 1;
 
-                    {/* Icon Node */}
-                    <div className="absolute left-[20px] md:left-1/2 transform -translate-x-1/2 flex items-center justify-center w-10 h-10 md:w-[54px] md:h-[54px] rounded-full bg-white border-[3px] md:border-[4px] border-gray-50 shadow-md group-hover:border-[#285c9a]/20 group-hover:scale-110 transition-all duration-500 z-10">
-                      <div className="flex items-center justify-center w-full h-full rounded-full bg-gray-50 group-hover:bg-[#285c9a] transition-colors duration-500">
-                        <Icon className="w-5 h-5 md:w-[22px] md:h-[22px] text-[#285c9a] group-hover:text-white transition-colors duration-500" />
-                      </div>
+              return (
+                <div
+                  key={service.id}
+                  className={`relative flex flex-col md:flex-row items-start ${
+                    isEven ? 'md:flex-row-reverse' : ''
+                  } group ${!isLast ? 'md:pb-16' : ''}`}
+                >
+                  {/* Central Node Indicator */}
+                  <div className="absolute left-[20px] md:left-1/2 transform -translate-x-1/2 flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-full bg-white border-2 border-slate-200 shadow-md group-hover:border-[#285c9a] group-hover:scale-110 transition-all duration-300 z-10">
+                    <div className="flex items-center justify-center w-full h-full rounded-full bg-slate-50 group-hover:bg-[#285c9a] transition-colors duration-300">
+                      <Icon className="w-4 h-4 md:w-5 md:h-5 text-[#285c9a] group-hover:text-white transition-colors duration-300" />
                     </div>
+                  </div>
 
-                    {/* Content Card */}
-                    <div className={`w-full md:w-1/2 pl-12 md:pl-0 ${isEven ? 'md:pr-10' : 'md:pl-10'} mt-1 md:mt-0`}>
-                      <div className="block bg-white p-6 md:p-8 rounded-3xl shadow-sm hover:shadow-xl hover:shadow-[#285c9a]/10 border border-gray-100 transition-all duration-500 hover:-translate-y-1 relative overflow-hidden group-hover:border-[#285c9a]/30">
-
-                        {/* Decorative background element */}
-                        <div className={`absolute top-0 ${isEven ? 'right-0' : 'left-0'} w-1.5 h-full bg-gradient-to-b from-[#285c9a] to-[#3a7bd5] opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
-
-                        <div className="flex flex-col text-left">
-                          <img
-                            src={[
-                              '/189644056_157443963019765_6705723621810017597_n.jpg',
-                              '/763701258_1499177482225709_114956793849319926_n.jpg',
-                              '/483100261_1075555607921234_7097560171354795472_n.jpg',
-                              '/762974441_1501082972035160_5634679056048782805_n.jpg'
-                            ][idx % 4]}
-                            alt={service.title}
-                            className="w-full h-56 md:h-64 object-cover rounded-2xl mb-6 shadow-sm"
-                          />
-                          <div className="inline-flex items-center justify-center px-3 py-1 rounded-full bg-[#285c9a]/10 text-[#285c9a] text-xs font-bold tracking-widest uppercase mb-4 w-fit">
-                            Bước {idx + 1}
-                          </div>
-                          <h4 className="font-bold text-gray-900 text-xl md:text-2xl mb-4 group-hover:text-[#285c9a] transition-colors">{service.title}</h4>
-
-                          <div className="text-gray-600 text-sm md:text-base leading-relaxed">
-                            {service.shortDescription.includes('•') ? (
-                              <ul className="space-y-3">
-                                {service.shortDescription.split('•').filter(Boolean).map((part, i) => (
-                                  <li key={i} className="flex items-start">
-                                    <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-[#285c9a] mt-2 mr-3" />
-                                    <span>{part.trim()}</span>
-                                  </li>
-                                ))}
-                              </ul>
-                            ) : (
-                              <p>{service.shortDescription}</p>
-                            )}
-                          </div>
+                  {/* Card Content with Double-Bezel Structure */}
+                  <div className={`w-full md:w-1/2 pl-12 md:pl-0 ${isEven ? 'md:pr-10' : 'md:pl-10'}`}>
+                    <div className="bg-white p-6 sm:p-7 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-xl hover:border-[#285c9a]/40 transition-all duration-300 group-hover:-translate-y-1">
+                      <div className="relative h-48 sm:h-56 rounded-xl overflow-hidden mb-5 bg-slate-100">
+                        <img
+                          src={[
+                            '/189644056_157443963019765_6705723621810017597_n.jpg',
+                            '/763701258_1499177482225709_114956793849319926_n.jpg',
+                            '/483100261_1075555607921234_7097560171354795472_n.jpg',
+                            '/762974441_1501082972035160_5634679056048782805_n.jpg'
+                          ][idx % 4]}
+                          alt={service.title}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#0d1f35]/60 via-transparent to-transparent" />
+                        <div className="absolute bottom-3 left-3 bg-[#0d1f35]/90 backdrop-blur-md px-3 py-1 rounded-lg text-white font-mono text-xs font-semibold uppercase tracking-wider border border-white/10">
+                          Giai Đoạn 0{idx + 1}
                         </div>
+                      </div>
+
+                      <h3 className="font-extrabold text-[#0d1f35] text-lg sm:text-xl mb-2.5 group-hover:text-[#285c9a] transition-colors">
+                        {service.title}
+                      </h3>
+
+                      <div className="text-slate-600 text-sm leading-relaxed">
+                        {service.shortDescription.includes('•') ? (
+                          <ul className="space-y-2 mt-2">
+                            {service.shortDescription.split('•').filter(Boolean).map((part, i) => (
+                              <li key={i} className="flex items-start gap-2">
+                                <CheckCircle2 className="w-4 h-4 text-[#285c9a] shrink-0 mt-0.5" />
+                                <span>{part.trim()}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        ) : (
+                          <p>{service.shortDescription}</p>
+                        )}
                       </div>
                     </div>
                   </div>
-                );
-              })}
-            </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
 
-      {/* Products section */}
-      <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="pt-2">
-          {/* Products header */}
-          <div className="text-center mb-12 sm:mb-14">
-            <span className="inline-block text-[#285c9a] text-sm font-semibold tracking-widest uppercase mb-3">
-              Sản phẩm
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-              Dòng Thang Máy Cao Cấp
-            </h2>
-            <p className="text-gray-500 max-w-xl mx-auto text-base leading-relaxed">
-              Các dòng thang máy nhập khẩu & liên doanh chính hãng, đáp ứng đa dạng nhu cầu:
-              từ thang máy gia đình đến thang tải khách, thang quan sát
-            </p>
-          </div>
+      {/* 2. PREMIUM PRODUCT CATALOG */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-24">
+        <SectionHeader
+          badge="Danh Mục Sản Phẩm"
+          title="Dòng Thang Máy Cơ Điện Cao Cấp"
+          subtitle="Các dòng thang máy nhập khẩu nguyên chiếc & liên doanh chính hãng, đáp ứng hoàn hảo từ thang máy gia đình, biệt thự cao cấp đến thang tải khách chuyên dụng."
+          action={
+            <Link
+              href="/san-pham"
+              className="group inline-flex items-center gap-1.5 text-sm font-bold text-[#285c9a] hover:text-[#1e4a80] transition-colors"
+            >
+              <span>Xem tất cả sản phẩm</span>
+              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+            </Link>
+          }
+        />
 
-          {/* Product cards grid */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {products.map((product) => {
-              const Icon = productIconMap[product.icon] || Building2;
-              return (
-                <Link key={product.id}
-                  href={`/san-pham/${product.id}`}
-                  className="group bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
-                >
-                  {/* Image */}
-                  <div className="relative h-48 overflow-hidden">
-                    <img
-                      src={product.image}
-                      alt={product.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0d1f35]/60 to-transparent" />
-                    <div className="absolute bottom-4 left-4 flex items-center gap-2">
-                      <div className="w-9 h-9 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
-                        <Icon size={18} className="text-white" />
-                      </div>
-                      <h3 className="text-white font-bold text-lg">{product.title}</h3>
-                    </div>
+        {/* 3-Column Product Grid */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {products.map((product) => {
+            const Icon = productIconMap[product.icon] || Building2;
+            return (
+              <Link
+                key={product.id}
+                href={`/san-pham/${product.id}`}
+                className="group bg-white rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm hover:shadow-xl hover:border-[#285c9a]/40 transition-all duration-300 hover:-translate-y-1 flex flex-col"
+              >
+                {/* Media Image with Dark Gradient Wash */}
+                <div className="relative h-52 sm:h-56 overflow-hidden bg-slate-900">
+                  <img
+                    src={product.image}
+                    alt={product.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0d1f35]/85 via-[#0d1f35]/30 to-transparent" />
+                  
+                  {/* Category icon badge */}
+                  <div className="absolute top-4 left-4 w-9 h-9 rounded-xl bg-white/20 backdrop-blur-md border border-white/20 flex items-center justify-center text-white">
+                    <Icon size={18} />
                   </div>
 
-                  {/* Content */}
-                  <div className="p-5">
-                    <p className="text-gray-500 text-sm leading-relaxed mb-4 line-clamp-3">{product.shortDescription}</p>
-                    <ul className="grid grid-cols-2 gap-2 mb-4">
+                  <div className="absolute bottom-3 left-4 right-4">
+                    <h3 className="text-white font-bold text-lg sm:text-xl drop-shadow-sm group-hover:text-blue-200 transition-colors">
+                      {product.title}
+                    </h3>
+                  </div>
+                </div>
+
+                {/* Card Content & Mechanical Features */}
+                <div className="p-5 sm:p-6 flex flex-col flex-1 justify-between">
+                  <div>
+                    <p className="text-slate-600 text-xs sm:text-sm leading-relaxed mb-4 line-clamp-2">
+                      {product.shortDescription}
+                    </p>
+
+                    {/* Features Badges */}
+                    <ul className="grid grid-cols-2 gap-2 mb-5">
                       {product.features.slice(0, 4).map((f) => (
-                        <li key={f} className="flex items-center gap-1.5 text-xs text-gray-600">
+                        <li key={f} className="flex items-center gap-1.5 text-xs text-slate-700 bg-slate-50 border border-slate-200/60 px-2.5 py-1.5 rounded-lg">
                           <span className="w-1.5 h-1.5 rounded-full bg-[#285c9a] flex-shrink-0" />
-                          {f}
+                          <span className="truncate">{f}</span>
                         </li>
                       ))}
                     </ul>
-                    <span className="group/btn inline-flex items-center gap-1.5 text-[#285c9a] font-semibold text-sm hover:gap-2.5 transition-all duration-200">
-                      Xem chi tiết
-                      <ArrowRight size={15} className="group-hover/btn:translate-x-0.5 transition-transform" />
+                  </div>
+
+                  <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
+                    <span className="font-mono text-xs text-slate-500 uppercase tracking-wide">
+                      Tiêu chuẩn EN 81
+                    </span>
+                    <span className="inline-flex items-center gap-1.5 text-[#285c9a] font-bold text-xs sm:text-sm group-hover:gap-2 transition-all">
+                      <span>Chi tiết kỹ thuật</span>
+                      <ArrowRight size={14} />
                     </span>
                   </div>
-                </Link>
-              );
-            })}
-          </div>
+                </div>
+              </Link>
+            );
+          })}
         </div>
       </div>
     </section>

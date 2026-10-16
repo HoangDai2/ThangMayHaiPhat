@@ -9,4 +9,12 @@ class BitrixTaskFile extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    protected $appends = ['url'];
+
+    public function getUrlAttribute()
+    {
+        return $this->file_url;
+    }
 }
+

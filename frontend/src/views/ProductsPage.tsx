@@ -1,4 +1,5 @@
 "use client";
+
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { useState } from 'react';
@@ -22,10 +23,16 @@ import {
   Layers,
   Settings,
   AlertCircle,
+  Loader2,
+  CheckCircle2,
+  Cpu,
+  Ruler,
+  Gauge,
 } from 'lucide-react';
 import { Product } from '../data/products';
 import { useProductsData } from '../hooks/useProductsData';
-import { Loader2 } from 'lucide-react';
+import PageHeader from '../components/shared/PageHeader';
+import SectionHeader from '../components/shared/SectionHeader';
 
 const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
   home: Home,
@@ -35,153 +42,201 @@ const iconMap: Record<string, React.ComponentType<{ size?: number; className?: s
   'heart-pulse': HeartPulse,
 };
 
-// Products List Page
+// ===================== Products List View =====================
 export function ProductsList() {
   const { products, loading } = useProductsData();
-  if (loading) return <div className="min-h-screen flex items-center justify-center"><Loader2 className="w-8 h-8 animate-spin text-[#285c9a]" /></div>;
-  return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Hero Header */}
-      <header className="bg-[#0d1f35] pt-36 pb-32 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-10 left-10 w-64 h-64 bg-[#285c9a] rounded-full blur-3xl" />
-          <div className="absolute bottom-10 right-10 w-96 h-96 bg-[#285c9a] rounded-full blur-3xl" />
-        </div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <span className="inline-block text-[#285c9a] bg-[#285c9a]/15 text-xs font-semibold tracking-widest uppercase px-3 py-1 rounded-full mb-4">
-            Sản phẩm
-          </span>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
-            Dòng Thang Máy Cao Cấp
-          </h1>
-          <p className="text-white/70 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
-            Đa dạng dòng thang máy đáp ứng mọi nhu cầu: từ thang máy gia đình đến thang tải khách, thang quan sát
-          </p>
-        </div>
-      </header>
 
-      {/* Products Grid */}
-      <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 py-12 -mt-8 relative z-20">
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-slate-50">
+        <div className="flex flex-col items-center gap-3">
+          <Loader2 className="w-8 h-8 animate-spin text-[#285c9a]" />
+          <p className="text-sm font-mono text-slate-500">Đang tải danh mục sản phẩm...</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-slate-50">
+      {/* Unified High-End Page Header */}
+      <PageHeader
+        badge="Catalogue Sản Phẩm"
+        title="Dòng Thang Máy Cơ Điện Cao Cấp"
+        subtitle="Hệ thống thang máy liên doanh và nhập khẩu nguyên chiếc đạt chuẩn chất lượng Châu Âu EN 81 và QCVN. May đo chuẩn xác cho biệt thự, nhà phố và tòa nhà cao tầng."
+        breadcrumbs={[{ label: 'Sản phẩm' }]}
+        telemetryTag="CHỨNG NHẬN CO/CQ 100% // ISO 9001"
+      />
+
+      {/* Main Catalog Container */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        {/* Products Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {products.map((product) => {
             const Icon = iconMap[product.icon] || Building2;
             return (
-              <Link key={product.id}
+              <Link
+                key={product.id}
                 href={`/san-pham/${product.id}`}
-                className="group bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+                className="group bg-white rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm hover:shadow-2xl hover:border-[#285c9a]/40 transition-all duration-300 hover:-translate-y-1.5 flex flex-col"
               >
-                {/* Image */}
-                <div className="relative h-48 overflow-hidden">
+                {/* Media Image with Dark Gradient Wash */}
+                <div className="relative h-56 sm:h-60 overflow-hidden bg-slate-900">
                   <img
                     src={product.image}
                     alt={product.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0d1f35]/60 to-transparent" />
-                  <div className="absolute top-4 left-4 w-10 h-10 rounded-xl bg-[#285c9a] flex items-center justify-center">
-                    <Icon size={20} className="text-white" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0d1f35]/90 via-[#0d1f35]/30 to-transparent" />
+
+                  {/* Icon Node */}
+                  <div className="absolute top-4 left-4 w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md border border-white/25 flex items-center justify-center text-white shadow-md">
+                    <Icon size={20} />
+                  </div>
+
+                  {/* Telemetry pill */}
+                  <span className="absolute top-4 right-4 bg-[#0d1f35]/80 backdrop-blur-md border border-white/20 text-white font-mono text-[11px] font-semibold px-2.5 py-1 rounded-md uppercase tracking-wider">
+                    May Đo Theo Yêu Cầu
+                  </span>
+
+                  <div className="absolute bottom-3.5 left-4 right-4">
+                    <h3 className="text-white font-extrabold text-lg sm:text-xl drop-shadow group-hover:text-blue-200 transition-colors">
+                      {product.title}
+                    </h3>
                   </div>
                 </div>
 
-                {/* Content */}
-                <div className="p-6">
-                  <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-[#285c9a] transition-colors">
-                    {product.title}
-                  </h3>
-                  <p className="text-gray-500 text-sm leading-relaxed mb-4 line-clamp-2">
-                    {product.shortDescription}
-                  </p>
+                {/* Content Block */}
+                <div className="p-6 flex flex-col flex-1 justify-between space-y-5">
+                  <div>
+                    <p className="text-slate-600 text-xs sm:text-sm leading-relaxed mb-4 line-clamp-2">
+                      {product.shortDescription}
+                    </p>
 
-                  {/* Quick specs */}
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {product.specifications.slice(0, 2).map((spec) => (
-                      <span
-                        key={spec.label}
-                        className="bg-gray-50 text-gray-600 text-xs px-2.5 py-1 rounded-full"
-                      >
-                        {spec.value}
-                      </span>
-                    ))}
+                    {/* Mechanical Specifications Pills with font-mono */}
+                    <div className="grid grid-cols-2 gap-2 mb-4">
+                      {product.specifications.slice(0, 4).map((spec) => (
+                        <div
+                          key={spec.label}
+                          className="bg-slate-50 border border-slate-200/60 p-2 rounded-xl text-center"
+                        >
+                          <div className="text-[10px] text-slate-500 font-semibold uppercase tracking-wider">
+                            {spec.label}
+                          </div>
+                          <div className="text-xs font-bold text-slate-800 font-mono mt-0.5 truncate">
+                            {spec.value}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
 
-                  <span className="group inline-flex items-center gap-1.5 text-[#285c9a] font-semibold text-sm">
-                    Xem chi tiết
-                    <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
-                  </span>
+                  <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs sm:text-sm">
+                    <span className="font-mono text-slate-500 font-medium">Bảo hành 36 tháng</span>
+                    <span className="inline-flex items-center gap-1.5 text-[#285c9a] font-bold group-hover:gap-2 transition-all">
+                      <span>Xem thông số kỹ thuật</span>
+                      <ArrowRight size={14} />
+                    </span>
+                  </div>
                 </div>
               </Link>
             );
           })}
         </div>
-      </div>
 
-      {/* Why Choose Us */}
-      <section className="bg-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
-              Tại sao chọn Hải Phát?
-            </h2>
-            <p className="text-gray-500 max-w-xl mx-auto text-sm">
-              Chúng tôi cam kết mang đến sản phẩm thang máy tốt nhất với đội ngũ chuyên nghiệp
-              và giải pháp toàn diện.
-            </p>
-          </div>
+        {/* Engineering Standards / Why Choose Hai Phat */}
+        <div className="mt-24 bg-white rounded-3xl border border-slate-200/80 p-8 sm:p-12 shadow-sm">
+          <SectionHeader
+            badge="Cam Kết Chất Lượng"
+            title="Vì Sao Gia Chủ & Chủ Đầu Tư Chọn Thang Máy Hải Phát?"
+            subtitle="Kỷ luật cơ điện chính xác và tôn trọng tính thẩm mỹ kiến trúc là triết lý vận hành cốt lõi trong mọi dự án."
+          />
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { icon: Star, title: '15+ năm kinh nghiệm', desc: 'Đội ngũ chuyên gia với kinh nghiệm sâu trong ngành thang máy.' },
-              { icon: Shield, title: 'An toàn tuyệt đối', desc: 'Tuân thủ tiêu chuẩn QCVN, EN 81 với hệ thống an toàn đa lớp.' },
-              { icon: Clock, title: 'Hỗ trợ 24/7', desc: 'Đường dây nóng hoạt động 24/7, phản ứng sự cố trong 2 giờ.' },
-              { icon: Zap, title: 'Công nghệ tiên tiến', desc: 'Sử dụng công nghệ mới nhất từ các thương hiệu hàng đầu thế giới.' },
-            ].map(({ icon: Icon, title, desc }) => (
-              <div key={title} className="text-center p-6 rounded-2xl bg-gray-50">
-                <div className="w-14 h-14 rounded-2xl bg-[#285c9a]/10 flex items-center justify-center mx-auto mb-4">
-                  <Icon size={24} className="text-[#285c9a]" />
+              {
+                icon: Shield,
+                title: 'Chuẩn EN 81 & QCVN',
+                desc: 'Hệ thống an toàn đa tầng với phanh cơ khí tức thời, cứu hộ tự động ARD khi mất điện lưới.',
+                metric: '100% KIỂM ĐỊNH'
+              },
+              {
+                icon: Cpu,
+                title: 'Biến Tần Fuji & Montanari',
+                desc: 'Trang bị động cơ không hộp số tiết kiệm 40% điện năng, vận hành êm ái dưới 45dB.',
+                metric: 'NHẬP KHẨU Ý / NHẬT'
+              },
+              {
+                icon: Clock,
+                title: 'Cứu Hộ 24/7 Dưới 30P',
+                desc: 'Đội phản ứng nhanh thường trực toàn thời gian, cam kết có mặt xử lý trong vòng 30 phút.',
+                metric: 'SLA KHẨN CẤP'
+              },
+              {
+                icon: Star,
+                title: 'Hố PIT Nông Từ 200mm',
+                desc: 'Giải pháp tối ưu không cần đào sâu hay can thiệp vào móng bè, bảo vệ trọn vẹn phong thủy.',
+                metric: 'TIẾT KIỆM KHÔNG GIAN'
+              },
+            ].map(({ icon: Icon, title, desc, metric }) => (
+              <div
+                key={title}
+                className="p-5 sm:p-6 rounded-2xl bg-slate-50 border border-slate-200/60 hover:bg-white hover:border-[#285c9a]/30 hover:shadow-lg transition-all duration-300 flex flex-col justify-between"
+              >
+                <div>
+                  <div className="w-12 h-12 rounded-xl bg-blue-50 border border-blue-100 text-[#285c9a] flex items-center justify-center mb-4">
+                    <Icon size={22} />
+                  </div>
+                  <h4 className="font-extrabold text-slate-900 text-sm sm:text-base mb-2">{title}</h4>
+                  <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">{desc}</p>
                 </div>
-                <h4 className="font-bold text-gray-900 text-sm mb-2">{title}</h4>
-                <p className="text-gray-500 text-xs leading-relaxed">{desc}</p>
+
+                <div className="mt-4 pt-3 border-t border-slate-200/60 font-mono text-[11px] font-bold text-[#285c9a]">
+                  {metric}
+                </div>
               </div>
             ))}
           </div>
         </div>
-      </section>
 
-      {/* CTA */}
-      <section className="py-16">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-gradient-to-r from-[#285c9a] to-[#1e4a80] rounded-2xl p-8 text-center">
-            <h3 className="text-xl sm:text-2xl font-bold text-white mb-3">
-              Cần tư vấn giải pháp thang máy?
+        {/* Bottom CTA Card */}
+        <div className="mt-16 bg-gradient-to-r from-[#0d1f35] to-[#1e4a80] rounded-3xl p-8 sm:p-12 text-white shadow-xl relative overflow-hidden">
+          <div className="absolute inset-0 bg-grid-blueprint opacity-10 pointer-events-none" />
+          <div className="relative z-10 max-w-3xl mx-auto text-center space-y-4">
+            <span className="font-mono text-xs uppercase tracking-widest text-blue-300 bg-white/10 px-3 py-1 rounded-full border border-white/15">
+              Tư Vấn May Đo Kích Thước Giếng Thang
+            </span>
+            <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
+              Cần Giải Pháp Thiết Kế Thang Máy Chuẩn Kiến Trúc?
             </h3>
-            <p className="text-blue-100 text-sm mb-6 max-w-xl mx-auto">
-              Liên hệ ngay với đội ngũ chuyên gia của chúng tôi để được tư vấn miễn phí
-              về giải pháp thang máy phù hợp nhất cho công trình của bạn.
+            <p className="text-blue-100/90 text-sm sm:text-base leading-relaxed max-w-xl mx-auto">
+              Đội ngũ kỹ sư kết cấu Hải Phát sẽ trực tiếp đến tận chân công trình đo đạc hiện trạng và gửi phối cảnh 3D hoàn toàn miễn phí.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
               <a
                 href="tel:0898424666"
-                className="flex items-center justify-center gap-2 bg-white text-[#285c9a] px-6 py-3 rounded-xl font-semibold text-sm hover:bg-blue-50 transition-colors"
+                className="inline-flex items-center gap-2 bg-white text-[#0d1f35] px-6 py-3 rounded-xl font-bold text-sm hover:bg-blue-50 transition-colors shadow-md active:scale-[0.98]"
               >
-                <Phone size={16} />
-                Hotline: 0898 424 666
+                <Phone size={15} className="text-[#285c9a]" />
+                <span className="font-mono">Hotline: 0898 424 666</span>
               </a>
-              <Link href="/lien-he"
-                className="flex items-center justify-center gap-2 bg-white/15 border border-white/30 text-white px-6 py-3 rounded-xl font-semibold text-sm hover:bg-white/25 transition-colors"
+              <Link
+                href="/lien-he"
+                className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white px-6 py-3 rounded-xl font-semibold text-sm transition-colors active:scale-[0.98]"
               >
-                <Mail size={16} />
-                Gửi yêu cầu tư vấn
+                <Mail size={15} />
+                <span>Gửi Yêu Cầu Báo Giá</span>
               </Link>
             </div>
           </div>
         </div>
-      </section>
+      </div>
     </div>
   );
 }
 
-// Product Detail Page
-function ProductDetail() {
+// ===================== Product Detail View =====================
+export function ProductDetail() {
   const { id } = useParams<{ id: string }>();
   const { loading, getById, getRelated } = useProductsData();
   const product = getById(id || '');
@@ -189,16 +244,30 @@ function ProductDetail() {
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
   const [activeImage, setActiveImage] = useState(0);
 
-  if (loading) return <div className="min-h-screen flex items-center justify-center"><Loader2 className="w-8 h-8 animate-spin text-[#285c9a]" /></div>;
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-slate-50">
+        <div className="flex flex-col items-center gap-3">
+          <Loader2 className="w-8 h-8 animate-spin text-[#285c9a]" />
+          <p className="text-sm font-mono text-slate-500">Đang tải chi tiết sản phẩm...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!product) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="text-center">
-          <AlertCircle size={48} className="text-gray-300 mx-auto mb-4" />
-          <h1 className="text-xl font-bold text-gray-900 mb-3">Không tìm thấy sản phẩm</h1>
-          <Link href="/san-pham" className="text-[#285c9a] font-semibold hover:underline text-sm">
-            Quay lại danh sách sản phẩm
+      <div className="min-h-screen flex items-center justify-center bg-slate-50">
+        <div className="text-center p-8 bg-white rounded-2xl border border-slate-200 shadow-sm max-w-md">
+          <AlertCircle size={44} className="text-rose-500 mx-auto mb-3" />
+          <h1 className="text-xl font-bold text-slate-900 mb-2">Không tìm thấy thông tin sản phẩm</h1>
+          <p className="text-sm text-slate-500 mb-5">Sản phẩm này có thể đã được cập nhật hoặc không tồn tại.</p>
+          <Link
+            href="/san-pham"
+            className="inline-flex items-center gap-2 bg-[#285c9a] text-white px-5 py-2.5 rounded-xl font-semibold text-sm hover:bg-[#1e4a80] transition-colors"
+          >
+            <ChevronLeft size={16} />
+            <span>Về danh mục sản phẩm</span>
           </Link>
         </div>
       </div>
@@ -206,81 +275,111 @@ function ProductDetail() {
   }
 
   const Icon = iconMap[product.icon] || Building2;
-  const gallery = product.gallery && product.gallery.length > 0 
-    ? product.gallery 
-    : [product.image];
+  const gallery = product.gallery && product.gallery.length > 0 ? product.gallery : [product.image];
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Hero Header */}
-      <header className="relative h-[50vh] min-h-[380px] overflow-hidden">
-        <img
-          src={product.image}
-          alt={product.title}
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0d1f35] via-[#0d1f35]/50 to-transparent" />
+    <div className="min-h-screen bg-slate-50">
+      {/* Product Hero Header with Breadcrumbs */}
+      <PageHeader
+        badge={product.subtitle || 'Thang Máy Cơ Điện'}
+        title={product.title}
+        subtitle={product.shortDescription}
+        breadcrumbs={[
+          { label: 'Sản phẩm', href: '/san-pham' },
+          { label: product.title },
+        ]}
+        telemetryTag="CHỨNG NHẬN CO/CQ // AN TOÀN EN 81"
+      />
 
-        {/* Back button */}
-        <Link href="/san-pham"
-          className="absolute top-24 left-6 flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-white/20 transition-colors z-10"
-        >
-          <ChevronLeft size={16} />
-          Quay lại
-        </Link>
-
-        {/* Title overlay */}
-        <div className="absolute bottom-0 left-0 right-0 pb-10 px-4 sm:px-8">
-          <div className="max-w-7xl mx-auto">
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-xl bg-[#285c9a] flex items-center justify-center">
-                <Icon size={20} className="text-white" />
-              </div>
-              <span className="text-white/70 text-sm">{product.subtitle}</span>
-            </div>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white">
-              {product.title}
-            </h1>
-          </div>
-        </div>
-      </header>
-
-      {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        {/* Quick Info Bar */}
-        <div className="bg-gray-50 rounded-2xl p-6 mb-10">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            {product.specifications.slice(0, 4).map((spec) => (
-              <div key={spec.label} className="text-center">
-                <div className="text-gray-400 text-xs uppercase tracking-wide mb-1">{spec.label}</div>
-                <div className="text-gray-900 font-bold text-sm">{spec.value.split(' ')[0]}</div>
+      {/* Main Content Area */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Quick Telemetry Specs Strip */}
+        <div className="bg-white rounded-2xl border border-slate-200/80 p-5 sm:p-6 mb-12 shadow-sm">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 divide-y sm:divide-y-0 sm:divide-x divide-slate-100">
+            {product.specifications.slice(0, 4).map((spec, sIdx) => (
+              <div key={spec.label} className={`text-center ${sIdx > 0 ? 'pt-3 sm:pt-0' : ''}`}>
+                <div className="text-[11px] font-mono text-slate-400 uppercase tracking-wider">
+                  {spec.label}
+                </div>
+                <div className="text-base sm:text-lg font-bold text-[#0d1f35] font-mono mt-1">
+                  {spec.value}
+                </div>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Left: Main Content */}
-          <div className="lg:col-span-2 space-y-10">
-            {/* Description */}
-            <section>
-              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-8">Giới thiệu sản phẩm</h2>
-              <div className="space-y-8">
+        <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+          {/* LEFT: Detailed Technical Showcase (8 cols) */}
+          <div className="lg:col-span-8 space-y-12">
+            {/* Interactive Image Gallery */}
+            <section className="bg-white rounded-2xl border border-slate-200/80 p-6 shadow-sm">
+              <h2 className="text-lg font-bold text-[#0d1f35] mb-4 flex items-center gap-2">
+                <Layers size={18} className="text-[#285c9a]" />
+                <span>Thư Viện Ảnh Cabin & Chi Tiết Cơ Điện</span>
+              </h2>
+
+              <div className="relative rounded-2xl overflow-hidden mb-3 bg-slate-900 border border-slate-200/80 aspect-[16/10]">
+                <img
+                  src={gallery[activeImage]}
+                  alt={`${product.title} - Ảnh ${activeImage + 1}`}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute bottom-3 right-3 bg-black/60 backdrop-blur-md px-3 py-1 rounded-md text-white font-mono text-xs">
+                  {activeImage + 1} / {gallery.length}
+                </div>
+              </div>
+
+              {gallery.length > 1 && (
+                <div className="grid grid-cols-4 sm:grid-cols-6 gap-2 pt-2">
+                  {gallery.map((img, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setActiveImage(idx)}
+                      className={`rounded-xl overflow-hidden border-2 transition-all aspect-video ${
+                        activeImage === idx
+                          ? 'border-[#285c9a] ring-2 ring-[#285c9a]/30 scale-[1.02]'
+                          : 'border-slate-200 opacity-70 hover:opacity-100'
+                      }`}
+                      aria-label={`Xem ảnh ${idx + 1}`}
+                    >
+                      <img src={img} alt="" className="w-full h-full object-cover" />
+                    </button>
+                  ))}
+                </div>
+              )}
+            </section>
+
+            {/* Deep Description & Cabin Architecture */}
+            <section className="bg-white rounded-2xl border border-slate-200/80 p-6 sm:p-8 shadow-sm">
+              <h2 className="text-xl sm:text-2xl font-bold text-[#0d1f35] mb-6 flex items-center gap-2">
+                <Building2 size={20} className="text-[#285c9a]" />
+                <span>Tổng Quan Giải Pháp & Kiến Trúc Thiết Kế</span>
+              </h2>
+
+              <div className="space-y-6">
                 {product.fullDescription.split('\n\n').map((para, idx) => {
                   const isEven = idx % 2 === 0;
                   const imgSrc = gallery[idx % gallery.length] || product.image;
-                  
+
                   return (
-                    <div key={idx} className={`flex flex-col gap-6 items-center ${isEven ? 'sm:flex-row' : 'sm:flex-row-reverse'}`}>
+                    <div
+                      key={idx}
+                      className={`flex flex-col gap-6 items-center ${
+                        isEven ? 'sm:flex-row' : 'sm:flex-row-reverse'
+                      }`}
+                    >
                       <div className="flex-1">
-                        <p className="text-gray-600 leading-relaxed text-sm sm:text-base">{para}</p>
+                        <p className="text-slate-700 leading-relaxed text-sm sm:text-base">
+                          {para}
+                        </p>
                       </div>
-                      <div className="flex-1 w-full">
-                        <div className="rounded-2xl overflow-hidden shadow-lg border border-gray-100 relative group">
-                          <img 
-                            src={imgSrc} 
-                            alt="" 
-                            className="w-full aspect-[4/3] object-cover transition-transform duration-700 group-hover:scale-105"
+                      <div className="w-full sm:w-1/2">
+                        <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm relative group aspect-[4/3]">
+                          <img
+                            src={imgSrc}
+                            alt=""
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                           />
                         </div>
                       </div>
@@ -290,103 +389,81 @@ function ProductDetail() {
               </div>
             </section>
 
-            {/* Gallery */}
-            <section>
-              <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                <Layers size={20} className="text-[#285c9a]" />
-                Hình ảnh sản phẩm
-              </h2>
-              <div className="relative rounded-2xl overflow-hidden mb-3 bg-gray-100">
-                <img
-                  src={gallery[activeImage]}
-                  alt={`${product.title} - Hình ${activeImage + 1}`}
-                  className="w-full aspect-[4/5] object-cover"
-                />
-              </div>
-              <div className="grid grid-cols-4 gap-2">
-                {gallery.map((img, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => setActiveImage(idx)}
-                    className={`rounded-lg overflow-hidden border-2 transition-all ${
-                      activeImage === idx ? 'border-[#285c9a] ring-2 ring-[#285c9a]/30' : 'border-transparent'
-                    }`}
-                  >
-                    <img src={img} alt="" className="w-full h-14 object-cover" />
-                  </button>
-                ))}
-              </div>
-            </section>
-
-            {/* Features */}
-            <section>
-              <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            {/* Prominent Technical Features */}
+            <section className="bg-white rounded-2xl border border-slate-200/80 p-6 sm:p-8 shadow-sm">
+              <h2 className="text-xl font-bold text-[#0d1f35] mb-6 flex items-center gap-2">
                 <Zap size={20} className="text-[#285c9a]" />
-                Tính năng nổi bật
+                <span>Tính Năng Kỹ Thuật Nổi Bật</span>
               </h2>
-              <div className="grid sm:grid-cols-2 gap-3">
-                {product.features.map((f) => (
-                  <div key={f} className="flex items-center gap-3 bg-gray-50 rounded-xl px-4 py-3">
-                    <CheckCircle size={16} className="text-[#285c9a] flex-shrink-0" />
-                    <span className="text-gray-700 text-sm">{f}</span>
+
+              <div className="grid sm:grid-cols-2 gap-3.5">
+                {product.features.map((feature, fIdx) => (
+                  <div
+                    key={fIdx}
+                    className="flex items-start gap-3 p-3.5 rounded-xl bg-slate-50 border border-slate-200/60"
+                  >
+                    <CheckCircle2 size={16} className="text-[#285c9a] shrink-0 mt-0.5" />
+                    <span className="text-slate-700 text-sm font-medium">{feature}</span>
                   </div>
                 ))}
               </div>
             </section>
 
-            {/* Process */}
-            <section>
-              <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+            {/* Standard Implementation Workflow */}
+            <section className="bg-white rounded-2xl border border-slate-200/80 p-6 sm:p-8 shadow-sm">
+              <h2 className="text-xl font-bold text-[#0d1f35] mb-6 flex items-center gap-2">
                 <Settings size={20} className="text-[#285c9a]" />
-                Quy trình thực hiện
+                <span>Quy Trình Thi Công Chuẩn Xác 5 Bước</span>
               </h2>
+
               <div className="space-y-4">
                 {product.process.map(({ step, title, description }) => (
                   <div key={step} className="flex gap-4">
                     <div className="flex flex-col items-center">
-                      <div className="w-10 h-10 rounded-xl bg-[#285c9a] flex items-center justify-center text-white font-bold text-sm">
-                        {step}
+                      <div className="w-9 h-9 rounded-xl bg-[#285c9a] flex items-center justify-center text-white font-mono font-bold text-sm shadow-sm">
+                        0{step}
                       </div>
                       {step < product.process.length && (
-                        <div className="w-0.5 flex-1 bg-gray-200 my-2" />
+                        <div className="w-0.5 flex-1 bg-slate-200 my-2" />
                       )}
                     </div>
-                    <div className="flex-1 pb-6">
-                      <h4 className="font-semibold text-gray-900 text-sm mb-1">{title}</h4>
-                      <p className="text-gray-500 text-xs leading-relaxed">{description}</p>
+                    <div className="flex-1 pb-5">
+                      <h4 className="font-bold text-[#0d1f35] text-sm sm:text-base mb-1">{title}</h4>
+                      <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">{description}</p>
                     </div>
                   </div>
                 ))}
               </div>
             </section>
 
-            {/* FAQs */}
-            <section>
-              <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+            {/* Technical FAQs */}
+            <section className="bg-white rounded-2xl border border-slate-200/80 p-6 sm:p-8 shadow-sm">
+              <h2 className="text-xl font-bold text-[#0d1f35] mb-6 flex items-center gap-2">
                 <HelpCircle size={20} className="text-[#285c9a]" />
-                Câu hỏi thường gặp
+                <span>Giải Đáp Kỹ Thuật Thường Gặp</span>
               </h2>
+
               <div className="space-y-3">
                 {product.faqs.map((faq, idx) => (
                   <div
                     key={idx}
-                    className="border border-gray-100 rounded-xl overflow-hidden"
+                    className="border border-slate-200/80 rounded-xl overflow-hidden transition-colors"
                   >
                     <button
                       onClick={() => setActiveFaq(activeFaq === idx ? null : idx)}
-                      className="w-full flex items-center justify-between p-4 text-left hover:bg-gray-50 transition-colors"
+                      className="w-full flex items-center justify-between p-4 text-left hover:bg-slate-50 transition-colors"
                     >
-                      <span className="font-medium text-gray-900 text-sm pr-4">{faq.question}</span>
+                      <span className="font-bold text-[#0d1f35] text-sm pr-4">{faq.question}</span>
                       <ChevronRight
                         size={16}
-                        className={`text-gray-400 transition-transform flex-shrink-0 ${
-                          activeFaq === idx ? 'rotate-90' : ''
+                        className={`text-slate-400 transition-transform flex-shrink-0 ${
+                          activeFaq === idx ? 'rotate-90 text-[#285c9a]' : ''
                         }`}
                       />
                     </button>
                     {activeFaq === idx && (
-                      <div className="px-4 pb-4">
-                        <p className="text-gray-600 text-sm leading-relaxed">{faq.answer}</p>
+                      <div className="px-4 pb-4 pt-1 bg-slate-50/50 border-t border-slate-100">
+                        <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">{faq.answer}</p>
                       </div>
                     )}
                   </div>
@@ -395,105 +472,119 @@ function ProductDetail() {
             </section>
           </div>
 
-          {/* Right: Sidebar */}
-          <div className="lg:col-span-1">
-            <div className="sticky top-20 space-y-5">
-              {/* Specifications Card */}
-              <div className="bg-gray-50 rounded-2xl p-6">
-                <h3 className="font-bold text-gray-900 mb-5 flex items-center gap-2">
-                  <Clock size={18} className="text-[#285c9a]" />
-                  Thông số kỹ thuật
+          {/* RIGHT: Technical Sidebar & Fast Inquiry (4 cols) */}
+          <div className="lg:col-span-4 space-y-6 sticky top-24">
+            {/* Full Mechanical Specs Table */}
+            <div className="bg-white rounded-2xl border border-slate-200/80 p-6 shadow-sm">
+              <div className="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
+                <h3 className="font-extrabold text-[#0d1f35] text-sm uppercase tracking-wider flex items-center gap-2">
+                  <Ruler size={16} className="text-[#285c9a]" />
+                  <span>Bảng Thông Số Cơ Khí</span>
                 </h3>
-                <div className="space-y-3">
-                  {product.specifications.map(({ label, value }) => (
-                    <div key={label} className="flex justify-between items-start text-sm">
-                      <span className="text-gray-500">{label}</span>
-                      <span className="text-gray-900 font-medium text-right ml-2">{value}</span>
-                    </div>
-                  ))}
-                </div>
+                <span className="font-mono text-[10px] bg-blue-50 text-[#285c9a] px-2 py-0.5 rounded font-bold">
+                  EN 81-20
+                </span>
               </div>
 
-              {/* Benefits Card */}
-              <div className="bg-[#285c9a]/5 rounded-2xl p-6 border border-[#285c9a]/10">
-                <h3 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
-                  <Star size={18} className="text-[#285c9a]" />
-                  Lợi ích khách hàng
-                </h3>
-                <div className="space-y-3">
-                  {product.benefits.map((b) => (
-                    <div key={b} className="flex items-start gap-2.5">
-                      <CheckCircle size={14} className="text-[#285c9a] mt-0.5 flex-shrink-0" />
-                      <span className="text-gray-700 text-sm">{b}</span>
-                    </div>
-                  ))}
-                </div>
+              <div className="space-y-3">
+                {product.specifications.map(({ label, value }) => (
+                  <div key={label} className="flex justify-between items-center text-xs sm:text-sm py-1.5 border-b border-slate-100 last:border-0">
+                    <span className="text-slate-500 font-medium">{label}</span>
+                    <span className="font-mono font-bold text-[#0d1f35] text-right ml-2">{value}</span>
+                  </div>
+                ))}
               </div>
+            </div>
 
-              {/* CTA */}
-              <div className="bg-white border border-gray-200 rounded-2xl p-6 text-center">
-                <h4 className="font-bold text-gray-900 mb-2">Cần tư vấn sản phẩm này?</h4>
-                <p className="text-gray-500 text-xs mb-4">
-                  Liên hệ ngay để được tư vấn miễn phí
+            {/* Customer Benefits Box */}
+            <div className="bg-blue-50/60 rounded-2xl border border-blue-200/60 p-6 shadow-sm">
+              <h3 className="font-bold text-[#0d1f35] text-sm uppercase tracking-wide mb-3 flex items-center gap-2">
+                <Shield size={16} className="text-[#285c9a]" />
+                <span>Đặc Quyền Của Gia Chủ</span>
+              </h3>
+              <div className="space-y-2.5">
+                {product.benefits.map((benefit, bIdx) => (
+                  <div key={bIdx} className="flex items-start gap-2 text-xs sm:text-sm text-slate-700">
+                    <CheckCircle2 size={15} className="text-[#285c9a] shrink-0 mt-0.5" />
+                    <span>{benefit}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Quick Consultation Request Box */}
+            <div className="bg-[#0d1f35] text-white rounded-2xl p-6 shadow-lg space-y-4">
+              <div>
+                <span className="text-[10px] font-mono uppercase tracking-widest text-blue-300">
+                  Tư Vấn Miễn Phí 1:1
+                </span>
+                <h4 className="font-bold text-base text-white mt-1">Cần Dự Toán Chi Tiết Cho Sản Phẩm Này?</h4>
+                <p className="text-xs text-slate-300 leading-relaxed mt-1">
+                  Kỹ sư trưởng Hải Phát sẽ phân tích hố thang và gửi bảng báo giá chính xác.
                 </p>
-                <div className="space-y-2">
-                  <a
-                    href="tel:0898424666"
-                    className="flex items-center justify-center gap-2 bg-[#285c9a] text-white py-3 rounded-xl font-semibold text-sm hover:bg-[#1e4a80] transition-colors w-full"
-                  >
-                    <Phone size={16} />
-                    0898 424 666
-                  </a>
-                  <Link href="/lien-he"
-                    className="flex items-center justify-center gap-2 border border-[#285c9a] text-[#285c9a] py-3 rounded-xl font-semibold text-sm hover:bg-[#285c9a]/5 transition-colors w-full"
-                  >
-                    Gửi yêu cầu
-                  </Link>
-                </div>
+              </div>
+
+              <div className="space-y-2.5 pt-1">
+                <a
+                  href="tel:0898424666"
+                  className="flex items-center justify-center gap-2 bg-[#285c9a] hover:bg-[#1e4a80] text-white py-3 rounded-xl font-bold text-sm transition-all shadow-md active:scale-[0.98]"
+                >
+                  <Phone size={15} />
+                  <span className="font-mono">Gọi 0898 424 666</span>
+                </a>
+
+                <Link
+                  href="/lien-he"
+                  className="flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white py-2.5 rounded-xl font-semibold text-xs transition-colors"
+                >
+                  <Mail size={14} />
+                  <span>Gửi Bản Vẽ Hiện Trạng</span>
+                </Link>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Related Products */}
+        {/* Related Products Showcase */}
         {related.length > 0 && (
-          <section className="mt-16 pt-10 border-t border-gray-100">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">Sản phẩm liên quan</h2>
-              <Link href="/san-pham"
-                className="group flex items-center gap-1.5 text-[#285c9a] font-semibold text-sm"
+          <section className="mt-20 pt-10 border-t border-slate-200">
+            <div className="flex items-center justify-between mb-8">
+              <div>
+                <h2 className="text-xl sm:text-2xl font-extrabold text-[#0d1f35]">Dòng Sản Phẩm Cùng Phân Khúc</h2>
+                <p className="text-xs sm:text-sm text-slate-500 mt-0.5">Khám phá các cấu hình thang máy tương tự</p>
+              </div>
+              <Link
+                href="/san-pham"
+                className="group flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#285c9a] hover:text-[#1e4a80] transition-colors"
               >
-                Xem tất cả
-                <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
+                <span>Xem tất cả</span>
+                <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-              {related.map((s) => {
-                const RelIcon = iconMap[s.icon] || Building2;
-                return (
-                  <Link key={s.id}
-                    href={`/san-pham/${s.id}`}
-                    className="group bg-white rounded-2xl overflow-hidden border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5"
-                  >
-                    <div className="relative h-32 overflow-hidden">
-                      <img
-                        src={s.image}
-                        alt={s.title}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#0d1f35]/60 to-transparent" />
-                      <div className="absolute top-3 left-3 w-8 h-8 rounded-lg bg-[#285c9a] flex items-center justify-center">
-                        <RelIcon size={16} className="text-white" />
-                      </div>
-                    </div>
-                    <div className="p-4">
-                      <h3 className="font-bold text-gray-900 text-sm group-hover:text-[#285c9a] transition-colors">
-                        {s.title}
-                      </h3>
-                    </div>
-                  </Link>
-                );
-              })}
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {related.map((item) => (
+                <Link
+                  key={item.id}
+                  href={`/san-pham/${item.id}`}
+                  className="group bg-white rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm hover:shadow-lg hover:border-[#285c9a]/30 transition-all duration-300 hover:-translate-y-1"
+                >
+                  <div className="relative h-44 overflow-hidden bg-slate-900">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0d1f35]/70 to-transparent" />
+                  </div>
+                  <div className="p-4">
+                    <h3 className="font-bold text-slate-900 text-sm sm:text-base group-hover:text-[#285c9a] transition-colors">
+                      {item.title}
+                    </h3>
+                    <p className="text-xs text-slate-500 mt-1 line-clamp-1">{item.shortDescription}</p>
+                  </div>
+                </Link>
+              ))}
             </div>
           </section>
         )}
@@ -501,5 +592,3 @@ function ProductDetail() {
     </div>
   );
 }
-
-export { ProductDetail };

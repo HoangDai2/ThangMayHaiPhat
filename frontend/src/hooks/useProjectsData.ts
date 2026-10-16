@@ -23,7 +23,8 @@ export function useProjectsData() {
 
   const loading = isLoading;
 
-  const getById = (id: string) => projects.find((p) => p.id === id);
+  const getById = (id: string) =>
+    projects.find((p) => p.id === id || (p as any).slug === id);
   const getRelated = (currentId: string, limit = 3) =>
     projects.filter((p) => p.id !== currentId).slice(0, limit);
 

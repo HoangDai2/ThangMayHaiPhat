@@ -30,13 +30,28 @@ class BitrixService
         $url = rtrim($this->webhookUrl, '/') . '/' . $method . '.json';
         
         try {
-            $response = Http::post($url, $params);
+            $maxRetries = 3;
+            $attempt = 0;
+            $response = null;
 
-            if ($response->successful()) {
-                return $response->json();
-            }
+            do {
+                $attempt++;
+                $response = Http::post($url, $params);
 
-            Log::error("Lỗi gọi API Bitrix: {$method}", ['response' => $response->body()]);
+                if ($response->successful()) {
+                    return $response->json();
+                }
+
+                if (str_contains($response->body(), 'QUERY_LIMIT_EXCEEDED')) {
+                    // Chờ và thử lại với rate limit Bitrix
+                    usleep(1500000 * $attempt);
+                    continue;
+                }
+
+                break;
+            } while ($attempt <= $maxRetries);
+
+            Log::error("Lỗi gọi API Bitrix: {$method}", ['response' => $response ? $response->body() : 'No response']);
             return null;
         } catch (\Exception $e) {
             Log::error("Exception khi gọi API Bitrix: {$method}", ['error' => $e->getMessage()]);
@@ -114,7 +129,11 @@ class BitrixService
     public function getTasks($callback = null)
     {
         return $this->callPaginated('tasks.task.list', [
-            'select' => ['ID', 'TITLE', 'DESCRIPTION', 'STATUS', 'CREATED_BY', 'RESPONSIBLE_ID', 'DEADLINE', 'GROUP_ID']
+            'select' => [
+                'ID', 'TITLE', 'DESCRIPTION', 'STATUS', 'CREATED_BY', 'RESPONSIBLE_ID', 'DEADLINE', 'GROUP_ID',
+                'ACTIVITY_DATE', 'CHANGED_DATE', 'CREATED_DATE', 'CLOSED_DATE', 'COMMENTS_COUNT', 'NEW_COMMENTS_COUNT',
+                'REPLICATE', 'FORKED_BY_TEMPLATE_ID', 'UF_TASK_WEBDAV_FILES'
+            ]
         ], 'tasks', $callback);
     }
 
