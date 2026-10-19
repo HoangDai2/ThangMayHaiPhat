@@ -16,7 +16,11 @@ backend/test_*.php
 backend/task*.json
 frontend/process_*.js
 
+# Scratch / Temporary
+scratch/
+
 # Gemini / Agents
 .agents/
 .gemini/
+
 

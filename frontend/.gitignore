@@ -22,3 +22,7 @@ dist-ssr
 *.sln
 *.sw?
 .env
+
+# Build & CLI cache
+*.tsbuildinfo
+supabase/.temp/
