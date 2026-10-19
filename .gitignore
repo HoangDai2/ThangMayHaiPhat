@@ -23,4 +23,10 @@ scratch/
 .agents/
 .gemini/
 
+# Environment files
+.env
+.env.production
+.env.local
+
+
 

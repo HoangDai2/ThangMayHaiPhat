@@ -1,0 +1,90 @@
+services:
+  # 1. Cơ sở dữ liệu MySQL
+  mysql:
+    image: mysql:8.0
+    container_name: haiphat_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE:-thangmayhaiphat}
+      MYSQL_USER: ${DB_USERNAME:-haiphat_user}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-HaiphatSecret123@}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-RootHaiphatSecret123@}
+    ports:
+      # Map ra cổng 3307 ở máy chủ (tránh trùng cổng 3306 nếu máy bạn/VPS đã có MySQL)
+      - "${DOCKER_DB_PORT:-3307}:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - haiphat_network
+
+  # 2. Backend Laravel (PHP 8.3 FPM)
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: haiphat_backend
+    restart: unless-stopped
+    working_dir: /var/www/backend
+    environment:
+      APP_ENV: ${APP_ENV:-production}
+      APP_DEBUG: ${APP_DEBUG:-false}
+      APP_KEY: ${APP_KEY}
+      APP_URL: ${APP_URL:-http://localhost:8000}
+      DB_CONNECTION: mysql
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: ${DB_DATABASE:-thangmayhaiphat}
+      DB_USERNAME: ${DB_USERNAME:-haiphat_user}
+      DB_PASSWORD: ${DB_PASSWORD:-HaiphatSecret123@}
+      FILESYSTEM_DISK: public
+    volumes:
+      - ./backend:/var/www/backend
+      - backend_storage:/var/www/backend/storage
+    depends_on:
+      - mysql
+    networks:
+      - haiphat_network
+
+  # 3. Web server Nginx cho Backend (Phục vụ API & Ảnh Upload Storage)
+  backend-nginx:
+    image: nginx:alpine
+    container_name: haiphat_backend_nginx
+    restart: unless-stopped
+    ports:
+      - "${DOCKER_BACKEND_PORT:-8000}:80"
+    volumes:
+      - ./backend:/var/www/backend
+      - backend_storage:/var/www/backend/storage
+      - ./docker/nginx/backend.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - backend
+    networks:
+      - haiphat_network
+
+  # 4. Frontend Next.js (Chạy Standalone tối ưu)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:8000/api}
+        NEXT_PUBLIC_BACKEND_URL: ${NEXT_PUBLIC_BACKEND_URL:-http://localhost:8000}
+    container_name: haiphat_frontend
+    restart: unless-stopped
+    ports:
+      # Map ra cổng 3001 ở máy chủ (tránh trùng cổng 3000 của dự án cũ)
+      - "${DOCKER_FRONTEND_PORT:-3001}:3000"
+    depends_on:
+      - backend-nginx
+    networks:
+      - haiphat_network
+
+volumes:
+  mysql_data:
+    driver: local
+  backend_storage:
+    driver: local
+
+networks:
+  haiphat_network:
+    driver: bridge
