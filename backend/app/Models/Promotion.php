@@ -13,10 +13,12 @@ class Promotion extends Model
         'discount_text',
         'image_url',
         'link_url',
+        'delay_seconds',
         'is_active',
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
+        'delay_seconds' => 'integer',
     ];
 }

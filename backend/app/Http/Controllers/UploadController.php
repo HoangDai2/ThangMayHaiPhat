@@ -32,11 +32,11 @@ class UploadController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'file' => 'required|file|max:10240', // max 10MB
-            'folder' => 'nullable|string'
+            'file' => 'required|file|image|mimes:jpeg,png,jpg,webp,svg,gif|max:10240', // max 10MB strictly images
+            'folder' => 'nullable|string|regex:/^[a-zA-Z0-9_\-]+$/'
         ]);
 
-        $folder = $request->input('folder', 'uploads');
+        $folder = preg_replace('/[^a-zA-Z0-9_\-]/', '', $request->input('folder', 'uploads')) ?: 'uploads';
         $path = $request->file('file')->store($folder, 'public');
 
         return response()->json([
@@ -49,12 +49,13 @@ class UploadController extends Controller
     public function destroy(Request $request)
     {
         $request->validate([
-            'name' => 'required|string'
+            'name' => 'required|string',
+            'folder' => 'nullable|string|regex:/^[a-zA-Z0-9_\-]+$/'
         ]);
 
-        $folder = $request->input('folder', 'uploads');
-        // AdminImages.tsx sends just the file name, not the path.
-        $path = $folder . '/' . $request->name;
+        $folder = preg_replace('/[^a-zA-Z0-9_\-]/', '', $request->input('folder', 'uploads')) ?: 'uploads';
+        $safeName = basename($request->name);
+        $path = $folder . '/' . $safeName;
 
         if (Storage::disk('public')->exists($path)) {
             Storage::disk('public')->delete($path);

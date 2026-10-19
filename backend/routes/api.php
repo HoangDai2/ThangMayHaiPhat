@@ -14,7 +14,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\PromotionController;
 
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:5,1');
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
@@ -60,9 +60,9 @@ Route::get('/public/products', [ProductController::class, 'index']);
 Route::get('/public/services', [ServiceController::class, 'index']);
 Route::get('/public/articles', [ArticleController::class, 'index']);
 Route::get('/public/reviews', [ReviewController::class, 'index']);
-Route::post('/public/reviews', [ReviewController::class, 'store']);
+Route::post('/public/reviews', [ReviewController::class, 'store'])->middleware('throttle:10,1');
 Route::get('/public/banners', [BannerController::class, 'index']);
-Route::post('/public/contacts', [App\Http\Controllers\ContactController::class, 'store']);
+Route::post('/public/contacts', [App\Http\Controllers\ContactController::class, 'store'])->middleware('throttle:10,1');
 Route::get('/public/promotions/active', [PromotionController::class, 'getActive']);
 
 // Bitrix Outbound Webhook

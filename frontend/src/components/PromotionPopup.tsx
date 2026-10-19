@@ -12,6 +12,7 @@ interface Promotion {
   discount_text: string | null;
   image_url: string | null;
   link_url: string | null;
+  delay_seconds?: number;
   is_active: boolean;
   updated_at: string;
 }
@@ -45,12 +46,16 @@ export default function PromotionPopup() {
 
         setPromotion(activePromo);
 
-        // 5-second delay before showing
+        // Configurable delay before showing (default 5 seconds)
+        const delaySeconds = typeof activePromo.delay_seconds === 'number' && activePromo.delay_seconds >= 0
+          ? activePromo.delay_seconds
+          : 5;
+
         setTimeout(() => {
           setIsRendered(true);
           // slight delay for transition
           setTimeout(() => setIsVisible(true), 50);
-        }, 5000);
+        }, delaySeconds * 1000);
 
       } catch (error) {
         console.error('Failed to fetch promotion', error);

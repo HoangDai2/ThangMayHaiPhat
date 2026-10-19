@@ -33,6 +33,9 @@ class ContactController extends Controller
 
     public function store(Request $request)
     {
+        // Force status to 'new' for newly created contacts
+        $request->merge(['status' => 'new']);
+
         try {
             // Execute the standard CrudTrait store method
             $response = $this->traitStore($request);

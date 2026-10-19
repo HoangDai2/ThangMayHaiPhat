@@ -18,6 +18,7 @@ import {
   AlertCircle,
   HelpCircle,
   ChevronDown,
+  Loader2,
 } from 'lucide-react';
 import { companyInfo } from '../data/company';
 import { useProductsData } from '../hooks/useProductsData';

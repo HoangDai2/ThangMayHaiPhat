@@ -21,8 +21,13 @@ class PromotionController extends Controller
             'discount_text' => 'nullable|string',
             'image_url' => 'nullable|string',
             'link_url' => 'nullable|string',
+            'delay_seconds' => 'nullable|integer|min:0|max:300',
             'is_active' => 'boolean',
         ]);
+
+        if (!isset($validated['delay_seconds']) || $validated['delay_seconds'] === null) {
+            $validated['delay_seconds'] = 5;
+        }
 
         if (isset($validated['is_active']) && $validated['is_active']) {
             Promotion::where('is_active', true)->update(['is_active' => false]);
@@ -48,8 +53,13 @@ class PromotionController extends Controller
             'discount_text' => 'nullable|string',
             'image_url' => 'nullable|string',
             'link_url' => 'nullable|string',
+            'delay_seconds' => 'nullable|integer|min:0|max:300',
             'is_active' => 'boolean',
         ]);
+
+        if (isset($validated['delay_seconds']) && $validated['delay_seconds'] === null) {
+            $validated['delay_seconds'] = 5;
+        }
 
         if (isset($validated['is_active']) && $validated['is_active'] && !$promotion->is_active) {
             Promotion::where('is_active', true)->update(['is_active' => false]);

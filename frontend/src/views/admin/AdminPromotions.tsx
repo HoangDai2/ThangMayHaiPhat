@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from 'react';
-import { Plus, Edit, Trash2, Search, X, Loader2, Image, ToggleLeft, ToggleRight } from 'lucide-react';
+import { Plus, Edit, Trash2, Search, X, Loader2, Image, ToggleLeft, ToggleRight, Clock } from 'lucide-react';
 import api from '../../lib/api';
 
 export interface Promotion {
@@ -11,6 +11,7 @@ export interface Promotion {
   discount_text: string | null;
   image_url: string | null;
   link_url: string | null;
+  delay_seconds?: number;
   is_active: boolean;
 }
 
@@ -22,6 +23,7 @@ const emptyForm = (): Partial<Promotion> => ({
   discount_text: '',
   image_url: '',
   link_url: '',
+  delay_seconds: 5,
   is_active: true,
 });
 
@@ -59,7 +61,10 @@ export default function AdminPromotions() {
   };
 
   const openEdit = (p: Promotion) => {
-    setForm(p);
+    setForm({
+      ...p,
+      delay_seconds: p.delay_seconds !== undefined && p.delay_seconds !== null ? p.delay_seconds : 5,
+    });
     setIsEditing(true);
     setError('');
     setModalOpen(true);
@@ -182,6 +187,7 @@ export default function AdminPromotions() {
               <tr className="bg-slate-50 border-b border-slate-200 text-sm font-semibold text-slate-600">
                 <th className="py-4 px-6">Hình ảnh & Tiêu đề</th>
                 <th className="py-4 px-6">Text Giảm Giá</th>
+                <th className="py-4 px-6">Thời gian chờ</th>
                 <th className="py-4 px-6">Link</th>
                 <th className="py-4 px-6">Trạng thái</th>
                 <th className="py-4 px-6 text-right">Thao tác</th>
@@ -207,6 +213,12 @@ export default function AdminPromotions() {
                   </td>
                   <td className="py-4 px-6 font-medium text-rose-600">
                     {p.discount_text}
+                  </td>
+                  <td className="py-4 px-6 font-medium text-slate-700">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700 text-xs font-semibold">
+                      <Clock size={14} className="text-[#2d5f9e]" />
+                      {p.delay_seconds !== undefined && p.delay_seconds !== null ? p.delay_seconds : 5}s
+                    </span>
                   </td>
                   <td className="py-4 px-6 text-slate-500">
                     {p.link_url ? (
@@ -250,7 +262,7 @@ export default function AdminPromotions() {
                ))}
                {filteredPromotions.length === 0 && (
                  <tr>
-                   <td colSpan={5} className="py-12 text-center text-slate-500">
+                   <td colSpan={6} className="py-12 text-center text-slate-500">
                      Không tìm thấy chương trình khuyến mãi nào.
                    </td>
                  </tr>
@@ -316,6 +328,27 @@ export default function AdminPromotions() {
                           <li>Nếu chỉ nhập hình ảnh, bỏ trống tất cả nội dung chữ: Popup sẽ hiển thị chế độ <b>Chỉ hình ảnh</b>.</li>
                           <li>Nếu nhập tiêu đề, mô tả: Hiển thị chế độ <b>Đầy đủ thông tin</b> (với màu chủ đạo là #2d5f9e).</li>
                         </ul>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-semibold text-slate-700 mb-1.5 flex items-center gap-1.5">
+                          <Clock size={16} className="text-[#2d5f9e]" />
+                          <span>Thời gian chờ xuất hiện (giây)</span>
+                        </label>
+                        <div className="relative">
+                          <input
+                            type="number"
+                            min={0}
+                            max={300}
+                            step={1}
+                            placeholder="5"
+                            className="w-full px-3 py-2 pr-14 rounded-xl border border-slate-300 focus:outline-none focus:border-[#2d5f9e]"
+                            value={form.delay_seconds !== undefined && form.delay_seconds !== null ? form.delay_seconds : 5}
+                            onChange={(e) => setForm({ ...form, delay_seconds: parseInt(e.target.value, 10) || 0 })}
+                          />
+                          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-semibold text-slate-400">giây</span>
+                        </div>
+                        <p className="text-xs text-slate-500 mt-1">Số giây sau khi khách vào web popup sẽ bật lên (Mặc định: 5s, đặt 0s để hiện ngay).</p>
                       </div>
 
                       <div>

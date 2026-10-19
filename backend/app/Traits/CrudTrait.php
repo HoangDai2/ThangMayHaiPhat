@@ -49,7 +49,13 @@ trait CrudTrait
 
             // Support sorting (e.g. sort_by=created_at&sort_dir=desc)
             if ($request->has('sort_by')) {
-                $query->orderBy($request->sort_by, $request->input('sort_dir', 'asc'));
+                $sortBy = preg_replace('/[^a-zA-Z0-9_]/', '', (string)$request->sort_by);
+                $sortDir = strtolower((string)$request->input('sort_dir', 'asc')) === 'desc' ? 'desc' : 'asc';
+                if (!empty($sortBy)) {
+                    $query->orderBy($sortBy, $sortDir);
+                } else {
+                    $query->latest();
+                }
             } else {
                 $query->latest();
             }

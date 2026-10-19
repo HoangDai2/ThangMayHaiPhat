@@ -58,17 +58,20 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
 
+        // Prevent non-admin users with 'manage-users' from altering Admin accounts
+        if ($user->isAdmin() && !$request->user()->isAdmin()) {
+            return response()->json(['message' => 'Chỉ Quản trị viên cấp cao mới có quyền sửa tài khoản Admin.'], 403);
+        }
+
         $request->validate([
             'name' => 'sometimes|string|max:255',
             'email' => 'sometimes|string|email|max:255|unique:users,email,'.$id,
             'password' => 'nullable|string|min:6',
         ]);
 
-        $data = $request->all();
-        if (!empty($data['password'])) {
-            $data['password'] = Hash::make($data['password']);
-        } else {
-            unset($data['password']);
+        $data = $request->only(['name', 'email']);
+        if (!empty($request->password)) {
+            $data['password'] = Hash::make($request->password);
         }
 
         $user->update($data);
@@ -80,6 +83,27 @@ class UserController extends Controller
         $this->incrementCacheVersion();
 
         return response()->json($user->load('permissions'));
+    }
+
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+
+        if ($user->isAdmin() && !auth()->user()->isAdmin()) {
+            return response()->json(['message' => 'Bạn không thể xóa tài khoản Quản trị viên.'], 403);
+        }
+
+        if ($user->id === auth()->id()) {
+            return response()->json(['message' => 'Bạn không thể tự xóa tài khoản của chính mình.'], 400);
+        }
+
+        $user->permissions()->detach();
+        $user->roles()->detach();
+        $user->delete();
+
+        $this->incrementCacheVersion();
+
+        return response()->json(null, 204);
     }
 }
 
