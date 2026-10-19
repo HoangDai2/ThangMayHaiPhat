@@ -269,18 +269,26 @@ export default function Hero() {
             </div>
 
             {/* Telemetry Stats Bar */}
-            <div className="pt-6 border-t border-slate-200 grid grid-cols-3 gap-4">
-              <div>
-                <div className="text-2xl sm:text-3xl font-extrabold text-[#0d1f35] font-mono">5+ Năm</div>
-                <div className="text-xs text-slate-500 font-medium">Kinh nghiệm chuyên sâu</div>
-              </div>
-              <div>
-                <div className="text-2xl sm:text-3xl font-extrabold text-[#285c9a] font-mono">1.000+</div>
-                <div className="text-xs text-slate-500 font-medium">Công trình hoàn thành</div>
-              </div>
-              <div>
-                <div className="text-2xl sm:text-3xl font-extrabold text-emerald-600 font-mono">98%</div>
-                <div className="text-xs text-slate-500 font-medium">Khách hàng hài lòng</div>
+            <div className="pt-6 sm:pt-8 border-t border-slate-200">
+              <div className="grid grid-cols-3 divide-x divide-slate-200 bg-slate-50/80 sm:bg-transparent rounded-2xl sm:rounded-none py-3.5 px-1 sm:p-0 border border-slate-200/70 sm:border-0 shadow-xs sm:shadow-none">
+                <div className="flex flex-col items-center sm:items-start text-center sm:text-left px-1 sm:px-0 sm:pr-4">
+                  <div className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#0d1f35] font-mono tracking-tight">5+ Năm</div>
+                  <div className="text-[11px] sm:text-xs text-slate-500 font-medium leading-tight sm:leading-normal mt-1">
+                    Kinh nghiệm <span className="block sm:inline">chuyên sâu</span>
+                  </div>
+                </div>
+                <div className="flex flex-col items-center sm:items-start text-center sm:text-left px-1 sm:px-4">
+                  <div className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#285c9a] font-mono tracking-tight">1.000+</div>
+                  <div className="text-[11px] sm:text-xs text-slate-500 font-medium leading-tight sm:leading-normal mt-1">
+                    Công trình <span className="block sm:inline">hoàn thành</span>
+                  </div>
+                </div>
+                <div className="flex flex-col items-center sm:items-start text-center sm:text-left px-1 sm:px-0 sm:pl-4">
+                  <div className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-emerald-600 font-mono tracking-tight">98%</div>
+                  <div className="text-[11px] sm:text-xs text-slate-500 font-medium leading-tight sm:leading-normal mt-1">
+                    Khách hàng <span className="block sm:inline">hài lòng</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
