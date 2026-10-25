@@ -1,0 +1,5 @@
+vendor
+.env
+.git
+.gitignore
+storage/*.key
