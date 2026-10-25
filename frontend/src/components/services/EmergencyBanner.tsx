@@ -74,12 +74,12 @@ export function EmergencyBanner() {
             {/* Right Action: Massive Click-to-Call Emergency Card */}
             <div className="w-full lg:w-auto flex flex-col items-center sm:items-stretch gap-3 shrink-0">
               <a
-                href="tel:0898424666"
+                href="tel:0326629971"
                 className="group relative inline-flex items-center justify-between gap-4 bg-[#285c9a] hover:bg-[#1e4a80] text-white px-7 py-5 rounded-2xl font-bold transition-all duration-300 shadow-xl shadow-[#285c9a]/40 active:scale-[0.98] border border-blue-400/40"
               >
                 <div className="text-left">
-                  <div className="text-[11px] font-mono text-blue-200 uppercase tracking-widest">HOTLINE KHẨN CẤP 24/7</div>
-                  <div className="text-2xl sm:text-3xl font-black tracking-tight text-white">0898 424 666</div>
+                  <div className="text-[11px] font-mono text-blue-200 uppercase tracking-widest">HOTLINE CỨU HỘ KHẨN CẤP 24/7</div>
+                  <div className="text-2xl sm:text-3xl font-black tracking-tight text-white">0326 629 971</div>
                 </div>
                 <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center text-white transition-transform duration-300 group-hover:scale-110">
                   <PhoneCall size={22} className="animate-bounce" />

@@ -37,7 +37,7 @@ export default function Footer() {
               Sẵn sàng nâng cấp không gian sống với Thang Máy Hải Phát?
             </h3>
             <p className="text-blue-100/90 text-sm mt-1 max-w-xl">
-              Nhận tư vấn kỹ thuật trực tiếp từ kỹ sư trưởng và báo giá minh bạch trong 30 phút.
+              Nhận tư vấn kỹ thuật trực tiếp từ kỹ sư trưởng và báo giá minh bạch trong 60 phút.
             </p>
           </div>
 
@@ -187,8 +187,8 @@ export default function Footer() {
                 <Phone size={16} className="text-[#4a7bbf] shrink-0 mt-1" />
                 <div>
                   <div className="text-xs text-slate-400">Hotline 24/7 (Kỹ thuật & Cứu hộ):</div>
-                  <a href="tel:0898424666" className="text-white font-bold font-mono hover:text-blue-300 block">
-                    0898.424.666
+                  <a href="tel:0326629971" className="text-white font-bold font-mono hover:text-blue-300 block">
+                    0326.629.971
                   </a>
                   <div className="text-xs text-slate-400 mt-1">Phòng kinh doanh:</div>
                   <a href="tel:0987603588" className="text-white font-mono hover:text-blue-300 block">

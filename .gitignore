@@ -22,6 +22,7 @@ scratch/
 # Gemini / Agents
 .agents/
 .gemini/
+temp_redesign_refs/
 
 # Environment files
 .env

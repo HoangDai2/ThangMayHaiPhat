@@ -123,8 +123,8 @@ export function ContactHub() {
                       <Phone size={20} />
                     </div>
                     <div>
-                      <div className="text-xs font-mono uppercase tracking-wider text-slate-400">Đường Dây Nóng Kỹ Thuật</div>
-                      <div className="text-lg font-bold text-white tracking-tight">0898 424 666</div>
+                      <div className="text-xs font-mono uppercase tracking-wider text-slate-400">Đường Dây Nóng Kỹ Thuật & Cứu Hộ</div>
+                      <div className="text-lg font-bold text-white tracking-tight">0326 629 971</div>
                     </div>
                   </div>
                   {/* Pulsing online badge */}
@@ -139,10 +139,10 @@ export function ContactHub() {
                 </p>
 
                 <a
-                  href="tel:0898424666"
+                  href="tel:0326629971"
                   className="group w-full inline-flex items-center justify-between px-4 py-3 rounded-xl bg-[#285c9a] hover:bg-[#1e4a80] text-white text-xs sm:text-sm font-semibold transition-all duration-200 active:scale-[0.98]"
                 >
-                  <span>Bấm Gọi Kỹ Sư Ngay</span>
+                  <span>Bấm Gọi Cứu Hộ / Kỹ Sư Ngay</span>
                   <span className="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center transition-transform duration-300 group-hover:translate-x-1">
                     <Phone size={13} />
                   </span>
@@ -377,7 +377,7 @@ export function ContactHub() {
                           Đã tiếp nhận yêu cầu thành công! [Mã phiếu: {ticketId}]
                         </div>
                         <div className="text-emerald-700 mt-0.5">
-                          Kỹ sư trưởng của Hải Phát sẽ liên hệ lại qua số điện thoại của bạn trong vòng 30 phút để xác nhận lịch khảo sát hiện trường.
+                          Kỹ sư trưởng của Hải Phát sẽ liên hệ lại qua số điện thoại của bạn trong vòng 60 phút để xác nhận lịch khảo sát hiện trường.
                         </div>
                       </div>
                     </div>

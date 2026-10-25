@@ -3,7 +3,7 @@ import ServicesPage from '../../../views/ServicesPage';
 
 export const metadata: Metadata = {
   title: 'Dịch Vụ Tư Vấn, Lắp Đặt & Bảo Trì Thang Máy Định Kỳ | Thang Máy Hải Phát',
-  description: 'Thang Máy Hải Phát cung cấp dịch vụ khảo sát, tư vấn báo giá thang máy miễn phí trong 24h. Hợp đồng bảo trì trọn gói 1 năm, chu kỳ kiểm định 2 tháng/lần với 100% kỹ sư chính quy. Hotline cứu hộ 24/7: 0898 424 666.',
+  description: 'Thang Máy Hải Phát cung cấp dịch vụ khảo sát, tư vấn báo giá thang máy miễn phí trong 24h. Hợp đồng bảo trì trọn gói 1 năm, chu kỳ kiểm định 2 tháng/lần với 100% kỹ sư chính quy. Hotline cứu hộ 24/7: 0326 629 971.',
   keywords: [
     'dịch vụ thang máy',
     'bảo trì thang máy',
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'Dịch Vụ Tư Vấn, Lắp Đặt & Bảo Trì Thang Máy Định Kỳ | Thang Máy Hải Phát',
-    description: 'Khảo sát hiện trường miễn phí, lập dự toán trong 24h. Cam kết bảo trì định kỳ 2 tháng/lần bởi 100% kỹ sư đào tạo nội bộ. Hotline cứu hộ khẩn cấp: 0898 424 666.',
+    description: 'Khảo sát hiện trường miễn phí, lập dự toán trong 24h. Cam kết bảo trì định kỳ 2 tháng/lần bởi 100% kỹ sư đào tạo nội bộ. Hotline cứu hộ khẩn cấp: 0326 629 971.',
     url: 'https://thangmayhaiphat.vn/dich-vu',
     type: 'website',
     siteName: 'Thang Máy Hải Phát',
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Dịch Vụ Tư Vấn, Lắp Đặt & Bảo Trì Thang Máy | Hải Phát',
-    description: 'Bảo trì định kỳ 2 tháng/lần, SLA cứu hộ khẩn cấp có mặt 30-60 phút. Hotline 24/7: 0898 424 666.',
+    description: 'Bảo trì định kỳ 2 tháng/lần, SLA cứu hộ khẩn cấp có mặt 30-60 phút. Hotline 24/7: 0326 629 971.',
     images: ['https://thangmayhaiphat.vn/bhbt.png'],
   },
 };

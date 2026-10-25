@@ -171,16 +171,16 @@ export default function Services() {
                 {/* Card Content & Mechanical Features */}
                 <div className="p-5 sm:p-6 flex flex-col flex-1 justify-between">
                   <div>
-                    <p className="text-slate-600 text-xs sm:text-sm leading-relaxed mb-4 line-clamp-2">
+                    <p className="text-slate-600 text-xs sm:text-sm leading-relaxed mb-4">
                       {product.shortDescription}
                     </p>
 
                     {/* Features Badges */}
-                    <ul className="grid grid-cols-2 gap-2 mb-5">
+                    <ul className="grid grid-cols-1 gap-2 mb-5">
                       {product.features.slice(0, 4).map((f) => (
-                        <li key={f} className="flex items-center gap-1.5 text-xs text-slate-700 bg-slate-50 border border-slate-200/60 px-2.5 py-1.5 rounded-lg">
+                        <li key={f} className="flex items-center gap-2 text-xs text-slate-700 bg-slate-50 border border-slate-200/60 px-3 py-2 rounded-lg" title={f}>
                           <span className="w-1.5 h-1.5 rounded-full bg-[#285c9a] flex-shrink-0" />
-                          <span className="truncate">{f}</span>
+                          <span className="leading-snug">{f}</span>
                         </li>
                       ))}
                     </ul>

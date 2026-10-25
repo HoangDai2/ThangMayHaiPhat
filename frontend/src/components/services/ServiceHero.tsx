@@ -90,11 +90,11 @@ export function ServiceHero() {
               </a>
 
               <a
-                href="tel:0898424666"
+                href="tel:0326629971"
                 className="inline-flex items-center gap-2.5 px-5 py-3.5 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 text-slate-200 hover:text-white border border-slate-700 text-sm font-medium transition-all duration-200"
               >
                 <PhoneCall size={16} className="text-emerald-400" />
-                <span>Hotline Kỹ Thuật: <strong className="text-white font-semibold">0898 424 666</strong></span>
+                <span>Hotline Cứu Hộ: <strong className="text-white font-semibold">0326 629 971</strong></span>
               </a>
             </div>
           </div>

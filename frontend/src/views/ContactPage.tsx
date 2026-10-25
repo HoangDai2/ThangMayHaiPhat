@@ -31,7 +31,7 @@ const reasons = [
   { icon: Home, title: 'Thang Máy Gia Đình & Biệt Thự', desc: 'Lắp mới may đo, cải tạo nhà cũ, hố PIT siêu nông' },
   { icon: Building2, title: 'Tòa Nhà & Khách Sạn', desc: 'Thang tải khách cao tầng, tối ưu tốc độ & lưu lượng' },
   { icon: Wrench, title: 'Bảo Trì & Nâng Cấp', desc: 'Hợp đồng 1 năm, định kỳ 2 tháng/lần, phụ tùng chính hãng' },
-  { icon: Headphones, title: 'Cứu Hộ Khẩn Cấp 24/7', desc: 'Đội kỹ thuật thường trực, cam kết có mặt ≤ 30 phút' },
+  { icon: Headphones, title: 'Cứu Hộ Khẩn Cấp 24/7', desc: 'Đội kỹ thuật thường trực, cam kết có mặt ≤ 120 phút' },
 ];
 
 export default function ContactPage() {
@@ -138,7 +138,7 @@ export default function ContactPage() {
                   </div>
                   <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 font-mono text-[11px] font-semibold">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                    SLA ≤ 30P
+                    SLA ≤ 60P
                   </span>
                 </div>
               </div>
@@ -303,15 +303,15 @@ export default function ContactPage() {
                 </h3>
 
                 <a
-                  href={`tel:${companyInfo.headquarters.hotline.replace(/\s/g, '')}`}
+                  href={`tel:${companyInfo.headquarters.emergency.replace(/\s/g, '')}`}
                   className="flex items-center gap-3 text-2xl sm:text-3xl font-extrabold font-mono text-white hover:text-blue-300 transition-colors"
                 >
                   <Phone size={24} className="text-emerald-400" />
-                  <span>{companyInfo.headquarters.hotline}</span>
+                  <span>{companyInfo.headquarters.emergency}</span>
                 </a>
 
                 <p className="text-xs text-blue-100/90 leading-relaxed pt-1">
-                  Đội cứu hộ cơ động sẵn sàng có mặt trong vòng ≤ 30 phút tại khu vực nội thành.
+                  Đội cứu hộ cơ động sẵn sàng có mặt trong vòng ≤ 120 phút tại khu vực nội thành.
                 </p>
               </div>
             </div>
@@ -334,9 +334,10 @@ export default function ContactPage() {
                 <div className="flex gap-3">
                   <Phone size={18} className="text-[#285c9a] shrink-0 mt-0.5" />
                   <div>
-                    <div className="font-bold text-[#0d1f35]">Điện thoại bàn & Hotline:</div>
-                    <div className="font-mono font-semibold text-slate-800 mt-0.5">
-                      0898.424.666 · 0987.603.588
+                    <div className="font-bold text-[#0d1f35]">Điện thoại & Hotline:</div>
+                    <div className="font-mono font-semibold text-slate-800 mt-0.5 space-y-0.5">
+                      <div>Kinh doanh: 0898.424.666 · 0987.603.588</div>
+                      <div className="text-emerald-600 font-bold">Cứu hộ 24/7: {companyInfo.headquarters.emergency}</div>
                     </div>
                   </div>
                 </div>
@@ -419,7 +420,7 @@ export default function ContactPage() {
               },
               {
                 q: 'Nhà có hố PIT nông dưới 300mm có lắp được không?',
-                a: 'Hoàn toàn được. Dòng thang máy gia đình công nghệ Fuji Nhật Bản của Hải Phát được thiết kế chuyên biệt cho hố PIT siêu nông từ 200mm, không cần đào sâu cắt móng.',
+                a: 'Hoàn toàn được. Dòng thang máy gia đình công nghệ Fuji Nhật Bản của Hải Phát được thiết kế chuyên biệt cho hố PIT siêu nông từ 600mm, không cần đào sâu cắt móng.',
               },
               {
                 q: 'Quy trình bảo trì sau khi hết hạn bảo hành như thế nào?',

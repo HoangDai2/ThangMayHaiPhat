@@ -44,6 +44,7 @@ Với đội ngũ kỹ sư giàu kinh nghiệm, được đào tạo bài bản 
     address: 'Tầng 11, Tòa Nhà Đa Năng, 169 Đ. Nguyễn Ngọc Vũ, Yên Hòa, Hà Nội, Việt Nam',
     phone: '0898 424 666',
     hotline: '0987 603 588',
+    emergency: '0326 629 971',
     email: 'haiphatthangmay@gmail.com',
     workingHours: 'Thứ 2 - Thứ 7: 7:30 - 17:30',
   },

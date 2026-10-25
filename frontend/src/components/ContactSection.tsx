@@ -62,8 +62,8 @@ export default function ContactSection() {
                     <div className="text-xs font-semibold text-slate-500 uppercase tracking-wide">
                       Hotline 24/7 (Kỹ thuật & Cứu hộ)
                     </div>
-                    <a href="tel:0898424666" className="text-base sm:text-lg font-extrabold text-[#0d1f35] font-mono hover:text-[#285c9a] block">
-                      0898 424 666
+                    <a href="tel:0326629971" className="text-base sm:text-lg font-extrabold text-[#0d1f35] font-mono hover:text-[#285c9a] block">
+                      0326 629 971
                     </a>
                     <a href="tel:0987603588" className="text-xs sm:text-sm font-semibold text-slate-600 font-mono hover:text-[#285c9a] block mt-0.5">
                       Kinh doanh: 0987 603 588
@@ -143,7 +143,7 @@ export default function ContactSection() {
                 </div>
                 <div className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 font-mono text-[11px] font-semibold border border-emerald-200">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                  <span>SLA ≤ 30 Phút</span>
+                  <span>SLA ≤ 60 Phút</span>
                 </div>
               </div>
 
@@ -154,7 +154,7 @@ export default function ContactSection() {
                     <div>
                       <div className="font-bold">Yêu cầu đã được gửi thành công!</div>
                       <div className="text-xs text-emerald-700 mt-0.5">
-                        Kỹ sư Hải Phát sẽ liên hệ lại với bạn trong vòng 30 phút làm việc.
+                        Kỹ sư Hải Phát sẽ liên hệ lại với bạn trong vòng 60 phút làm việc.
                       </div>
                     </div>
                   </div>
@@ -245,7 +245,7 @@ export default function ContactSection() {
 
                 <div className="flex items-center justify-center gap-2 text-xs text-slate-500 pt-2 font-mono">
                   <Clock size={13} className="text-[#285c9a]" />
-                  <span>Kỹ sư túc trực 24/7 – Phản hồi trong 30 phút</span>
+                  <span>Kỹ sư túc trực 24/7 – Phản hồi trong 60 phút</span>
                 </div>
               </form>
             </div>

@@ -109,7 +109,7 @@ export function ProductsList() {
                 {/* Content Block */}
                 <div className="p-6 flex flex-col flex-1 justify-between space-y-5">
                   <div>
-                    <p className="text-slate-600 text-xs sm:text-sm leading-relaxed mb-4 line-clamp-2">
+                    <p className="text-slate-600 text-xs sm:text-sm leading-relaxed mb-4">
                       {product.shortDescription}
                     </p>
 
@@ -123,7 +123,7 @@ export function ProductsList() {
                           <div className="text-[10px] text-slate-500 font-semibold uppercase tracking-wider">
                             {spec.label}
                           </div>
-                          <div className="text-xs font-bold text-slate-800 font-mono mt-0.5 truncate">
+                          <div className="text-xs font-bold text-slate-800 font-mono mt-0.5">
                             {spec.value}
                           </div>
                         </div>
@@ -132,7 +132,7 @@ export function ProductsList() {
                   </div>
 
                   <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs sm:text-sm">
-                    <span className="font-mono text-slate-500 font-medium">Bảo hành 36 tháng</span>
+                    <span className="font-mono text-slate-500 font-medium">Bảo hành 18 tháng</span>
                     <span className="inline-flex items-center gap-1.5 text-[#285c9a] font-bold group-hover:gap-2 transition-all">
                       <span>Xem thông số kỹ thuật</span>
                       <ArrowRight size={14} />
@@ -168,13 +168,13 @@ export function ProductsList() {
               },
               {
                 icon: Clock,
-                title: 'Cứu Hộ 24/7 Dưới 30P',
-                desc: 'Đội phản ứng nhanh thường trực toàn thời gian, cam kết có mặt xử lý trong vòng 30 phút.',
+                title: 'Cứu Hộ 24/7 Dưới 120P',
+                desc: 'Đội phản ứng nhanh thường trực toàn thời gian, cam kết có mặt xử lý trong vòng 120 phút.',
                 metric: 'SLA KHẨN CẤP'
               },
               {
                 icon: Star,
-                title: 'Hố PIT Nông Từ 200mm',
+                title: 'Hố PIT Nông Từ 600mm',
                 desc: 'Giải pháp tối ưu không cần đào sâu hay can thiệp vào móng bè, bảo vệ trọn vẹn phong thủy.',
                 metric: 'TIẾT KIỆM KHÔNG GIAN'
               },

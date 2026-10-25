@@ -155,12 +155,12 @@ export default function Navbar() {
           </a>
 
           <a
-            href="tel:0898424666"
+            href="tel:0326629971"
             className="group relative flex items-center gap-1.5 xl:gap-2 px-3 xl:px-4 py-1.5 xl:py-2 rounded-xl text-xs xl:text-sm font-bold bg-[#285c9a] hover:bg-[#1e4a80] text-white shadow-md shadow-[#285c9a]/25 hover:shadow-lg hover:shadow-[#285c9a]/35 transition-all duration-200 select-none active:scale-[0.98] whitespace-nowrap"
           >
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
             <Phone size={13} className="group-hover:rotate-12 transition-transform" />
-            <span className="font-mono">0898.424.666</span>
+            <span className="font-mono">0326.629.971</span>
           </a>
         </div>
 
@@ -249,12 +249,12 @@ export default function Navbar() {
               {/* Hotlines Grid */}
               <div className="grid grid-cols-2 gap-2">
                 <a
-                  href="tel:0898424666"
+                  href="tel:0326629971"
                   className="flex items-center justify-center gap-1.5 py-2.5 sm:py-3 px-2.5 bg-[#285c9a] hover:bg-[#1e4a80] text-white rounded-xl font-bold text-xs sm:text-sm shadow-xs transition-all"
                 >
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
                   <Phone size={14} className="shrink-0" />
-                  <span className="font-mono truncate">0898.424.666</span>
+                  <span className="font-mono truncate">0326.629.971</span>
                 </a>
 
                 <a
