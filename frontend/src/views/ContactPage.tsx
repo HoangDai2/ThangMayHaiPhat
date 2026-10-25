@@ -419,7 +419,7 @@ export default function ContactPage() {
                 a: 'Thời gian sản xuất và lắp đặt tiêu chuẩn kéo dài từ 30 đến 45 ngày làm việc tùy thuộc vào xuất xứ linh kiện và tiến độ chuẩn bị hố thang của gia chủ.',
               },
               {
-                q: 'Nhà có hố PIT nông dưới 300mm có lắp được không?',
+                q: 'Nhà có hố PIT nông dưới 600mm có lắp được không?',
                 a: 'Hoàn toàn được. Dòng thang máy gia đình công nghệ Fuji Nhật Bản của Hải Phát được thiết kế chuyên biệt cho hố PIT siêu nông từ 600mm, không cần đào sâu cắt móng.',
               },
               {

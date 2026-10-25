@@ -8,63 +8,46 @@ interface QuickQuoteWidgetProps {
   onSuccess?: () => void;
 }
 
-type ProjectType = 'nhapho' | 'bietthu' | 'toanha';
-type CabinType = 'inox' | 'kinh' | 'caocap';
-type StatusType = 'xaymoi' | 'caitao' | 'cogieng';
+type ElevatorType = 'khungthep' | 'thangxay';
+type CabinType = 'inox' | 'inox_kinh';
+type StatusType = 'dangxay' | 'caitao';
 
 const CONFIG = {
-  priceMillion: {
-    nhapho: { base: 290, perFloor: 22 },
-    bietthu: { base: 330, perFloor: 25 },
-    toanha: { base: 400, perFloor: 30 },
-  },
   cabinAdd: {
     inox: 0,
-    kinh: 35,
-    caocap: 80,
+    inox_kinh: 30,
   },
   statusAdd: {
-    xaymoi: 0,
+    dangxay: 0,
     caitao: 25,
-    cogieng: -10,
   },
-  rangeLow: 0.97,
-  rangeHigh: 1.10,
 };
 
-const TYPE_LABELS: Record<ProjectType, { title: string; desc: string }> = {
-  nhapho: { title: 'Nhà phố', desc: 'nhà ống, liền kề' },
-  bietthu: { title: 'Biệt thự', desc: 'thang kính, cao cấp' },
-  toanha: { title: 'Tòa nhà', desc: 'khách sạn, văn phòng' },
+const TYPE_LABELS: Record<ElevatorType, { title: string; desc: string }> = {
+  khungthep: { title: 'Khung thép vách kính', desc: 'kính quan sát, sang trọng' },
+  thangxay: { title: 'Thang xây', desc: 'cột bê tông, tường gạch' },
 };
 
 const CABIN_LABELS: Record<CabinType, { title: string; desc: string }> = {
   inox: { title: 'Inox', desc: 'tiêu chuẩn' },
-  kinh: { title: 'Kính', desc: 'quan sát' },
-  caocap: { title: 'Cao cấp', desc: 'gỗ, đá, mạ' },
+  inox_kinh: { title: 'Inox kết hợp kính', desc: 'quan sát, thoáng sáng' },
 };
 
 const STATUS_LABELS: Record<StatusType, { title: string; desc: string }> = {
-  xaymoi: { title: 'Đang xây', desc: 'chưa hoàn thiện' },
-  caitao: { title: 'Đã ở', desc: 'cần cải tạo' },
-  cogieng: { title: 'Đã có giếng', desc: 'có sẵn hố thang' },
+  dangxay: { title: 'Đang xây', desc: 'nhà xây mới' },
+  caitao: { title: 'Cải tạo', desc: 'nhà đang ở' },
 };
 
-const TYPE_SPECS: Record<ProjectType, { load: string; pit: string; shaft: string }> = {
-  nhapho: {
-    load: '300 – 400 kg (4 – 5 người)',
-    pit: 'Siêu nông từ 600mm',
-    shaft: '1350 × 1350 mm',
+const TYPE_SPECS: Record<ElevatorType, { load: string; pit: string; shaft: string }> = {
+  khungthep: {
+    load: '350 – 450 kg (4 – 6 người)',
+    pit: 'Siêu nông từ 300 – 500mm',
+    shaft: '1400 × 1400 mm (Tiết kiệm diện tích)',
   },
-  bietthu: {
-    load: '400 – 450 kg (5 – 6 người)',
-    pit: 'Siêu nông từ 600mm',
-    shaft: '1500 × 1500 mm',
-  },
-  toanha: {
-    load: '630 – 1000 kg (8 – 13 người)',
-    pit: 'Tiêu chuẩn từ 800mm',
-    shaft: '1800 × 2000 mm',
+  thangxay: {
+    load: '350 – 450 kg (4 – 6 người)',
+    pit: 'Tiêu chuẩn từ 600 – 1000mm',
+    shaft: '1500 × 1500 mm (Tường gạch 110-220)',
   },
 };
 
@@ -73,13 +56,9 @@ const CABIN_SPECS: Record<CabinType, { material: string; aesthetic: string }> = 
     material: 'Inox 304 sọc nhuyễn chống vân tay',
     aesthetic: 'Hiện đại, bền bỉ, dễ vệ sinh',
   },
-  kinh: {
-    material: 'Kính an toàn 2 lớp (Laminated Glass)',
-    aesthetic: 'Quan sát Panorama 360°, thoáng sáng',
-  },
-  caocap: {
-    material: 'Ốp gỗ tự nhiên / Mạ Titan vàng gương',
-    aesthetic: 'Đẳng cấp hoàng gia, may đo phong thủy',
+  inox_kinh: {
+    material: 'Khung Inox 304 kết hợp Kính an toàn 2 lớp',
+    aesthetic: 'Quan sát Panorama, thoáng sáng, sang trọng',
   },
 };
 
@@ -89,10 +68,10 @@ export default function QuickQuoteWidget({ className = '', onSuccess }: QuickQuo
   const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
 
   // Selections
-  const [type, setType] = useState<ProjectType>('bietthu');
-  const [floors, setFloors] = useState<string>('7+');
+  const [type, setType] = useState<ElevatorType>('khungthep');
+  const [floors, setFloors] = useState<string>('2');
   const [cabin, setCabin] = useState<CabinType>('inox');
-  const [status, setStatus] = useState<StatusType>('xaymoi');
+  const [status, setStatus] = useState<StatusType>('dangxay');
 
   // Lead inputs
   const [phone, setPhone] = useState('');
@@ -100,18 +79,28 @@ export default function QuickQuoteWidget({ className = '', onSuccess }: QuickQuo
   const [phoneError, setPhoneError] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
-  // Calculate dynamic price
+  // Calculate dynamic price based on business rules:
+  // - Thang xây: giá từ 275 triệu ở 2 tầng, mỗi tầng tăng thêm 15 triệu
+  // - Thang khung thép vách kính: giá từ 350 triệu ở 2 tầng, thêm tầng phụ thuộc nhiều yếu tố (khung, kính ~35-50tr/tầng)
   const calcEstimate = () => {
     const floorNum = floors === '7+' ? 7 : parseInt(floors, 10);
-    const p = CONFIG.priceMillion[type];
-    const est =
-      p.base +
-      Math.max(0, floorNum - 3) * p.perFloor +
-      CONFIG.cabinAdd[cabin] +
-      CONFIG.statusAdd[status];
+    const extraFloors = Math.max(0, floorNum - 2);
+    const addOns = CONFIG.cabinAdd[cabin] + CONFIG.statusAdd[status];
 
-    const low = round5(est * CONFIG.rangeLow);
-    const high = round5(est * CONFIG.rangeHigh);
+    if (type === 'thangxay') {
+      const base = 275 + extraFloors * 15 + addOns;
+      return `Từ ${base} triệu`;
+    }
+
+    // type === 'khungthep'
+    if (extraFloors === 0) {
+      const base = 350 + addOns;
+      return `Từ ${base} triệu`;
+    }
+
+    // Thêm tầng cho thang khung thép kính dao động theo quy cách khung & kính (~35 - 50 triệu/tầng)
+    const low = round5(350 + extraFloors * 35 + addOns);
+    const high = round5(350 + extraFloors * 50 + addOns);
     return `${low} – ${high} triệu`;
   };
 
@@ -181,17 +170,17 @@ export default function QuickQuoteWidget({ className = '', onSuccess }: QuickQuo
         </div>
       )}
 
-      {/* STEP 1: Loại công trình & Số tầng */}
+      {/* STEP 1: Loại thang & Số tầng */}
       {step === 1 && (
         <div className="flex-1 flex flex-col justify-between animate-fadeIn">
           <div className="space-y-4 sm:space-y-5">
-            {/* Loại công trình */}
+            {/* Loại thang */}
             <div>
               <label className="block text-sm font-bold text-[#0F2A4A] mb-2">
-                Loại công trình
+                Loại thang
               </label>
-              <div className="grid grid-cols-3 gap-2 sm:gap-2.5">
-                {(Object.keys(TYPE_LABELS) as ProjectType[]).map((tKey) => {
+              <div className="grid grid-cols-2 gap-2 sm:gap-2.5">
+                {(Object.keys(TYPE_LABELS) as ElevatorType[]).map((tKey) => {
                   const isSelected = type === tKey;
                   const item = TYPE_LABELS[tKey];
                   return (
@@ -259,7 +248,7 @@ export default function QuickQuoteWidget({ className = '', onSuccess }: QuickQuo
                   <span>Cấu hình gợi ý: {TYPE_LABELS[type].title} ({floors} tầng)</span>
                 </div>
                 <span className="text-[11px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200/80 px-2 py-0.5 rounded-full font-mono">
-                  Hố PIT {type === 'toanha' ? '800mm' : '600mm'}
+                  Hố PIT {type === 'khungthep' ? 'từ 600mm' : 'từ 600mm'}
                 </span>
               </div>
 
@@ -287,12 +276,21 @@ export default function QuickQuoteWidget({ className = '', onSuccess }: QuickQuo
                   <div className="text-xs sm:text-[13px] font-bold text-amber-600 font-mono mt-0.5">
                     {calcEstimate()}
                   </div>
+                  <div className="text-[10px] text-slate-400 font-medium truncate mt-0.5">
+                    {type === 'khungthep'
+                      ? (floors === '2' ? 'Từ 350tr cho 2 tầng' : 'Tùy kết cấu khung & kính')
+                      : (floors === '2' ? 'Từ 275tr cho 2 tầng' : '+15 triệu / tầng thêm')}
+                  </div>
                 </div>
               </div>
 
               <div className="flex items-center gap-2 pt-1 text-[11px] text-slate-500 border-t border-slate-200/60">
                 <ShieldCheck size={13} className="text-emerald-600 shrink-0" />
-                <span>Kỹ sư khảo sát & lên bản vẽ 2D/3D miễn phí trước khi chốt HĐ.</span>
+                <span>
+                  {type === 'khungthep'
+                    ? 'Khung thép vách kính: 2 tầng từ 350 triệu. Thêm tầng phụ thuộc khung & kính.'
+                    : 'Thang xây: 2 tầng từ 275 triệu. Mỗi tầng tăng thêm 15 triệu.'}
+                </span>
               </div>
             </div>
           </div>
@@ -323,7 +321,7 @@ export default function QuickQuoteWidget({ className = '', onSuccess }: QuickQuo
               <label className="block text-sm font-bold text-[#0F2A4A] mb-2">
                 Kiểu cabin
               </label>
-              <div className="grid grid-cols-3 gap-2 sm:gap-2.5">
+              <div className="grid grid-cols-2 gap-2 sm:gap-2.5">
                 {(Object.keys(CABIN_LABELS) as CabinType[]).map((cKey) => {
                   const isSelected = cabin === cKey;
                   const item = CABIN_LABELS[cKey];
@@ -363,7 +361,7 @@ export default function QuickQuoteWidget({ className = '', onSuccess }: QuickQuo
               <label className="block text-sm font-bold text-[#0F2A4A] mb-2">
                 Hiện trạng công trình
               </label>
-              <div className="grid grid-cols-3 gap-2 sm:gap-2.5">
+              <div className="grid grid-cols-2 gap-2 sm:gap-2.5">
                 {(Object.keys(STATUS_LABELS) as StatusType[]).map((sKey) => {
                   const isSelected = status === sKey;
                   const item = STATUS_LABELS[sKey];
@@ -419,8 +417,8 @@ export default function QuickQuoteWidget({ className = '', onSuccess }: QuickQuo
                 </div>
                 <div className="bg-white rounded-xl p-2 sm:p-2.5 border border-slate-200/70">
                   <div className="text-[10px] sm:text-[11px] text-slate-500 font-medium">Thời gian thi công</div>
-                  <div className="text-xs sm:text-[13px] font-bold text-slate-800 font-mono mt-0.5">
-                    {status === 'caitao' ? '15 – 25 ngày (Không bụi)' : '30 – 45 ngày (Chuẩn tiến độ)'}
+                  <div className="text-xs sm:text-[13px] font-bold text-slate-800 mt-0.5 leading-snug">
+                    {status === 'caitao' ? '30 – 45 ngày' : 'Phụ thuộc tiến độ xây dựng'}
                   </div>
                 </div>
                 <div className="bg-white rounded-xl p-2 sm:p-2.5 border border-slate-200/70">
@@ -484,7 +482,13 @@ export default function QuickQuoteWidget({ className = '', onSuccess }: QuickQuo
                 {calcEstimate()}
               </div>
               <p className="text-[11px] text-slate-300/90 leading-tight">
-                * Giá chính xác sau khi kỹ sư khảo sát thực địa miễn phí tại công trình.
+                {type === 'khungthep'
+                  ? (floors === '2'
+                      ? '* Thang khung thép vách kính 2 tầng từ 350 triệu. Kỹ sư khảo sát & lên bản vẽ 3D miễn phí.'
+                      : '* Thang khung thép vách kính: Chi phí thêm tầng phụ thuộc kết cấu khung thép, loại kính & chiều cao tầng.')
+                  : (floors === '2'
+                      ? '* Thang xây 2 tầng từ 275 triệu (mỗi tầng thêm +15 triệu). Khảo sát miễn phí.'
+                      : '* Thang xây: Mỗi tầng tăng thêm 15 triệu theo tiêu chuẩn kỹ thuật.')}
               </p>
             </div>
 
@@ -541,7 +545,7 @@ export default function QuickQuoteWidget({ className = '', onSuccess }: QuickQuo
               </div>
               <div className="bg-slate-50/80 p-2 rounded-xl border border-slate-200/70">
                 <div className="text-[10px] text-slate-500 font-medium">Kỹ sư gọi lại</div>
-                <div className="text-xs font-bold text-[#1E5AA8] font-mono mt-0.5">Trong 30P</div>
+                <div className="text-xs font-bold text-[#1E5AA8] font-mono mt-0.5">Trong 60P</div>
               </div>
             </div>
           </div>
@@ -577,7 +581,7 @@ export default function QuickQuoteWidget({ className = '', onSuccess }: QuickQuo
               </button>
             </div>
             <p className="text-[11px] text-slate-400 text-center leading-relaxed font-medium">
-              Kỹ sư gọi lại trong 30 phút (8h–20h). Thông tin chỉ dùng tư vấn, không chia sẻ bên thứ 3.
+              Kỹ sư gọi lại trong 60 phút (8h–20h). Thông tin chỉ dùng tư vấn, không chia sẻ bên thứ 3.
             </p>
           </div>
         </form>

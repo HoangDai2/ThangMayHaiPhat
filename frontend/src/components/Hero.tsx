@@ -16,6 +16,7 @@ import { DEFAULT_BANNERS, BannerSlide } from '../data/banners';
 import Link from 'next/link';
 import AboutUs from './AboutUs';
 import QuickQuoteWidget from './QuickQuoteWidget';
+import PricingOverview from './PricingOverview';
 
 export default function Hero() {
   const [emblaRef, emblaApi] = useEmblaCarousel(
@@ -169,14 +170,14 @@ export default function Hero() {
               </div>
 
               {/* Mobile Scroll-Down Indicator */}
-              <div className="absolute bottom-4 left-5 z-20 flex items-center gap-1.5 text-white/70 text-xs font-mono uppercase tracking-wider select-none pointer-events-none">
+              <div className="absolute bottom-[84px] left-5 z-20 flex items-center gap-1.5 text-white/70 text-xs font-mono uppercase tracking-wider select-none pointer-events-none">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                 <span>Cuộn khám phá</span>
                 <ChevronDown size={14} className="animate-bounce" />
               </div>
 
               {/* Slider Dots & Navigation Controls */}
-              <div className="absolute bottom-4 right-4 z-20 flex items-center gap-2">
+              <div className="absolute bottom-[84px] right-4 z-20 flex items-center gap-2">
                 <div className="flex items-center gap-1.5 bg-black/55 backdrop-blur-md border border-white/15 px-2.5 py-1.5 rounded-full shadow-lg">
                   {displayBanners.map((_, i) => (
                     <button
@@ -213,112 +214,110 @@ export default function Hero() {
           {/* =========================================================================
               AUTHORITY TEXT, SPECS & CTAS (LEFT COLUMN)
               - Order-2 on mobile (below slider)
-              - Order-1 on desktop (col-span-6 on left, equal height with right column)
+              - Order-1 on desktop (col-span-6 on left, vertically centered with right column)
               ========================================================================= */}
-          <div className="order-2 lg:order-1 lg:col-span-6 w-full px-4 sm:px-6 lg:px-0 py-6 lg:py-0 flex flex-col justify-between h-full">
-            <div className="bg-white rounded-3xl border border-slate-200/90 shadow-[0_14px_45px_rgba(15,42,74,0.06)] p-6 sm:p-7 lg:p-8 xl:p-9 flex flex-col justify-between h-full transition-all">
-              {/* Top: Standard Badge & Headline */}
-              <div className="space-y-4">
-                {/* Engineering Standard Badge */}
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50/80 border border-blue-200/80 text-[#1E5AA8] font-mono text-xs font-semibold uppercase tracking-wider w-fit shadow-2xs">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                  <span>Tiêu chuẩn Châu Âu EN 81 // ISO 9001:2015</span>
-                </div>
-
-                {/* Display Headline */}
-                <div className="space-y-3">
-                  <h1 className="text-3xl sm:text-4xl lg:text-[32px] xl:text-[36px] font-extrabold text-[#0d1f35] leading-[1.22] tracking-tight">
-                    <span className="block">Kiến Tạo <span className="text-[#1E5AA8] whitespace-nowrap bg-gradient-to-r from-[#1E5AA8] to-[#285c9a] bg-clip-text text-transparent">Kiệt Tác Thang Máy</span></span>
-                    <span className="block text-slate-800">Cho Biệt Thự & Nhà Phố</span>
-                  </h1>
-                  <p className="text-slate-600 text-sm sm:text-base leading-relaxed text-pretty">
-                    Giải pháp may đo cơ khí tinh xảo, tích hợp công nghệ biến tần Fuji Nhật Bản & Montanari Ý. Tối ưu 100% diện tích không gian sống với hố PIT siêu nông.
-                  </p>
-                </div>
+          <div className="order-2 lg:order-1 lg:col-span-6 w-full px-4 sm:px-6 lg:px-0 py-2 flex flex-col justify-center space-y-5 lg:space-y-6">
+            {/* Top: Standard Badge & Headline */}
+            <div className="space-y-3 sm:space-y-3.5">
+              {/* Engineering Standard Badge */}
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50/90 border border-blue-200/80 text-[#1E5AA8] font-mono text-xs font-semibold uppercase tracking-wider w-fit shadow-2xs">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span>Tiêu chuẩn Châu Âu EN 81 // ISO 9001:2015</span>
               </div>
 
-              {/* Middle: 4 Technical Highlights & CTAs */}
-              <div className="space-y-5 my-4 sm:my-5">
-                {/* 4 Technical Highlights (No truncation, beautiful 2x2 grid) */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3">
-                  {[
-                    { label: 'Hố PIT siêu nông', value: 'từ 600mm' },
-                    { label: 'Linh kiện chính hãng', value: '100% CO/CQ' },
-                    { label: 'Bảo hành chính hãng', value: '18 Tháng' },
-                    { label: 'Cứu hộ khẩn cấp 24/7', value: '≤ 120 Phút' },
-                  ].map((item, idx) => (
-                    <div
-                      key={idx}
-                      className="flex items-center gap-2.5 text-xs sm:text-[13px] font-medium text-slate-700 bg-slate-50/80 hover:bg-blue-50/40 border border-slate-200/80 hover:border-blue-200/80 px-3.5 py-2.5 rounded-xl transition-all shadow-2xs group"
-                    >
-                      <CheckCircle2 className="w-4 h-4 text-[#1E5AA8] group-hover:scale-110 transition-transform shrink-0" />
-                      <div className="leading-snug">
-                        <span>{item.label}</span>{' '}
-                        <span className="font-mono font-bold text-[#1E5AA8] tabular-nums whitespace-nowrap">
-                          {item.value}
-                        </span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+              {/* Display Headline */}
+              <div className="space-y-2.5">
+                <h1 className="text-3xl sm:text-4xl lg:text-[34px] xl:text-[38px] font-extrabold text-[#0d1f35] leading-[1.2] tracking-tight">
+                  <span className="block">Kiến Tạo <span className="text-[#1E5AA8] whitespace-nowrap bg-gradient-to-r from-[#1E5AA8] to-[#285c9a] bg-clip-text text-transparent">Kiệt Tác Thang Máy</span></span>
+                  <span className="block text-slate-800">Cho Biệt Thự & Nhà Phố</span>
+                </h1>
+                <p className="text-slate-600 text-sm sm:text-base leading-relaxed text-pretty max-w-xl">
+                  Giải pháp may đo cơ khí tinh xảo, tích hợp công nghệ biến tần Fuji Nhật Bản & Montanari Ý. Tối ưu 100% diện tích không gian sống với hố PIT siêu nông.
+                </p>
+              </div>
+            </div>
 
-                {/* Conversion CTA Group */}
-                <div className="flex flex-wrap items-center gap-3 pt-1">
-                  <Link
-                    href="/lien-he"
-                    onClick={(e) => {
-                      if (typeof window !== 'undefined' && window.innerWidth >= 1024) {
-                        const el = document.getElementById('quick-quote-card');
-                        if (el) {
-                          e.preventDefault();
-                          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        }
+            {/* Middle: 4 Technical Highlights & CTAs */}
+            <div className="space-y-4">
+              {/* 4 Technical Highlights */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                {[
+                  { label: 'Hố PIT siêu nông', value: 'từ 600mm' },
+                  { label: 'Linh kiện chính hãng', value: '100% CO/CQ' },
+                  { label: 'Bảo hành chính hãng', value: '18 Tháng' },
+                  { label: 'Cứu hộ khẩn cấp 24/7', value: '≤ 120 Phút' },
+                ].map((item, idx) => (
+                  <div
+                    key={idx}
+                    className="flex items-center gap-2.5 text-xs sm:text-[13px] font-medium text-slate-700 bg-white hover:bg-blue-50/40 border border-slate-200/80 hover:border-blue-200/80 px-3.5 py-2.5 rounded-xl transition-all shadow-xs group"
+                  >
+                    <CheckCircle2 className="w-4 h-4 text-[#1E5AA8] group-hover:scale-110 transition-transform shrink-0" />
+                    <div className="leading-snug">
+                      <span>{item.label}</span>{' '}
+                      <span className="font-mono font-bold text-[#1E5AA8] tabular-nums whitespace-nowrap">
+                        {item.value}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Conversion CTA Group */}
+              <div className="flex flex-wrap items-center gap-3 pt-1">
+                <Link
+                  href="/lien-he"
+                  onClick={(e) => {
+                    if (typeof window !== 'undefined' && window.innerWidth >= 1024) {
+                      const el = document.getElementById('quick-quote-card');
+                      if (el) {
+                        e.preventDefault();
+                        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
                       }
-                    }}
-                    className="group inline-flex items-center gap-2.5 bg-[#1E5AA8] hover:bg-[#174C91] text-white px-5 sm:px-6 py-3.5 rounded-xl font-bold text-sm sm:text-base transition-all duration-300 shadow-md shadow-[#1E5AA8]/25 hover:shadow-xl hover:shadow-[#1E5AA8]/35 active:scale-[0.98]"
-                  >
-                    <span>Nhận Tư Vấn & Báo Giá 3D</span>
-                    <span className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-1 transition-transform">
-                      <ArrowRight size={14} />
-                    </span>
-                  </Link>
+                    }
+                  }}
+                  className="group inline-flex items-center gap-2.5 bg-[#1E5AA8] hover:bg-[#174C91] text-white px-5 sm:px-6 py-3.5 rounded-xl font-bold text-sm sm:text-base transition-all duration-300 shadow-md shadow-[#1E5AA8]/25 hover:shadow-xl hover:shadow-[#1E5AA8]/35 active:scale-[0.98]"
+                >
+                  <span>Nhận Tư Vấn & Báo Giá 3D</span>
+                  <span className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-1 transition-transform">
+                    <ArrowRight size={14} />
+                  </span>
+                </Link>
 
-                  <a
-                    href="tel:0898424666"
-                    className="inline-flex items-center gap-2 bg-slate-50 hover:bg-slate-100 text-slate-800 border border-slate-200/90 px-4 sm:px-5 py-3.5 rounded-xl font-semibold text-sm sm:text-base transition-colors shadow-2xs active:scale-[0.98]"
-                  >
-                    <Phone size={15} className="text-[#1E5AA8]" />
-                    <span className="font-mono font-bold">0898.424.666</span>
-                  </a>
-                </div>
+                <a
+                  href="tel:0898424666"
+                  className="inline-flex items-center gap-2 bg-white hover:bg-slate-50 text-slate-800 border border-slate-200/90 px-4 sm:px-5 py-3.5 rounded-xl font-semibold text-sm sm:text-base transition-colors shadow-xs active:scale-[0.98]"
+                >
+                  <Phone size={15} className="text-[#1E5AA8]" />
+                  <span className="font-mono font-bold">0898.424.666</span>
+                </a>
               </div>
+            </div>
 
-              {/* Bottom: Telemetry Stats Bar */}
-              <div className="pt-4 border-t border-slate-200/80">
-                <div className="grid grid-cols-3 divide-x divide-slate-200/80 bg-slate-50/70 rounded-2xl py-3 px-1 sm:px-2 border border-slate-200/70 shadow-2xs">
-                  <div className="flex flex-col items-center text-center px-1">
-                    <div className="text-xl sm:text-2xl font-extrabold text-[#0d1f35] font-mono tracking-tight tabular-nums">
-                      5+ Năm
-                    </div>
-                    <div className="text-[11px] sm:text-xs text-slate-500 font-medium leading-tight mt-0.5">
-                      Kinh nghiệm chuyên sâu
-                    </div>
+            {/* Bottom: Telemetry Stats Bar */}
+            <div className="pt-1 sm:pt-2">
+              <div className="grid grid-cols-3 divide-x divide-slate-200/80 bg-white rounded-2xl py-3 px-1 sm:px-2 border border-slate-200/70 shadow-xs">
+                <div className="flex flex-col items-center text-center px-1">
+                  <div className="text-xl sm:text-2xl font-extrabold text-[#0d1f35] font-mono tracking-tight tabular-nums">
+                    5+ Năm
                   </div>
-                  <div className="flex flex-col items-center text-center px-1">
-                    <div className="text-xl sm:text-2xl font-extrabold text-[#1E5AA8] font-mono tracking-tight tabular-nums">
-                      1.000+
-                    </div>
-                    <div className="text-[11px] sm:text-xs text-slate-500 font-medium leading-tight mt-0.5">
-                      Công trình hoàn thành
-                    </div>
+                  <div className="text-[11px] sm:text-xs text-slate-500 font-medium leading-tight mt-0.5">
+                    Kinh nghiệm chuyên sâu
                   </div>
-                  <div className="flex flex-col items-center text-center px-1">
-                    <div className="text-xl sm:text-2xl font-extrabold text-emerald-600 font-mono tracking-tight tabular-nums">
-                      98%
-                    </div>
-                    <div className="text-[11px] sm:text-xs text-slate-500 font-medium leading-tight mt-0.5">
-                      Khách hàng hài lòng
-                    </div>
+                </div>
+                <div className="flex flex-col items-center text-center px-1">
+                  <div className="text-xl sm:text-2xl font-extrabold text-[#1E5AA8] font-mono tracking-tight tabular-nums">
+                    1.000+
+                  </div>
+                  <div className="text-[11px] sm:text-xs text-slate-500 font-medium leading-tight mt-0.5">
+                    Công trình hoàn thành
+                  </div>
+                </div>
+                <div className="flex flex-col items-center text-center px-1">
+                  <div className="text-xl sm:text-2xl font-extrabold text-emerald-600 font-mono tracking-tight tabular-nums">
+                    98%
+                  </div>
+                  <div className="text-[11px] sm:text-xs text-slate-500 font-medium leading-tight mt-0.5">
+                    Khách hàng hài lòng
                   </div>
                 </div>
               </div>
@@ -337,8 +336,13 @@ export default function Hero() {
         </div>
 
         {/* Brand Authority Section */}
-        <div className="mt-12 sm:mt-16 lg:mt-20 px-4 sm:px-6 lg:px-0 pb-12 sm:pb-16 lg:pb-0">
+        <div className="mt-12 sm:mt-16 lg:mt-20 px-4 sm:px-6 lg:px-0">
           <AboutUs />
+        </div>
+
+        {/* Pricing Overview Section (Bảng giá tham khảo 2026) */}
+        <div className="mt-8 sm:mt-12 lg:mt-14 px-4 sm:px-6 lg:px-0 pb-12 sm:pb-16 lg:pb-12">
+          <PricingOverview />
         </div>
       </div>
     </section>

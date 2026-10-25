@@ -227,7 +227,7 @@ export default function ContactSection() {
                     rows={4}
                     value={form.message}
                     onChange={(e) => setForm({ ...form, message: e.target.value })}
-                    placeholder="Ví dụ: Nhà xây mới 5 tầng, vị trí giếng trời, hố PIT sâu khoảng 300mm, mong muốn tải trọng 450kg..."
+                    placeholder="Ví dụ: Nhà xây mới 5 tầng, vị trí giếng trời, hố PIT sâu khoảng 600mm, mong muốn tải trọng 450kg..."
                     className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-800 placeholder-slate-400 resize-none focus:bg-white focus:outline-none focus:border-[#285c9a] focus:ring-2 focus:ring-[#285c9a]/15 transition-all"
                   />
                 </div>

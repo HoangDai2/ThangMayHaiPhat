@@ -9,6 +9,7 @@ const nextConfig = {
   output: 'standalone',
   outputFileTracingRoot: __dirname,
   reactStrictMode: true,
+  devIndicators: false,
   images: {
     remotePatterns: [
       {

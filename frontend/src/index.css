@@ -50,7 +50,7 @@
   /* Technical Blueprint Grid Pattern for Dark Headers */
   .bg-grid-blueprint {
     background-size: 36px 36px;
-    background-image: 
+    background-image:
       linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
       linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
   }
@@ -58,7 +58,7 @@
   /* Technical Blueprint Grid Pattern for Light Backgrounds */
   .bg-grid-light {
     background-size: 36px 36px;
-    background-image: 
+    background-image:
       linear-gradient(to right, rgba(13, 31, 53, 0.03) 1px, transparent 1px),
       linear-gradient(to bottom, rgba(13, 31, 53, 0.03) 1px, transparent 1px);
   }
@@ -101,5 +101,10 @@
 
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
     background: rgba(40, 92, 154, 0.5);
+  }
+
+  /* Hide Next.js dev indicator portal */
+  nextjs-portal {
+    display: none !important;
   }
 }

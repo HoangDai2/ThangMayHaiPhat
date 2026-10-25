@@ -4,19 +4,16 @@ import Link from 'next/link';
 import {
   Building2,
   ShieldCheck,
-  Settings,
   ArrowRight,
   Home,
   Truck,
   Eye,
   HeartPulse,
-  Search,
-  Ruler,
+  Banknote,
+  FileCheck2,
   Wrench,
-  CheckCircle2,
 } from 'lucide-react';
 import { useProductsData } from '../hooks/useProductsData';
-import { useServicesData } from '../hooks/useServicesData';
 import SectionHeader from './shared/SectionHeader';
 
 const productIconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
@@ -27,96 +24,157 @@ const productIconMap: Record<string, React.ComponentType<{ size?: number; classN
   'heart-pulse': HeartPulse,
 };
 
-const serviceIconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
-  'clipboard-search': Search,
-  ruler: Ruler,
-  wrench: Wrench,
-  'shield-check': ShieldCheck,
-};
+const PROCESS_STEPS = [
+  {
+    num: 1,
+    title: 'Khảo sát miễn phí',
+    desc: 'Kỹ sư đến đo giếng thang, hố PIT, chiều cao tầng trên cùng.',
+    time: 'Trong 24–48 giờ',
+    image: '/189644056_157443963019765_6705723621810017597_n.jpg',
+  },
+  {
+    num: 2,
+    title: 'Bản vẽ 3D & báo giá',
+    desc: 'Phương án cabin, cửa tầng và báo giá chi tiết từng hạng mục.',
+    time: '2–3 ngày',
+    image: '/763701258_1499177482225709_114956793849319926_n.jpg',
+  },
+  {
+    num: 3,
+    title: 'Thi công lắp đặt',
+    desc: 'Đội kỹ thuật của Hải Phát, cập nhật tiến độ qua Zalo hằng tuần.',
+    time: '25–35 ngày',
+    image: '/483100261_1075555607921234_7097560171354795472_n.jpg',
+  },
+  {
+    num: 4,
+    title: 'Kiểm định & bàn giao',
+    desc: 'Kiểm định theo QCVN 02:2019, hướng dẫn sử dụng, bảo trì định kỳ.',
+    time: 'Bảo trì 2 tháng/lần',
+    image: '/762974441_1501082972035160_5634679056048782805_n.jpg',
+  },
+];
+
+const COMMITMENTS = [
+  {
+    icon: Banknote,
+    title: 'Giá chốt, không phát sinh',
+    desc: 'Giá trong hợp đồng là giá cuối, đã gồm lắp đặt và kiểm định lần đầu.',
+    dashed: true,
+  },
+  {
+    icon: FileCheck2,
+    title: 'Linh kiện có CO/CQ',
+    desc: 'Biến tần Fuji (Nhật Bản), động cơ Montanari (Ý). Giấy tờ bàn giao đầy đủ.',
+    dashed: false,
+  },
+  {
+    icon: ShieldCheck,
+    title: 'Bảo hành 18 tháng',
+    desc: 'Bảo trì định kỳ 2 tháng/lần miễn phí trong thời gian bảo hành.',
+    dashed: true,
+  },
+  {
+    icon: Wrench,
+    title: 'Cứu hộ 24/7',
+    desc: 'Kỹ thuật viên có mặt trong 30 phút tại nội thành Hà Nội.',
+    dashed: true,
+  },
+];
 
 export default function Services() {
   const { products } = useProductsData();
-  const { services: serviceItems } = useServicesData();
 
   return (
     <section id="services" className="py-16 sm:py-24 bg-slate-50 border-b border-slate-200/60">
-      {/* 1. PROFESSIONAL SERVICE WORKFLOW */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeader
-          badge="Tiêu Chuẩn Kỹ Thuật"
-          title="Quy Trình Dịch Vụ Cơ Điện Chuyên Nghiệp"
-          subtitle="Đồng hành khép kín cùng gia chủ trong toàn bộ vòng đời sản phẩm từ khảo sát thực địa đến vận hành và bảo trì trọn đời."
-        />
+      {/* 1. QUY TRÌNH 4 BƯỚC: TỪ KHẢO SÁT ĐẾN BÀN GIAO (GIỮ NGUYÊN ẢNH THẬT) */}
+      <div id="quy-trinh" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center max-w-3xl mx-auto space-y-3 mb-10 sm:mb-12">
+          <div className="text-xs sm:text-sm font-bold text-amber-600 uppercase tracking-wider font-mono">
+            Quy trình 4 bước
+          </div>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#0d1f35] tracking-tight">
+            Từ khảo sát đến bàn giao
+          </h2>
+        </div>
 
-        {/* Timeline Workflow */}
-        <div className="relative mt-12 max-w-5xl mx-auto w-full">
-          {/* Vertical Track Line */}
-          <div className="absolute left-[20px] md:left-1/2 top-4 bottom-4 w-0.5 bg-gradient-to-b from-[#285c9a]/20 via-slate-300 to-[#285c9a]/20 transform md:-translate-x-1/2" />
-
-          <div className="space-y-12 md:space-y-0">
-            {serviceItems.map((service, idx) => {
-              const Icon = serviceIconMap[service.icon] || Settings;
-              const isEven = idx % 2 === 1;
-              const isLast = idx === serviceItems.length - 1;
-
-              return (
-                <div
-                  key={service.id}
-                  className={`relative flex flex-col md:flex-row items-start ${
-                    isEven ? 'md:flex-row-reverse' : ''
-                  } group ${!isLast ? 'md:pb-16' : ''}`}
-                >
-                  {/* Central Node Indicator */}
-                  <div className="absolute left-[20px] md:left-1/2 transform -translate-x-1/2 flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-full bg-white border-2 border-slate-200 shadow-md group-hover:border-[#285c9a] group-hover:scale-110 transition-all duration-300 z-10">
-                    <div className="flex items-center justify-center w-full h-full rounded-full bg-slate-50 group-hover:bg-[#285c9a] transition-colors duration-300">
-                      <Icon className="w-4 h-4 md:w-5 md:h-5 text-[#285c9a] group-hover:text-white transition-colors duration-300" />
-                    </div>
-                  </div>
-
-                  {/* Card Content with Double-Bezel Structure */}
-                  <div className={`w-full md:w-1/2 pl-12 md:pl-0 ${isEven ? 'md:pr-10' : 'md:pl-10'}`}>
-                    <div className="bg-white p-6 sm:p-7 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-xl hover:border-[#285c9a]/40 transition-all duration-300 group-hover:-translate-y-1">
-                      <div className="relative h-48 sm:h-56 rounded-xl overflow-hidden mb-5 bg-slate-100">
-                        <img
-                          src={[
-                            '/189644056_157443963019765_6705723621810017597_n.jpg',
-                            '/763701258_1499177482225709_114956793849319926_n.jpg',
-                            '/483100261_1075555607921234_7097560171354795472_n.jpg',
-                            '/762974441_1501082972035160_5634679056048782805_n.jpg'
-                          ][idx % 4]}
-                          alt={service.title}
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#0d1f35]/60 via-transparent to-transparent" />
-                        <div className="absolute bottom-3 left-3 bg-[#0d1f35]/90 backdrop-blur-md px-3 py-1 rounded-lg text-white font-mono text-xs font-semibold uppercase tracking-wider border border-white/10">
-                          Giai Đoạn 0{idx + 1}
-                        </div>
-                      </div>
-
-                      <h3 className="font-extrabold text-[#0d1f35] text-lg sm:text-xl mb-2.5 group-hover:text-[#285c9a] transition-colors">
-                        {service.title}
-                      </h3>
-
-                      <div className="text-slate-600 text-sm leading-relaxed">
-                        {service.shortDescription.includes('•') ? (
-                          <ul className="space-y-2 mt-2">
-                            {service.shortDescription.split('•').filter(Boolean).map((part, i) => (
-                              <li key={i} className="flex items-start gap-2">
-                                <CheckCircle2 className="w-4 h-4 text-[#285c9a] shrink-0 mt-0.5" />
-                                <span>{part.trim()}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        ) : (
-                          <p>{service.shortDescription}</p>
-                        )}
-                      </div>
-                    </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+          {PROCESS_STEPS.map((step) => (
+            <div
+              key={step.num}
+              className="bg-white rounded-3xl border border-slate-200/90 shadow-[0_8px_30px_rgba(15,42,74,0.04)] p-5 sm:p-6 flex flex-col justify-between hover:shadow-lg hover:border-slate-300 transition-all group"
+            >
+              <div>
+                {/* Image with Step Number */}
+                <div className="relative aspect-[4/3] rounded-2xl overflow-hidden mb-4 bg-slate-100">
+                  <img
+                    src={step.image}
+                    alt={step.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
+                  <div className="absolute top-3 left-3 w-8 h-8 rounded-full bg-[#0d1f35] text-white font-extrabold text-sm flex items-center justify-center shadow-md border border-white/20">
+                    {step.num}
                   </div>
                 </div>
-              );
-            })}
+
+                {/* Title & Desc */}
+                <h3 className="font-extrabold text-[#0d1f35] text-lg mb-2 group-hover:text-[#1E5AA8] transition-colors">
+                  {step.title}
+                </h3>
+                <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">
+                  {step.desc}
+                </p>
+              </div>
+
+              {/* Time Tag */}
+              <div className="mt-5 pt-3 border-t border-slate-100">
+                <span className="inline-block border border-dashed border-amber-400 bg-amber-50/70 text-amber-800 px-3 py-1 rounded-lg text-xs font-bold font-mono">
+                  {step.time}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* 2. CAM KẾT GHI TRONG HỢP ĐỒNG: VÌ SAO CHỦ NHÀ CHỌN HẢI PHÁT */}
+      <div id="cam-ket" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 sm:mt-20">
+        <div className="text-center max-w-3xl mx-auto space-y-3 mb-10 sm:mb-12">
+          <div className="text-xs sm:text-sm font-bold text-amber-600 uppercase tracking-wider font-mono">
+            Cam kết ghi trong hợp đồng
           </div>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#0d1f35] tracking-tight">
+            Vì sao chủ nhà chọn Hải Phát
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+          {COMMITMENTS.map((item, idx) => {
+            const Icon = item.icon;
+            return (
+              <div
+                key={idx}
+                className={`rounded-3xl p-6 sm:p-7 flex flex-col justify-between transition-all group hover:shadow-md ${
+                  item.dashed
+                    ? 'border border-dashed border-amber-300 bg-amber-50/25 hover:bg-amber-50/40'
+                    : 'border border-slate-200 bg-white hover:border-slate-300 shadow-[0_8px_30px_rgba(15,42,74,0.04)]'
+                }`}
+              >
+                <div>
+                  <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-[#1E5AA8] mb-4 group-hover:scale-105 transition-transform">
+                    <Icon size={20} />
+                  </div>
+                  <h3 className="font-extrabold text-[#0d1f35] text-base sm:text-lg mb-2">
+                    {item.title}
+                  </h3>
+                  <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">
+                    {item.desc}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
 
