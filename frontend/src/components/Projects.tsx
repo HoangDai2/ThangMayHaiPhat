@@ -25,32 +25,33 @@ export default function Projects() {
           badge="Hồ Sơ Năng Lực"
           title="Dự Án & Công Trình Đã Hoàn Thành"
           subtitle="Hơn 1.000+ công trình thang máy biệt thự, lâu đài và tòa nhà văn phòng được Thang Máy Hải Phát triển khai bàn giao trên khắp các tỉnh thành toàn quốc."
-          action={
-            <Link
-              href="/du-an"
-              className="group inline-flex items-center gap-1.5 text-sm font-bold text-[#285c9a] hover:text-[#1e4a80] transition-colors"
-            >
-              <span>Xem tất cả dự án</span>
-              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-            </Link>
-          }
         />
 
-        {/* Filter Tabs */}
-        <div className="flex flex-wrap items-center gap-2 mb-10">
-          {(['Tất cả', ...categories] as const).map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setActive(cat)}
-              className={`px-5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 select-none ${
-                active === cat
-                  ? 'bg-[#285c9a] text-white shadow-md shadow-[#285c9a]/25'
-                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200/80 border border-slate-200/60'
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
+        {/* Filter Tabs & View All Action */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-10">
+          <div className="flex flex-wrap items-center gap-2">
+            {(['Tất cả', ...categories] as const).map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setActive(cat)}
+                className={`px-5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 select-none ${
+                  active === cat
+                    ? 'bg-[#285c9a] text-white shadow-md shadow-[#285c9a]/25'
+                    : 'bg-slate-100 text-slate-700 hover:bg-slate-200/80 border border-slate-200/60'
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+
+          <Link
+            href="/du-an"
+            className="group inline-flex items-center gap-1.5 text-sm font-bold text-[#285c9a] hover:text-[#1e4a80] transition-colors self-start sm:self-auto"
+          >
+            <span>Xem tất cả dự án</span>
+            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+          </Link>
         </div>
 
         {/* Project Cards Grid */}
@@ -98,17 +99,17 @@ export default function Projects() {
         {/* Bottom Proof Strip */}
         <div className="mt-14">
           <div className="bg-slate-50 border border-slate-200/80 rounded-2xl p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-sm">
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 sm:gap-10 text-center sm:text-left w-full md:w-auto">
+            <div className="flex items-center justify-between sm:justify-start gap-4 sm:gap-8 lg:gap-10 text-center sm:text-left w-full md:w-auto">
               <div>
                 <div className="text-2xl sm:text-3xl font-extrabold text-[#285c9a] font-mono">1.000+</div>
                 <div className="text-xs text-slate-500 font-medium mt-0.5">Công trình toàn quốc</div>
               </div>
-              <div className="hidden sm:block w-px h-12 bg-slate-200 self-center" />
+              <div className="w-px h-10 sm:h-12 bg-slate-200 shrink-0" />
               <div>
                 <div className="text-2xl sm:text-3xl font-extrabold text-[#285c9a] font-mono">15+ Tỉnh</div>
                 <div className="text-xs text-slate-500 font-medium mt-0.5">Địa bàn phục vụ</div>
               </div>
-              <div className="hidden sm:block w-px h-12 bg-slate-200 self-center" />
+              <div className="w-px h-10 sm:h-12 bg-slate-200 shrink-0" />
               <div>
                 <div className="text-2xl sm:text-3xl font-extrabold text-emerald-600 font-mono">98%</div>
                 <div className="text-xs text-slate-500 font-medium mt-0.5">Tỷ lệ hài lòng tuyệt đối</div>

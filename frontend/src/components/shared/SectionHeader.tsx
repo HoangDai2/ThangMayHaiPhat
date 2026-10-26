@@ -17,7 +17,7 @@ export default function SectionHeader({
   className = '',
   action,
 }: SectionHeaderProps) {
-  const isCenter = align === 'center';
+  const isCenter = align === 'center' && !action;
 
   return (
     <div
