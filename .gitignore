@@ -18,6 +18,7 @@ frontend/process_*.js
 
 # Scratch / Temporary
 scratch/
+reference_html/
 
 # Gemini / Agents
 .agents/
