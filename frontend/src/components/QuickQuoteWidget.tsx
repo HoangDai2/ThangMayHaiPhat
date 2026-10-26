@@ -1,11 +1,14 @@
 "use client";
 
-import { useState } from 'react';
-import { Check, ArrowRight, ArrowLeft, PhoneCall, CheckCircle2, Loader2, Sparkles, ShieldCheck } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Check, ArrowRight, ArrowLeft, PhoneCall, CheckCircle2, Loader2, Sparkles, ShieldCheck, X } from 'lucide-react';
 
 interface QuickQuoteWidgetProps {
   className?: string;
   onSuccess?: () => void;
+  onClose?: () => void;
+  initialType?: ElevatorType;
+  isModal?: boolean;
 }
 
 type ElevatorType = 'khungthep' | 'thangxay';
@@ -64,14 +67,26 @@ const CABIN_SPECS: Record<CabinType, { material: string; aesthetic: string }> = 
 
 const round5 = (x: number) => Math.round(x / 5) * 5;
 
-export default function QuickQuoteWidget({ className = '', onSuccess }: QuickQuoteWidgetProps) {
+export default function QuickQuoteWidget({
+  className = '',
+  onSuccess,
+  onClose,
+  initialType,
+  isModal = false,
+}: QuickQuoteWidgetProps) {
   const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
 
   // Selections
-  const [type, setType] = useState<ElevatorType>('khungthep');
+  const [type, setType] = useState<ElevatorType>(initialType || 'khungthep');
   const [floors, setFloors] = useState<string>('2');
   const [cabin, setCabin] = useState<CabinType>('inox');
   const [status, setStatus] = useState<StatusType>('dangxay');
+
+  useEffect(() => {
+    if (initialType) {
+      setType(initialType);
+    }
+  }, [initialType]);
 
   // Lead inputs
   const [phone, setPhone] = useState('');
@@ -144,18 +159,34 @@ export default function QuickQuoteWidget({ className = '', onSuccess }: QuickQuo
 
   return (
     <div
-      className={`w-full bg-white rounded-3xl border border-slate-200/90 shadow-[0_14px_45px_rgba(15,42,74,0.06)] p-6 sm:p-7 lg:p-8 xl:p-9 flex flex-col justify-between transition-all ${className}`}
+      className={`w-full bg-white ${
+        isModal
+          ? 'p-5 sm:p-7'
+          : 'rounded-3xl border border-slate-200/90 shadow-[0_14px_45px_rgba(15,42,74,0.06)] p-6 sm:p-7 lg:p-8 xl:p-9'
+      } flex flex-col justify-between transition-all ${className}`}
     >
       {/* Top Header & Progress */}
       {step < 4 && (
         <div className="mb-4 sm:mb-5">
-          <div className="flex items-baseline justify-between mb-2">
+          <div className="flex items-center justify-between mb-2">
             <h2 className="text-xl sm:text-2xl font-extrabold text-[#0F2A4A] tracking-tight flex items-center gap-2">
               <span>Báo giá nhanh</span>
             </h2>
-            <span className="text-xs sm:text-sm font-semibold text-slate-500 font-mono">
-              Bước {step}/3
-            </span>
+            <div className="flex items-center gap-2.5">
+              <span className="text-xs sm:text-sm font-semibold text-slate-500 font-mono">
+                Bước {step}/3
+              </span>
+              {onClose && (
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="w-8 h-8 -mr-1 rounded-full flex items-center justify-center text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer"
+                  aria-label="Đóng cửa sổ"
+                >
+                  <X size={18} />
+                </button>
+              )}
+            </div>
           </div>
 
           {/* Progress Bar */}
@@ -613,10 +644,20 @@ export default function QuickQuoteWidget({ className = '', onSuccess }: QuickQuo
               <span>Gọi hotline: 0898.424.666</span>
             </a>
 
+            {onClose && (
+              <button
+                type="button"
+                onClick={onClose}
+                className="w-full py-2.5 rounded-xl bg-[#1E5AA8] hover:bg-[#174C91] text-white font-bold text-xs sm:text-sm transition-colors cursor-pointer"
+              >
+                Đóng cửa sổ
+              </button>
+            )}
+
             <button
               type="button"
               onClick={resetForm}
-              className="w-full py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-600 font-medium text-xs transition-colors cursor-pointer"
+              className="w-full py-2 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-600 font-medium text-xs transition-colors cursor-pointer"
             >
               Tính phương án khác
             </button>

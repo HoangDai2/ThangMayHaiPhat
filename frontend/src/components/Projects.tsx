@@ -6,12 +6,14 @@ import { MapPin, ArrowRight, Building2, Ruler } from 'lucide-react';
 import { ProjectCategory } from '../data/projects';
 import { useProjectsData } from '../hooks/useProjectsData';
 import SectionHeader from './shared/SectionHeader';
+import { useQuickQuote } from '../context/QuickQuoteContext';
 
 const categories: ProjectCategory[] = ['Gia đình', 'Tải khách', 'Thương mại'];
 
 export default function Projects() {
   const [active, setActive] = useState<ProjectCategory | 'Tất cả'>('Tất cả');
   const { projects } = useProjectsData();
+  const { openQuoteModal } = useQuickQuote();
 
   const filtered = active === 'Tất cả' ? projects : projects.filter((p) => p.category === active);
 
@@ -114,13 +116,14 @@ export default function Projects() {
             </div>
 
             <div className="flex items-center gap-3 w-full sm:w-auto justify-center">
-              <Link
-                href="/lien-he"
-                className="group inline-flex items-center gap-2 bg-[#285c9a] hover:bg-[#1e4a80] text-white px-6 py-3 rounded-xl font-bold text-sm transition-all duration-200 shadow-md shadow-[#285c9a]/20 active:scale-[0.98]"
+              <button
+                type="button"
+                onClick={() => openQuoteModal()}
+                className="group inline-flex items-center gap-2 bg-[#285c9a] hover:bg-[#1e4a80] text-white px-6 py-3 rounded-xl font-bold text-sm transition-all duration-200 shadow-md shadow-[#285c9a]/20 active:scale-[0.98] cursor-pointer"
               >
                 <span>Nhận Tư Vấn Dự Án Của Bạn</span>
                 <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform" />
-              </Link>
+              </button>
             </div>
           </div>
         </div>

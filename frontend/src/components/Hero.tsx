@@ -17,8 +17,10 @@ import Link from 'next/link';
 import AboutUs from './AboutUs';
 import QuickQuoteWidget from './QuickQuoteWidget';
 import PricingOverview from './PricingOverview';
+import { useQuickQuote } from '../context/QuickQuoteContext';
 
 export default function Hero() {
+  const { openQuoteModal } = useQuickQuote();
   const [emblaRef, emblaApi] = useEmblaCarousel(
     { loop: true, duration: 30 },
     [Autoplay({ delay: 5000, stopOnInteraction: false, stopOnMouseEnter: true })]
@@ -79,7 +81,7 @@ export default function Hero() {
                     return (
                       <div
                         key={slide.id || index}
-                        className="relative min-w-0 flex-[0_0_100%] h-full flex flex-col justify-center p-6 sm:p-8 select-none pt-20 sm:pt-24 pb-20 sm:pb-24"
+                        className="relative min-w-0 flex-[0_0_100%] h-full flex flex-col justify-center p-6 sm:p-8 select-none pt-20 sm:pt-24 pb-36 sm:pb-24"
                       >
                         {/* Background Image with Architectural Dusk Lights */}
                         <div className="absolute inset-0 overflow-hidden">
@@ -153,13 +155,36 @@ export default function Hero() {
                           {/* CTA Button on Slider */}
                           <div className="pt-2">
                             {slide.primary_button_text && (
-                              <Link
-                                href={slide.primary_button_link || '/san-pham'}
-                                className="group w-full flex items-center justify-center gap-2 bg-white text-[#0d1f35] hover:bg-blue-50 py-3 sm:py-3.5 rounded-xl font-bold text-sm transition-all duration-300 shadow-xl active:scale-[0.98]"
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  const text = slide.primary_button_text?.toLowerCase() || '';
+                                  const link = slide.primary_button_link || '';
+                                  if (
+                                    text.includes('tư vấn') ||
+                                    text.includes('báo giá') ||
+                                    link === '#contact' ||
+                                    link === '#quote'
+                                  ) {
+                                    openQuoteModal();
+                                  } else if (link.startsWith('#')) {
+                                    const target = document.querySelector(link);
+                                    if (target) {
+                                      target.scrollIntoView({ behavior: 'smooth' });
+                                    } else {
+                                      openQuoteModal();
+                                    }
+                                  } else if (link) {
+                                    window.location.href = link;
+                                  } else {
+                                    openQuoteModal();
+                                  }
+                                }}
+                                className="group w-full flex items-center justify-center gap-2 bg-white text-[#0d1f35] hover:bg-blue-50 py-3 sm:py-3.5 rounded-xl font-bold text-sm transition-all duration-300 shadow-xl active:scale-[0.98] cursor-pointer"
                               >
                                 <span>{slide.primary_button_text}</span>
                                 <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform" />
-                              </Link>
+                              </button>
                             )}
                           </div>
                         </div>
@@ -169,44 +194,36 @@ export default function Hero() {
                 </div>
               </div>
 
-              {/* Mobile Scroll-Down Indicator */}
-              <div className="absolute bottom-[84px] left-5 z-20 flex items-center gap-1.5 text-white/70 text-xs font-mono uppercase tracking-wider select-none pointer-events-none">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                <span>Cuộn khám phá</span>
-                <ChevronDown size={14} className="animate-bounce" />
-              </div>
+              {/* Integrated Centered Slider Navigation Capsule */}
+              <div className="absolute bottom-[72px] left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 bg-black/60 backdrop-blur-md border border-white/20 px-3 py-1.5 rounded-full shadow-xl select-none">
+                <button
+                  onClick={scrollPrev}
+                  className="w-6 h-6 rounded-full hover:bg-white/20 text-white flex items-center justify-center transition-all active:scale-90"
+                  aria-label="Slide trước"
+                >
+                  <ChevronLeft size={14} />
+                </button>
 
-              {/* Slider Dots & Navigation Controls */}
-              <div className="absolute bottom-[84px] right-4 z-20 flex items-center gap-2">
-                <div className="flex items-center gap-1.5 bg-black/55 backdrop-blur-md border border-white/15 px-2.5 py-1.5 rounded-full shadow-lg">
+                <div className="flex items-center gap-1.5 px-1">
                   {displayBanners.map((_, i) => (
                     <button
                       key={i}
                       onClick={() => scrollTo(i)}
                       className={`h-1.5 rounded-full transition-all duration-300 ${
-                        i === selectedIndex ? 'w-6 bg-white shadow-sm' : 'w-2 bg-white/40 hover:bg-white/70'
+                        i === selectedIndex ? 'w-5 bg-white shadow-sm' : 'w-1.5 bg-white/40 hover:bg-white/70'
                       }`}
                       aria-label={`Chuyển đến slide ${i + 1}`}
                     />
                   ))}
                 </div>
 
-                <div className="flex items-center gap-1">
-                  <button
-                    onClick={scrollPrev}
-                    className="w-7 h-7 rounded-full bg-black/55 hover:bg-black/80 backdrop-blur-md border border-white/20 text-white flex items-center justify-center transition-all active:scale-95 shadow-md"
-                    aria-label="Previous slide"
-                  >
-                    <ChevronLeft size={14} />
-                  </button>
-                  <button
-                    onClick={scrollNext}
-                    className="w-7 h-7 rounded-full bg-black/55 hover:bg-black/80 backdrop-blur-md border border-white/20 text-white flex items-center justify-center transition-all active:scale-95 shadow-md"
-                    aria-label="Next slide"
-                  >
-                    <ChevronRight size={14} />
-                  </button>
-                </div>
+                <button
+                  onClick={scrollNext}
+                  className="w-6 h-6 rounded-full hover:bg-white/20 text-white flex items-center justify-center transition-all active:scale-90"
+                  aria-label="Slide sau"
+                >
+                  <ChevronRight size={14} />
+                </button>
               </div>
             </div>
           </div>
@@ -264,24 +281,25 @@ export default function Hero() {
 
               {/* Conversion CTA Group */}
               <div className="flex flex-wrap items-center gap-3 pt-1">
-                <Link
-                  href="/lien-he"
-                  onClick={(e) => {
+                <button
+                  type="button"
+                  onClick={() => {
                     if (typeof window !== 'undefined' && window.innerWidth >= 1024) {
                       const el = document.getElementById('quick-quote-card');
                       if (el) {
-                        e.preventDefault();
                         el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        return;
                       }
                     }
+                    openQuoteModal();
                   }}
-                  className="group inline-flex items-center gap-2.5 bg-[#1E5AA8] hover:bg-[#174C91] text-white px-5 sm:px-6 py-3.5 rounded-xl font-bold text-sm sm:text-base transition-all duration-300 shadow-md shadow-[#1E5AA8]/25 hover:shadow-xl hover:shadow-[#1E5AA8]/35 active:scale-[0.98]"
+                  className="group inline-flex items-center gap-2.5 bg-[#1E5AA8] hover:bg-[#174C91] text-white px-5 sm:px-6 py-3.5 rounded-xl font-bold text-sm sm:text-base transition-all duration-300 shadow-md shadow-[#1E5AA8]/25 hover:shadow-xl hover:shadow-[#1E5AA8]/35 active:scale-[0.98] cursor-pointer"
                 >
                   <span>Nhận Tư Vấn & Báo Giá 3D</span>
                   <span className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-1 transition-transform">
                     <ArrowRight size={14} />
                   </span>
-                </Link>
+                </button>
 
                 <a
                   href="tel:0898424666"

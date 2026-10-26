@@ -2,25 +2,34 @@
 
 import Link from 'next/link';
 import { ArrowRight, Sparkles } from 'lucide-react';
+import { useQuickQuote } from '../context/QuickQuoteContext';
 
 export default function PricingOverview() {
+  const { openQuoteModal } = useQuickQuote();
+
   const scrollToQuote = (type?: 'thangxay' | 'khungthep') => {
     if (typeof window !== 'undefined') {
-      const el = document.getElementById('quick-quote-card') || document.getElementById('home');
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      if (window.innerWidth >= 1024) {
+        const el = document.getElementById('quick-quote-card');
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          return;
+        }
       }
+      openQuoteModal(type ? { initialType: type } : undefined);
     }
   };
 
   const scrollToContact = () => {
     if (typeof window !== 'undefined') {
-      const el = document.getElementById('contact');
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
-      } else {
-        window.location.href = '/lien-he';
+      if (window.innerWidth >= 1024) {
+        const el = document.getElementById('contact');
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+          return;
+        }
       }
+      openQuoteModal();
     }
   };
 

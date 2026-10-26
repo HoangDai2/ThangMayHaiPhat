@@ -33,6 +33,7 @@ import { Product } from '../data/products';
 import { useProductsData } from '../hooks/useProductsData';
 import PageHeader from '../components/shared/PageHeader';
 import SectionHeader from '../components/shared/SectionHeader';
+import { useQuickQuote } from '../context/QuickQuoteContext';
 
 const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
   home: Home,
@@ -45,6 +46,7 @@ const iconMap: Record<string, React.ComponentType<{ size?: number; className?: s
 // ===================== Products List View =====================
 export function ProductsList() {
   const { products, loading } = useProductsData();
+  const { openQuoteModal } = useQuickQuote();
 
   if (loading) {
     return (
@@ -220,13 +222,14 @@ export function ProductsList() {
                 <Phone size={15} className="text-[#285c9a]" />
                 <span className="font-mono">Hotline: 0898 424 666</span>
               </a>
-              <Link
-                href="/lien-he"
-                className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white px-6 py-3 rounded-xl font-semibold text-sm transition-colors active:scale-[0.98]"
+              <button
+                type="button"
+                onClick={() => openQuoteModal()}
+                className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white px-6 py-3 rounded-xl font-semibold text-sm transition-colors active:scale-[0.98] cursor-pointer"
               >
                 <Mail size={15} />
                 <span>Gửi Yêu Cầu Báo Giá</span>
-              </Link>
+              </button>
             </div>
           </div>
         </div>

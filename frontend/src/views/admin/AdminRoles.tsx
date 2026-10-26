@@ -75,6 +75,14 @@ export default function AdminRoles() {
     }
   };
 
+  const handleTogglePermission = (roleId: string, permissionId: string, hasPerm: boolean) => {
+    setRolePermissions(prev => {
+      const current = prev[roleId] || [];
+      const updated = hasPerm ? current.filter(id => id !== permissionId) : [...current, permissionId];
+      return { ...prev, [roleId]: updated };
+    });
+  };
+
   if (loading) return <div>Đang tải dữ liệu...</div>;
 
   return (

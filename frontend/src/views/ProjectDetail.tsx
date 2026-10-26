@@ -155,7 +155,7 @@ function ProjectDetail() {
             </section>
 
             {/* Execution Highlights */}
-            {project.highlights && project.highlights.length > 0 && (
+            {((project as any).highlights || project.features) && ((project as any).highlights || project.features).length > 0 && (
               <section className="bg-white rounded-2xl border border-slate-200/80 p-6 sm:p-8 shadow-sm">
                 <h3 className="text-lg font-bold text-[#0d1f35] mb-4 flex items-center gap-2">
                   <CheckCircle2 size={18} className="text-[#285c9a]" />
@@ -163,7 +163,7 @@ function ProjectDetail() {
                 </h3>
 
                 <div className="grid sm:grid-cols-2 gap-3">
-                  {project.highlights.map((highlight, hIdx) => (
+                  {((project as any).highlights || project.features).map((highlight: string, hIdx: number) => (
                     <div
                       key={hIdx}
                       className="flex items-start gap-2.5 p-3 rounded-xl bg-slate-50 border border-slate-200/60 text-xs sm:text-sm text-slate-700"
