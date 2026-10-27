@@ -1,19 +1,20 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { MapPin, ArrowRight, Building2, Ruler } from 'lucide-react';
-import { ProjectCategory } from '../data/projects';
 import { useProjectsData } from '../hooks/useProjectsData';
 import SectionHeader from './shared/SectionHeader';
 import { useQuickQuote } from '../context/QuickQuoteContext';
 
-const categories: ProjectCategory[] = ['Gia đình', 'Tải khách', 'Thương mại'];
-
 export default function Projects() {
-  const [active, setActive] = useState<ProjectCategory | 'Tất cả'>('Tất cả');
   const { projects } = useProjectsData();
+  const [active, setActive] = useState<string>('Tất cả');
   const { openQuoteModal } = useQuickQuote();
+
+  const categories = useMemo(() => {
+    return Array.from(new Set(projects.map((p) => p.category).filter(Boolean)));
+  }, [projects]);
 
   const filtered = active === 'Tất cả' ? projects : projects.filter((p) => p.category === active);
 
@@ -30,7 +31,7 @@ export default function Projects() {
         {/* Filter Tabs & View All Action */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-10">
           <div className="flex flex-wrap items-center gap-2">
-            {(['Tất cả', ...categories] as const).map((cat) => (
+            {['Tất cả', ...categories].map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActive(cat)}

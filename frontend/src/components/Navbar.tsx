@@ -16,9 +16,11 @@ import {
   Users,
   Mail,
   ShieldCheck,
-  MessageCircle
+  MessageCircle,
+  Sparkles
 } from 'lucide-react';
 import { useArticlesData } from '../hooks/useArticlesData';
+import { useQuickQuote } from '../context/QuickQuoteContext';
 
 const navLinks = [
   { label: 'Trang chủ', href: '/', icon: Home },
@@ -31,6 +33,7 @@ const navLinks = [
 ];
 
 export default function Navbar() {
+  const { openQuoteModal } = useQuickQuote();
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { articles } = useArticlesData();
@@ -141,7 +144,7 @@ export default function Navbar() {
         </nav>
 
         {/* CTA Hotline on Desktop */}
-        <div className="hidden lg:flex items-center shrink-0 gap-2 xl:gap-3">
+        <div className="hidden lg:flex items-center shrink-0 gap-2 xl:gap-2.5">
           <a
             href="tel:0987603588"
             className={`hidden xl:flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs xl:text-sm font-semibold transition-all duration-200 border whitespace-nowrap ${
@@ -156,12 +159,21 @@ export default function Navbar() {
 
           <a
             href="tel:0326629971"
-            className="group relative flex items-center gap-1.5 xl:gap-2 px-3 xl:px-4 py-1.5 xl:py-2 rounded-xl text-xs xl:text-sm font-bold bg-[#285c9a] hover:bg-[#1e4a80] text-white shadow-md shadow-[#285c9a]/25 hover:shadow-lg hover:shadow-[#285c9a]/35 transition-all duration-200 select-none active:scale-[0.98] whitespace-nowrap"
+            className="group relative flex items-center gap-1.5 xl:gap-2 px-3 xl:px-3.5 py-1.5 xl:py-2 rounded-xl text-xs xl:text-sm font-bold bg-[#285c9a] hover:bg-[#1e4a80] text-white shadow-md shadow-[#285c9a]/25 hover:shadow-lg hover:shadow-[#285c9a]/35 transition-all duration-200 select-none active:scale-[0.98] whitespace-nowrap"
           >
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
             <Phone size={13} className="group-hover:rotate-12 transition-transform" />
             <span className="font-mono">0326.629.971</span>
           </a>
+
+          <button
+            type="button"
+            onClick={() => openQuoteModal()}
+            className="group relative flex items-center gap-1.5 px-3.5 py-1.5 xl:py-2 rounded-xl text-xs xl:text-sm font-bold bg-[#1E5AA8] hover:bg-[#174C91] text-white shadow-md shadow-[#1E5AA8]/25 hover:shadow-lg transition-all select-none active:scale-[0.98] cursor-pointer whitespace-nowrap"
+          >
+            <Sparkles size={14} className="text-amber-300 group-hover:rotate-12 transition-transform" />
+            <span>Báo Giá Nhanh</span>
+          </button>
         </div>
 
         {/* Mobile menu toggle button */}
@@ -201,6 +213,19 @@ export default function Navbar() {
                   SLA 24/7 SẴN SÀNG
                 </span>
               </div>
+
+              {/* Quick Quote CTA for Mobile */}
+              <button
+                type="button"
+                onClick={() => {
+                  setMenuOpen(false);
+                  openQuoteModal();
+                }}
+                className="w-full flex items-center justify-center gap-2 py-3 px-4 bg-[#1E5AA8] hover:bg-[#174C91] active:scale-[0.98] text-white rounded-xl font-bold text-sm shadow-md transition-all cursor-pointer select-none"
+              >
+                <Sparkles size={16} className="text-amber-300" />
+                <span>Nhận Dự Toán & Báo Giá Nhanh (30 Giây)</span>
+              </button>
 
               {/* Navigation Links Grid - Increased to comfortable text-base (16px) */}
               <nav className="space-y-1.5">

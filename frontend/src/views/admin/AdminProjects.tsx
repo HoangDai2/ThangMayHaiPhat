@@ -1,17 +1,28 @@
 "use client";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Plus, Edit, Trash2, Search, X, Loader2, Image } from 'lucide-react';
 import api from '../../lib/api';
 import { DbProject } from '../../lib/types';
+import { products as staticProducts } from '../../data/products';
 import ArrayInput from '../../components/admin/ArrayInput';
+import ImageUpload from '../../components/admin/ImageUpload';
+import MultiImageUpload from '../../components/admin/MultiImageUpload';
 
-const CATEGORIES = ['Gia đình', 'Tải khách', 'Thương mại', 'Tải hàng'];
+const FALLBACK_CATEGORIES = [
+  'Thang Máy Xây',
+  'Thang Máy Khung Thép Vách Kính',
+  'Thang Homelift',
+  'Thang Máy Tải Khách',
+  'Thang Máy Tải Hàng',
+  'Thang Máy Quan Sát',
+  'Thang Máy Bệnh Viện',
+];
 
-const emptyForm = (): Partial<DbProject> => ({
+const emptyForm = (defaultCat = ''): Partial<DbProject> => ({
   slug: '',
   title: '',
   location: '',
-  category: 'Gia đình',
+  category: defaultCat,
   image: '',
   specs: '',
   description: '',
@@ -28,6 +39,7 @@ const emptyForm = (): Partial<DbProject> => ({
 
 export default function AdminProjects() {
   const [projects, setProjects] = useState<DbProject[]>([]);
+  const [productsList, setProductsList] = useState<{ id: string; title: string }[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -39,7 +51,24 @@ export default function AdminProjects() {
 
   useEffect(() => {
     fetchProjects();
+    fetchProducts();
   }, []);
+
+  const fetchProducts = async () => {
+    try {
+      let res;
+      try {
+        res = await api.get('/products?sort_by=created_at&sort_dir=asc');
+      } catch {
+        res = await api.get('/public/products');
+      }
+      if (res.data && Array.isArray(res.data) && res.data.length > 0) {
+        setProductsList(res.data.map((p: any) => ({ id: String(p.id), title: p.title })));
+      }
+    } catch (err) {
+      console.error('Lỗi khi tải danh sách sản phẩm:', err);
+    }
+  };
 
   const fetchProjects = async () => {
     setLoading(true);
@@ -52,15 +81,28 @@ export default function AdminProjects() {
     setLoading(false);
   };
 
+  // Derive available categories based on Products and existing projects
+  const categories = useMemo(() => {
+    const fromApi = productsList.map((p) => p.title?.trim()).filter(Boolean);
+    const fallback = fromApi.length > 0 ? fromApi : staticProducts.map((p) => p.title?.trim()).filter(Boolean);
+    const baseList = fallback.length > 0 ? fallback : FALLBACK_CATEGORIES;
+
+    // Retain existing project categories so older/custom project categories are never dropped
+    const fromExistingProjects = projects.map((p) => p.category?.trim()).filter(Boolean) as string[];
+
+    return Array.from(new Set([...baseList, ...fromExistingProjects]));
+  }, [productsList, projects]);
+
   const openAdd = () => {
-    setForm(emptyForm());
+    const defaultCat = categories[0] || 'Thang Máy Xây';
+    setForm(emptyForm(defaultCat));
     setEditingId(null);
     setError('');
     setModalOpen(true);
   };
 
   const openEdit = (project: DbProject) => {
-    setForm({ ...project });
+    setForm({ ...project, category: project.category || categories[0] || 'Thang Máy Xây' });
     setEditingId(project.id);
     setError('');
     setModalOpen(true);
@@ -69,7 +111,7 @@ export default function AdminProjects() {
   const closeModal = () => {
     setModalOpen(false);
     setEditingId(null);
-    setForm(emptyForm());
+    setForm(emptyForm(categories[0] || 'Thang Máy Xây'));
     setError('');
   };
 
@@ -81,11 +123,12 @@ export default function AdminProjects() {
     setSaving(true);
     setError('');
 
+    const defaultCat = categories[0] || 'Thang Máy Xây';
     const payload = {
       slug: form.slug!.trim(),
       title: form.title!.trim(),
       location: form.location || '',
-      category: form.category || 'Gia đình',
+      category: form.category || defaultCat,
       image: form.image || '',
       specs: form.specs || '',
       description: form.description || '',
@@ -166,7 +209,7 @@ export default function AdminProjects() {
           />
         </div>
         <div className="flex gap-2 flex-wrap items-center">
-          {['all', ...CATEGORIES].map((cat) => (
+          {['all', ...categories].map((cat) => (
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
@@ -274,15 +317,17 @@ export default function AdminProjects() {
                 </div>
                 <div>
                   <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">
-                    Danh mục
+                    Danh mục (Dòng sản phẩm)
                   </label>
                   <select
-                    value={form.category || 'Gia đình'}
+                    value={form.category || categories[0] || ''}
                     onChange={(e) => set('category', e.target.value)}
-                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-[#285c9a] outline-none transition-all"
+                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-[#285c9a] outline-none transition-all font-medium text-slate-800"
                   >
-                    {CATEGORIES.map((c) => (
-                      <option key={c}>{c}</option>
+                    {categories.map((c) => (
+                      <option key={c} value={c}>
+                        {c}
+                      </option>
                     ))}
                   </select>
                 </div>
@@ -324,19 +369,11 @@ export default function AdminProjects() {
                 </div>
               </div>
 
-              <div>
-                <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">URL ảnh đại diện</label>
-                <input
-                  type="text"
-                  value={form.image || ''}
-                  onChange={(e) => set('image', e.target.value)}
-                  placeholder="https://..."
-                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-[#285c9a] outline-none transition-all"
-                />
-                {form.image && (
-                  <img src={form.image} alt="preview" className="mt-2 h-24 rounded-xl object-cover border border-slate-200" />
-                )}
-              </div>
+              <ImageUpload
+                label="Ảnh đại diện dự án"
+                value={form.image || ''}
+                onChange={(url) => set('image', url)}
+              />
 
               <div>
                 <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Mô tả</label>
@@ -422,11 +459,10 @@ export default function AdminProjects() {
                 placeholder="Nhập tính năng rồi Enter..."
               />
 
-              <ArrayInput
-                label="Gallery (URL ảnh)"
+              <MultiImageUpload
+                label="Bộ sưu tập ảnh dự án (Gallery)"
                 values={form.gallery || []}
-                onChange={(v) => set('gallery', v)}
-                placeholder="https://..."
+                onChange={(urls) => set('gallery', urls)}
               />
             </div>
 

@@ -19,10 +19,12 @@ import {
   Target,
   Eye,
   CheckCircle2,
+  Calculator,
 } from 'lucide-react';
 import { companyInfo, coreValues, teamMembers, partners } from '../data/company';
 import PageHeader from '../components/shared/PageHeader';
 import SectionHeader from '../components/shared/SectionHeader';
+import { useQuickQuote } from '../context/QuickQuoteContext';
 
 const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
   shield: Shield,
@@ -34,6 +36,8 @@ const iconMap: Record<string, React.ComponentType<{ size?: number; className?: s
 };
 
 export default function AboutPage() {
+  const { openQuoteModal } = useQuickQuote();
+
   return (
     <div className="min-h-screen bg-white">
       {/* Unified PageHeader */}
@@ -262,19 +266,27 @@ export default function AboutPage() {
             Nhận tư vấn giải pháp giếng thang và khảo sát hiện trạng hoàn toàn miễn phí.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+            <button
+              type="button"
+              onClick={() => openQuoteModal()}
+              className="inline-flex items-center gap-2 bg-white text-[#0d1f35] px-6 py-3 rounded-xl font-bold text-sm hover:bg-blue-50 transition-colors shadow active:scale-[0.98] cursor-pointer"
+            >
+              <Calculator size={15} className="text-[#285c9a]" />
+              <span>Dự Toán & Báo Giá Nhanh</span>
+            </button>
             <a
               href="tel:0898424666"
-              className="inline-flex items-center gap-2 bg-white text-[#0d1f35] px-6 py-3 rounded-xl font-bold text-sm hover:bg-blue-50 transition-colors shadow active:scale-[0.98]"
+              className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white px-5 py-3 rounded-xl font-semibold text-sm transition-colors active:scale-[0.98]"
             >
-              <Phone size={15} className="text-[#285c9a]" />
-              <span className="font-mono">0898.424.666</span>
+              <Phone size={15} />
+              <span className="font-mono">0898 424 666</span>
             </a>
             <Link
               href="/lien-he"
-              className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white px-6 py-3 rounded-xl font-semibold text-sm transition-colors active:scale-[0.98]"
+              className="inline-flex items-center gap-2 bg-white/5 hover:bg-white/15 border border-white/10 text-white px-4 py-3 rounded-xl font-medium text-xs transition-colors"
             >
-              <span>Gửi Yêu Cầu Tư Vấn</span>
-              <ArrowRight size={15} />
+              <span>Gửi Yêu Cầu Khảo Sát</span>
+              <ArrowRight size={13} />
             </Link>
           </div>
         </div>

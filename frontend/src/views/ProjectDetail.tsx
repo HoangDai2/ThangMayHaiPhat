@@ -9,6 +9,7 @@ import {
   Calendar,
   Shield,
   ChevronLeft,
+  ChevronRight,
   ArrowRight,
   Star,
   Phone,
@@ -19,8 +20,14 @@ import {
   Loader2,
   CheckCircle2,
   Check,
+  X,
+  Maximize2,
+  ZoomIn,
+  MoreHorizontal,
+  Camera,
+  ExternalLink,
 } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useProjectsData } from '../hooks/useProjectsData';
 import PageHeader from '../components/shared/PageHeader';
 
@@ -30,7 +37,45 @@ function ProjectDetail() {
   const { loading, getById, getRelated } = useProjectsData();
   const project = getById(id || '');
   const related = getRelated(id || '', 3);
-  const [activeImage, setActiveImage] = useState(0);
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+
+  // Collect all real project photos (gallery + primary cover image)
+  const galleryImages = project
+    ? Array.from(
+        new Set([
+          ...(project.gallery || []),
+          project.image,
+        ].filter(Boolean))
+      )
+    : [];
+
+  // Enable keyboard navigation and prevent background scrolling in lightbox
+  useEffect(() => {
+    if (lightboxIndex === null) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setLightboxIndex(null);
+      } else if (e.key === 'ArrowRight') {
+        setLightboxIndex((prev) =>
+          prev === null ? null : (prev + 1) % galleryImages.length
+        );
+      } else if (e.key === 'ArrowLeft') {
+        setLightboxIndex((prev) =>
+          prev === null ? null : (prev - 1 + galleryImages.length) % galleryImages.length
+        );
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [lightboxIndex, galleryImages.length]);
 
   if (loading) {
     return (
@@ -106,42 +151,103 @@ function ProjectDetail() {
         <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           {/* LEFT: Project Gallery & Technical Writeup (8 cols) */}
           <div className="lg:col-span-8 space-y-10">
-            {/* Gallery Showcase */}
-            <section className="bg-white rounded-2xl border border-slate-200/80 p-6 shadow-sm">
-              <h2 className="text-lg font-bold text-[#0d1f35] mb-4 flex items-center gap-2">
-                <Layers size={18} className="text-[#285c9a]" />
-                <span>Hình Ảnh Thực Tế Tại Công Trình</span>
-              </h2>
+            {/* Gallery Showcase - Pinterest / Masonry Waterfall Layout (Image 2 style) */}
+            <section className="bg-white rounded-3xl border border-slate-200/80 p-5 sm:p-7 shadow-sm">
+              {/* Gallery Header */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 pb-4 border-b border-slate-100">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-9 h-9 rounded-xl bg-blue-50 text-[#285c9a] flex items-center justify-center shrink-0 border border-blue-100/60 shadow-sm">
+                    <Layers size={18} />
+                  </div>
+                  <div>
+                    <h2 className="text-lg font-bold text-[#0d1f35] flex items-center gap-2">
+                      <span>Hình Ảnh Thực Tế Tại Công Trình</span>
+                    </h2>
+                    <p className="text-xs text-slate-500 mt-0.5">
+                      Ảnh chụp thực tế tiến độ và hoàn thiện tại công trình
+                    </p>
+                  </div>
+                </div>
 
-              <div className="relative rounded-2xl overflow-hidden mb-3 bg-slate-900 border border-slate-200 aspect-[16/10]">
-                <img
-                  src={project.gallery[activeImage] || project.image}
-                  alt={`${project.title} - Hình ${activeImage + 1}`}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute bottom-3 right-3 bg-black/60 backdrop-blur-md px-3 py-1 rounded-md text-white font-mono text-xs">
-                  {activeImage + 1} / {project.gallery.length}
+                <div className="flex items-center gap-2 self-start sm:self-auto">
+                  <span className="text-xs font-mono font-semibold px-3 py-1.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200/80 flex items-center gap-1.5">
+                    <Camera size={13} className="text-[#285c9a]" />
+                    <span>{galleryImages.length} ảnh thực tế</span>
+                  </span>
+
+                  {galleryImages.length > 0 && (
+                    <button
+                      type="button"
+                      onClick={() => setLightboxIndex(0)}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#285c9a] hover:bg-[#1e4a80] text-white text-xs font-semibold transition-all shadow-sm active:scale-95"
+                      title="Mở chế độ phóng to toàn màn hình"
+                    >
+                      <Maximize2 size={13} />
+                      <span>Xem phóng to</span>
+                    </button>
+                  )}
                 </div>
               </div>
 
-              {project.gallery.length > 1 && (
-                <div className="grid grid-cols-4 sm:grid-cols-6 gap-2 pt-2">
-                  {project.gallery.map((img, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => setActiveImage(idx)}
-                      className={`rounded-xl overflow-hidden border-2 transition-all aspect-video ${
-                        activeImage === idx
-                          ? 'border-[#285c9a] ring-2 ring-[#285c9a]/30 scale-[1.02]'
-                          : 'border-slate-200 opacity-70 hover:opacity-100'
-                      }`}
-                      aria-label={`Xem hình ${idx + 1}`}
-                    >
-                      <img src={img} alt="" className="w-full h-full object-cover" />
-                    </button>
-                  ))}
-                </div>
-              )}
+              {/* Masonry Columns Grid (Pinterest Style) */}
+              <div className="columns-2 sm:columns-2 md:columns-3 gap-3 sm:gap-4 [column-fill:_balance]">
+                {galleryImages.map((img, idx) => (
+                  <div
+                    key={idx}
+                    onClick={() => setLightboxIndex(idx)}
+                    className="break-inside-avoid mb-3 sm:mb-4 inline-block w-full group relative rounded-2xl sm:rounded-3xl overflow-hidden bg-slate-100 border border-slate-200/70 shadow-sm hover:shadow-xl hover:border-[#285c9a]/30 transition-all duration-300 cursor-pointer"
+                  >
+                    {/* Natural aspect ratio image */}
+                    <img
+                      src={img}
+                      alt={`${project.title} - Ảnh ${idx + 1}`}
+                      className="w-full h-auto object-cover block group-hover:scale-[1.03] transition-transform duration-500 ease-out"
+                      loading="lazy"
+                    />
+
+                    {/* Gradient Overlay & Hover Actions */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0d1f35]/85 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-3 sm:p-4">
+                      {/* Top Bar on Hover */}
+                      <div className="flex items-center justify-between">
+                        <span className="bg-[#0d1f35]/80 backdrop-blur-md text-white font-mono text-[10px] sm:text-xs font-bold px-2.5 py-1 rounded-full border border-white/20 shadow-sm">
+                          #{idx + 1}
+                        </span>
+                        <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/25 backdrop-blur-md text-white flex items-center justify-center hover:bg-white/40 transition-colors shadow-sm">
+                          <ZoomIn size={14} />
+                        </span>
+                      </div>
+
+                      {/* Bottom Bar on Hover (with 3-dots button like Image 2!) */}
+                      <div className="flex items-center justify-between gap-2 pt-2">
+                        <span className="text-white text-[11px] sm:text-xs font-medium drop-shadow truncate">
+                          {project.title}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setLightboxIndex(idx);
+                          }}
+                          className="w-7 h-7 rounded-full bg-white/90 hover:bg-white text-slate-800 flex items-center justify-center shadow-md hover:scale-110 active:scale-95 transition-all shrink-0"
+                          title="Xem ảnh chi tiết"
+                          aria-label="Tùy chọn ảnh"
+                        >
+                          <MoreHorizontal size={14} />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Bottom Quick Caption / Hint */}
+              <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
+                <span className="flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#285c9a]" />
+                  <span>Bố cục Pinterest Masonry · Giữ nguyên tỷ lệ ảnh thực tế</span>
+                </span>
+                <span className="hidden sm:inline">Nhấp vào bất kỳ ảnh nào để xem chi tiết</span>
+              </div>
             </section>
 
             {/* Description & Technical Solutions */}
@@ -295,6 +401,127 @@ function ProjectDetail() {
           </section>
         )}
       </div>
+
+      {/* Fullscreen Lightbox Modal */}
+      {lightboxIndex !== null && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          className="fixed inset-0 z-50 flex flex-col justify-between bg-black/95 backdrop-blur-md select-none"
+          onClick={() => setLightboxIndex(null)}
+        >
+          {/* Lightbox Top Bar */}
+          <div
+            className="flex items-center justify-between p-4 sm:p-6 text-white z-10"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center gap-3">
+              <span className="font-mono text-xs sm:text-sm bg-white/10 px-3 py-1 rounded-lg border border-white/15">
+                {lightboxIndex + 1} / {galleryImages.length}
+              </span>
+              <div className="hidden sm:block">
+                <h3 className="text-sm font-semibold text-white/90 truncate max-w-md">
+                  {project.title}
+                </h3>
+                <p className="text-xs text-white/60">Hình ảnh thực tế bàn giao công trình</p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <a
+                href={galleryImages[lightboxIndex]}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+                title="Mở ảnh gốc trong tab mới"
+              >
+                <ExternalLink size={18} />
+              </a>
+              <button
+                type="button"
+                onClick={() => setLightboxIndex(null)}
+                className="p-2.5 rounded-full bg-white/10 hover:bg-white/25 text-white transition-colors"
+                title="Đóng (Esc)"
+                aria-label="Đóng xem ảnh"
+              >
+                <X size={20} />
+              </button>
+            </div>
+          </div>
+
+          {/* Center Image Display with Previous / Next Arrows */}
+          <div
+            className="relative flex-1 flex items-center justify-center p-4 sm:p-8"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Prev Button */}
+            {galleryImages.length > 1 && (
+              <button
+                type="button"
+                onClick={() =>
+                  setLightboxIndex((prev) =>
+                    prev === null ? null : (prev - 1 + galleryImages.length) % galleryImages.length
+                  )
+                }
+                className="absolute left-2 sm:left-6 z-20 p-3 rounded-full bg-black/50 hover:bg-black/80 text-white border border-white/20 backdrop-blur-sm transition-all hover:scale-110 active:scale-95"
+                aria-label="Ảnh trước"
+              >
+                <ChevronLeft size={24} />
+              </button>
+            )}
+
+            {/* Main Large Image */}
+            <div className="relative max-h-[75vh] max-w-[90vw] flex items-center justify-center">
+              <img
+                src={galleryImages[lightboxIndex]}
+                alt={`${project.title} - Ảnh ${lightboxIndex + 1}`}
+                className="max-h-[75vh] max-w-[90vw] w-auto h-auto object-contain rounded-2xl shadow-2xl transition-all duration-300"
+              />
+            </div>
+
+            {/* Next Button */}
+            {galleryImages.length > 1 && (
+              <button
+                type="button"
+                onClick={() =>
+                  setLightboxIndex((prev) =>
+                    prev === null ? null : (prev + 1) % galleryImages.length
+                  )
+                }
+                className="absolute right-2 sm:right-6 z-20 p-3 rounded-full bg-black/50 hover:bg-black/80 text-white border border-white/20 backdrop-blur-sm transition-all hover:scale-110 active:scale-95"
+                aria-label="Ảnh tiếp theo"
+              >
+                <ChevronRight size={24} />
+              </button>
+            )}
+          </div>
+
+          {/* Bottom Thumbnail Strip */}
+          {galleryImages.length > 1 && (
+            <div
+              className="p-4 sm:p-6 bg-gradient-to-t from-black via-black/80 to-transparent flex items-center justify-center gap-2 overflow-x-auto z-10"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex gap-2 max-w-full overflow-x-auto py-1 px-2">
+                {galleryImages.map((thumb, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => setLightboxIndex(idx)}
+                    className={`relative rounded-xl overflow-hidden shrink-0 transition-all ${
+                      lightboxIndex === idx
+                        ? 'ring-2 ring-blue-400 scale-105 opacity-100 w-16 h-12'
+                        : 'opacity-50 hover:opacity-90 w-14 h-11'
+                    }`}
+                  >
+                    <img src={thumb} alt="" className="w-full h-full object-cover" />
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }
@@ -404,7 +631,7 @@ function ProjectsList() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center divide-y sm:divide-y-0 sm:divide-x divide-slate-100">
             <div>
               <div className="text-3xl sm:text-4xl font-extrabold text-[#285c9a] font-mono">
-                {projects.length}+
+                1.000+
               </div>
               <div className="text-xs sm:text-sm font-semibold text-slate-700 mt-1">Dự Án Nghiệm Thu</div>
               <div className="text-xs text-slate-500 mt-0.5">Đạt 100% chứng chỉ kiểm định an toàn</div>

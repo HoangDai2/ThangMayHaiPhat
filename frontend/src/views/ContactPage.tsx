@@ -19,6 +19,8 @@ import {
   HelpCircle,
   ChevronDown,
   Loader2,
+  Calculator,
+  Sparkles,
 } from 'lucide-react';
 import { companyInfo } from '../data/company';
 import { useProductsData } from '../hooks/useProductsData';
@@ -26,6 +28,7 @@ import { FacebookIcon } from '../components/icons/FacebookIcon';
 import { ZaloIcon } from '../components/icons/ZaloIcon';
 import PageHeader from '../components/shared/PageHeader';
 import SectionHeader from '../components/shared/SectionHeader';
+import { useQuickQuote } from '../context/QuickQuoteContext';
 
 const reasons = [
   { icon: Home, title: 'Thang Máy Gia Đình & Biệt Thự', desc: 'Lắp mới may đo, cải tạo nhà cũ, hố PIT siêu nông' },
@@ -35,6 +38,7 @@ const reasons = [
 ];
 
 export default function ContactPage() {
+  const { openQuoteModal } = useQuickQuote();
   const { products } = useProductsData();
   const productOptions = products.map((p) => ({
     id: p.id,
@@ -141,6 +145,27 @@ export default function ContactPage() {
                     SLA ≤ 60P
                   </span>
                 </div>
+              </div>
+
+              {/* Fast Quote Switcher Banner */}
+              <div className="bg-gradient-to-r from-blue-50/90 via-slate-50 to-indigo-50/70 border-b border-slate-200/80 px-6 py-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-lg bg-[#285c9a]/10 text-[#285c9a] flex items-center justify-center shrink-0">
+                    <Sparkles size={16} />
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold text-slate-800">Cần Báo Giá Tham Khảo Tự Động Trong 30 Giây?</p>
+                    <p className="text-[11px] text-slate-500">Tự chọn số tầng, loại hố và nhận ước tính chi phí sơ bộ tức thì.</p>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => openQuoteModal()}
+                  className="shrink-0 inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#285c9a] hover:bg-[#1e4a80] text-white text-xs font-bold transition-all shadow-sm active:scale-[0.98] cursor-pointer"
+                >
+                  <Calculator size={14} />
+                  <span>Mở Báo Giá Nhanh</span>
+                </button>
               </div>
 
               {submitted ? (

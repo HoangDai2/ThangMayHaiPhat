@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { Check, ArrowRight, ArrowLeft, PhoneCall, CheckCircle2, Loader2, Sparkles, ShieldCheck, X } from 'lucide-react';
+import { Check, ArrowRight, ArrowLeft, PhoneCall, CheckCircle2, Loader2, Sparkles, ShieldCheck, X, AlertCircle } from 'lucide-react';
 
 interface QuickQuoteWidgetProps {
   className?: string;
@@ -92,11 +92,12 @@ export default function QuickQuoteWidget({
   const [phone, setPhone] = useState('');
   const [name, setName] = useState('');
   const [phoneError, setPhoneError] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
   // Calculate dynamic price based on business rules:
   // - Thang xây: giá từ 275 triệu ở 2 tầng, mỗi tầng tăng thêm 15 triệu
-  // - Thang khung thép vách kính: giá từ 350 triệu ở 2 tầng, thêm tầng phụ thuộc nhiều yếu tố (khung, kính ~35-50tr/tầng)
+  // - Thang khung thép vách kính: giá từ 380 triệu ở 2 tầng, thêm tầng phụ thuộc nhiều yếu tố (khung, kính ~35-50tr/tầng)
   const calcEstimate = () => {
     const floorNum = floors === '7+' ? 7 : parseInt(floors, 10);
     const extraFloors = Math.max(0, floorNum - 2);
@@ -109,12 +110,12 @@ export default function QuickQuoteWidget({
 
     // type === 'khungthep'
     if (extraFloors === 0) {
-      const base = 350 + addOns;
+      const base = 380 + addOns;
       return `Từ ${base} triệu`;
     }
 
     // Thêm tầng cho thang khung thép kính dao động theo quy cách khung & kính (~35 - 50 triệu/tầng)
-    const low = round5(350 + extraFloors * 35 + addOns);
+    const low = round5(380 + extraFloors * 35 + addOns);
     const high = round5(350 + extraFloors * 50 + addOns);
     return `${low} – ${high} triệu`;
   };
@@ -131,22 +132,40 @@ export default function QuickQuoteWidget({
       return;
     }
     setPhoneError(false);
+    setSubmitError(null);
     setSubmitting(true);
 
     try {
       const { default: api } = await import('../lib/api');
+
+      const compiledMessage = `[YÊU CẦU BÁO GIÁ NHANH TRỰC TUYẾN]
+- Loại thang: ${TYPE_LABELS[type].title} (${TYPE_LABELS[type].desc})
+- Số điểm dừng: ${floors} tầng
+- Kiểu dáng cabin: ${CABIN_LABELS[cabin].title} (${CABIN_SPECS[cabin].material})
+- Hiện trạng công trình: ${STATUS_LABELS[status].title} (${status === 'caitao' ? 'Cải tạo nhà đang ở' : 'Nhà xây mới'})
+- Khoảng giá dự toán: ${calcEstimate()}
+- Thông số kỹ thuật kiến nghị:
+  + Tải trọng tối ưu: ${TYPE_SPECS[type].load}
+  + Kích thước hố thang đề xuất: ${TYPE_SPECS[type].shaft}
+  + Chiều sâu hố PIT: ${TYPE_SPECS[type].pit}
+  + Động cơ công nghệ: Fuji Japan / Montanari Ý (Nhập khẩu 100% CO/CQ)
+  + Thẩm mỹ cabin: ${CABIN_SPECS[cabin].aesthetic}
+- Nguồn tiếp nhận: Form Báo Giá Nhanh (Website Widget)`;
+
       await api.post('/public/contacts', {
         name: name.trim() || 'Khách hàng',
         phone: phone.trim(),
         service: `Báo giá nhanh: ${TYPE_LABELS[type].title} (${floors} tầng) - Cabin ${CABIN_LABELS[cabin].title}`,
-        message: `Ước tính giá: ${calcEstimate()} | Hiện trạng: ${STATUS_LABELS[status].title}`,
+        message: compiledMessage,
       });
-    } catch (err: any) {
-      console.log('Submission note:', err?.response?.data || err?.message);
-    } finally {
-      setSubmitting(false);
+
       setStep(4);
       if (onSuccess) onSuccess();
+    } catch (err: any) {
+      console.error('Submission error:', err?.response?.data || err?.message);
+      setSubmitError('Hệ thống tạm thời bận. Vui lòng thử lại hoặc gọi hotline trực tiếp để nhận báo giá tức thì.');
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -155,6 +174,7 @@ export default function QuickQuoteWidget({
     setPhone('');
     setName('');
     setPhoneError(false);
+    setSubmitError(null);
   };
 
   return (
@@ -309,7 +329,7 @@ export default function QuickQuoteWidget({
                   </div>
                   <div className="text-[10px] text-slate-400 font-medium truncate mt-0.5">
                     {type === 'khungthep'
-                      ? (floors === '2' ? 'Từ 350tr cho 2 tầng' : 'Tùy kết cấu khung & kính')
+                      ? (floors === '2' ? 'Từ 380tr cho 2 tầng' : 'Tùy kết cấu khung & kính')
                       : (floors === '2' ? 'Từ 275tr cho 2 tầng' : '+15 triệu / tầng thêm')}
                   </div>
                 </div>
@@ -319,7 +339,7 @@ export default function QuickQuoteWidget({
                 <ShieldCheck size={13} className="text-emerald-600 shrink-0" />
                 <span>
                   {type === 'khungthep'
-                    ? 'Khung thép vách kính: 2 tầng từ 350 triệu. Thêm tầng phụ thuộc khung & kính.'
+                    ? 'Khung thép vách kính: 2 tầng từ 380 triệu. Thêm tầng phụ thuộc khung & kính.'
                     : 'Thang xây: 2 tầng từ 275 triệu. Mỗi tầng tăng thêm 15 triệu.'}
                 </span>
               </div>
@@ -515,13 +535,26 @@ export default function QuickQuoteWidget({
               <p className="text-[11px] text-slate-300/90 leading-tight">
                 {type === 'khungthep'
                   ? (floors === '2'
-                      ? '* Thang khung thép vách kính 2 tầng từ 350 triệu. Kỹ sư khảo sát & lên bản vẽ 3D miễn phí.'
+                      ? '* Thang khung thép vách kính 2 tầng từ 380 triệu. Kỹ sư khảo sát & lên bản vẽ 3D miễn phí.'
                       : '* Thang khung thép vách kính: Chi phí thêm tầng phụ thuộc kết cấu khung thép, loại kính & chiều cao tầng.')
                   : (floors === '2'
                       ? '* Thang xây 2 tầng từ 275 triệu (mỗi tầng thêm +15 triệu). Khảo sát miễn phí.'
                       : '* Thang xây: Mỗi tầng tăng thêm 15 triệu theo tiêu chuẩn kỹ thuật.')}
               </p>
             </div>
+
+            {/* Submit Error Notification */}
+            {submitError && (
+              <div className="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs flex items-start gap-2.5 animate-fadeIn">
+                <AlertCircle size={16} className="text-rose-600 shrink-0 mt-0.5" />
+                <div className="flex-1">
+                  <div className="font-bold">{submitError}</div>
+                  <div className="mt-1">
+                    Hotline Kỹ sư: <a href="tel:0898424666" className="font-bold underline font-mono text-rose-900">0898.424.666</a>
+                  </div>
+                </div>
+              </div>
+            )}
 
             {/* Phone Field */}
             <div>

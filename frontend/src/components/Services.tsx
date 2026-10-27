@@ -1,28 +1,11 @@
 "use client";
 
-import Link from 'next/link';
 import {
-  Building2,
   ShieldCheck,
-  ArrowRight,
-  Home,
-  Truck,
-  Eye,
-  HeartPulse,
   Banknote,
   FileCheck2,
   Wrench,
 } from 'lucide-react';
-import { useProductsData } from '../hooks/useProductsData';
-import SectionHeader from './shared/SectionHeader';
-
-const productIconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
-  home: Home,
-  building: Building2,
-  truck: Truck,
-  eye: Eye,
-  'heart-pulse': HeartPulse,
-};
 
 const PROCESS_STEPS = [
   {
@@ -83,8 +66,6 @@ const COMMITMENTS = [
 ];
 
 export default function Services() {
-  const { products } = useProductsData();
-
   return (
     <section id="services" className="py-16 sm:py-24 bg-slate-50 border-b border-slate-200/60">
       {/* 1. QUY TRÌNH 4 BƯỚC: TỪ KHẢO SÁT ĐẾN BÀN GIAO (GIỮ NGUYÊN ẢNH THẬT) */}
@@ -178,87 +159,7 @@ export default function Services() {
         </div>
       </div>
 
-      {/* 2. PREMIUM PRODUCT CATALOG */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-24">
-        <SectionHeader
-          badge="Danh Mục Sản Phẩm"
-          title="Dòng Thang Máy Cơ Điện Cao Cấp"
-          subtitle="Các dòng thang máy nhập khẩu nguyên chiếc & liên doanh chính hãng, đáp ứng hoàn hảo từ thang máy gia đình, biệt thự cao cấp đến thang tải khách chuyên dụng."
-          action={
-            <Link
-              href="/san-pham"
-              className="group inline-flex items-center gap-1.5 text-sm font-bold text-[#285c9a] hover:text-[#1e4a80] transition-colors"
-            >
-              <span>Xem tất cả sản phẩm</span>
-              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-            </Link>
-          }
-        />
 
-        {/* 3-Column Product Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {products.map((product) => {
-            const Icon = productIconMap[product.icon] || Building2;
-            return (
-              <Link
-                key={product.id}
-                href={`/san-pham/${product.id}`}
-                className="group bg-white rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm hover:shadow-xl hover:border-[#285c9a]/40 transition-all duration-300 hover:-translate-y-1 flex flex-col"
-              >
-                {/* Media Image with Dark Gradient Wash */}
-                <div className="relative h-52 sm:h-56 overflow-hidden bg-slate-900">
-                  <img
-                    src={product.image}
-                    alt={product.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0d1f35]/85 via-[#0d1f35]/30 to-transparent" />
-                  
-                  {/* Category icon badge */}
-                  <div className="absolute top-4 left-4 w-9 h-9 rounded-xl bg-white/20 backdrop-blur-md border border-white/20 flex items-center justify-center text-white">
-                    <Icon size={18} />
-                  </div>
-
-                  <div className="absolute bottom-3 left-4 right-4">
-                    <h3 className="text-white font-bold text-lg sm:text-xl drop-shadow-sm group-hover:text-blue-200 transition-colors">
-                      {product.title}
-                    </h3>
-                  </div>
-                </div>
-
-                {/* Card Content & Mechanical Features */}
-                <div className="p-5 sm:p-6 flex flex-col flex-1 justify-between">
-                  <div>
-                    <p className="text-slate-600 text-xs sm:text-sm leading-relaxed mb-4">
-                      {product.shortDescription}
-                    </p>
-
-                    {/* Features Badges */}
-                    <ul className="grid grid-cols-1 gap-2 mb-5">
-                      {product.features.slice(0, 4).map((f) => (
-                        <li key={f} className="flex items-center gap-2 text-xs text-slate-700 bg-slate-50 border border-slate-200/60 px-3 py-2 rounded-lg" title={f}>
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#285c9a] flex-shrink-0" />
-                          <span className="leading-snug">{f}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
-                    <span className="font-mono text-xs text-slate-500 uppercase tracking-wide">
-                      Tiêu chuẩn EN 81
-                    </span>
-                    <span className="inline-flex items-center gap-1.5 text-[#285c9a] font-bold text-xs sm:text-sm group-hover:gap-2 transition-all">
-                      <span>Chi tiết kỹ thuật</span>
-                      <ArrowRight size={14} />
-                    </span>
-                  </div>
-                </div>
-              </Link>
-            );
-          })}
-        </div>
-      </div>
     </section>
   );
 }

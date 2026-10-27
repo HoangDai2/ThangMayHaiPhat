@@ -1,4 +1,4 @@
-export type ProjectCategory = 'Gia đình' | 'Tải khách' | 'Thương mại' | 'Tải hàng';
+export type ProjectCategory = string;
 
 export interface Project {
   id: string;
@@ -121,7 +121,7 @@ export const projects: Project[] = [
     description: 'Giải pháp thang máy gia đình mini cho nhà phố liền kề tại khu vực Thảo Điền cao cấp. Thiết kế nhỏ gọn, tiết kiệm diện tích nhưng vẫn đảm bảo công năng và thẩm mỹ.',
     details: {
       floors: 5,
-      capacity: '250 kg (3 người)',
+      capacity: '350 kg (4 người)',
       speed: '0.4 m/s',
       brand: 'Nissan',
       completionDate: 'Tháng 6/2024',
