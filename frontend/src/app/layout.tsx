@@ -16,6 +16,21 @@ export default function RootLayout({
 }) {
   return (
     <html lang="vi" suppressHydrationWarning>
+      <head>
+        {/* Google tag (gtag.js) */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-1NYBDJW751" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('config', 'G-1NYBDJW751');
+            `,
+          }}
+        />
+      </head>
       <body className="overflow-x-hidden" suppressHydrationWarning>
         <main className="overflow-x-hidden w-full flex flex-col min-h-screen">
           {children}

@@ -217,9 +217,6 @@ export default function AboutPage() {
                     <h4 className="font-extrabold text-[#0d1f35] text-base">{member.name}</h4>
                     <div className="text-[#285c9a] text-xs sm:text-sm font-semibold mt-0.5">{member.role}</div>
                   </div>
-                  <div className="mt-3 pt-2 border-t border-slate-100 font-mono text-[11px] text-slate-400">
-                    Chuyên gia cơ điện
-                  </div>
                 </div>
               </div>
             ))}
@@ -239,13 +236,17 @@ export default function AboutPage() {
             </h3>
           </div>
 
-          <div className="flex flex-wrap justify-center items-center gap-8 sm:gap-12 opacity-75">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6 items-center">
             {partners.map((partner) => (
-              <div key={partner.name} className="flex items-center justify-center p-3 rounded-xl bg-white border border-slate-200/60 shadow-sm">
+              <div
+                key={partner.name}
+                className="group flex items-center justify-center h-20 px-6 py-4 rounded-2xl bg-white border border-slate-200/80 shadow-sm hover:shadow-md hover:border-[#285c9a]/30 transition-all duration-300 transform hover:-translate-y-0.5"
+                title={partner.name}
+              >
                 <img
                   src={partner.logo}
                   alt={partner.name}
-                  className="h-7 sm:h-8 object-contain grayscale hover:grayscale-0 transition-all"
+                  className="max-h-9 sm:max-h-10 w-auto max-w-full object-contain transition-all duration-300 filter grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105"
                 />
               </div>
             ))}

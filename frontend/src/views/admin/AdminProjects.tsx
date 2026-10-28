@@ -1,9 +1,10 @@
 "use client";
 import { useState, useEffect, useMemo } from 'react';
-import { Plus, Edit, Trash2, Search, X, Loader2, Image } from 'lucide-react';
+import { Plus, Edit, Trash2, Search, X, Loader2, Image, Sparkles } from 'lucide-react';
 import api from '../../lib/api';
 import { DbProject } from '../../lib/types';
 import { products as staticProducts } from '../../data/products';
+import { generateSlug } from '../../lib/slug';
 import ArrayInput from '../../components/admin/ArrayInput';
 import ImageUpload from '../../components/admin/ImageUpload';
 import MultiImageUpload from '../../components/admin/MultiImageUpload';
@@ -46,6 +47,7 @@ export default function AdminProjects() {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [modalOpen, setModalOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [isSlugCustomized, setIsSlugCustomized] = useState(false);
   const [form, setForm] = useState<Partial<DbProject>>(emptyForm());
   const [error, setError] = useState('');
 
@@ -97,6 +99,7 @@ export default function AdminProjects() {
     const defaultCat = categories[0] || 'Thang Máy Xây';
     setForm(emptyForm(defaultCat));
     setEditingId(null);
+    setIsSlugCustomized(false);
     setError('');
     setModalOpen(true);
   };
@@ -104,6 +107,7 @@ export default function AdminProjects() {
   const openEdit = (project: DbProject) => {
     setForm({ ...project, category: project.category || categories[0] || 'Thang Máy Xây' });
     setEditingId(project.id);
+    setIsSlugCustomized(true);
     setError('');
     setModalOpen(true);
   };
@@ -111,12 +115,42 @@ export default function AdminProjects() {
   const closeModal = () => {
     setModalOpen(false);
     setEditingId(null);
+    setIsSlugCustomized(false);
     setForm(emptyForm(categories[0] || 'Thang Máy Xây'));
     setError('');
   };
 
+  const set = (field: keyof DbProject, value: unknown) =>
+    setForm((prev) => ({ ...prev, [field]: value }));
+
+  const handleTitleChange = (val: string) => {
+    set('title', val);
+    // Tự động sinh slug nếu đang thêm mới và người dùng chưa chủ động tự gõ slug riêng
+    if (!editingId && (!isSlugCustomized || !form.slug || form.slug === generateSlug(form.title || ''))) {
+      set('slug', generateSlug(val));
+    }
+  };
+
+  const handleSlugChange = (val: string) => {
+    setIsSlugCustomized(val.trim() !== '');
+    set('slug', val);
+  };
+
+  const handleAutoGenerateSlug = () => {
+    if (form.title?.trim()) {
+      set('slug', generateSlug(form.title));
+      setIsSlugCustomized(false);
+    }
+  };
+
   const handleSave = async () => {
-    if (!form.title?.trim() || !form.slug?.trim()) {
+    const title = form.title?.trim() || '';
+    let slug = form.slug?.trim() || '';
+    if (!slug && title) {
+      slug = generateSlug(title);
+    }
+
+    if (!title || !slug) {
       setError('Tiêu đề và slug là bắt buộc');
       return;
     }
@@ -125,8 +159,8 @@ export default function AdminProjects() {
 
     const defaultCat = categories[0] || 'Thang Máy Xây';
     const payload = {
-      slug: form.slug!.trim(),
-      title: form.title!.trim(),
+      slug,
+      title,
       location: form.location || '',
       category: form.category || defaultCat,
       image: form.image || '',
@@ -167,9 +201,6 @@ export default function AdminProjects() {
       alert('Xóa thất bại');
     }
   };
-
-  const set = (field: keyof DbProject, value: unknown) =>
-    setForm((prev) => ({ ...prev, [field]: value }));
 
   const filtered = projects.filter((p) => {
     const matchSearch =
@@ -302,18 +333,47 @@ export default function AdminProjects() {
                 </div>
               )}
 
+              <div>
+                <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">
+                  Tên dự án <span className="text-rose-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  value={form.title || ''}
+                  onChange={(e) => handleTitleChange(e.target.value)}
+                  placeholder="Ví dụ: Biệt thự Vinhomes Ocean Park"
+                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-[#285c9a] outline-none transition-all"
+                />
+              </div>
+
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">
-                    Slug (URL) <span className="text-rose-500">*</span>
-                  </label>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider">
+                      Slug (URL) <span className="text-rose-500">*</span>
+                    </label>
+                    {form.title?.trim() && (
+                      <button
+                        type="button"
+                        onClick={handleAutoGenerateSlug}
+                        className="text-[11px] text-[#285c9a] hover:text-[#1e4a80] font-medium flex items-center gap-1 hover:underline cursor-pointer"
+                        title="Tạo lại slug từ tên dự án"
+                      >
+                        <Sparkles className="w-3 h-3 text-amber-500" />
+                        Tự động tạo
+                      </button>
+                    )}
+                  </div>
                   <input
                     type="text"
                     value={form.slug || ''}
-                    onChange={(e) => set('slug', e.target.value)}
-                    placeholder="villa-ecopark"
-                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-[#285c9a] outline-none transition-all"
+                    onChange={(e) => handleSlugChange(e.target.value)}
+                    placeholder="biet-thu-vinhomes-ocean-park"
+                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-[#285c9a] outline-none transition-all font-mono text-slate-800"
                   />
+                  <p className="mt-1 text-[11px] text-slate-400">
+                    Đường dẫn: <span className="font-mono text-[#285c9a]">/du-an/{form.slug || '...'}</span>
+                  </p>
                 </div>
                 <div>
                   <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">
@@ -331,19 +391,6 @@ export default function AdminProjects() {
                     ))}
                   </select>
                 </div>
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">
-                  Tên dự án <span className="text-rose-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  value={form.title || ''}
-                  onChange={(e) => set('title', e.target.value)}
-                  placeholder="Biệt thự Vinhomes Ocean Park"
-                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-[#285c9a] outline-none transition-all"
-                />
               </div>
 
               <div className="grid grid-cols-2 gap-4">

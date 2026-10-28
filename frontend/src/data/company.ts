@@ -165,10 +165,10 @@ export const certificates: Certificate[] = [
 ];
 
 export const partners = [
-  { name: 'Mitsubishi Electric', logo: 'https://via.placeholder.com/120x60/e5e7eb/6b7280?text=Mitsubishi' },
-  { name: 'Otis', logo: 'https://via.placeholder.com/120x60/e5e7eb/6b7280?text=Otis' },
-  { name: 'Schindler', logo: 'https://via.placeholder.com/120x60/e5e7eb/6b7280?text=Schindler' },
-  { name: 'KONE', logo: 'https://via.placeholder.com/120x60/e5e7eb/6b7280?text=KONE' },
-  { name: 'ThyssenKrupp', logo: 'https://via.placeholder.com/120x60/e5e7eb/6b7280?text=ThyssenKrupp' },
-  { name: 'Nissan', logo: 'https://via.placeholder.com/120x60/e5e7eb/6b7280?text=Nissan' },
+  { name: 'Mitsubishi Electric', logo: '/partners/mitsubishi.svg' },
+  { name: 'Otis', logo: '/partners/otis.svg' },
+  { name: 'Schindler', logo: '/partners/schindler.svg' },
+  { name: 'KONE', logo: '/partners/kone.svg' },
+  { name: 'ThyssenKrupp', logo: '/partners/thyssenkrupp.svg' },
+  { name: 'Nissan', logo: '/partners/nissan.svg' },
 ];
