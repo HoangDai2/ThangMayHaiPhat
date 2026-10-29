@@ -331,11 +331,11 @@ export function ArticleDetail() {
 
           {/* Featured Cover Image */}
           {article.cover_image && (
-            <div className="rounded-2xl overflow-hidden border border-slate-200 aspect-[16/9] bg-slate-900 shadow-sm">
+            <div className="rounded-2xl overflow-hidden border border-slate-200/80 bg-slate-50 shadow-sm flex items-center justify-center">
               <img
                 src={article.cover_image}
                 alt={article.title}
-                className="w-full h-full object-cover"
+                className="w-full h-auto object-contain block"
               />
             </div>
           )}

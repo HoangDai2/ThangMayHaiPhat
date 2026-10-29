@@ -502,11 +502,11 @@ export default function AdminArticles() {
                 /* Tab 2: Xem trước bài viết (Live Preview) */
                 <div className="p-6 sm:p-10 space-y-6 bg-white min-h-[500px]">
                   {form.cover_image && (
-                    <div className="rounded-2xl overflow-hidden border border-slate-200 aspect-[16/9] bg-slate-900 shadow-sm max-h-[380px]">
+                    <div className="rounded-2xl overflow-hidden border border-slate-200/80 bg-slate-50 shadow-sm flex items-center justify-center">
                       <img
                         src={form.cover_image}
                         alt={form.title || 'Ảnh bài viết'}
-                        className="w-full h-full object-cover"
+                        className="w-full h-auto object-contain block max-h-[500px]"
                       />
                     </div>
                   )}
@@ -904,11 +904,11 @@ export default function AdminArticles() {
               </div>
 
               {drawerArticle.cover_image && (
-                <div className="rounded-xl overflow-hidden border border-slate-200 max-h-64 bg-slate-900">
+                <div className="rounded-xl overflow-hidden border border-slate-200 bg-slate-50 flex items-center justify-center">
                   <img
                     src={drawerArticle.cover_image}
                     alt={drawerArticle.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-auto max-h-[400px] object-contain"
                   />
                 </div>
               )}

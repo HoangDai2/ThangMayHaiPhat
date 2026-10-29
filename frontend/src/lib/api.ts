@@ -26,12 +26,12 @@ api.interceptors.response.use((response) => {
 }, (error) => {
   if (error.response?.status === 401) {
     Cookies.remove('admin_token');
-    if (typeof window !== 'undefined' && !window.location.pathname.includes('/admin/login')) {
-      window.location.href = '/admin/login';
+    if (typeof window !== 'undefined' && !window.location.pathname.includes('/haiphat/login') && !window.location.pathname.includes('/admin/login')) {
+      window.location.href = '/haiphat/login';
     }
   } else if (error.response?.status === 403) {
     if (typeof window !== 'undefined') {
-      window.location.href = '/admin/403';
+      window.location.href = '/haiphat/403';
     }
   }
   return Promise.reject(error);

@@ -14,17 +14,24 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\PromotionController;
 
+// Authentication routes
 Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:5,1');
+Route::post('/forgot-password', [AuthController::class, 'forgotPassword'])->middleware('throttle:5,1');
+Route::post('/reset-password', [AuthController::class, 'resetPassword'])->middleware('throttle:5,1');
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/user', [AuthController::class, 'user']);
     
-    // Upload image
+    // Upload image (support both /admin and /haiphat paths)
     Route::post('/upload', [UploadController::class, 'store'])->middleware('permission:manage-images');
     Route::post('/admin/upload', [UploadController::class, 'store'])->middleware('permission:manage-images');
     Route::get('/admin/images', [UploadController::class, 'index'])->middleware('permission:manage-images');
     Route::post('/admin/images/delete', [UploadController::class, 'destroy'])->middleware('permission:manage-images');
+
+    Route::post('/haiphat/upload', [UploadController::class, 'store'])->middleware('permission:manage-images');
+    Route::get('/haiphat/images', [UploadController::class, 'index'])->middleware('permission:manage-images');
+    Route::post('/haiphat/images/delete', [UploadController::class, 'destroy'])->middleware('permission:manage-images');
 
     // Permissions list for Admin
     Route::get('/permissions', [App\Http\Controllers\PermissionController::class, 'index'])->middleware('permission:manage-users');
@@ -44,8 +51,16 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('contacts', App\Http\Controllers\ContactController::class)->middleware('permission:manage-contacts');
     Route::apiResource('promotions', PromotionController::class)->middleware('permission:manage-promotions');
 
-    // Bitrix Data API for Admin
+    // Bitrix Data API for Admin (support both admin/bitrix and haiphat/bitrix)
     Route::prefix('admin/bitrix')->group(function () {
+        Route::get('projects', [App\Http\Controllers\Api\BitrixDataController::class, 'getProjects']);
+        Route::get('tasks', [App\Http\Controllers\Api\BitrixDataController::class, 'getTasks']);
+        Route::get('tasks/{id}', [App\Http\Controllers\Api\BitrixDataController::class, 'getTaskDetails']);
+        Route::get('users', [App\Http\Controllers\Api\BitrixDataController::class, 'getUsers']);
+        Route::get('customers', [App\Http\Controllers\Api\BitrixDataController::class, 'getCustomers']);
+    });
+
+    Route::prefix('haiphat/bitrix')->group(function () {
         Route::get('projects', [App\Http\Controllers\Api\BitrixDataController::class, 'getProjects']);
         Route::get('tasks', [App\Http\Controllers\Api\BitrixDataController::class, 'getTasks']);
         Route::get('tasks/{id}', [App\Http\Controllers\Api\BitrixDataController::class, 'getTaskDetails']);

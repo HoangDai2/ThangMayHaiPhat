@@ -14,11 +14,11 @@ export default function ForbiddenPage() {
         </h1>
         
         <p className="text-slate-600 mb-8 text-lg">
-          Bạn không có quyền truy cập. Vui lòng liên hệ admin.
+          Bạn không có quyền truy cập. Vui lòng liên hệ quản trị viên.
         </p>
         
         <Link 
-          href="/admin"
+          href="/haiphat"
           className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#285c9a] text-white rounded-xl font-semibold hover:bg-[#1e4a80] transition-colors"
         >
           <ArrowLeft className="w-5 h-5" />

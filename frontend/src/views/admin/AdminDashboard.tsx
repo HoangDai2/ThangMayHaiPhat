@@ -55,10 +55,10 @@ export default function AdminDashboard() {
   }, []);
 
   const statCards = [
-    { title: 'Dự án thang máy', count: counts.projects, code: 'PRJ.COUNT', icon: FolderKanban, href: '/admin/projects', permission: 'manage_projects' },
-    { title: 'Sản phẩm & Linh kiện', count: counts.products, code: 'PRD.COUNT', icon: Box, href: '/admin/products', permission: 'manage_products' },
-    { title: 'Bài viết tin tức', count: counts.articles, code: 'ART.COUNT', icon: FileText, href: '/admin/articles', permission: 'manage_articles' },
-    { title: 'Đánh giá khách hàng', count: counts.reviews, code: 'REV.COUNT', icon: Star, href: '/admin/reviews', permission: 'manage_reviews' },
+    { title: 'Dự án thang máy', count: counts.projects, code: 'PRJ.COUNT', icon: FolderKanban, href: '/haiphat/projects', permission: 'manage_projects' },
+    { title: 'Sản phẩm & Linh kiện', count: counts.products, code: 'PRD.COUNT', icon: Box, href: '/haiphat/products', permission: 'manage_products' },
+    { title: 'Bài viết tin tức', count: counts.articles, code: 'ART.COUNT', icon: FileText, href: '/haiphat/articles', permission: 'manage_articles' },
+    { title: 'Đánh giá khách hàng', count: counts.reviews, code: 'REV.COUNT', icon: Star, href: '/haiphat/reviews', permission: 'manage_reviews' },
   ];
 
   return (
@@ -154,7 +154,7 @@ export default function AdminDashboard() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
           {hasPermission('manage_projects') && (
             <Link 
-              href="/admin/projects" 
+              href="/haiphat/projects" 
               className="flex items-center justify-between p-3.5 bg-slate-50 border border-slate-200/80 rounded-xl hover:bg-blue-50/60 hover:border-blue-200 transition-all group"
             >
               <div className="flex items-center gap-3">
@@ -169,7 +169,7 @@ export default function AdminDashboard() {
 
           {hasPermission('manage_products') && (
             <Link 
-              href="/admin/products" 
+              href="/haiphat/products" 
               className="flex items-center justify-between p-3.5 bg-slate-50 border border-slate-200/80 rounded-xl hover:bg-blue-50/60 hover:border-blue-200 transition-all group"
             >
               <div className="flex items-center gap-3">
@@ -184,7 +184,7 @@ export default function AdminDashboard() {
 
           {hasPermission('manage_articles') && (
             <Link 
-              href="/admin/articles" 
+              href="/haiphat/articles" 
               className="flex items-center justify-between p-3.5 bg-slate-50 border border-slate-200/80 rounded-xl hover:bg-blue-50/60 hover:border-blue-200 transition-all group"
             >
               <div className="flex items-center gap-3">
@@ -199,7 +199,7 @@ export default function AdminDashboard() {
 
           {hasPermission('manage_reviews') && (
             <Link 
-              href="/admin/reviews" 
+              href="/haiphat/reviews" 
               className="flex items-center justify-between p-3.5 bg-slate-50 border border-slate-200/80 rounded-xl hover:bg-blue-50/60 hover:border-blue-200 transition-all group"
             >
               <div className="flex items-center gap-3">
@@ -226,7 +226,7 @@ export default function AdminDashboard() {
               <p className="text-xs text-slate-500 mt-1">Danh sách công trình thang máy vừa được cập nhật tiến độ vào hệ thống</p>
             </div>
             <Link 
-              href="/admin/projects" 
+              href="/haiphat/projects" 
               className="inline-flex items-center gap-1.5 text-[#285c9a] hover:text-[#1e4a80] text-xs font-bold transition-colors bg-blue-50 px-3 py-1.5 rounded-lg border border-blue-100"
             >
               <span>Xem toàn bộ</span>

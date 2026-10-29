@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { Lock, Eye, EyeOff, Mail, ArrowLeft } from 'lucide-react';
+import { Lock, Eye, EyeOff, Mail, ArrowLeft, KeyRound } from 'lucide-react';
 import api from '../../lib/api';
 import Cookies from 'js-cookie';
 
@@ -22,7 +22,7 @@ export default function AdminLogin() {
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate.replace('/admin');
+      navigate.replace('/haiphat');
     }
   }, [isAuthenticated, navigate]);
 
@@ -39,7 +39,7 @@ export default function AdminLogin() {
 
       if (response.data.token) {
         Cookies.set('admin_token', response.data.token, { expires: 7 }); // expires in 7 days
-        navigate.push('/admin');
+        navigate.push('/haiphat');
       }
     } catch (err: any) {
       setError(err.response?.data?.message || 'Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin.');
@@ -82,9 +82,18 @@ export default function AdminLogin() {
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">
-              Mật Khẩu
-            </label>
+            <div className="flex items-center justify-between mb-2">
+              <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider">
+                Mật Khẩu
+              </label>
+              <Link
+                href="/haiphat/forgot-password"
+                className="text-xs font-semibold text-[#285c9a] hover:text-[#1e4a80] transition-colors inline-flex items-center gap-1"
+              >
+                <KeyRound className="w-3 h-3" />
+                Quên mật khẩu?
+              </Link>
+            </div>
             <div className="relative">
               <input
                 type={showPassword ? 'text' : 'password'}
@@ -132,4 +141,3 @@ export default function AdminLogin() {
     </div>
   );
 }
-

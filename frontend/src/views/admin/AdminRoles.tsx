@@ -40,7 +40,7 @@ export default function AdminRoles() {
 
   useEffect(() => {
     if (!permissionsLoading && !hasPermission('manage-users')) {
-      router.replace('/admin');
+      router.replace('/haiphat');
     }
   }, [hasPermission, permissionsLoading, router]);
 

@@ -26,17 +26,17 @@ import {
 } from 'lucide-react';
 
 const sidebarItems = [
-  { path: '/admin', label: 'Tổng quan', icon: LayoutDashboard, permission: null },
-  { path: '/admin/contacts', label: 'Yêu cầu tư vấn', icon: Mail, permission: 'manage-contacts' },
-  { path: '/admin/promotions', label: 'Popup Khuyến Mãi', icon: Star, permission: 'manage-promotions' },
-  { path: '/admin/projects', label: 'Dự án', icon: FolderKanban, permission: 'manage-projects' },
-  { path: '/admin/products', label: 'Sản phẩm', icon: Box, permission: 'manage-products' },
-  { path: '/admin/articles', label: 'Bài viết', icon: FileText, permission: 'manage-articles' },
-  { path: '/admin/reviews', label: 'Đánh giá', icon: Star, permission: 'manage-reviews' },
-  { path: '/admin/images', label: 'Hình ảnh', icon: ImageIcon, permission: 'manage-images' },
-  { path: '/admin/users', label: 'Tài khoản', icon: Users, permission: 'manage-users' },
-  { path: '/admin/roles', label: 'Phân quyền', icon: Shield, permission: 'manage-users' },
-  { path: '/admin/bitrix', label: 'Dữ liệu Bitrix', icon: Briefcase, permission: 'manage-projects' },
+  { path: '/haiphat', label: 'Tổng quan', icon: LayoutDashboard, permission: null },
+  { path: '/haiphat/contacts', label: 'Yêu cầu tư vấn', icon: Mail, permission: 'manage-contacts' },
+  { path: '/haiphat/promotions', label: 'Popup Khuyến Mãi', icon: Star, permission: 'manage-promotions' },
+  { path: '/haiphat/projects', label: 'Dự án', icon: FolderKanban, permission: 'manage-projects' },
+  { path: '/haiphat/products', label: 'Sản phẩm', icon: Box, permission: 'manage-products' },
+  { path: '/haiphat/articles', label: 'Bài viết', icon: FileText, permission: 'manage-articles' },
+  { path: '/haiphat/reviews', label: 'Đánh giá', icon: Star, permission: 'manage-reviews' },
+  { path: '/haiphat/images', label: 'Hình ảnh', icon: ImageIcon, permission: 'manage-images' },
+  { path: '/haiphat/users', label: 'Tài khoản', icon: Users, permission: 'manage-users' },
+  { path: '/haiphat/roles', label: 'Phân quyền', icon: Shield, permission: 'manage-users' },
+  { path: '/haiphat/bitrix', label: 'Dữ liệu Bitrix', icon: Briefcase, permission: 'manage-projects' },
 ];
 
 export default function AdminLayout({
@@ -57,7 +57,7 @@ export default function AdminLayout({
 
   useEffect(() => {
     if (isAuthenticated === false) {
-      router.replace('/admin/login');
+      router.replace('/haiphat/login');
     }
   }, [isAuthenticated, router]);
 
@@ -84,7 +84,7 @@ export default function AdminLayout({
 
   const handleLogout = async () => {
     Cookies.remove('admin_token');
-    router.push('/admin/login');
+    router.push('/haiphat/login');
   };
 
   const currentItem = sidebarItems.find(item => item.path === pathname) || { label: 'Quản trị hệ thống' };
