@@ -9,26 +9,32 @@ export default function AdminForgotPassword() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
-  const [devResetUrl, setDevResetUrl] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     setSuccessMsg('');
-    setDevResetUrl('');
+
+    const cleanEmail = email.trim().toLowerCase();
+    if (!cleanEmail) {
+      setError('Vui lòng nhập địa chỉ email hợp lệ.');
+      return;
+    }
+
     setLoading(true);
 
     try {
-      const response = await api.post('/forgot-password', { email });
+      const response = await api.post('/forgot-password', { email: cleanEmail });
       setSuccessMsg(response.data.message || 'Yêu cầu đặt lại mật khẩu đã được xử lý thành công.');
-      if (response.data.dev_reset_url) {
-        setDevResetUrl(response.data.dev_reset_url);
-      }
     } catch (err: any) {
-      setError(
-        err.response?.data?.message ||
-        'Không thể gửi yêu cầu đặt lại mật khẩu. Vui lòng kiểm tra lại email hoặc liên hệ quản trị viên.'
-      );
+      if (err.response?.status === 429) {
+        setError('Bạn đã gửi yêu cầu quá nhiều lần. Vui lòng đợi 1 phút trước khi thử lại.');
+      } else {
+        setError(
+          err.response?.data?.message ||
+          'Không thể gửi yêu cầu đặt lại mật khẩu. Vui lòng kiểm tra lại email hoặc liên hệ quản trị viên.'
+        );
+      }
     } finally {
       setLoading(false);
     }
@@ -63,26 +69,6 @@ export default function AdminForgotPassword() {
                 </div>
               </div>
             </div>
-
-            {devResetUrl && (
-              <div className="bg-amber-50 border border-amber-200/80 rounded-2xl p-4 text-xs text-amber-900 space-y-2">
-                <div className="flex items-center gap-2 font-bold text-amber-800">
-                  <span className="inline-block w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
-                  Môi trường thử nghiệm cục bộ (Mail driver: log)
-                </div>
-                <p className="text-slate-600 leading-relaxed">
-                  Hệ thống đang chạy chế độ thử nghiệm nội bộ nên email được lưu trong file log. Bạn có thể bấm trực tiếp vào liên kết bên dưới để đặt lại mật khẩu ngay:
-                </p>
-                <div className="pt-1">
-                  <a
-                    href={devResetUrl}
-                    className="inline-flex items-center justify-center w-full px-4 py-2.5 bg-amber-600 hover:bg-amber-700 text-white rounded-xl font-medium transition-colors text-center text-xs shadow-sm"
-                  >
-                    Bấm vào đây để đặt lại mật khẩu ngay &rarr;
-                  </a>
-                </div>
-              </div>
-            )}
 
             <div className="pt-2">
               <Link

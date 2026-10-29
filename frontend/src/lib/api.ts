@@ -26,7 +26,13 @@ api.interceptors.response.use((response) => {
 }, (error) => {
   if (error.response?.status === 401) {
     Cookies.remove('admin_token');
-    if (typeof window !== 'undefined' && !window.location.pathname.includes('/haiphat/login') && !window.location.pathname.includes('/admin/login')) {
+    if (
+      typeof window !== 'undefined' &&
+      !window.location.pathname.includes('/haiphat/login') &&
+      !window.location.pathname.includes('/admin/login') &&
+      !window.location.pathname.includes('/haiphat/forgot-password') &&
+      !window.location.pathname.includes('/haiphat/reset-password')
+    ) {
       window.location.href = '/haiphat/login';
     }
   } else if (error.response?.status === 403) {

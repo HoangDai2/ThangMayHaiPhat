@@ -4,6 +4,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Lock, Eye, EyeOff, KeyRound, CheckCircle2, AlertCircle, ArrowLeft, Loader2, ShieldCheck } from 'lucide-react';
 import api from '../../lib/api';
+import Cookies from 'js-cookie';
 
 function ResetPasswordForm() {
   const router = useRouter();
@@ -23,8 +24,8 @@ function ResetPasswordForm() {
   useEffect(() => {
     const qEmail = searchParams.get('email');
     const qToken = searchParams.get('token');
-    if (qEmail) setEmail(qEmail);
-    if (qToken) setToken(qToken);
+    if (qEmail) setEmail(qEmail.trim());
+    if (qToken) setToken(qToken.trim());
   }, [searchParams]);
 
   useEffect(() => {
@@ -43,6 +44,19 @@ function ResetPasswordForm() {
     e.preventDefault();
     setError('');
 
+    const cleanEmail = email.trim().toLowerCase();
+    const cleanToken = token.trim();
+
+    if (!cleanEmail) {
+      setError('Vui lòng cung cấp email tài khoản.');
+      return;
+    }
+
+    if (!cleanToken) {
+      setError('Thiếu mã xác thực token. Vui lòng kiểm tra lại liên kết trong email.');
+      return;
+    }
+
     if (password.length < 6) {
       setError('Mật khẩu mới phải có ít nhất 6 ký tự.');
       return;
@@ -53,27 +67,28 @@ function ResetPasswordForm() {
       return;
     }
 
-    if (!token.trim()) {
-      setError('Thiếu mã xác thực token. Vui lòng kiểm tra lại liên kết trong email.');
-      return;
-    }
-
     setLoading(true);
 
     try {
       await api.post('/reset-password', {
-        email,
-        token,
+        email: cleanEmail,
+        token: cleanToken,
         password,
         password_confirmation: passwordConfirmation,
       });
 
+      // Clear any stale admin token cookie from previous session
+      Cookies.remove('admin_token');
       setSuccess(true);
     } catch (err: any) {
-      setError(
-        err.response?.data?.message ||
-        'Không thể đặt lại mật khẩu. Liên kết có thể đã hết hạn hoặc không hợp lệ. Vui lòng yêu cầu lại.'
-      );
+      if (err.response?.status === 429) {
+        setError('Bạn đã gửi yêu cầu quá nhiều lần. Vui lòng đợi 1 phút trước khi thử lại.');
+      } else {
+        setError(
+          err.response?.data?.message ||
+          'Không thể đặt lại mật khẩu. Liên kết có thể đã hết hạn hoặc không hợp lệ. Vui lòng yêu cầu lại.'
+        );
+      }
     } finally {
       setLoading(false);
     }

@@ -64,7 +64,8 @@ class AuthController extends Controller
             'email.email' => 'Địa chỉ email không đúng định dạng.',
         ]);
 
-        $user = User::where('email', $request->email)->first();
+        $email = strtolower(trim($request->email));
+        $user = User::where('email', $email)->first();
 
         if (!$user) {
             return response()->json([
@@ -85,7 +86,10 @@ class AuthController extends Controller
         );
 
         // Construct frontend reset URL
-        $frontendOrigin = $request->header('origin') ?: env('FRONTEND_URL', 'http://localhost:3000');
+        $frontendOrigin = $request->header('origin')
+            ?: ($request->header('referer') ? parse_url($request->header('referer'), PHP_URL_SCHEME) . '://' . parse_url($request->header('referer'), PHP_URL_HOST) . (parse_url($request->header('referer'), PHP_URL_PORT) ? ':' . parse_url($request->header('referer'), PHP_URL_PORT) : '') : null)
+            ?: env('FRONTEND_URL', 'http://localhost:3000');
+
         $resetUrl = rtrim($frontendOrigin, '/') . '/haiphat/reset-password?token=' . urlencode($rawToken) . '&email=' . urlencode($user->email);
 
         $mailSent = false;
@@ -96,11 +100,16 @@ class AuthController extends Controller
             Log::error('Lỗi khi gửi email đặt lại mật khẩu: ' . $e->getMessage());
         }
 
+        if (!$mailSent && config('mail.default') !== 'log' && config('mail.default') !== 'array') {
+            return response()->json([
+                'message' => 'Không thể gửi email lúc này do sự cố máy chủ gửi thư. Vui lòng liên hệ quản trị viên hoặc thử lại sau.'
+            ], 500);
+        }
+
         return response()->json([
             'status' => 'success',
             'message' => 'Yêu cầu thành công! Hướng dẫn đặt lại mật khẩu đã được xử lý và gửi đến ' . $user->email . '.',
             'mail_sent' => $mailSent,
-            'dev_reset_url' => config('mail.default') === 'log' ? $resetUrl : null,
         ]);
     }
 
@@ -121,7 +130,8 @@ class AuthController extends Controller
             'password.confirmed' => 'Xác nhận mật khẩu không trùng khớp.',
         ]);
 
-        $user = User::where('email', $request->email)->first();
+        $email = strtolower(trim($request->email));
+        $user = User::where('email', $email)->first();
 
         if (!$user) {
             return response()->json([
@@ -129,7 +139,7 @@ class AuthController extends Controller
             ], 404);
         }
 
-        $record = DB::table('password_reset_tokens')->where('email', $request->email)->first();
+        $record = DB::table('password_reset_tokens')->where('email', $user->email)->first();
 
         if (!$record) {
             return response()->json([
@@ -139,14 +149,15 @@ class AuthController extends Controller
 
         // Check if token has expired (60 minutes validity)
         if (Carbon::parse($record->created_at)->addMinutes(60)->isPast()) {
-            DB::table('password_reset_tokens')->where('email', $request->email)->delete();
+            DB::table('password_reset_tokens')->where('email', $user->email)->delete();
             return response()->json([
                 'message' => 'Liên kết đặt lại mật khẩu đã hết hạn (chỉ có hiệu lực trong vòng 60 phút). Vui lòng gửi yêu cầu mới.'
             ], 400);
         }
 
         // Verify token match (either hashed or raw fallback)
-        if (!Hash::check($request->token, $record->token) && $request->token !== $record->token) {
+        $rawToken = trim($request->token);
+        if (!Hash::check($rawToken, $record->token) && $rawToken !== $record->token) {
             return response()->json([
                 'message' => 'Mã xác thực token không chính xác hoặc không hợp lệ.'
             ], 400);
@@ -157,7 +168,7 @@ class AuthController extends Controller
         $user->save();
 
         // Invalidate reset token
-        DB::table('password_reset_tokens')->where('email', $request->email)->delete();
+        DB::table('password_reset_tokens')->where('email', $user->email)->delete();
 
         // Revoke all current tokens for this user for security
         if (method_exists($user, 'tokens')) {
