@@ -1,2 +1,7 @@
+'use client';
+
 import { ProjectsList } from '../../../views/ProjectDetail';
-export default function Page() { return <ProjectsList />; }
+
+export default function Page() {
+  return <ProjectsList />;
+}

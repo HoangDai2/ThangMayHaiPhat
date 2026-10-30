@@ -1,7 +1,28 @@
 "use client";
 import { useState, useEffect } from 'react';
-import { Plus, Edit, Trash2, Search, X, Loader2, Image, ToggleLeft, ToggleRight, Clock } from 'lucide-react';
+import {
+  Plus,
+  Edit,
+  Trash2,
+  Search,
+  X,
+  Loader2,
+  Image as ImageIcon,
+  ToggleLeft,
+  ToggleRight,
+  Clock,
+  ArrowLeft,
+  Save,
+  Check,
+  ExternalLink,
+  Sparkles,
+  Info,
+  Gift,
+  Link2,
+  FileText
+} from 'lucide-react';
 import api from '../../lib/api';
+import ImageUpload from '../../components/admin/ImageUpload';
 
 export interface Promotion {
   id: string;
@@ -32,11 +53,13 @@ export default function AdminPromotions() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
-  const [modalOpen, setModalOpen] = useState(false);
+
+  // View state: 'list' | 'editor'
+  const [viewMode, setViewMode] = useState<'list' | 'editor'>('list');
   const [isEditing, setIsEditing] = useState(false);
   const [form, setForm] = useState<Partial<Promotion>>(emptyForm());
   const [error, setError] = useState('');
-  const [uploadingImage, setUploadingImage] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
 
   useEffect(() => {
     fetchPromotions();
@@ -57,7 +80,8 @@ export default function AdminPromotions() {
     setForm(emptyForm());
     setIsEditing(false);
     setError('');
-    setModalOpen(true);
+    setViewMode('editor');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const openEdit = (p: Promotion) => {
@@ -67,69 +91,80 @@ export default function AdminPromotions() {
     });
     setIsEditing(true);
     setError('');
-    setModalOpen(true);
+    setViewMode('editor');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleDelete = async (id: string) => {
-    if (!confirm('Bạn có chắc muốn xóa chương trình khuyến mãi này?')) return;
+  const backToList = () => {
+    setViewMode('list');
+    setForm(emptyForm());
+    setError('');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const set = (field: keyof Promotion, value: unknown) =>
+    setForm((prev) => ({ ...prev, [field]: value }));
+
+  const handleDelete = async (id: string, title?: string | null) => {
+    const name = title || 'này';
+    if (!confirm(`Bạn có chắc muốn xóa chương trình khuyến mãi "${name}"?`)) return;
     try {
       await api.delete(`/promotions/${id}`);
-      fetchPromotions();
+      await fetchPromotions();
+      setSuccessMessage('Đã xóa chương trình khuyến mãi thành công!');
+      setTimeout(() => setSuccessMessage(''), 4000);
     } catch (err) {
       console.error(err);
+      alert('Xóa khuyến mãi thất bại');
     }
   };
 
   const toggleActive = async (p: Promotion) => {
     try {
       await api.put(`/promotions/${p.id}`, { ...p, is_active: !p.is_active });
-      // Reload from server to reflect the fact that only 1 can be active at a time
-      fetchPromotions();
+      // Tải lại để cập nhật trạng thái (hệ thống chỉ cho phép kích hoạt 1 popup tại 1 thời điểm)
+      await fetchPromotions();
+      setSuccessMessage(
+        !p.is_active
+          ? `Đã kích hoạt popup "${p.title || 'Khuyến mãi'}". Các popup khác đã được tắt tự động.`
+          : `Đã tắt popup "${p.title || 'Khuyến mãi'}"`
+      );
+      setTimeout(() => setSuccessMessage(''), 4000);
     } catch (err) {
       console.error(err);
     }
   };
 
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    setUploadingImage(true);
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('folder', 'promotions');
-
-    try {
-      const response = await api.post('/upload', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' }
-      });
-      setForm({ ...form, image_url: response.data.url });
-    } catch (err: any) {
-      alert('Lỗi upload ảnh: ' + (err.response?.data?.message || err.message));
-    } finally {
-      setUploadingImage(false);
-    }
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSave = async () => {
     setError('');
     setSaving(true);
 
     try {
-      const dataToSave = { ...form };
-      delete dataToSave.id;
+      const dataToSave: Record<string, any> = {
+        title: form.title || '',
+        subtitle: form.subtitle || '',
+        description: form.description || '',
+        discount_text: form.discount_text || '',
+        image_url: form.image_url || '',
+        link_url: form.link_url || '',
+        delay_seconds: form.delay_seconds !== undefined && form.delay_seconds !== null ? Number(form.delay_seconds) : 5,
+        is_active: form.is_active ?? true,
+      };
 
       if (isEditing && form.id) {
         await api.put(`/promotions/${form.id}`, dataToSave);
+        setSuccessMessage('Đã cập nhật chương trình khuyến mãi thành công!');
       } else {
         await api.post('/promotions', dataToSave);
+        setSuccessMessage('Đã tạo chương trình khuyến mãi mới thành công!');
       }
 
-      setModalOpen(false);
-      fetchPromotions();
+      await fetchPromotions();
+      backToList();
+      setTimeout(() => setSuccessMessage(''), 4000);
     } catch (err: any) {
-      setError(err.response?.data?.message || err.message || 'Có lỗi xảy ra');
+      setError(err.response?.data?.message || err.message || 'Có lỗi xảy ra khi lưu khuyến mãi');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } finally {
       setSaving(false);
     }
@@ -137,315 +172,441 @@ export default function AdminPromotions() {
 
   const filteredPromotions = promotions.filter((p) => {
     if (!searchTerm) return true;
-    return (p.title || '').toLowerCase().includes(searchTerm.toLowerCase());
+    return (
+      (p.title || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (p.subtitle || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (p.discount_text || '').toLowerCase().includes(searchTerm.toLowerCase())
+    );
   });
 
-  if (loading) {
+  // -------------------------------------------------------------
+  // RENDER: FULL-PAGE PROMOTION EDITOR VIEW
+  // -------------------------------------------------------------
+  if (viewMode === 'editor') {
     return (
-      <div className="flex items-center justify-center h-[50vh]">
-        <Loader2 className="w-8 h-8 animate-spin text-[#2d5f9e]" />
+      <div className="space-y-6 pb-20">
+        {/* Editor Top Sticky Header */}
+        <div className="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/90 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4 sticky top-16 z-20 backdrop-blur-md">
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={backToList}
+              className="flex items-center gap-1.5 px-3 py-2 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition-all cursor-pointer"
+            >
+              <ArrowLeft className="w-4 h-4 text-slate-600" />
+              <span>Quay lại danh sách</span>
+            </button>
+            <div className="h-5 w-[1px] bg-slate-200 hidden sm:block" />
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-semibold px-2.5 py-0.5 rounded-md bg-blue-50 text-[#285c9a] border border-blue-200/60 uppercase tracking-wider font-mono">
+                  {isEditing ? 'Chỉnh sửa popup khuyến mãi' : 'Tạo popup khuyến mãi mới'}
+                </span>
+                <span
+                  className={`text-xs font-semibold px-2.5 py-0.5 rounded-full border ${
+                    form.is_active
+                      ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                      : 'bg-slate-100 text-slate-600 border-slate-200'
+                  }`}
+                >
+                  {form.is_active ? '● Đang kích hoạt' : '○ Đang tắt'}
+                </span>
+              </div>
+              <h1 className="text-base sm:text-lg font-bold text-slate-900 truncate max-w-md mt-0.5">
+                {form.title ? form.title : form.image_url ? '(Khuyến mãi dạng chỉ hình ảnh)' : 'Chưa đặt tiêu đề khuyến mãi'}
+              </h1>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2.5 self-end md:self-auto">
+            {form.link_url && (
+              <a
+                href={form.link_url}
+                target="_blank"
+                rel="noreferrer"
+                className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold transition-all border border-slate-200"
+              >
+                <ExternalLink className="w-3.5 h-3.5 text-[#285c9a]" />
+                <span>Xem liên kết</span>
+              </a>
+            )}
+            <button
+              type="button"
+              onClick={backToList}
+              className="px-4 py-2.5 border border-slate-200 text-slate-700 rounded-xl hover:bg-slate-100 text-xs font-semibold transition-all cursor-pointer"
+            >
+              Hủy
+            </button>
+            <button
+              type="button"
+              onClick={handleSave}
+              disabled={saving}
+              className="flex items-center gap-2 px-5 py-2.5 bg-[#285c9a] hover:bg-[#1e4a80] text-white rounded-xl text-xs font-bold shadow-md shadow-blue-900/15 transition-all disabled:opacity-50 cursor-pointer"
+            >
+              {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
+              <span>{isEditing ? 'Lưu thay đổi' : 'Tạo khuyến mãi'}</span>
+            </button>
+          </div>
+        </div>
+
+        {/* Error Alert */}
+        {error && (
+          <div className="p-4 bg-rose-50 border border-rose-200 text-rose-700 rounded-2xl text-sm font-medium flex items-center justify-between shadow-xs">
+            <span>{error}</span>
+            <button onClick={() => setError('')} className="p-1 hover:bg-rose-100 rounded-lg">
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+        )}
+
+        {/* Form Layout: 2 Columns */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          {/* Main Column (8 cols) */}
+          <div className="lg:col-span-8 space-y-6">
+            {/* Card 1: Thông tin nội dung */}
+            <div className="bg-white rounded-2xl p-6 border border-slate-200/90 shadow-sm space-y-5">
+              <div className="flex items-center gap-2 pb-3 border-b border-slate-100">
+                <Gift className="w-5 h-5 text-[#285c9a]" />
+                <h2 className="text-base font-bold text-slate-800">Nội dung chương trình khuyến mãi</h2>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                  Tiêu đề khuyến mãi (Title)
+                </label>
+                <input
+                  type="text"
+                  value={form.title || ''}
+                  onChange={(e) => set('title', e.target.value)}
+                  placeholder="Ví dụ: Ưu Đãi Mùa Hè - Tặng Gói Bảo Trì 2 Năm"
+                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-base font-semibold text-slate-800 focus:bg-white focus:ring-2 focus:ring-[#285c9a] outline-none transition-all"
+                />
+                <p className="mt-1 text-[11px] text-slate-400">
+                  Có thể để trống nếu bạn muốn hiển thị popup ở chế độ <b>Chỉ hình ảnh banner</b>.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                    Tiêu đề phụ (Subtitle)
+                  </label>
+                  <input
+                    type="text"
+                    value={form.subtitle || ''}
+                    onChange={(e) => set('subtitle', e.target.value)}
+                    placeholder="Ví dụ: Áp dụng cho 10 khách hàng đăng ký sớm nhất"
+                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-[#285c9a] outline-none transition-all"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                    Điểm nhấn giảm giá (Discount Text)
+                  </label>
+                  <input
+                    type="text"
+                    value={form.discount_text || ''}
+                    onChange={(e) => set('discount_text', e.target.value)}
+                    placeholder="Ví dụ: GIẢM NGAY 20% hoặc TẶNG 50 TRIỆU"
+                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold text-rose-600 focus:bg-white focus:ring-2 focus:ring-[#285c9a] outline-none transition-all"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                  Mô tả chi tiết ưu đãi
+                </label>
+                <textarea
+                  value={form.description || ''}
+                  onChange={(e) => set('description', e.target.value)}
+                  rows={4}
+                  placeholder="Mô tả cụ thể về thể lệ chương trình, các dòng thang máy áp dụng, thời hạn áp dụng..."
+                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-[#285c9a] outline-none transition-all"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                  <Link2 className="w-3.5 h-3.5 text-slate-400" />
+                  Đường dẫn liên kết khi khách bấm vào popup (Link URL)
+                </label>
+                <input
+                  type="text"
+                  value={form.link_url || ''}
+                  onChange={(e) => set('link_url', e.target.value)}
+                  placeholder="Ví dụ: /lien-he hoặc https://thangmayhaiphat.vn/san-pham/thang-homelift"
+                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-mono text-slate-700 focus:bg-white focus:ring-2 focus:ring-[#285c9a] outline-none transition-all"
+                />
+                <p className="mt-1 text-[11px] text-slate-400">
+                  Khi người dùng click vào banner hoặc nút kêu gọi trên popup, họ sẽ được chuyển hướng tới trang này.
+                </p>
+              </div>
+            </div>
+
+            {/* Card 2: Thời gian chờ & Hướng dẫn hiển thị */}
+            <div className="bg-white rounded-2xl p-6 border border-slate-200/90 shadow-sm space-y-5">
+              <div className="flex items-center gap-2 pb-3 border-b border-slate-100">
+                <Clock className="w-5 h-5 text-[#285c9a]" />
+                <h2 className="text-base font-bold text-slate-800">Cấu hình thời gian xuất hiện</h2>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                  Thời gian chờ trước khi popup bật lên
+                </label>
+                <div className="relative max-w-xs">
+                  <input
+                    type="number"
+                    min={0}
+                    max={300}
+                    step={1}
+                    value={form.delay_seconds !== undefined && form.delay_seconds !== null ? form.delay_seconds : 5}
+                    onChange={(e) => set('delay_seconds', parseInt(e.target.value, 10) || 0)}
+                    className="w-full px-3.5 py-2.5 pr-14 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold focus:bg-white focus:ring-2 focus:ring-[#285c9a] outline-none transition-all"
+                  />
+                  <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400">
+                    giây
+                  </span>
+                </div>
+                <p className="mt-1.5 text-[11px] text-slate-500">
+                  Thời gian tính từ lúc khách truy cập vào trang web cho đến khi popup hiển thị (Mặc định: 5 giây, nhập <b>0</b> để bật lên ngay tức thì).
+                </p>
+              </div>
+
+              {/* Informative helper box */}
+              <div className="p-4 bg-blue-50/70 border border-blue-200/60 rounded-xl text-xs text-blue-900 space-y-2">
+                <div className="flex items-center gap-1.5 font-bold">
+                  <Info className="w-4 h-4 text-[#285c9a]" />
+                  <span>Quy tắc hiển thị thông minh của Popup:</span>
+                </div>
+                <ul className="list-disc pl-5 space-y-1 text-slate-600">
+                  <li>
+                    <b>Chế độ Chỉ hình ảnh:</b> Nếu bạn tải lên hình ảnh banner và bỏ trống Tiêu đề, Mô tả thì popup sẽ hiển thị trọn vẹn banner hình ảnh nổi bật.
+                  </li>
+                  <li>
+                    <b>Chế độ Đầy đủ thông tin:</b> Nếu bạn nhập Tiêu đề, Mô tả và Text giảm giá, popup sẽ hiển thị bố cục thẻ ưu đãi chuyên nghiệp kết hợp hình ảnh minh họa.
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Sidebar Column (4 cols) */}
+          <div className="lg:col-span-4 space-y-6">
+            {/* Card 1: Trạng thái kích hoạt */}
+            <div className="bg-white rounded-2xl p-6 border border-slate-200/90 shadow-sm space-y-4">
+              <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider pb-2 border-b border-slate-100">
+                Trạng thái popup
+              </h3>
+              <div className="flex items-center justify-between p-3.5 bg-slate-50 rounded-xl border border-slate-200/70">
+                <div>
+                  <p className="text-xs font-bold text-slate-800">Kích hoạt popup này</p>
+                  <p className="text-[11px] text-slate-500 mt-0.5">
+                    {form.is_active ? 'Đang bật hiển thị trên website' : 'Đang tạm dừng hiển thị'}
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => set('is_active', !form.is_active)}
+                  className={`transition-colors cursor-pointer ${form.is_active ? 'text-emerald-600' : 'text-slate-300'}`}
+                >
+                  {form.is_active ? (
+                    <ToggleRight className="w-8 h-8" />
+                  ) : (
+                    <ToggleLeft className="w-8 h-8" />
+                  )}
+                </button>
+              </div>
+              <p className="text-[11px] text-amber-700 bg-amber-50 p-3 rounded-xl border border-amber-200/60 leading-relaxed">
+                * Lưu ý: Hệ thống chỉ hiển thị tối đa <b>1 popup</b> duy nhất tại một thời điểm để không làm phiền khách hàng. Khi bật popup này, các popup khác sẽ tự động tắt.
+              </p>
+            </div>
+
+            {/* Card 2: Hình ảnh banner popup */}
+            <div className="bg-white rounded-2xl p-6 border border-slate-200/90 shadow-sm space-y-4">
+              <div className="flex items-center justify-between pb-2 border-b border-slate-100">
+                <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+                  <ImageIcon className="w-4 h-4 text-[#285c9a]" />
+                  Hình ảnh Banner Popup
+                </h3>
+              </div>
+              <ImageUpload
+                label="HÌNH ẢNH KHUYẾN MÃI"
+                value={form.image_url || ''}
+                onChange={(url) => set('image_url', url)}
+              />
+              <p className="text-[11px] text-slate-400">
+                Khuyến nghị: Định dạng ảnh rõ nét JPG/PNG, kích thước khoảng 800x600px hoặc 600x800px.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
 
+  // -------------------------------------------------------------
+  // RENDER: LIST VIEW
+  // -------------------------------------------------------------
   return (
-    <div className="space-y-6 max-w-[1600px] mx-auto">
+    <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-2xl shadow-sm border border-slate-200/90">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">Quản lý Popup Khuyến Mãi</h1>
-          <p className="text-sm text-slate-500 mt-1">Quản lý nội dung hiển thị ở popup khi người dùng vào trang (Chỉ cho phép hiển thị 1 chương trình mỗi thời điểm)</p>
+          <h1 className="text-2xl font-bold text-slate-800">Quản Lý Popup Khuyến Mãi</h1>
+          <p className="text-sm text-slate-500 mt-1">
+            Quản lý nội dung hiển thị ở popup khi khách hàng vào website (Hệ thống tự động hiển thị 1 chương trình được kích hoạt)
+          </p>
         </div>
         <button
           onClick={openAdd}
-          className="flex items-center gap-2 bg-[#2d5f9e] text-white px-5 py-2.5 rounded-xl font-medium hover:bg-[#1a4375] transition-colors shadow-sm"
+          className="flex items-center justify-center gap-2 bg-[#285c9a] hover:bg-[#1e4a80] text-white px-5 py-2.5 rounded-xl font-medium text-sm shadow-md shadow-blue-900/10 transition-all cursor-pointer"
         >
-          <Plus size={18} />
+          <Plus className="w-4 h-4" />
           <span>Thêm Khuyến Mãi</span>
         </button>
       </div>
 
-      {/* Toolbar */}
-      <div className="flex flex-col sm:flex-row gap-4">
-        <div className="relative flex-1 max-w-md">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
+      {/* Success Notification */}
+      {successMessage && (
+        <div className="p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-2xl text-sm font-medium flex items-center justify-between shadow-xs animate-in fade-in">
+          <div className="flex items-center gap-2">
+            <Check className="w-4 h-4 text-emerald-600" />
+            <span>{successMessage}</span>
+          </div>
+          <button onClick={() => setSuccessMessage('')} className="p-1 hover:bg-emerald-100 rounded-lg">
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+      )}
+
+      {/* Toolbar Search */}
+      <div className="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm">
+        <div className="relative max-w-md">
+          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4" />
           <input
             type="text"
-            placeholder="Tìm kiếm..."
+            placeholder="Tìm kiếm chương trình khuyến mãi theo tiêu đề, ưu đãi..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#2d5f9e]/20 focus:border-[#2d5f9e] transition-all bg-white"
+            className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-[#285c9a] focus:border-transparent outline-none text-sm font-medium transition-all"
           />
         </div>
       </div>
 
       {/* Table List */}
-      <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200/90 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-slate-50 border-b border-slate-200 text-sm font-semibold text-slate-600">
+              <tr className="bg-slate-50 border-b border-slate-200 text-xs font-bold text-slate-600 uppercase tracking-wider">
                 <th className="py-4 px-6">Hình ảnh & Tiêu đề</th>
-                <th className="py-4 px-6">Text Giảm Giá</th>
+                <th className="py-4 px-6">Điểm nhấn giảm giá</th>
                 <th className="py-4 px-6">Thời gian chờ</th>
-                <th className="py-4 px-6">Link</th>
+                <th className="py-4 px-6">Liên kết</th>
                 <th className="py-4 px-6">Trạng thái</th>
                 <th className="py-4 px-6 text-right">Thao tác</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 text-sm">
               {filteredPromotions.map((p) => (
-                <tr key={p.id} className="hover:bg-slate-50/50 transition-colors group">
+                <tr key={p.id} className="hover:bg-slate-50/70 transition-colors group">
                   <td className="py-4 px-6">
                     <div className="flex items-center gap-4">
                       {p.image_url ? (
-                        <img src={p.image_url} alt="" className="w-20 h-12 rounded object-cover border border-slate-200" />
+                        <img
+                          src={p.image_url}
+                          alt=""
+                          className="w-20 h-14 rounded-xl object-cover border border-slate-200 shadow-2xs"
+                        />
                       ) : (
-                        <div className="w-20 h-12 rounded bg-slate-100 flex items-center justify-center border border-slate-200">
-                          <Image className="w-5 h-5 text-slate-400" />
+                        <div className="w-20 h-14 rounded-xl bg-slate-100 flex items-center justify-center border border-slate-200">
+                          <ImageIcon className="w-5 h-5 text-slate-400" />
                         </div>
                       )}
                       <div>
-                        <div className="font-semibold text-slate-800 line-clamp-1">{p.title || '(Chỉ hình ảnh)'}</div>
-                        <div className="text-slate-500 text-xs mt-0.5">{p.subtitle}</div>
+                        <div className="font-bold text-slate-800 line-clamp-1 text-sm">
+                          {p.title || '(Chỉ hình ảnh banner)'}
+                        </div>
+                        <div className="text-slate-500 text-xs mt-0.5 line-clamp-1">{p.subtitle || 'Không có tiêu đề phụ'}</div>
                       </div>
                     </div>
                   </td>
-                  <td className="py-4 px-6 font-medium text-rose-600">
-                    {p.discount_text}
+                  <td className="py-4 px-6 font-semibold text-rose-600 text-sm">
+                    {p.discount_text || '-'}
                   </td>
-                  <td className="py-4 px-6 font-medium text-slate-700">
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700 text-xs font-semibold">
-                      <Clock size={14} className="text-[#2d5f9e]" />
+                  <td className="py-4 px-6">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-100 text-slate-700 text-xs font-semibold">
+                      <Clock className="w-3.5 h-3.5 text-[#285c9a]" />
                       {p.delay_seconds !== undefined && p.delay_seconds !== null ? p.delay_seconds : 5}s
                     </span>
                   </td>
                   <td className="py-4 px-6 text-slate-500">
                     {p.link_url ? (
-                      <a href={p.link_url} target="_blank" rel="noreferrer" className="hover:text-blue-600 hover:underline">
-                        Link
+                      <a
+                        href={p.link_url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-[#285c9a] hover:underline font-mono text-xs flex items-center gap-1"
+                      >
+                        <ExternalLink className="w-3 h-3" />
+                        <span>Link</span>
                       </a>
                     ) : (
-                      '-'
+                      <span className="text-slate-300">-</span>
                     )}
                   </td>
                   <td className="py-4 px-6">
                     <button
                       onClick={() => toggleActive(p)}
-                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
-                        p.is_active ? 'bg-emerald-50 text-emerald-600' : 'bg-slate-100 text-slate-500'
+                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer border ${
+                        p.is_active
+                          ? 'bg-emerald-50 text-emerald-700 border-emerald-200 shadow-2xs'
+                          : 'bg-slate-100 text-slate-500 border-slate-200'
                       }`}
+                      title={p.is_active ? 'Nhấn để tắt popup' : 'Nhấn để bật popup này (các popup khác sẽ tự tắt)'}
                     >
-                      {p.is_active ? <ToggleRight size={16} /> : <ToggleLeft size={16} />}
-                      {p.is_active ? 'Đang bật' : 'Đã tắt'}
+                      {p.is_active ? (
+                        <ToggleRight className="w-4 h-4 text-emerald-600" />
+                      ) : (
+                        <ToggleLeft className="w-4 h-4 text-slate-400" />
+                      )}
+                      {p.is_active ? 'Đang kích hoạt' : 'Đang tắt'}
                     </button>
                   </td>
                   <td className="py-4 px-6 text-right">
-                    <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div className="flex items-center justify-end gap-1.5">
                       <button
-                         onClick={() => openEdit(p)}
-                         className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
-                         title="Sửa"
-                       >
-                         <Edit size={16} />
-                       </button>
-                       <button
-                         onClick={() => handleDelete(p.id)}
-                         className="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors"
-                         title="Xóa"
-                       >
-                         <Trash2 size={16} />
-                       </button>
-                     </div>
-                   </td>
-                 </tr>
-               ))}
-               {filteredPromotions.length === 0 && (
-                 <tr>
-                   <td colSpan={6} className="py-12 text-center text-slate-500">
-                     Không tìm thấy chương trình khuyến mãi nào.
-                   </td>
-                 </tr>
-               )}
-             </tbody>
-           </table>
-         </div>
-       </div>
- 
-       {/* Modal Form */}
-       {modalOpen && (
-         <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-           <div className="bg-white rounded-2xl shadow-xl w-full max-w-3xl max-h-[90vh] flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-200">
-            <form onSubmit={handleSubmit} className="flex flex-col h-full max-h-[90vh]">
-              <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50 shrink-0">
-                <h2 className="text-xl font-bold text-slate-800">{isEditing ? 'Sửa Khuyến Mãi' : 'Thêm Khuyến Mãi Mới'}</h2>
-                <button
-                  type="button"
-                  onClick={() => setModalOpen(false)}
-                  className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-200 rounded-lg transition-colors"
-                >
-                  <X size={20} />
-                </button>
-              </div>
-
-              <div className="p-6 overflow-y-auto flex-1 custom-scrollbar">
-                {error && (
-                  <div className="mb-6 p-4 bg-rose-50 text-rose-600 text-sm rounded-xl border border-rose-100">
-                    {error}
-                  </div>
-                )}
-                
-                <div className="space-y-6">
-                  <div className="grid sm:grid-cols-2 gap-6">
-                    <div className="space-y-4">
-                      <div>
-                        <label className="block text-sm font-semibold text-slate-700 mb-1.5">Hình ảnh (Tuỳ chọn)</label>
-                        {form.image_url && (
-                          <div className="relative h-32 rounded-lg overflow-hidden border border-slate-200 mb-3">
-                            <img src={form.image_url} alt="Preview" className="w-full h-full object-cover" />
-                          </div>
-                        )}
-                        <div className="flex items-center gap-3">
-                          <label className="flex-1 cursor-pointer bg-slate-50 hover:bg-slate-100 border border-slate-300 border-dashed py-2.5 px-4 rounded-xl text-center transition-colors">
-                            <span className="text-sm text-slate-600 font-medium">
-                              {uploadingImage ? 'Đang tải lên...' : 'Tải ảnh lên'}
-                            </span>
-                            <input type="file" accept="image/*" className="hidden" onChange={handleImageUpload} disabled={uploadingImage} />
-                          </label>
-                          <input
-                            type="text"
-                            placeholder="Hoặc dán URL ảnh"
-                            className="flex-1 px-3 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#2d5f9e]/20 focus:border-[#2d5f9e] text-sm"
-                            value={form.image_url || ''}
-                            onChange={(e) => setForm({ ...form, image_url: e.target.value })}
-                          />
-                        </div>
-                      </div>
-                      
-                      <div className="p-4 bg-blue-50 border border-blue-100 rounded-xl text-sm text-blue-800">
-                        <p className="font-semibold mb-1">Ghi chú hiển thị:</p>
-                        <ul className="list-disc pl-4 space-y-1">
-                          <li>Nếu chỉ nhập hình ảnh, bỏ trống tất cả nội dung chữ: Popup sẽ hiển thị chế độ <b>Chỉ hình ảnh</b>.</li>
-                          <li>Nếu nhập tiêu đề, mô tả: Hiển thị chế độ <b>Đầy đủ thông tin</b> (với màu chủ đạo là #2d5f9e).</li>
-                        </ul>
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-semibold text-slate-700 mb-1.5 flex items-center gap-1.5">
-                          <Clock size={16} className="text-[#2d5f9e]" />
-                          <span>Thời gian chờ xuất hiện (giây)</span>
-                        </label>
-                        <div className="relative">
-                          <input
-                            type="number"
-                            min={0}
-                            max={300}
-                            step={1}
-                            placeholder="5"
-                            className="w-full px-3 py-2 pr-14 rounded-xl border border-slate-300 focus:outline-none focus:border-[#2d5f9e]"
-                            value={form.delay_seconds !== undefined && form.delay_seconds !== null ? form.delay_seconds : 5}
-                            onChange={(e) => setForm({ ...form, delay_seconds: parseInt(e.target.value, 10) || 0 })}
-                          />
-                          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-semibold text-slate-400">giây</span>
-                        </div>
-                        <p className="text-xs text-slate-500 mt-1">Số giây sau khi khách vào web popup sẽ bật lên (Mặc định: 5s, đặt 0s để hiện ngay).</p>
-                      </div>
-
-                      <div>
-                        <label className="flex items-center gap-2 cursor-pointer">
-                          <input
-                            type="checkbox"
-                            className="w-4 h-4 text-[#2d5f9e] border-slate-300 rounded focus:ring-[#2d5f9e]"
-                            checked={form.is_active}
-                            onChange={(e) => setForm({ ...form, is_active: e.target.checked })}
-                          />
-                          <span className="text-sm font-semibold text-slate-700">Kích hoạt hiển thị popup này</span>
-                        </label>
-                        <p className="text-xs text-slate-500 mt-1 pl-6">Khi bật, các popup khác sẽ tự động tắt.</p>
-                      </div>
+                        onClick={() => openEdit(p)}
+                        className="p-2 text-slate-600 hover:text-[#285c9a] hover:bg-blue-50 rounded-xl transition-all cursor-pointer"
+                        title="Chỉnh sửa khuyến mãi"
+                      >
+                        <Edit className="w-4 h-4" />
+                      </button>
+                      <button
+                        onClick={() => handleDelete(p.id, p.title)}
+                        className="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition-all cursor-pointer"
+                        title="Xóa khuyến mãi"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
                     </div>
-
-                    <div className="space-y-4">
-                      <div>
-                        <label className="block text-sm font-semibold text-slate-700 mb-1.5">Tiêu đề (Title)</label>
-                        <input
-                          type="text"
-                          className="w-full px-3 py-2 rounded-xl border border-slate-300 focus:outline-none focus:border-[#2d5f9e]"
-                          value={form.title || ''}
-                          onChange={(e) => setForm({ ...form, title: e.target.value })}
-                        />
-                      </div>
-                      
-                      <div>
-                        <label className="block text-sm font-semibold text-slate-700 mb-1.5">Tiêu đề phụ (Subtitle)</label>
-                        <input
-                          type="text"
-                          className="w-full px-3 py-2 rounded-xl border border-slate-300 focus:outline-none focus:border-[#2d5f9e]"
-                          value={form.subtitle || ''}
-                          onChange={(e) => setForm({ ...form, subtitle: e.target.value })}
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-semibold text-slate-700 mb-1.5">Nội dung Giảm giá nổi bật</label>
-                        <input
-                          type="text"
-                          placeholder="VD: GIẢM NGAY 20%"
-                          className="w-full px-3 py-2 rounded-xl border border-slate-300 focus:outline-none focus:border-[#2d5f9e]"
-                          value={form.discount_text || ''}
-                          onChange={(e) => setForm({ ...form, discount_text: e.target.value })}
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-semibold text-slate-700 mb-1.5">Mô tả chi tiết</label>
-                        <textarea
-                          rows={3}
-                          className="w-full px-3 py-2 rounded-xl border border-slate-300 focus:outline-none focus:border-[#2d5f9e]"
-                          value={form.description || ''}
-                          onChange={(e) => setForm({ ...form, description: e.target.value })}
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="border-t border-slate-200 pt-6">
-                    <div className="p-4 bg-slate-50 rounded-xl border border-slate-200">
-                      <h4 className="text-sm font-bold text-slate-700 mb-3">Đường dẫn liên kết (khi nhấn vào popup)</h4>
-                      <input
-                        type="text"
-                        placeholder="https://..."
-                        className="w-full px-3 py-2 rounded-lg border border-slate-300 text-sm focus:outline-none focus:border-[#2d5f9e]"
-                        value={form.link_url || ''}
-                        onChange={(e) => setForm({ ...form, link_url: e.target.value })}
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="p-6 border-t border-slate-100 bg-slate-50 flex items-center justify-end gap-3 shrink-0">
-                <button
-                  type="button"
-                  onClick={() => setModalOpen(false)}
-                  className="px-5 py-2.5 rounded-xl font-medium text-slate-600 hover:bg-slate-200 transition-colors"
-                  disabled={saving}
-                >
-                  Hủy
-                </button>
-                <button
-                  type="submit"
-                  className="px-5 py-2.5 rounded-xl font-medium bg-[#2d5f9e] text-white hover:bg-[#1a4375] transition-colors flex items-center gap-2"
-                  disabled={saving}
-                >
-                  {saving && <Loader2 className="w-4 h-4 animate-spin" />}
-                  {isEditing ? 'Cập nhật' : 'Thêm mới'}
-                </button>
-              </div>
-            </form>
-           </div>
-         </div>
-       )}
-     </div>
-   );
- }
+                  </td>
+                </tr>
+              ))}
+              {filteredPromotions.length === 0 && (
+                <tr>
+                  <td colSpan={6} className="py-12 text-center text-slate-500">
+                    Không tìm thấy chương trình khuyến mãi nào.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  );
+}

@@ -251,14 +251,16 @@ function ProjectDetail() {
             </section>
 
             {/* Description & Technical Solutions */}
-            <section className="bg-white rounded-2xl border border-slate-200/80 p-6 sm:p-8 shadow-sm">
-              <h2 className="text-xl sm:text-2xl font-bold text-[#0d1f35] mb-4">
-                Thông Tin Chi Tiết & Giải Pháp Thi Công
-              </h2>
-              <p className="text-slate-700 leading-relaxed text-sm sm:text-base">
-                {project.description}
-              </p>
-            </section>
+            {project.description && project.description.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').trim().length > 0 && (
+              <section className="bg-white rounded-2xl border border-slate-200/80 p-6 sm:p-8 shadow-sm">
+                <h2 className="text-xl sm:text-2xl font-bold text-[#0d1f35] mb-4">
+                  Thông Tin Chi Tiết & Giải Pháp Thi Công
+                </h2>
+                <p className="text-slate-700 leading-relaxed text-sm sm:text-base whitespace-pre-line">
+                  {project.description}
+                </p>
+              </section>
+            )}
 
             {/* Execution Highlights */}
             {((project as any).highlights || project.features) && ((project as any).highlights || project.features).length > 0 && (

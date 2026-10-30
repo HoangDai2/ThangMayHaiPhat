@@ -1,2 +1,7 @@
+'use client';
+
 import { ArticleDetail } from '../../../../views/ArticlesPage';
-export default function Page() { return <ArticleDetail />; }
+
+export default function Page() {
+  return <ArticleDetail />;
+}

@@ -88,7 +88,9 @@ export const products: Product[] = [
     icon: 'home',
     image: 'https://lfwsvizmqinwbarxhddr.supabase.co/storage/v1/object/public/images/1786423677456-x93ehnbq5h.png',
     shortDescription: 'Thiết kế sang trọng, tối ưu không gian. Phù hợp với nhà phố, biệt thự với cabin kính toàn phần hoặc inox mờ cao cấp.',
-    fullDescription: `Thang máy khung thép vách kính Hải Phát mang lại tầm nhìn Panorama 360 độ thoáng đãng và truyền sáng tự nhiên từ giếng trời. Với hố PIT siêu nông chỉ từ 600mm không phá vỡ kết cấu móng bè, khung thép định hình lắp ghép bu-lông sạch sẽ chỉ 5-7 ngày, đây là giải pháp số 1 cho nhà biệt thự và nhà cải tạo đang ở.`,
+    fullDescription: `Thang máy khung thép vách kính Hải Phát là sự kết hợp hoàn mỹ giữa kỹ thuật cơ khí chính xác và nghệ thuật kiến trúc hiện đại, nâng tầm đẳng cấp không gian sống cho gia chủ. Kết cấu khung thép định hình chịu lực cao kết hợp 4 mặt kính cường lực an toàn trong suốt mở ra tầm nhìn Panorama 360 độ thoáng đãng, tận dụng tối đa ánh sáng tự nhiên từ giếng trời để ngôi nhà luôn ngập tràn sinh khí. Cabin được cá nhân hóa linh hoạt theo phong cách nội thất riêng biệt: từ kính màu trà sang trọng, inox sọc nhuyễn mạ PVD vàng ánh kim cho đến sàn đá hoa cương cao cấp.
+
+Trang bị công nghệ động cơ không hộp số đồng bộ nam châm vĩnh cửu cùng hệ biến tần điều khiển thông minh, thang vận hành êm ái vượt trội với độ ồn dưới 45dB và tiết kiệm đến 40% điện năng tiêu thụ. Giải pháp hố PIT siêu nông chỉ từ 600mm không chạm vào móng bè hay hệ thống ngầm, cùng công nghệ lắp dựng khung thép module bu-lông sạch sẽ chỉ từ 5–7 ngày, giúp tối ưu diện tích và không làm gián đoạn sinh hoạt của gia đình. Hệ thống an toàn đa tầng chuẩn Châu Âu (cứu hộ tự động ARD khi mất điện, mành cảm quang chống kẹt cửa) mang lại sự an tâm tuyệt đối cho mọi thế hệ thành viên.`,
     features: [
       'Cabin kính cường lực cao cấp',
       'Cửa mở tự động êm ái',

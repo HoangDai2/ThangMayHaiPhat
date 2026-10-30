@@ -807,7 +807,7 @@ export function ProductDetail() {
               </h2>
 
               <div className="space-y-6">
-                {product.fullDescription.split('\n\n').map((para, idx) => {
+                {product.fullDescription.split(/\r?\n\s*\r?\n/).map((para, idx) => {
                   const isEven = idx % 2 === 0;
                   const imgSrc = gallery[idx % gallery.length] || product.image;
 
