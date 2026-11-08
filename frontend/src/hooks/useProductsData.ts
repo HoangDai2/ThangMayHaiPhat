@@ -11,8 +11,8 @@ const fetchProducts = async () => {
     // Only return published products for frontend
     data = data.filter((p: any) => p.is_published !== false);
     return data;
-  } catch (error) {
-    console.error(error);
+  } catch (error: any) {
+    console.warn('API /public/products không khả dụng, sử dụng staticProducts dự phòng:', error?.message || error);
     return [];
   }
 };

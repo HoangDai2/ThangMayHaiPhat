@@ -31,7 +31,7 @@ import SectionHeader from '../components/shared/SectionHeader';
 import { useQuickQuote } from '../context/QuickQuoteContext';
 
 const reasons = [
-  { icon: Home, title: 'Thang Máy Gia Đình & Biệt Thự', desc: 'Lắp mới may đo, cải tạo nhà cũ, hố PIT siêu nông' },
+  { icon: Home, title: 'Thang Máy Gia Đình & Biệt Thự', desc: 'Lắp mới may đo, cải tạo nhà cũ, tiêu chuẩn' },
   { icon: Building2, title: 'Tòa Nhà & Khách Sạn', desc: 'Thang tải khách cao tầng, tối ưu tốc độ & lưu lượng' },
   { icon: Wrench, title: 'Bảo Trì & Nâng Cấp', desc: 'Hợp đồng 1 năm, định kỳ 2 tháng/lần, phụ tùng chính hãng' },
   { icon: Headphones, title: 'Cứu Hộ Khẩn Cấp 24/7', desc: 'Đội kỹ thuật thường trực, cam kết có mặt ≤ 120 phút' },
@@ -446,7 +446,7 @@ export default function ContactPage() {
               },
               {
                 q: 'Nhà có hố PIT nông 600mm có lắp được không?',
-                a: 'Hoàn toàn được. Dòng thang máy gia đình công nghệ Fuji Nhật Bản của Hải Phát được thiết kế chuyên biệt cho hố PIT siêu nông từ 600mm, không cần đào sâu cắt móng.',
+                a: 'Hoàn toàn được. Dòng thang máy gia đình công nghệ Fuji Nhật Bản của Hải Phát được thiết kế chuyên biệt cho hố PIT tiêu chuẩn từ 600mm, không cần đào sâu cắt móng.',
               },
               {
                 q: 'Quy trình bảo trì sau khi hết hạn bảo hành như thế nào?',

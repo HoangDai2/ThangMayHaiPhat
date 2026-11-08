@@ -61,8 +61,8 @@ const fetchReviews = async () => {
     let data = response.data || [];
     data = data.filter((r: any) => r.is_published !== false);
     return data;
-  } catch (error) {
-    console.error(error);
+  } catch (error: any) {
+    console.warn('API /public/reviews không khả dụng, sử dụng static fallback reviews:', error?.message || error);
     return [];
   }
 };

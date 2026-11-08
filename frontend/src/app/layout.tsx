@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import '../index.css';
 
 export const metadata: Metadata = {
@@ -17,9 +18,30 @@ export default function RootLayout({
   return (
     <html lang="vi" suppressHydrationWarning>
       <head>
+        <Script
+          id="suppress-event-rejection"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              if (typeof window !== 'undefined') {
+                window.addEventListener('unhandledrejection', function(event) {
+                  if (event.reason instanceof Event || (event.reason && typeof event.reason === 'object' && 'isTrusted' in event.reason)) {
+                    event.stopImmediatePropagation();
+                    event.preventDefault();
+                  }
+                }, true);
+              }
+            `,
+          }}
+        />
         {/* Google tag (gtag.js) */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-2MJTBYK1YN" />
-        <script
+        <Script
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=G-2MJTBYK1YN"
+        />
+        <Script
+          id="google-analytics"
+          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];

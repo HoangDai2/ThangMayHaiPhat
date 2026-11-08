@@ -11,8 +11,8 @@ const fetchArticles = async () => {
     // Only published articles
     data = data.filter((a: any) => a.is_published !== false);
     return data;
-  } catch (error) {
-    console.error(error);
+  } catch (error: any) {
+    console.warn('API /public/articles không khả dụng, sử dụng danh sách bài viết rỗng:', error?.message || error);
     return [];
   }
 };

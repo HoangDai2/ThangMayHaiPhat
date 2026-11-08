@@ -19,7 +19,7 @@ export default function Projects() {
   const filtered = active === 'Tất cả' ? projects : projects.filter((p) => p.category === active);
 
   return (
-    <section id="projects" className="py-16 sm:py-24 bg-white border-b border-slate-200/60">
+    <section id="projects" className="pt-8 sm:pt-12 lg:pt-12 pb-12 sm:pb-16 lg:pb-16 bg-white border-b border-slate-200/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <SectionHeader
@@ -77,19 +77,23 @@ export default function Projects() {
               </span>
 
               {/* Project Metadata */}
-              <div className="relative z-10 p-5 sm:p-6 space-y-2">
-                <h3 className="text-white font-bold text-lg sm:text-xl leading-snug group-hover:text-blue-200 transition-colors drop-shadow-sm">
+              <div className="relative z-10 p-5 sm:p-6 space-y-2.5">
+                <h3 className="text-white font-bold text-lg sm:text-xl leading-snug group-hover:text-blue-200 transition-colors drop-shadow-sm line-clamp-2">
                   {project.title}
                 </h3>
 
-                <div className="flex items-center justify-between text-xs text-slate-300 pt-1">
-                  <div className="flex items-center gap-1.5 truncate max-w-[65%]">
-                    <MapPin size={13} className="text-[#4a7bbf] shrink-0" />
-                    <span className="truncate">{project.location}</span>
-                  </div>
+                <div className="flex items-center gap-1.5 text-xs text-slate-300">
+                  <MapPin size={13} className="text-[#4a7bbf] shrink-0" />
+                  <span className="truncate">{project.location}</span>
+                </div>
 
-                  <span className="font-mono bg-white/10 border border-white/15 px-2.5 py-1 rounded-md text-white font-medium shrink-0">
+                <div className="pt-2 border-t border-white/10 flex items-center justify-between text-xs">
+                  <span className="font-mono bg-white/10 border border-white/15 px-2.5 py-1 rounded-md text-white font-medium text-[11px] sm:text-xs">
                     {project.specs}
+                  </span>
+                  <span className="text-emerald-400 font-mono text-[11px] font-medium flex items-center gap-1 shrink-0">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                    Đạt chuẩn QCVN
                   </span>
                 </div>
               </div>

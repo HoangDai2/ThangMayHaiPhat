@@ -8,8 +8,8 @@ const fetchProjects = async () => {
   try {
     const response = await api.get('/public/projects');
     return response.data || [];
-  } catch (error) {
-    console.error(error);
+  } catch (error: any) {
+    console.warn('API /public/projects không khả dụng, sử dụng staticProjects dự phòng:', error?.message || error);
     return [];
   }
 };

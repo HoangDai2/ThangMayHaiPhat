@@ -36,7 +36,7 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="py-16 sm:py-24 bg-white">
+    <section id="contact" className="pt-8 sm:pt-12 lg:pt-12 pb-14 sm:pb-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           badge="Khảo Sát Miễn Phí"

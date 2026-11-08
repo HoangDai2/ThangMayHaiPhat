@@ -40,7 +40,7 @@ export default function PricingOverview() {
   };
 
   return (
-    <div className="w-full py-6 sm:py-8 lg:py-10">
+    <div className="w-full pt-1 sm:pt-2 lg:pt-2 pb-2 sm:pb-3">
       <div className="w-full">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto space-y-3">
@@ -202,7 +202,7 @@ export default function PricingOverview() {
               )}
 
               <p className="text-xs sm:text-sm text-slate-500 min-h-[38px] leading-relaxed">
-                Biệt thự, giếng trời, nhà cải tạo. Hố PIT siêu nông không đục móng bè, đón sáng tự nhiên, thi công siêu tốc 5–7 ngày.
+                Biệt thự, giếng trời, nhà cải tạo. Hố PIT tiêu chuẩn không đục móng bè, đón sáng tự nhiên, thi công siêu tốc 5–7 ngày.
               </p>
 
               {/* Dotted Price Box */}
@@ -225,7 +225,7 @@ export default function PricingOverview() {
                 <div className="flex items-center justify-between pt-2">
                   <span className="text-slate-500 font-medium">Hố PIT</span>
                   <span className="border border-dashed border-amber-400 bg-amber-50/60 px-2 py-0.5 rounded-md font-mono text-xs font-bold text-slate-800">
-                    Siêu nông từ 600 mm
+                    Tiêu chuẩn từ 600 mm
                   </span>
                 </div>
                 <div className="flex items-center justify-between pt-2">
@@ -284,7 +284,7 @@ export default function PricingOverview() {
                 Thang Máy Tải Khách Cho Tòa Nhà, Khách Sạn & Văn Phòng
               </h4>
               <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-xl leading-relaxed">
-                Thiết kế may đo cấu hình tải trọng lớn 450 – 1.000 kg+, tốc độ cao 1,0 – 1,75 m/s, đáp ứng tiêu chuẩn QCVN 02:2019 & EN 81-20/50.
+                Thiết kế may đo cấu hình tải trọng lớn 450 – 1.000 kg+, tốc độ cao 1.0 – 2.5 m/s, đáp ứng tiêu chuẩn QCVN 02:2019 & EN 81-20/50.
               </p>
             </div>
           </div>
@@ -299,7 +299,7 @@ export default function PricingOverview() {
         </div>
 
         {/* Footnote */}
-        <div className="text-center mt-8 sm:mt-10 text-xs sm:text-sm text-slate-500 font-medium">
+        <div className="text-center mt-6 sm:mt-8 text-xs sm:text-sm text-slate-500 font-medium">
           Giá trọn gói gồm thiết bị, lắp đặt và kiểm định lần đầu. Chi phí thay đổi theo số tầng và tùy chọn cabin.{' '}
           <Link
             href="/san-pham"

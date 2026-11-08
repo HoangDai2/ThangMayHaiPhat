@@ -29,6 +29,9 @@ import {
   Calculator,
   SlidersHorizontal,
   Compass,
+  Maximize2,
+  Sparkles,
+  ShieldCheck,
 } from 'lucide-react';
 import { Product } from '../data/products';
 import { useProductsData } from '../hooks/useProductsData';
@@ -173,7 +176,7 @@ export function ProductsList() {
         <section>
           <div className="mb-10 text-center max-w-2xl mx-auto">
             <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0d1f35] tracking-tight">
-              2 Dòng Cấu Trúc Cơ Điện Tiêu Biểu
+              2 Hệ Thống Thang Máy Chủ Lực
             </h2>
             <p className="mt-3 text-slate-600 text-sm sm:text-base leading-relaxed">
               Mỗi giải pháp được thiết kế tối ưu hóa cho từng điều kiện móng, kết cấu chịu lực và gu thẩm mỹ riêng biệt của từng gia chủ.
@@ -201,7 +204,7 @@ export function ProductsList() {
                       </div>
                       <div>
                         <span className="font-mono text-[11px] font-bold text-[#285c9a] uppercase tracking-wider block">
-                          {isGlass ? 'Hệ Khung Thép Panoramic' : 'Hệ Hố Xây Bê Tông'}
+                          {isGlass ? 'Hệ Khung Thép' : 'Hệ Hố Xây Bê Tông'}
                         </span>
                         <span className="text-xs text-slate-500">
                           {isGlass ? 'Lấy sáng & Tiết kiệm diện tích' : 'Bền bỉ & Tải trọng tối đa'}
@@ -240,7 +243,7 @@ export function ProductsList() {
                       {/* Top Badges */}
                       <div className="absolute top-3 left-3 right-3 flex justify-between items-center pointer-events-none z-10">
                         <span className="bg-[#0d1f35]/85 backdrop-blur-md text-white font-mono text-[10px] sm:text-[11px] px-2.5 py-1 rounded-lg border border-white/15 shadow-sm">
-                          {isGlass ? 'Hố PIT Nông Từ 600mm' : 'Tải Trọng Đến 650kg+'}
+                          {isGlass ? 'Hố PIT Tiêu Chuẩn Từ 600mm' : 'Tải Trọng Từ 350kg+'}
                         </span>
                         <span className="bg-black/60 backdrop-blur-md text-white text-[10px] sm:text-[11px] px-2 py-0.5 rounded-md font-mono border border-white/10 shadow-sm">
                           {activeIdx + 1}/{gallery.length} ảnh
@@ -678,6 +681,9 @@ export function ProductDetail() {
   }
 
   const gallery = product.gallery && product.gallery.length > 0 ? product.gallery : [product.image];
+  const paragraphs = product.fullDescription
+    ? product.fullDescription.split(/\r?\n\s*\r?\n/).map((p) => p.trim()).filter(Boolean)
+    : [];
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -696,20 +702,22 @@ export function ProductDetail() {
       {/* Main Content Area */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Quick Telemetry Specs Strip */}
-        <div className="bg-white rounded-2xl border border-slate-200/80 p-5 sm:p-6 mb-12 shadow-sm">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 divide-y sm:divide-y-0 sm:divide-x divide-slate-100">
-            {product.specifications.slice(0, 4).map((spec, sIdx) => (
-              <div key={spec.label} className={`text-center ${sIdx > 0 ? 'pt-3 sm:pt-0' : ''}`}>
-                <div className="text-[11px] font-mono text-slate-400 uppercase tracking-wider">
-                  {spec.label}
+        {product.specifications && product.specifications.length > 0 && (
+          <div className="bg-white rounded-2xl border border-slate-200/80 p-5 sm:p-6 mb-12 shadow-sm">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 divide-y sm:divide-y-0 sm:divide-x divide-slate-100">
+              {product.specifications.slice(0, 4).map((spec, sIdx) => (
+                <div key={spec.label} className={`text-center ${sIdx > 0 ? 'pt-3 sm:pt-0' : ''}`}>
+                  <div className="text-[11px] font-mono text-slate-400 uppercase tracking-wider">
+                    {spec.label}
+                  </div>
+                  <div className="text-base sm:text-lg font-bold text-[#0d1f35] font-mono mt-1">
+                    {spec.value}
+                  </div>
                 </div>
-                <div className="text-base sm:text-lg font-bold text-[#0d1f35] font-mono mt-1">
-                  {spec.value}
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
         <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           {/* LEFT: Detailed Technical Showcase (8 cols) */}
@@ -800,166 +808,260 @@ export function ProductDetail() {
             </section>
 
             {/* Deep Description & Cabin Architecture */}
-            <section className="bg-white rounded-2xl border border-slate-200/80 p-6 sm:p-8 shadow-sm">
-              <h2 className="text-xl sm:text-2xl font-bold text-[#0d1f35] mb-6 flex items-center gap-2">
-                <Building2 size={20} className="text-[#285c9a]" />
-                <span>Tổng Quan Giải Pháp & Kiến Trúc Thiết Kế</span>
-              </h2>
+            {paragraphs.length > 0 && (
+              <section className="bg-white rounded-2xl border border-slate-200/80 p-6 sm:p-8 shadow-sm">
+                {/* Section Header with Architectural Kicker */}
+                <div className="border-b border-slate-100 pb-5 mb-6">
+                  <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-blue-50 text-[#285c9a] font-mono text-[11px] font-bold uppercase tracking-wider mb-2.5">
+                    <Building2 size={14} className="text-[#285c9a]" />
+                    <span>Kiến Trúc & Giải Pháp Kỹ Thuật</span>
+                  </div>
+                  <h2 className="text-xl sm:text-2xl font-bold text-[#0d1f35] tracking-tight">
+                    Tổng Quan Giải Pháp & Kiến Trúc Thiết Kế
+                  </h2>
+                </div>
 
-              <div className="space-y-6">
-                {product.fullDescription.split(/\r?\n\s*\r?\n/).map((para, idx) => {
-                  const isEven = idx % 2 === 0;
-                  const imgSrc = gallery[idx % gallery.length] || product.image;
+                {/* Main Content: Asymmetric Layout with Left Editorial & Right Elevator Portrait Showcase */}
+                <div className="grid md:grid-cols-12 gap-6 lg:gap-8 items-stretch mb-8">
+                  {/* Left Column: Editorial Narrative & Specifications */}
+                  <div className={`${gallery.length > 0 || product.image ? 'md:col-span-7' : 'md:col-span-12'} flex flex-col justify-between space-y-4`}>
+                    <div className="space-y-4">
+                      {/* Lead Paragraph with Accent Highlight */}
+                      {paragraphs[0] && (
+                        <div className="relative p-5 rounded-2xl bg-gradient-to-br from-slate-50 via-blue-50/20 to-slate-50/60 border border-slate-200/70">
+                          <div className="flex gap-3.5">
+                            <div className="w-1 rounded-full bg-[#285c9a] shrink-0 self-stretch" />
+                            <p className="text-slate-800 font-medium text-sm sm:text-base leading-relaxed text-pretty">
+                              {paragraphs[0]}
+                            </p>
+                          </div>
+                        </div>
+                      )}
 
-                  return (
-                    <div
-                      key={idx}
-                      className={`flex flex-col gap-6 items-center ${
-                        isEven ? 'sm:flex-row' : 'sm:flex-row-reverse'
-                      }`}
-                    >
-                      <div className="flex-1">
-                        <p className="text-slate-700 leading-relaxed text-sm sm:text-base">
+                      {/* Subsequent Detailed Paragraphs */}
+                      {paragraphs.slice(1).map((para, idx) => (
+                        <p
+                          key={idx}
+                          className="text-slate-600 leading-relaxed text-xs sm:text-sm text-pretty px-1"
+                        >
                           {para}
                         </p>
-                      </div>
-                      <div className="w-full sm:w-1/2">
-                        <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm relative group aspect-[4/3]">
-                          <img
-                            src={imgSrc}
-                            alt=""
-                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                          />
+                      ))}
+                    </div>
+
+                    {/* Architectural Feature Pills */}
+                    <div className="pt-2 flex flex-wrap gap-2">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-100/80 text-slate-700 text-xs font-medium border border-slate-200/50">
+                        <CheckCircle2 size={13} className="text-[#285c9a]" />
+                        May đo theo kiến trúc
+                      </span>
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-100/80 text-slate-700 text-xs font-medium border border-slate-200/50">
+                        <CheckCircle2 size={13} className="text-[#285c9a]" />
+                        Tiêu chuẩn an toàn EN 81
+                      </span>
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-100/80 text-slate-700 text-xs font-medium border border-slate-200/50">
+                        <CheckCircle2 size={13} className="text-[#285c9a]" />
+                        Vận hành êm ái &lt; 45dB
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Right Column: Elevator Vertical Portrait Showcase (Matches Elevator 3:4 Proportions) */}
+                  {(gallery.length > 0 || product.image) && (
+                    <div className="md:col-span-5 flex flex-col">
+                      <div className="relative rounded-2xl overflow-hidden border border-slate-200 shadow-md group flex-1 min-h-[260px] aspect-[3/4] md:aspect-auto">
+                        <img
+                          src={gallery[0] || product.image}
+                          alt={`${product.title} - Phối cảnh kiến trúc`}
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#0d1f35]/90 via-[#0d1f35]/20 to-transparent pointer-events-none" />
+
+                        {/* Top Badge */}
+                        <div className="absolute top-3 left-3 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-md text-white font-mono text-[11px] border border-white/10 z-10 flex items-center gap-1.5">
+                          <Eye size={12} className="text-blue-300" />
+                          <span>Chi tiết hoàn thiện</span>
+                        </div>
+
+                        {/* Bottom Caption */}
+                        <div className="absolute bottom-3 left-3 right-3 text-white z-10">
+                          <h4 className="font-bold text-xs sm:text-sm drop-shadow-sm">Không Gian Cabin Đồng Bộ</h4>
+                          <p className="text-[11px] text-slate-200 leading-tight mt-0.5 drop-shadow-sm">
+                            Vật liệu cao cấp, gia công cơ khí chính xác theo hiện trạng giếng thang
+                          </p>
                         </div>
                       </div>
                     </div>
-                  );
-                })}
-              </div>
-            </section>
+                  )}
+                </div>
+
+                {/* 3 Engineering & Architectural Pillars */}
+                <div className="grid sm:grid-cols-3 gap-3.5 pt-6 border-t border-slate-100">
+                  <div className="p-4 rounded-xl bg-slate-50/70 border border-slate-200/60 transition-all hover:bg-slate-50 hover:border-slate-300">
+                    <div className="w-8 h-8 rounded-lg bg-blue-100/80 text-[#285c9a] flex items-center justify-center mb-3">
+                      <Maximize2 size={16} />
+                    </div>
+                    <h4 className="font-bold text-[#0d1f35] text-sm mb-1">Tối Ưu Diện Tích</h4>
+                    <p className="text-slate-500 text-xs leading-relaxed">
+                      Khai thác tối đa kích thước lòng hố, tăng diện tích sàn cabin và giữ trọn vẹn kết cấu công trình.
+                    </p>
+                  </div>
+
+                  <div className="p-4 rounded-xl bg-slate-50/70 border border-slate-200/60 transition-all hover:bg-slate-50 hover:border-slate-300">
+                    <div className="w-8 h-8 rounded-lg bg-blue-100/80 text-[#285c9a] flex items-center justify-center mb-3">
+                      <Sparkles size={16} />
+                    </div>
+                    <h4 className="font-bold text-[#0d1f35] text-sm mb-1">Vật Liệu Tuyển Chọn</h4>
+                    <p className="text-slate-500 text-xs leading-relaxed">
+                      Đa dạng tùy biến từ Inox 304 sọc nhuyễn, kính cường lực Panorama đến đá hoa cương cao cấp.
+                    </p>
+                  </div>
+
+                  <div className="p-4 rounded-xl bg-slate-50/70 border border-slate-200/60 transition-all hover:bg-slate-50 hover:border-slate-300">
+                    <div className="w-8 h-8 rounded-lg bg-blue-100/80 text-[#285c9a] flex items-center justify-center mb-3">
+                      <ShieldCheck size={16} />
+                    </div>
+                    <h4 className="font-bold text-[#0d1f35] text-sm mb-1">Chuẩn Mực An Toàn</h4>
+                    <p className="text-slate-500 text-xs leading-relaxed">
+                      Vận hành êm ái &lt; 45dB, tích hợp cứu hộ tự động ARD và đạt chuẩn kiểm định QCVN / EN 81.
+                    </p>
+                  </div>
+                </div>
+              </section>
+            )}
 
             {/* Prominent Technical Features */}
-            <section className="bg-white rounded-2xl border border-slate-200/80 p-6 sm:p-8 shadow-sm">
-              <h2 className="text-xl font-bold text-[#0d1f35] mb-6 flex items-center gap-2">
-                <Zap size={20} className="text-[#285c9a]" />
-                <span>Tính Năng Kỹ Thuật Nổi Bật</span>
-              </h2>
+            {product.features && product.features.length > 0 && (
+              <section className="bg-white rounded-2xl border border-slate-200/80 p-6 sm:p-8 shadow-sm">
+                <h2 className="text-xl font-bold text-[#0d1f35] mb-6 flex items-center gap-2">
+                  <Zap size={20} className="text-[#285c9a]" />
+                  <span>Tính Năng Kỹ Thuật Nổi Bật</span>
+                </h2>
 
-              <div className="grid sm:grid-cols-2 gap-3.5">
-                {product.features.map((feature, fIdx) => (
-                  <div
-                    key={fIdx}
-                    className="flex items-start gap-3 p-3.5 rounded-xl bg-slate-50 border border-slate-200/60"
-                  >
-                    <CheckCircle2 size={16} className="text-[#285c9a] shrink-0 mt-0.5" />
-                    <span className="text-slate-700 text-sm font-medium">{feature}</span>
-                  </div>
-                ))}
-              </div>
-            </section>
+                <div className="grid sm:grid-cols-2 gap-3.5">
+                  {product.features.map((feature, fIdx) => (
+                    <div
+                      key={fIdx}
+                      className="flex items-start gap-3 p-3.5 rounded-xl bg-slate-50 border border-slate-200/60"
+                    >
+                      <CheckCircle2 size={16} className="text-[#285c9a] shrink-0 mt-0.5" />
+                      <span className="text-slate-700 text-sm font-medium">{feature}</span>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
 
             {/* Standard Implementation Workflow */}
-            <section className="bg-white rounded-2xl border border-slate-200/80 p-6 sm:p-8 shadow-sm">
-              <h2 className="text-xl font-bold text-[#0d1f35] mb-6 flex items-center gap-2">
-                <Settings size={20} className="text-[#285c9a]" />
-                <span>Quy Trình Thi Công Chuẩn Xác 5 Bước</span>
-              </h2>
+            {product.process && product.process.length > 0 && (
+              <section className="bg-white rounded-2xl border border-slate-200/80 p-6 sm:p-8 shadow-sm">
+                <h2 className="text-xl font-bold text-[#0d1f35] mb-6 flex items-center gap-2">
+                  <Settings size={20} className="text-[#285c9a]" />
+                  <span>Quy Trình Thi Công Chuẩn Xác {product.process.length} Bước</span>
+                </h2>
 
-              <div className="space-y-4">
-                {product.process.map(({ step, title, description }) => (
-                  <div key={step} className="flex gap-4">
-                    <div className="flex flex-col items-center">
-                      <div className="w-9 h-9 rounded-xl bg-[#285c9a] flex items-center justify-center text-white font-mono font-bold text-sm shadow-sm">
-                        0{step}
+                <div className="space-y-4">
+                  {product.process.map(({ step, title, description }) => (
+                    <div key={step} className="flex gap-4">
+                      <div className="flex flex-col items-center">
+                        <div className="w-9 h-9 rounded-xl bg-[#285c9a] flex items-center justify-center text-white font-mono font-bold text-sm shadow-sm">
+                          0{step}
+                        </div>
+                        {step < product.process.length && (
+                          <div className="w-0.5 flex-1 bg-slate-200 my-2" />
+                        )}
                       </div>
-                      {step < product.process.length && (
-                        <div className="w-0.5 flex-1 bg-slate-200 my-2" />
-                      )}
+                      <div className="flex-1 pb-5">
+                        <h4 className="font-bold text-[#0d1f35] text-sm sm:text-base mb-1">{title}</h4>
+                        <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">{description}</p>
+                      </div>
                     </div>
-                    <div className="flex-1 pb-5">
-                      <h4 className="font-bold text-[#0d1f35] text-sm sm:text-base mb-1">{title}</h4>
-                      <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">{description}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
+                  ))}
+                </div>
+              </section>
+            )}
 
             {/* Technical FAQs */}
-            <section className="bg-white rounded-2xl border border-slate-200/80 p-6 sm:p-8 shadow-sm">
-              <h2 className="text-xl font-bold text-[#0d1f35] mb-6 flex items-center gap-2">
-                <HelpCircle size={20} className="text-[#285c9a]" />
-                <span>Giải Đáp Kỹ Thuật Thường Gặp</span>
-              </h2>
+            {product.faqs && product.faqs.length > 0 && (
+              <section className="bg-white rounded-2xl border border-slate-200/80 p-6 sm:p-8 shadow-sm">
+                <h2 className="text-xl font-bold text-[#0d1f35] mb-6 flex items-center gap-2">
+                  <HelpCircle size={20} className="text-[#285c9a]" />
+                  <span>Giải Đáp Kỹ Thuật Thường Gặp</span>
+                </h2>
 
-              <div className="space-y-3">
-                {product.faqs.map((faq, idx) => (
-                  <div
-                    key={idx}
-                    className="border border-slate-200/80 rounded-xl overflow-hidden transition-colors"
-                  >
-                    <button
-                      onClick={() => setActiveFaq(activeFaq === idx ? null : idx)}
-                      className="w-full flex items-center justify-between p-4 text-left hover:bg-slate-50 transition-colors cursor-pointer"
+                <div className="space-y-3">
+                  {product.faqs.map((faq, idx) => (
+                    <div
+                      key={idx}
+                      className="border border-slate-200/80 rounded-xl overflow-hidden transition-colors"
                     >
-                      <span className="font-bold text-[#0d1f35] text-sm pr-4">{faq.question}</span>
-                      <ChevronRight
-                        size={16}
-                        className={`text-slate-400 transition-transform flex-shrink-0 ${
-                          activeFaq === idx ? 'rotate-90 text-[#285c9a]' : ''
-                        }`}
-                      />
-                    </button>
-                    {activeFaq === idx && (
-                      <div className="px-4 pb-4 pt-1 bg-slate-50/50 border-t border-slate-100">
-                        <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">{faq.answer}</p>
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </section>
+                      <button
+                        onClick={() => setActiveFaq(activeFaq === idx ? null : idx)}
+                        className="w-full flex items-center justify-between p-4 text-left hover:bg-slate-50 transition-colors cursor-pointer"
+                      >
+                        <span className="font-bold text-[#0d1f35] text-sm pr-4">{faq.question}</span>
+                        <ChevronRight
+                          size={16}
+                          className={`text-slate-400 transition-transform flex-shrink-0 ${
+                            activeFaq === idx ? 'rotate-90 text-[#285c9a]' : ''
+                          }`}
+                        />
+                      </button>
+                      {activeFaq === idx && (
+                        <div className="px-4 pb-4 pt-1 bg-slate-50/50 border-t border-slate-100">
+                          <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">{faq.answer}</p>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
           </div>
 
           {/* RIGHT: Technical Sidebar & Fast Inquiry (4 cols) */}
           <div className="lg:col-span-4 space-y-6 sticky top-24">
             {/* Full Mechanical Specs Table */}
-            <div className="bg-white rounded-2xl border border-slate-200/80 p-6 shadow-sm">
-              <div className="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
-                <h3 className="font-extrabold text-[#0d1f35] text-sm uppercase tracking-wider flex items-center gap-2">
-                  <Ruler size={16} className="text-[#285c9a]" />
-                  <span>Bảng Thông Số Cơ Khí</span>
-                </h3>
-                <span className="font-mono text-[10px] bg-blue-50 text-[#285c9a] px-2 py-0.5 rounded font-bold">
-                  EN 81-20
-                </span>
-              </div>
+            {product.specifications && product.specifications.length > 0 && (
+              <div className="bg-white rounded-2xl border border-slate-200/80 p-6 shadow-sm">
+                <div className="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
+                  <h3 className="font-extrabold text-[#0d1f35] text-sm uppercase tracking-wider flex items-center gap-2">
+                    <Ruler size={16} className="text-[#285c9a]" />
+                    <span>Bảng Thông Số Cơ Khí</span>
+                  </h3>
+                  <span className="font-mono text-[10px] bg-blue-50 text-[#285c9a] px-2 py-0.5 rounded font-bold">
+                    EN 81-20
+                  </span>
+                </div>
 
-              <div className="space-y-3">
-                {product.specifications.map(({ label, value }) => (
-                  <div key={label} className="flex justify-between items-center text-xs sm:text-sm py-1.5 border-b border-slate-100 last:border-0">
-                    <span className="text-slate-500 font-medium">{label}</span>
-                    <span className="font-mono font-bold text-[#0d1f35] text-right ml-2">{value}</span>
-                  </div>
-                ))}
+                <div className="space-y-3">
+                  {product.specifications.map(({ label, value }) => (
+                    <div key={label} className="flex justify-between items-center text-xs sm:text-sm py-1.5 border-b border-slate-100 last:border-0">
+                      <span className="text-slate-500 font-medium">{label}</span>
+                      <span className="font-mono font-bold text-[#0d1f35] text-right ml-2">{value}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Customer Benefits Box */}
-            <div className="bg-blue-50/60 rounded-2xl border border-blue-200/60 p-6 shadow-sm">
-              <h3 className="font-bold text-[#0d1f35] text-sm uppercase tracking-wide mb-3 flex items-center gap-2">
-                <Shield size={16} className="text-[#285c9a]" />
-                <span>Đặc Quyền Của Gia Chủ</span>
-              </h3>
-              <div className="space-y-2.5">
-                {product.benefits.map((benefit, bIdx) => (
-                  <div key={bIdx} className="flex items-start gap-2 text-xs sm:text-sm text-slate-700">
-                    <CheckCircle2 size={15} className="text-[#285c9a] shrink-0 mt-0.5" />
-                    <span>{benefit}</span>
-                  </div>
-                ))}
+            {product.benefits && product.benefits.length > 0 && (
+              <div className="bg-blue-50/60 rounded-2xl border border-blue-200/60 p-6 shadow-sm">
+                <h3 className="font-bold text-[#0d1f35] text-sm uppercase tracking-wide mb-3 flex items-center gap-2">
+                  <Shield size={16} className="text-[#285c9a]" />
+                  <span>Đặc Quyền Của Gia Chủ</span>
+                </h3>
+                <div className="space-y-2.5">
+                  {product.benefits.map((benefit, bIdx) => (
+                    <div key={bIdx} className="flex items-start gap-2 text-xs sm:text-sm text-slate-700">
+                      <CheckCircle2 size={15} className="text-[#285c9a] shrink-0 mt-0.5" />
+                      <span>{benefit}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Quick Consultation Request Box */}
             <div className="bg-[#0d1f35] text-white rounded-2xl p-6 shadow-lg space-y-4">

@@ -50,7 +50,7 @@ class ContactController extends Controller
                         // Cấu hình danh sách email nhận thông báo (email của bạn và sếp)
                         $recipients = [
                             'daitmh.tmhp@gmail.com',
-                            // 'email_cua_sep@example.com' // Bạn có thể thêm email của sếp vào đây
+                            'haiphatthangmay@gmail.com'
                         ];
                         
                         // Đưa việc gửi email vào Queue để không làm chậm API phản hồi về Frontend

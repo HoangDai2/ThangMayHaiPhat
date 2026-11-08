@@ -57,8 +57,8 @@ export default function PromotionPopup() {
           setTimeout(() => setIsVisible(true), 50);
         }, delaySeconds * 1000);
 
-      } catch (error) {
-        console.error('Failed to fetch promotion', error);
+      } catch (error: any) {
+        console.warn('Failed to fetch promotion:', error?.message || error);
       }
     };
 

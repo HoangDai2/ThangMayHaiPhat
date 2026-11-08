@@ -67,7 +67,7 @@ const COMMITMENTS = [
 
 export default function Services() {
   return (
-    <section id="services" className="py-16 sm:py-24 bg-slate-50 border-b border-slate-200/60">
+    <section id="services" className="pt-8 sm:pt-12 lg:pt-14 pb-10 sm:pb-12 lg:pb-12 bg-slate-50 border-b border-slate-200/60">
       {/* 1. QUY TRÌNH 4 BƯỚC: TỪ KHẢO SÁT ĐẾN BÀN GIAO (GIỮ NGUYÊN ẢNH THẬT) */}
       <div id="quy-trinh" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto space-y-3 mb-10 sm:mb-12">

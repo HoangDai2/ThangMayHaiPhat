@@ -56,7 +56,7 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="w-full bg-[#f8fafc] bg-grid-light border-b border-slate-200/60 overflow-hidden lg:pt-28 lg:pb-16 relative"
+      className="w-full bg-[#f8fafc] bg-grid-light border-b border-slate-200/60 overflow-hidden lg:pt-28 relative"
     >
       <div className="w-full lg:max-w-7xl lg:mx-auto lg:px-8">
         {/*
@@ -249,7 +249,7 @@ export default function Hero() {
                   <span className="block text-slate-800">Cho Biệt Thự & Nhà Phố</span>
                 </h1>
                 <p className="text-slate-600 text-sm sm:text-base leading-relaxed text-pretty max-w-xl">
-                  Giải pháp may đo cơ khí tinh xảo, tích hợp công nghệ biến tần Fuji Nhật Bản & Montanari Ý. Tối ưu 100% diện tích không gian sống với hố PIT siêu nông.
+                  Giải pháp may đo cơ khí tinh xảo, tích hợp công nghệ biến tần Fuji Nhật Bản & Montanari Ý. Tối ưu 100% diện tích không gian sống.
                 </p>
               </div>
             </div>
@@ -259,7 +259,7 @@ export default function Hero() {
               {/* 4 Technical Highlights */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                 {[
-                  { label: 'Hố PIT siêu nông', value: 'từ 600mm' },
+                  { label: 'Hố PIT tiêu chuẩn', value: 'từ 600mm' },
                   { label: 'Linh kiện chính hãng', value: '100% CO/CQ' },
                   { label: 'Bảo hành chính hãng', value: '18 Tháng' },
                   { label: 'Cứu hộ khẩn cấp 24/7', value: '≤ 120 Phút' },
@@ -352,14 +352,16 @@ export default function Hero() {
             <QuickQuoteWidget className="h-full" />
           </div>
         </div>
+      </div>
 
-        {/* Brand Authority Section */}
-        <div className="mt-12 sm:mt-16 lg:mt-20 px-4 sm:px-6 lg:px-0">
-          <AboutUs />
-        </div>
+      {/* Brand Authority Section (Full Width, Edge-to-Edge) */}
+      <div className="mt-12 sm:mt-16 lg:mt-20 w-full">
+        <AboutUs />
+      </div>
 
-        {/* Pricing Overview Section (Bảng giá tham khảo 2026) */}
-        <div className="mt-8 sm:mt-12 lg:mt-14 px-4 sm:px-6 lg:px-0 pb-12 sm:pb-16 lg:pb-12">
+      {/* Pricing Overview Section (Bảng giá tham khảo 2026) */}
+      <div className="w-full lg:max-w-7xl lg:mx-auto lg:px-8">
+        <div className="mt-4 sm:mt-6 lg:mt-8 px-4 sm:px-6 lg:px-0 pb-6 sm:pb-8 lg:pb-8">
           <PricingOverview />
         </div>
       </div>

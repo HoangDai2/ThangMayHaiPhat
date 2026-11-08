@@ -62,8 +62,8 @@ export default function AboutUs() {
   }, []);
 
   return (
-    <div ref={ref} className="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-10 lg:p-12 shadow-sm">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+    <div ref={ref} className="w-full bg-white border-y border-slate-200/80 pt-8 sm:pt-10 lg:pt-12 pb-6 sm:pb-8 lg:pb-8 shadow-sm">
+      <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
         {/* Left: Double-Bezel Media Frame */}
         <div className="lg:col-span-6 relative">
           <div className="card-double-bezel">
