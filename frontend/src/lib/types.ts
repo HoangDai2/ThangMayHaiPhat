@@ -96,3 +96,14 @@ export interface DbUserRole {
   role_id: string;
   created_at: string;
 }
+
+export interface DbFaq {
+  id: string;
+  question: string;
+  answer: string;
+  category: string;
+  sort_order: number;
+  is_published: boolean;
+  created_at?: string;
+  updated_at?: string;
+}

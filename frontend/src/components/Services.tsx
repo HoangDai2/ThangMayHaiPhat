@@ -62,7 +62,7 @@ const COMMITMENTS = [
   {
     icon: Wrench,
     title: 'Cứu hộ 24/7',
-    desc: 'Kỹ thuật viên có mặt trong 30 phút tại nội thành Hà Nội.',
+    desc: 'Cam kết có mặt 1 đến 2 tiếng trong Hà Nội, 2 đến 6 tiếng ngoài Hà Nội.',
     dashed: true,
   },
 ];

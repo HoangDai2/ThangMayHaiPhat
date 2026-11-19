@@ -261,7 +261,7 @@ export default function Hero() {
                   { label: 'Hố PIT tiêu chuẩn', value: 'từ 600mm' },
                   { label: 'Linh kiện chính hãng', value: '100% CO/CQ' },
                   { label: 'Bảo hành chính hãng', value: '18 Tháng' },
-                  { label: 'Cứu hộ khẩn cấp 24/7', value: '≤ 120 Phút' },
+                  { label: 'Cứu hộ cam kết có mặt', value: '1-2h HN · 2-6h Tỉnh' },
                 ].map((item, idx) => (
                   <div
                     key={idx}

@@ -128,8 +128,8 @@ export function ServiceHero() {
 
                   <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800/80">
                     <div className="text-[11px] font-mono text-slate-400 uppercase tracking-wider mb-1">Cứu Hộ Khẩn Cấp</div>
-                    <div className="text-2xl font-bold text-emerald-400 tracking-tight">&lt; 60 Phút</div>
-                    <div className="text-[12px] text-slate-400 mt-1">Có mặt xử lý nội thành 24/7</div>
+                    <div className="text-xl sm:text-2xl font-bold text-emerald-400 tracking-tight">1 – 2 Giờ</div>
+                    <div className="text-[12px] text-slate-400 mt-1">Hà Nội (2–6h ngoài HN)</div>
                   </div>
 
                   <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800/80">

@@ -10,6 +10,7 @@ const companyLinks = [
   { label: 'Dự án tiêu biểu', href: '/du-an' },
   { label: 'Dịch vụ bảo trì', href: '/dich-vu' },
   { label: 'Kiến thức thang máy', href: '/bai-viet' },
+  { label: 'Câu hỏi thường gặp', href: '/faqs' },
   { label: 'Liên hệ tư vấn', href: '/lien-he' },
 ];
 
@@ -212,7 +213,7 @@ export default function Footer() {
       <div className="border-t border-slate-800/80 bg-[#091524]">
         <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400">
           <div>
-            &copy; {new Date().getFullYear()} Công Ty Thang Máy Hải Phát. Tất cả quyền được bảo lưu. · Mã số thuế: <span className="font-mono text-slate-300">0109108682</span>
+            &copy; {new Date().getFullYear()} Công Ty TNHH Thang Máy Hải Phát. Tất cả quyền được bảo lưu.
           </div>
 
           <div className="flex items-center gap-6">

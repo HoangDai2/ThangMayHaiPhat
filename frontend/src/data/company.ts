@@ -29,31 +29,30 @@ export const companyInfo = {
   founded: 2020,
   yearsExperience: 5,
   slogan: 'Chất lượng khẳng định thương hiệu',
-  description: `Thang Máy Hải Phát là đơn vị chuyên lắp đặt, bảo trì và cung cấp giải pháp thang máy hàng đầu Việt Nam với hơn 5 năm kinh nghiệm. Chúng tôi tự hào đã hoàn thành hơn 1000 công trình trên toàn quốc, từ biệt thự gia đình đến các tòa nhà văn phòng.
-
-Với đội ngũ kỹ sư giàu kinh nghiệm, được đào tạo bài bản từ các nhà sản xuất thang máy hàng đầu thế giới, Hải Phát cam kết mang đến sản phẩm chất lượng cao với dịch vụ hậu mãi chuyên nghiệp 24/7.`,
-  mission: 'Cung cấp giải pháp thang máy an toàn, hiện đại và tiện nghi, nâng tầm chất lượng sống cho khách hàng.',
-  vision: 'Trở thành thương hiệu thang máy uy tín nhất Việt Nam, Top 5 doanh nghiệp hàng đầu trong ngành thang máy Đông Nam Á vào năm 2030.',
+  description: `Công ty TNHH Thang Máy Hải Phát được thành lập năm 2020, là đơn vị chuyên sản xuất, lắp ráp, cung cấp và bảo trì thang máy hàng đầu tại Việt Nam. Tính đến hết năm 2024, Thang Máy Hải Phát đã bàn giao gần 1.000 công trình trên khắp cả nước và vươn sang nước bạn Lào, đáp ứng nghiêm ngặt các quy chuẩn an toàn lao động và kỹ thuật quốc tế.`,
+  mission: 'Tạo ra giá trị đích thực trong cộng đồng và hỗ trợ cho sự phát triển toàn diện của xã hội. Cung cấp các dòng thang máy chất lượng hàng đầu với chi phí tối ưu, đảm bảo nguồn an toàn và tin cậy tuyệt đối cho mọi gia đình và công trình.',
+  vision: 'Trở thành đơn vị tiên phong hàng đầu trong lĩnh vực cung cấp, lắp đặt và bảo trì thang máy tại Việt Nam với năng lực cạnh tranh toàn cầu, không ngừng đổi mới công nghệ thông minh, an toàn và bền vững.',
   stats: [
-    { label: 'Năm kinh nghiệm', value: '5+' },
-    { label: 'Công trình hoàn thành', value: '1000+' },
-    { label: 'Tỉnh thành phủ sóng', value: '34' },
-    { label: 'Khách hàng hài lòng', value: '98%' },
+    { label: 'Công trình bàn giao', value: '1.000+' },
+    { label: 'Cứu hộ khẩn cấp', value: '1-2h HN / 2-6h Tỉnh' },
+    { label: 'Tỉnh thành phủ sóng', value: '35+' },
+    { label: 'Khách hàng hài lòng', value: '98%+' },
   ],
   headquarters: {
-    address: 'Tầng 11, Tòa Nhà Đa Năng, 169 Đ. Nguyễn Ngọc Vũ, Yên Hòa, Hà Nội, Việt Nam',
+    address: 'Tòa nhà đa năng - Số 169 Nguyễn Ngọc Vũ, P. Trung Hòa, Q. Cầu Giấy, TP. Hà Nội',
     phone: '0898 424 666',
     hotline: '0898 424 666',
     emergency: '0987 603 588',
     email: 'haiphatthangmay@gmail.com',
-    workingHours: 'Thứ 2 - Thứ 7: 7:30 - 17:30',
+    website: 'www.thangmayhaiphat.com',
+    workingHours: 'Trực kỹ thuật 24/7/365',
   },
   branches: [
     {
       city: 'Hà Nội',
-      address: 'Tầng 11, Tòa Nhà Đa Năng, 169 Đ. Nguyễn Ngọc Vũ, Yên Hòa',
+      address: 'Tòa nhà đa năng - Số 169 Nguyễn Ngọc Vũ, P. Trung Hòa, Q. Cầu Giấy',
       phone: '0898 424 666',
-      type: 'Trụ sở chính',
+      type: 'Văn phòng điều hành',
     }
   ],
 };
@@ -61,61 +60,51 @@ Với đội ngũ kỹ sư giàu kinh nghiệm, được đào tạo bài bản 
 export const milestones: Milestone[] = [
   {
     year: '2020',
-    title: 'Khởi đầu',
-    description: 'Lên ý tưởng và đặt nền móng đầu tiên cho sự ra đời của Hải Phát với đội ngũ kỹ sư nòng cốt.',
+    title: 'Khởi đầu giữa thách thức COVID-19',
+    description: 'Thành lập Công ty TNHH Thang Máy Hải Phát. Vượt qua khó khăn chuỗi cung ứng, lấy tôn chỉ "An toàn - Chất lượng - Hiệu quả" làm kim chỉ nam, đặt nền móng kỹ thuật vững chắc.',
   },
   {
-    year: '2021',
-    title: 'Thành lập',
-    description: 'Chính thức thành lập Công Ty TNHH Thang Máy Hải Phát. Hoàn thành những dự án thang máy gia đình đầu tiên.',
-  },
-  {
-    year: '2022',
-    title: 'Mở rộng',
-    description: 'Trở thành đối tác của các thương hiệu lớn như Mitsubishi, Fuji. Triển khai công nghệ giám sát thang máy thông minh.',
+    year: '2021 - 2022',
+    title: 'Phục hồi & Mở rộng đối tác toàn cầu',
+    description: 'Chính thức hợp tác cùng các nhà sản xuất linh kiện, động cơ uy tín quốc tế; đầu tư công nghệ hiện đại và đạt chứng nhận quản lý chất lượng tiêu chuẩn ISO.',
   },
   {
     year: '2023',
-    title: 'Bứt phá',
-    description: 'Hoàn thành công trình thứ 500. Mở rộng mạng lưới đối tác và dịch vụ bảo trì chuyên nghiệp trên toàn quốc.',
+    title: 'Đổi mới công nghệ thang máy thông minh',
+    description: 'Ra mắt các giải pháp thang máy thông minh tiết kiệm năng lượng; hoàn thiện hệ thống tiếp nhận và xử lý kỹ thuật cứu hộ 24/7 trên toàn quốc.',
   },
   {
     year: '2024',
-    title: 'Vươn xa',
-    description: 'Đạt mốc 1000+ công trình. Tối ưu hóa quy trình quản lý và nâng cao chất lượng dịch vụ đạt chuẩn quốc tế.',
+    title: 'Phát triển bền vững & Cột mốc 1.000 công trình',
+    description: 'Bàn giao gần 1.000 công trình trên toàn quốc từ dân dụng, công nghiệp, bệnh viện đến Phú Quốc, Bình Phước và vươn sang nước bạn Lào. Thúc đẩy sản phẩm xanh, thân thiện môi trường.',
+  },
+  {
+    year: '2025+',
+    title: 'Bứt phá và vươn xa thị trường',
+    description: 'Tiếp tục đầu tư R&D các dòng thang máy thông minh thế hệ mới, tối ưu hóa quy trình sản xuất cơ khí chính xác và nâng cao vị thế trên thị trường trong và ngoài nước.',
   },
 ];
 
 export const coreValues: Value[] = [
   {
-    title: 'An toàn trên hết',
-    description: 'An toàn là ưu tiên số một trong mọi sản phẩm và dịch vụ. Tuân thủ tuyệt đối các tiêu chuẩn QCVN và EN 81.',
-    icon: 'shield',
-  },
-  {
-    title: 'Chất lượng quốc tế',
-    description: 'Sử dụng công nghệ và linh kiện từ các thương hiệu hàng đầu thế giới, đảm bảo chất lượng lâu dài.',
+    title: 'Chất Lượng Vượt Trội',
+    description: 'Cam kết cung cấp sản phẩm thang máy chất lượng cao, vận hành êm ái, đáp ứng các tiêu chuẩn khắt khe nhất của Việt Nam (QCVN/TCVN) và quốc tế về an toàn và hiệu suất.',
     icon: 'award',
   },
   {
-    title: 'Dịch vụ tận tâm',
-    description: 'Hỗ trợ khách hàng 24/7 với đội ngũ chuyên nghiệp, phản ứng nhanh, giải quyết triệt để.',
-    icon: 'heart',
+    title: 'Trách Nhiệm Toàn Diện',
+    description: 'Đồng hành cùng khách hàng trong suốt vòng đời dự án: từ tư vấn, khảo sát, may đo thiết kế hố thang đến thi công lắp đặt và dịch vụ bảo trì định kỳ trọn đời.',
+    icon: 'shield',
   },
   {
-    title: 'Sáng tạo không ngừng',
-    description: 'Liên tục cập nhật công nghệ mới, cải tiến quy trình để nâng cao chất lượng sản phẩm và dịch vụ.',
+    title: 'Sáng Tạo Và Đổi Mới',
+    description: 'Ứng dụng công nghệ thang máy thông minh, giải pháp hố pit nông, không phòng máy, tối ưu hóa diện tích kiến trúc và giảm thiểu tiêu hao điện năng.',
     icon: 'lightbulb',
   },
   {
-    title: 'Trách nhiệm cộng đồng',
-    description: 'Cam kết phát triển bền vững, bảo vệ môi trường và đóng góp tích cực cho cộng đồng.',
+    title: 'Tinh Thần Đoàn Kết',
+    description: 'Đội ngũ kỹ sư, chuyên viên kỹ thuật tay nghề cao, chung một mục tiêu phụng sự an toàn của khách hàng, tạo nên sức mạnh tập thể vững chắc và bền bỉ.',
     icon: 'users',
-  },
-  {
-    title: 'Minh bạch uy tín',
-    description: 'Báo giá rõ ràng, thi công đúng cam kết, bảo hành đầy đủ. Xây dựng niềm tin dài hạn.',
-    icon: 'check',
   },
 ];
 
@@ -123,52 +112,52 @@ export const teamMembers: TeamMember[] = [
   {
     id: 'hoang-le-quang-hoa',
     name: 'Hoàng Lê Quang Hòa',
-    role: 'Giám đốc',
+    role: 'Giám đốc Điều hành',
     image: '/HUAN9016.jpg',
   },
   {
     id: 'nguyen-thi-huong',
     name: 'Nguyễn Thị Hường',
-    role: 'Phó giám đốc',
+    role: 'Phó Giám đốc Điều hành',
     image: '491251241_9696454253740362_974582290995260425_n.jpg',
   },
   {
     id: 'tran-cong-tinh',
     name: 'Trần Công Tình',
-    role: 'Giám đốc kinh doanh',
+    role: 'Giám đốc Kinh doanh',
     image: 'HUAN9169.jpg',
   },
   {
     id: 'nguyen-huy-tuyen',
     name: 'Nguyễn Huy Tuyên',
-    role: 'Trưởng phòng kinh doanh',
+    role: 'Trưởng phòng Kinh doanh',
     image: '707329201_4259183531064219_330036999536634658_n.jpg',
   },
 ];
 
 export const certificates: Certificate[] = [
   {
-    name: 'Chứng nhận Hợp chuẩn QCVN 06:2022',
-    issuer: 'Bộ Xây dựng',
-    image: 'https://images.pexels.com/photos/5900/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=200&q=80',
+    name: 'QCVN 02:2019/BLĐTBXH',
+    issuer: 'Bộ Lao động - Thương binh & Xã hội',
+    image: '/images/qcvn-02.jpg',
   },
   {
-    name: 'Chứng nhận Hợp chuẩn QCVN 13:2021',
-    issuer: 'Bộ Xây dựng',
-    image: 'https://images.pexels.com/photos/5900/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=200&q=80',
+    name: 'QCVN 32:2018/BLĐTBXH (Thang máy gia đình)',
+    issuer: 'Bộ Lao động - Thương binh & Xã hội',
+    image: '/images/qcvn-32.jpg',
   },
   {
-    name: 'Đối tác Otis',
-    issuer: 'Otis Elevator Company',
-    image: 'https://images.pexels.com/photos/5900/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=200&q=80',
+    name: 'TCVN 6395:2008 & TCVN 6396-20/50:2017',
+    issuer: 'Tổng cục Tiêu chuẩn Đo lường Chất lượng',
+    image: '/images/tcvn-6395.jpg',
   },
 ];
 
 export const partners = [
   { name: 'Mitsubishi Electric', logo: '/partners/mitsubishi.svg' },
-  { name: 'Otis', logo: '/partners/otis.svg' },
-  { name: 'Schindler', logo: '/partners/schindler.svg' },
   { name: 'KONE', logo: '/partners/kone.svg' },
-  { name: 'ThyssenKrupp', logo: '/partners/thyssenkrupp.svg' },
-  { name: 'Nissan', logo: '/partners/nissan.svg' },
+  { name: 'Fuji International', logo: '/partners/fuji.svg' },
+  { name: 'Schindler', logo: '/partners/schindler.svg' },
+  { name: 'Otis', logo: '/partners/otis.svg' },
+  { name: 'Thyssenkrupp', logo: '/partners/thyssenkrupp.svg' },
 ];

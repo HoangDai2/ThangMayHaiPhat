@@ -13,6 +13,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\PromotionController;
+use App\Http\Controllers\FaqController;
 
 // Authentication routes
 Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:5,1');
@@ -50,6 +51,7 @@ Route::middleware('auth:sanctum')->group(function () {
     
     Route::apiResource('contacts', App\Http\Controllers\ContactController::class)->middleware('permission:manage-contacts');
     Route::apiResource('promotions', PromotionController::class)->middleware('permission:manage-promotions');
+    Route::apiResource('faqs', FaqController::class);
 
     // Bitrix Data API for Admin (support both admin/bitrix and haiphat/bitrix)
     Route::prefix('admin/bitrix')->group(function () {
@@ -79,6 +81,7 @@ Route::post('/public/reviews', [ReviewController::class, 'store'])->middleware('
 Route::get('/public/banners', [BannerController::class, 'index']);
 Route::post('/public/contacts', [App\Http\Controllers\ContactController::class, 'store'])->middleware('throttle:10,1');
 Route::get('/public/promotions/active', [PromotionController::class, 'getActive']);
+Route::get('/public/faqs', [FaqController::class, 'publicIndex']);
 
 // Bitrix Outbound Webhook
 Route::post('/bitrix/webhook', [App\Http\Controllers\Api\BitrixWebhookController::class, 'handle']);

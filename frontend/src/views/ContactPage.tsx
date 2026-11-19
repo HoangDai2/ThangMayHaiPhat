@@ -34,7 +34,7 @@ const reasons = [
   { icon: Home, title: 'Thang Máy Gia Đình & Biệt Thự', desc: 'Lắp mới may đo, cải tạo nhà cũ, tiêu chuẩn' },
   { icon: Building2, title: 'Tòa Nhà & Khách Sạn', desc: 'Thang tải khách cao tầng, tối ưu tốc độ & lưu lượng' },
   { icon: Wrench, title: 'Bảo Trì & Nâng Cấp', desc: 'Hợp đồng 1 năm, định kỳ 2 tháng/lần, phụ tùng chính hãng' },
-  { icon: Headphones, title: 'Cứu Hộ Khẩn Cấp 24/7', desc: 'Đội kỹ thuật thường trực, cam kết có mặt ≤ 120 phút' },
+  { icon: Headphones, title: 'Cứu Hộ Khẩn Cấp 24/7', desc: 'Có mặt 1 đến 2 tiếng trong Hà Nội, 2 đến 6 tiếng ngoài Hà Nội' },
 ];
 
 export default function ContactPage() {
@@ -260,11 +260,10 @@ export default function ContactPage() {
                         className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 text-sm focus:bg-white focus:outline-none focus:border-[#285c9a] focus:ring-2 focus:ring-[#285c9a]/15 transition-all"
                       >
                         <option value="">-- Chọn nhu cầu của bạn --</option>
-                        {productOptions.map((opt) => (
-                          <option key={opt.id} value={opt.id}>
-                            {opt.label}
-                          </option>
-                        ))}
+                        <option value="Thang máy xây">Thang máy xây </option>
+                        <option value="Thang máy khung thép vách kính">Thang máy khung thép vách kính</option>
+                        <option value="Thang máy homelift">Thang máy homelift</option>
+                        <option value="Thang máy tải khách">Thang máy tải khách</option>
                         <option value="Bảo trì định kỳ">Bảo trì & Sửa chữa định kỳ</option>
                         <option value="Cải tạo thang cũ">Nâng cấp / Cải tạo thang máy cũ</option>
                         <option value="Giới thiệu dự án mới">Giới thiệu dự án mới</option>
@@ -337,7 +336,7 @@ export default function ContactPage() {
                 </a>
 
                 <p className="text-xs text-blue-100/90 leading-relaxed pt-1">
-                  Đội cứu hộ cơ động sẵn sàng có mặt trong vòng ≤ 120 phút tại khu vực nội thành.
+                  Cứu hộ cam kết có mặt 1 đến 2 tiếng trong Hà Nội và 2 đến 6 tiếng ngoài Hà Nội.
                 </p>
               </div>
             </div>

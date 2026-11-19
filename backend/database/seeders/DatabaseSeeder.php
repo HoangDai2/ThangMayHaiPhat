@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
             ReviewsTableSeeder::class,
             PromotionsTableSeeder::class,
             ContactsTableSeeder::class,
+            FaqsTableSeeder::class,
         ]);
 
         $this->command->info('Bắt đầu nạp dữ liệu Bitrix CRM...');

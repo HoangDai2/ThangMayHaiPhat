@@ -45,19 +45,19 @@ export function EmergencyBanner() {
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight leading-tight text-white mb-4">
                 Cam Kết Cứu Hộ Khẩn Cấp: <br className="hidden sm:inline" />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-cyan-200 to-white">
-                  Có Mặt Trong Vòng 30 - 60 Phút
+                  1 Đến 2 Tiếng Trong Hà Nội · 2 Đến 6 Tiếng Ngoài Hà Nội
                 </span>
               </h2>
 
               <p className="text-slate-300 text-sm sm:text-base leading-relaxed mb-6 font-normal">
-                Hải Phát bố trí các trạm kỹ sư trực chiến thường trực tại các quận nội thành. Khi phát sinh sự cố kỹ thuật hoặc kẹt thang, xe cứu hộ chuyên dụng lập tức xuất phát với đầy đủ dụng cụ an toàn.
+                Cứu hộ Hải Phát cam kết có mặt 1 đến 2 tiếng trong Hà Nội và 2 đến 6 tiếng ngoài Hà Nội. Khi phát sinh sự cố kỹ thuật hoặc kẹt thang, đội phản ứng nhanh lập tức xuất phát với đầy đủ trang thiết bị an toàn chuyên dụng.
               </p>
 
               {/* Guarantees chips */}
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 text-xs font-mono text-slate-300">
                 <span className="flex items-center gap-1.5 bg-slate-900/80 px-3 py-1.5 rounded-lg border border-slate-700">
                   <Clock size={14} className="text-emerald-400" />
-                  SLA &lt; 60 PHÚT NỘI THÀNH
+                  1–2H TRONG HÀ NỘI · 2–6H NGOÀI HÀ NỘI
                 </span>
                 <span className="flex items-center gap-1.5 bg-slate-900/80 px-3 py-1.5 rounded-lg border border-slate-700">
                   <ShieldAlert size={14} className="text-cyan-400" />

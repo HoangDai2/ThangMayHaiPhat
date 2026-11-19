@@ -55,14 +55,14 @@ export const DEFAULT_BANNERS: BannerSlide[] = [
     id: 'slide-3',
     title: 'Dịch Vụ Bảo Trì & Cứu Hộ 24/7',
     subtitle: 'Đồng hành tin cậy trọn đời',
-    description: 'Đội ngũ kỹ thuật viên giàu kinh nghiệm trực 24/7, sẵn sàng hỗ trợ nhanh chóng trong vòng 60 phút, đảm bảo thang máy luôn vận hành an toàn và bền bỉ.',
+    description: 'Đội ngũ kỹ thuật viên trực 24/7, cứu hộ cam kết có mặt 1 đến 2 tiếng trong Hà Nội và 2 đến 6 tiếng ngoài Hà Nội, đảm bảo thang máy luôn vận hành an toàn và bền bỉ.',
     image_url: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1920&q=80',
     primary_button_text: 'Gọi cứu hộ khẩn cấp',
     primary_button_link: 'tel:0987603588',
     secondary_button_text: 'Dịch vụ bảo dưỡng',
     secondary_button_link: '#services',
     template_type: 'accent',
-    highlight_tag: 'Phản hồi 120 phút'
+    highlight_tag: 'Có mặt 1-2h HN · 2-6h Tỉnh'
   },
   {
     id: 'slide-4',

@@ -17,7 +17,7 @@ export default function ContactSection() {
 
     try {
       const { default: api } = await import('../lib/api');
-      
+
       await api.post('/public/contacts', {
         name: form.name.trim(),
         phone: form.phone.trim(),
@@ -212,9 +212,10 @@ export default function ContactSection() {
                     className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-800 focus:bg-white focus:outline-none focus:border-[#285c9a] focus:ring-2 focus:ring-[#285c9a]/15 transition-all"
                   >
                     <option value="">-- Chọn loại thang máy dự kiến lắp đặt --</option>
-                    <option value="Thang máy gia đình">Thang máy gia đình (Biệt thự, nhà phố)</option>
-                    <option value="Thang máy tải khách">Thang máy tải khách (Tòa nhà, khách sạn)</option>
-                    <option value="Thang máy quan sát kính">Thang máy quan sát lồng kính ngoài trời</option>
+                    <option value="Thang máy xây">Thang máy xây </option>
+                    <option value="Thang máy khung thép vách kính">Thang máy khung thép vách kính</option>
+                    <option value="Thang máy homelift">Thang máy homelift</option>
+                    <option value="Thang máy tải khách">Thang máy tải khách</option>
                     <option value="Bảo trì sửa chữa">Dịch vụ bảo trì / Nâng cấp thang máy cũ</option>
                   </select>
                 </div>

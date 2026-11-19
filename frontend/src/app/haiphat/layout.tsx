@@ -22,7 +22,8 @@ import {
   Mail,
   ChevronRight,
   Terminal,
-  Activity
+  Activity,
+  HelpCircle
 } from 'lucide-react';
 
 const sidebarItems = [
@@ -32,6 +33,7 @@ const sidebarItems = [
   { path: '/haiphat/projects', label: 'Dự án', icon: FolderKanban, permission: 'manage-projects' },
   { path: '/haiphat/products', label: 'Sản phẩm', icon: Box, permission: 'manage-products' },
   { path: '/haiphat/articles', label: 'Bài viết', icon: FileText, permission: 'manage-articles' },
+  { path: '/haiphat/faqs', label: 'Câu hỏi thường gặp (FAQs)', icon: HelpCircle, permission: null },
   { path: '/haiphat/reviews', label: 'Đánh giá', icon: Star, permission: 'manage-reviews' },
   { path: '/haiphat/images', label: 'Hình ảnh', icon: ImageIcon, permission: 'manage-images' },
   { path: '/haiphat/users', label: 'Tài khoản', icon: Users, permission: 'manage-users' },

@@ -572,8 +572,8 @@ export function ProductsList() {
               },
               {
                 icon: Clock,
-                title: 'Cứu Hộ 24/7 Dưới 120 Phút',
-                desc: 'Đội kỹ thuật thường trực toàn thời gian tại Hà Nội & các tỉnh lân cận, cam kết SLA khẩn cấp.',
+                title: 'Cứu Hộ Có Mặt 1-2h HN, 2-6h Tỉnh',
+                desc: 'Đội kỹ thuật thường trực 24/7, cam kết có mặt 1 đến 2 tiếng trong Hà Nội và 2 đến 6 tiếng ngoài Hà Nội.',
                 metric: 'SLA KHẨN CẤP',
               },
               {

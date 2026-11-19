@@ -20,6 +20,7 @@ import {
   MessageCircle,
   Sparkles,
   ArrowRight,
+  HelpCircle,
 } from 'lucide-react';
 import { useArticlesData } from '../hooks/useArticlesData';
 import { useProductsData } from '../hooks/useProductsData';
@@ -32,6 +33,7 @@ const navLinks = [
   { label: 'Dịch vụ', href: '/dich-vu', icon: Wrench },
   { label: 'Dự án', href: '/du-an', icon: FolderKanban },
   { label: 'Bài viết', href: '/bai-viet', icon: FileText },
+  { label: 'Hỏi đáp', href: '/faqs', icon: HelpCircle },
   { label: 'Về chúng tôi', href: '/ve-chung-toi', icon: Users },
   { label: 'Liên hệ', href: '/lien-he', icon: Mail },
 ];

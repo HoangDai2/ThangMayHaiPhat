@@ -27,7 +27,7 @@ const FAQS: FaqItem[] = [
   },
   {
     question: "Nếu thang máy xảy ra sự cố vào ban đêm hoặc ngày Lễ, Tết thì đội cứu hộ có trực không?",
-    answer: "Đội ngũ kỹ thuật cứu hộ khẩn cấp của Hải Phát túc trực 24/7/365, không nghỉ ngày Lễ hay Tết. Tổng đài kỹ thuật & cứu hộ 0987.603.588 luôn có nhân viên trực máy và kỹ sư phản ứng nhanh sẵn sàng xuất phát trong vòng 30 - 60 phút nội thành."
+    answer: "Đội ngũ kỹ thuật cứu hộ khẩn cấp của Hải Phát túc trực 24/7/365, không nghỉ ngày Lễ hay Tết. Tổng đài kỹ thuật & cứu hộ 0987.603.588 luôn có nhân viên trực máy và kỹ sư cứu hộ cam kết có mặt 1 đến 2 tiếng trong Hà Nội và 2 đến 6 tiếng ngoài Hà Nội."
   }
 ];
 

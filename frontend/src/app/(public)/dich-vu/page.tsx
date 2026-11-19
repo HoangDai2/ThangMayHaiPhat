@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Dịch Vụ Tư Vấn, Lắp Đặt & Bảo Trì Thang Máy | Hải Phát',
-    description: 'Bảo trì định kỳ 2 tháng/lần, SLA cứu hộ khẩn cấp có mặt 30-60 phút. Hotline: 0898.424.666 - Kỹ thuật & cứu hộ 24/7: 0987.603.588.',
+    description: 'Bảo trì định kỳ 2 tháng/lần, cứu hộ cam kết có mặt 1 đến 2 tiếng trong Hà Nội và 2 đến 6 tiếng ngoài Hà Nội. Hotline: 0898.424.666 - Kỹ thuật & cứu hộ 24/7: 0987.603.588.',
     images: ['https://thangmayhaiphat.vn/bhbt.png'],
   },
 };
@@ -86,7 +86,7 @@ export default function Page() {
           '@type': 'Offer',
           itemOffered: {
             '@type': 'Service',
-            name: 'Cứu hộ kỹ thuật khẩn cấp 24/7 nội thành dưới 60 phút',
+            name: 'Cứu hộ kỹ thuật khẩn cấp 24/7 (cam kết có mặt 1 đến 2 tiếng trong Hà Nội, 2 đến 6 tiếng ngoài Hà Nội)',
           },
         },
       ],
