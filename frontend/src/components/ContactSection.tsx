@@ -37,7 +37,7 @@ export default function ContactSection() {
 
   return (
     <section id="contact" className="pt-8 sm:pt-12 lg:pt-12 pb-14 sm:pb-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           badge="Khảo Sát Miễn Phí"
           title="Liên Hệ Nhận Tư Vấn & Khảo Sát Hiện Trường"
@@ -60,13 +60,13 @@ export default function ContactSection() {
                   </div>
                   <div>
                     <div className="text-xs font-semibold text-slate-500 uppercase tracking-wide">
-                      Hotline 24/7 (Kỹ thuật & Cứu hộ)
+                      Hotline & Kỹ Thuật 24/7
                     </div>
-                    <a href="tel:0326629971" className="text-base sm:text-lg font-extrabold text-[#0d1f35] font-mono hover:text-[#285c9a] block">
-                      0326 629 971
+                    <a href="tel:0898424666" className="text-base sm:text-lg font-extrabold text-[#0d1f35] font-mono hover:text-[#285c9a] block">
+                      Hotline: 0898.424.666
                     </a>
                     <a href="tel:0987603588" className="text-xs sm:text-sm font-semibold text-slate-600 font-mono hover:text-[#285c9a] block mt-0.5">
-                      Kinh doanh: 0987 603 588
+                      Kỹ thuật & cứu hộ: 0987.603.588
                     </a>
                   </div>
                 </div>

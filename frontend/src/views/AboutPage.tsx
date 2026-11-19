@@ -51,7 +51,7 @@ export default function AboutPage() {
 
       {/* Stats Bar */}
       <div className="bg-slate-50 border-b border-slate-200/80 py-10 relative z-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6 sm:p-8">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 divide-y sm:divide-y-0 sm:divide-x divide-slate-100">
               {companyInfo.stats.map((stat, idx) => (
@@ -71,7 +71,7 @@ export default function AboutPage() {
 
       {/* Mission & Vision Showcase */}
       <section className="py-16 sm:py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             {/* Visual Frame */}
             <div className="lg:col-span-5 h-[340px] sm:h-[420px] lg:h-[480px] w-full rounded-3xl overflow-hidden relative shadow-xl border border-slate-200 bg-slate-900 group">
@@ -153,7 +153,7 @@ export default function AboutPage() {
       {/* Core Values Section (Dark Mechanical Theme) */}
       <section className="py-16 sm:py-24 bg-[#0d1f35] text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-grid-blueprint opacity-10 pointer-events-none" />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <SectionHeader
             badge="Hệ Giá Trị Cốt Lõi"
             title={<span className="text-white">Kim Chỉ Nam Định Hướng Mọi Hoạt Động</span>}
@@ -191,7 +191,7 @@ export default function AboutPage() {
 
       {/* Leadership Team */}
       <section className="py-16 sm:py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader
             badge="Nhân Sự Chuyên Trách"
             title="Đội Ngũ Lãnh Đạo & Kỹ Sư Trưởng"
@@ -226,7 +226,7 @@ export default function AboutPage() {
 
       {/* Global Brand Partners */}
       <section className="py-16 bg-slate-50 border-t border-slate-200/60">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
             <span className="font-mono text-xs uppercase tracking-widest text-[#285c9a] font-semibold">
               Đối Tác Toàn Cầu

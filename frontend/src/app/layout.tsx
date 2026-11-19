@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Script from 'next/script';
+import RevealObserver from '../components/shared/RevealObserver';
 import '../index.css';
 
 export const metadata: Metadata = {
@@ -54,6 +55,7 @@ export default function RootLayout({
         />
       </head>
       <body className="overflow-x-hidden" suppressHydrationWarning>
+        <RevealObserver />
         <main className="overflow-x-hidden w-full flex flex-col min-h-screen">
           {children}
         </main>

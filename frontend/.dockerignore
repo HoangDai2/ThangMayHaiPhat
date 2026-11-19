@@ -4,3 +4,10 @@ node_modules
 .gitignore
 npm-debug.log
 README.md
+*.tsbuildinfo
+.env
+.env.local
+.env.*.local
+.vscode
+supabase
+scripts

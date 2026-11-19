@@ -29,7 +29,7 @@ export function ServiceHero() {
         <div>STATION // HANOI CENTRAL HQ</div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Breadcrumb Navigation */}
         <nav aria-label="Breadcrumb" className="mb-8">
           <ol className="inline-flex items-center gap-1.5 sm:gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/80 border border-slate-700/80 backdrop-blur-md text-xs text-slate-300">
@@ -90,11 +90,11 @@ export function ServiceHero() {
               </a>
 
               <a
-                href="tel:0326629971"
+                href="tel:0987603588"
                 className="inline-flex items-center gap-2.5 px-5 py-3.5 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 text-slate-200 hover:text-white border border-slate-700 text-sm font-medium transition-all duration-200"
               >
                 <PhoneCall size={16} className="text-emerald-400" />
-                <span>Hotline Cứu Hộ: <strong className="text-white font-semibold">0326 629 971</strong></span>
+                <span>Kỹ Thuật & Cứu Hộ: <strong className="text-white font-semibold">0987.603.588</strong></span>
               </a>
             </div>
           </div>

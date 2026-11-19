@@ -9,6 +9,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      maxWidth: {
+        container: '1400px',
+      },
       colors: {
         brand: {
           DEFAULT: '#285c9a',

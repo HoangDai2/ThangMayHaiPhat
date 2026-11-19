@@ -1,7 +1,5 @@
-'use client';
-
-import { ProductsList } from '../../../views/ProductsPage';
+import { redirect } from 'next/navigation';
 
 export default function Page() {
-  return <ProductsList />;
+  redirect('/');
 }

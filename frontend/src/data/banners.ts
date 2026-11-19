@@ -58,7 +58,7 @@ export const DEFAULT_BANNERS: BannerSlide[] = [
     description: 'Đội ngũ kỹ thuật viên giàu kinh nghiệm trực 24/7, sẵn sàng hỗ trợ nhanh chóng trong vòng 60 phút, đảm bảo thang máy luôn vận hành an toàn và bền bỉ.',
     image_url: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1920&q=80',
     primary_button_text: 'Gọi cứu hộ khẩn cấp',
-    primary_button_link: 'tel:0326629971',
+    primary_button_link: 'tel:0987603588',
     secondary_button_text: 'Dịch vụ bảo dưỡng',
     secondary_button_link: '#services',
     template_type: 'accent',

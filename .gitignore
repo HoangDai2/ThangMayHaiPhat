@@ -18,7 +18,6 @@ frontend/process_*.js
 
 # Scratch / Temporary
 scratch/
-reference_html/
 
 # Gemini / Agents
 .agents/
@@ -30,5 +29,13 @@ temp_redesign_refs/
 .env.production
 .env.local
 
+# Pencil / Pen Design files & scripts
+*.pen
+*.pen.*
+*pen*.js
+*pencil*.js
+DESIGN.md
+*.html
 
-
+# Build & Cache
+*.tsbuildinfo

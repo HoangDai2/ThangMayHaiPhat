@@ -105,7 +105,7 @@ export default function ContactPage() {
       />
 
       {/* 4 Pillars of Assistance */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 relative z-20">
+      <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 -mt-8 relative z-20">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {reasons.map(({ icon: Icon, title, desc }) => (
             <div
@@ -123,7 +123,7 @@ export default function ContactPage() {
       </div>
 
       {/* Main Form & Office Hub Container */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           {/* LEFT: Consultation Form (7 cols) */}
           <div className="lg:col-span-7">
@@ -362,8 +362,8 @@ export default function ContactPage() {
                   <div>
                     <div className="font-bold text-[#0d1f35]">Điện thoại & Hotline:</div>
                     <div className="font-mono font-semibold text-slate-800 mt-0.5 space-y-0.5">
-                      <div>Kinh doanh: 0898.424.666 · 0987.603.588</div>
-                      <div className="text-emerald-600 font-bold">Cứu hộ 24/7: {companyInfo.headquarters.emergency}</div>
+                      <div>Hotline: 0898.424.666</div>
+                      <div className="text-emerald-600 font-bold">Kỹ thuật & cứu hộ: {companyInfo.headquarters.emergency}</div>
                     </div>
                   </div>
                 </div>

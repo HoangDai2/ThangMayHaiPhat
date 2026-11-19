@@ -27,7 +27,7 @@ export default function Footer() {
       {/* CTA Band: Pre-Footer Conversion Moment */}
       <div className="bg-gradient-to-r from-[#285c9a] to-[#1e4a80] py-10 relative overflow-hidden border-b border-blue-400/20">
         <div className="absolute inset-0 bg-grid-blueprint opacity-10 pointer-events-none" />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="text-center sm:text-left">
             <div className="inline-flex items-center gap-2 text-blue-200 font-mono text-xs font-semibold uppercase tracking-wider mb-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
@@ -62,7 +62,7 @@ export default function Footer() {
       </div>
 
       {/* Main Footer Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8">
           {/* Brand Column (Col 1-4) */}
           <div className="lg:col-span-4 space-y-5">
@@ -186,12 +186,12 @@ export default function Footer() {
               <li className="flex items-start gap-2.5">
                 <Phone size={16} className="text-[#4a7bbf] shrink-0 mt-1" />
                 <div>
-                  <div className="text-xs text-slate-400">Hotline 24/7 (Kỹ thuật & Cứu hộ):</div>
-                  <a href="tel:0326629971" className="text-white font-bold font-mono hover:text-blue-300 block">
-                    0326.629.971
+                  <div className="text-xs text-slate-400">Hotline tư vấn 24/7:</div>
+                  <a href="tel:0898424666" className="text-white font-bold font-mono hover:text-blue-300 block">
+                    0898.424.666
                   </a>
-                  <div className="text-xs text-slate-400 mt-1">Phòng kinh doanh:</div>
-                  <a href="tel:0987603588" className="text-white font-mono hover:text-blue-300 block">
+                  <div className="text-xs text-slate-400 mt-1">Kỹ thuật & cứu hộ 24/7:</div>
+                  <a href="tel:0987603588" className="text-white font-bold font-mono hover:text-blue-300 block">
                     0987.603.588
                   </a>
                 </div>
@@ -210,7 +210,7 @@ export default function Footer() {
 
       {/* Bottom Legal Bar */}
       <div className="border-t border-slate-800/80 bg-[#091524]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400">
+        <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400">
           <div>
             &copy; {new Date().getFullYear()} Công Ty Thang Máy Hải Phát. Tất cả quyền được bảo lưu. · Mã số thuế: <span className="font-mono text-slate-300">0109108682</span>
           </div>

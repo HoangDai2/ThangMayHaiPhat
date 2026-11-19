@@ -77,7 +77,7 @@ export function ArticlesList() {
       />
 
       {/* Main Container */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Search + Category Filter Bar */}
         <div className="flex flex-col md:flex-row gap-4 mb-10">
           <div className="flex-1 relative">

@@ -296,7 +296,7 @@ export default function QuickQuoteWidget({
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-1.5 text-xs font-bold text-[#0F2A4A] uppercase tracking-wider font-mono">
                   <Sparkles size={13} className="text-[#1E5AA8]" />
-                  <span>Cấu hình gợi ý: {TYPE_LABELS[type].title} ({floors} tầng)</span>
+                  <span>Cấu hình gợi ý: {TYPE_LABELS[type].title}<br/> ({floors} tầng)</span>
                 </div>
                 <span className="text-[11px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200/80 px-2 py-0.5 rounded-full font-mono">
                   Hố PIT {type === 'khungthep' ? 'từ 600mm' : 'từ 600mm'}

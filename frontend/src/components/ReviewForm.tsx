@@ -104,19 +104,19 @@ export default function ReviewForm() {
               required
               value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
-              placeholder="Nguyễn Văn A"
+              placeholder="VD: Anh Dũng"
               className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-[#285c9a] focus:ring-1 focus:ring-[#285c9a]/20 transition-colors"
             />
           </div>
           <div>
             <label className="block text-xs font-medium text-gray-600 mb-1.5">
-              Chức danh / Vai trò
+              Khu vực / Địa chỉ
             </label>
             <input
               type="text"
               value={form.role}
               onChange={(e) => setForm({ ...form, role: e.target.value })}
-              placeholder="Chủ hộ, Khách sạn X..."
+              placeholder="VD: Kiến Hưng - Hà Đông"
               className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-[#285c9a] focus:ring-1 focus:ring-[#285c9a]/20 transition-colors"
             />
           </div>

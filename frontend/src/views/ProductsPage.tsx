@@ -171,7 +171,7 @@ export function ProductsList() {
       />
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-24">
+      <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-24">
         {/* SECTION 1: Dual Flagship Architectural Showcase */}
         <section>
           <div className="mb-10 text-center max-w-2xl mx-auto">
@@ -221,9 +221,12 @@ export function ProductsList() {
                   <div className="p-4 sm:p-6 pt-4 sm:pt-5">
                     {/* Product Title & Subtitle - Cleanly placed outside image for maximum readability */}
                     <div className="mb-3.5">
-                      <h3 className="text-xl sm:text-2xl font-bold text-[#0d1f35] tracking-tight">
-                        {product.title}
-                      </h3>
+                      <Link href={`/san-pham/${product.id}`} className="group/title block">
+                        <h3 className="text-xl sm:text-2xl font-bold text-[#0d1f35] group-hover/title:text-[#285c9a] transition-colors tracking-tight flex items-center justify-between">
+                          <span>{product.title}</span>
+                          <ArrowRight size={20} className="text-[#285c9a] opacity-0 -translate-x-2 group-hover/title:opacity-100 group-hover/title:translate-x-0 transition-all shrink-0" />
+                        </h3>
+                      </Link>
                       <p className="text-slate-500 text-xs sm:text-sm mt-0.5 line-clamp-1">
                         {product.subtitle || 'Giải pháp thang máy cao cấp tiêu chuẩn Châu Âu'}
                       </p>
@@ -236,7 +239,7 @@ export function ProductsList() {
                         alt={product.title}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover/media:scale-105"
                       />
-                      
+
                       {/* Subtle Top Gradient for Badge Legibility */}
                       <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-black/40 via-transparent to-transparent pointer-events-none" />
 
@@ -296,9 +299,8 @@ export function ProductsList() {
                                     [product.id]: idx,
                                   }))
                                 }
-                                className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
-                                  activeIdx === idx ? 'w-4 bg-white' : 'w-1.5 bg-white/50 hover:bg-white/80'
-                                }`}
+                                className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${activeIdx === idx ? 'w-4 bg-white' : 'w-1.5 bg-white/50 hover:bg-white/80'
+                                  }`}
                                 aria-label={`Đến ảnh ${idx + 1}`}
                               />
                             ))}
@@ -310,13 +312,12 @@ export function ProductsList() {
                     {/* Thumbnail Switcher - Evenly distributed grid for easy touch on mobile */}
                     {gallery.length > 1 && (
                       <div
-                        className={`grid gap-2 sm:gap-2.5 mt-3 mb-1 ${
-                          gallery.length === 2
-                            ? 'grid-cols-2'
-                            : gallery.length === 3
+                        className={`grid gap-2 sm:gap-2.5 mt-3 mb-1 ${gallery.length === 2
+                          ? 'grid-cols-2'
+                          : gallery.length === 3
                             ? 'grid-cols-3'
                             : 'grid-cols-4'
-                        }`}
+                          }`}
                       >
                         {gallery.map((thumbUrl, idx) => (
                           <button
@@ -328,11 +329,10 @@ export function ProductsList() {
                                 [product.id]: idx,
                               }))
                             }
-                            className={`relative aspect-[4/3] rounded-xl overflow-hidden border-2 transition-all cursor-pointer ${
-                              activeIdx === idx
-                                ? 'border-[#285c9a] ring-2 ring-[#285c9a]/25 shadow-sm scale-[1.02]'
-                                : 'border-slate-200/90 opacity-60 hover:opacity-100 hover:border-slate-300'
-                            }`}
+                            className={`relative aspect-[4/3] rounded-xl overflow-hidden border-2 transition-all cursor-pointer ${activeIdx === idx
+                              ? 'border-[#285c9a] ring-2 ring-[#285c9a]/25 shadow-sm scale-[1.02]'
+                              : 'border-slate-200/90 opacity-60 hover:opacity-100 hover:border-slate-300'
+                              }`}
                             aria-label={`Xem góc chụp ${idx + 1}`}
                           >
                             <img
@@ -374,17 +374,17 @@ export function ProductsList() {
                     <div className="border-t border-slate-100 pt-4 space-y-2 mb-2">
                       {(isGlass
                         ? [
-                            'Hố PIT nông từ 600mm, không đục phá móng bè chống thấm',
-                            'Chiều cao tầng trên cùng (OH) thấp linh hoạt từ 2.800mm',
-                            'Vách kính an toàn 360°, đón trọn ánh sáng tự nhiên giếng trời',
-                            'Lắp ráp cơ khí nhanh 5 – 7 ngày, thi công sạch sẽ không bụi',
-                          ]
+                          'Hố PIT nông từ 600mm, không đục phá móng bè chống thấm',
+                          'Chiều cao tầng trên cùng (OH) thấp linh hoạt từ 2.800mm',
+                          'Vách kính an toàn 360°, đón trọn ánh sáng tự nhiên giếng trời',
+                          'Lắp ráp cơ khí nhanh 5 – 7 ngày, thi công sạch sẽ không bụi',
+                        ]
                         : [
-                            'Tiết kiệm chi phí giếng thang xây thô bằng tường gạch & bê tông',
-                            'Tiết diện lòng cabin rộng tối đa trong cùng kích thước hố thang',
-                            'Cách âm đa tầng vượt trội, vận hành siêu tĩnh lặng dưới 45dB',
-                            'Đa dạng hoàn thiện cửa tầng: ốp đá Granite, Marble, Inox gương',
-                          ]
+                          'Tiết kiệm chi phí giếng thang xây thô bằng tường gạch & bê tông',
+                          'Tiết diện lòng cabin rộng tối đa trong cùng kích thước hố thang',
+                          'Cách âm đa tầng vượt trội, vận hành siêu tĩnh lặng dưới 45dB',
+                          'Đa dạng hoàn thiện cửa tầng: ốp đá Granite, Marble, Inox gương',
+                        ]
                       ).map((highlight, hIdx) => (
                         <div key={hIdx} className="flex items-start gap-2 text-xs sm:text-sm text-slate-700">
                           <CheckCircle2 size={16} className="text-[#285c9a] shrink-0 mt-0.5" />
@@ -669,11 +669,11 @@ export function ProductDetail() {
           <h1 className="text-xl font-bold text-slate-900 mb-2">Không tìm thấy thông tin sản phẩm</h1>
           <p className="text-sm text-slate-500 mb-5">Sản phẩm này có thể đã được cập nhật hoặc không tồn tại.</p>
           <Link
-            href="/san-pham"
+            href="/"
             className="inline-flex items-center gap-2 bg-[#285c9a] text-white px-5 py-2.5 rounded-xl font-semibold text-sm hover:bg-[#1e4a80] transition-colors"
           >
             <ChevronLeft size={16} />
-            <span>Về danh mục sản phẩm</span>
+            <span>Về trang chủ</span>
           </Link>
         </div>
       </div>
@@ -693,14 +693,14 @@ export function ProductDetail() {
         title={product.title}
         subtitle={product.shortDescription}
         breadcrumbs={[
-          { label: 'Sản phẩm', href: '/san-pham' },
+          { label: 'Sản phẩm' },
           { label: product.title },
         ]}
         telemetryTag="CHỨNG NHẬN CO/CQ // AN TOÀN EN 81"
       />
 
       {/* Main Content Area */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Quick Telemetry Specs Strip */}
         {product.specifications && product.specifications.length > 0 && (
           <div className="bg-white rounded-2xl border border-slate-200/80 p-5 sm:p-6 mb-12 shadow-sm">
@@ -735,7 +735,7 @@ export function ProductDetail() {
                   alt={`${product.title} - Ảnh ${activeImage + 1}`}
                   className="w-full h-full object-cover transition-transform duration-500"
                 />
-                
+
                 {/* Counter Badge */}
                 <div className="absolute top-3 right-3 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-md text-white font-mono text-xs border border-white/10 z-10">
                   {activeImage + 1} / {gallery.length} ảnh
@@ -768,9 +768,8 @@ export function ProductDetail() {
                           key={idx}
                           type="button"
                           onClick={() => setActiveImage(idx)}
-                          className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
-                            activeImage === idx ? 'w-4 bg-white' : 'w-1.5 bg-white/50 hover:bg-white/80'
-                          }`}
+                          className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${activeImage === idx ? 'w-4 bg-white' : 'w-1.5 bg-white/50 hover:bg-white/80'
+                            }`}
                           aria-label={`Ảnh ${idx + 1}`}
                         />
                       ))}
@@ -781,23 +780,21 @@ export function ProductDetail() {
 
               {gallery.length > 1 && (
                 <div
-                  className={`grid gap-2 pt-1 ${
-                    gallery.length === 2
-                      ? 'grid-cols-2'
-                      : gallery.length === 3
+                  className={`grid gap-2 pt-1 ${gallery.length === 2
+                    ? 'grid-cols-2'
+                    : gallery.length === 3
                       ? 'grid-cols-3'
                       : 'grid-cols-4 sm:grid-cols-6'
-                  }`}
+                    }`}
                 >
                   {gallery.map((img, idx) => (
                     <button
                       key={idx}
                       onClick={() => setActiveImage(idx)}
-                      className={`rounded-xl overflow-hidden border-2 transition-all aspect-[4/3] cursor-pointer ${
-                        activeImage === idx
-                          ? 'border-[#285c9a] ring-2 ring-[#285c9a]/30 scale-[1.02]'
-                          : 'border-slate-200 opacity-70 hover:opacity-100'
-                      }`}
+                      className={`rounded-xl overflow-hidden border-2 transition-all aspect-[4/3] cursor-pointer ${activeImage === idx
+                        ? 'border-[#285c9a] ring-2 ring-[#285c9a]/30 scale-[1.02]'
+                        : 'border-slate-200 opacity-70 hover:opacity-100'
+                        }`}
                       aria-label={`Xem ảnh ${idx + 1}`}
                     >
                       <img src={img} alt="" className="w-full h-full object-cover" />
@@ -1002,9 +999,8 @@ export function ProductDetail() {
                         <span className="font-bold text-[#0d1f35] text-sm pr-4">{faq.question}</span>
                         <ChevronRight
                           size={16}
-                          className={`text-slate-400 transition-transform flex-shrink-0 ${
-                            activeFaq === idx ? 'rotate-90 text-[#285c9a]' : ''
-                          }`}
+                          className={`text-slate-400 transition-transform flex-shrink-0 ${activeFaq === idx ? 'rotate-90 text-[#285c9a]' : ''
+                            }`}
                         />
                       </button>
                       {activeFaq === idx && (
@@ -1122,10 +1118,10 @@ export function ProductDetail() {
                 </p>
               </div>
               <Link
-                href="/san-pham"
+                href="/"
                 className="group flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#285c9a] hover:text-[#1e4a80] transition-colors"
               >
-                <span>Xem tất cả sản phẩm</span>
+                <span>Về trang chủ</span>
                 <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>

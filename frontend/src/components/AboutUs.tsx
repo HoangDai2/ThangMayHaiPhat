@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { ArrowRight, CheckCircle2, ShieldCheck, Building2, Award } from 'lucide-react';
+import { SectionBadge } from './shared/SectionHeader';
 
 interface CountUpProps {
   end: number;
@@ -62,8 +63,8 @@ export default function AboutUs() {
   }, []);
 
   return (
-    <div ref={ref} className="w-full bg-white border-y border-slate-200/80 pt-8 sm:pt-10 lg:pt-12 pb-6 sm:pb-8 lg:pb-8 shadow-sm">
-      <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+    <div ref={ref} className="w-full bg-[#0F2A4A] border-y border-[#0F2A4A] pt-8 sm:pt-10 lg:pt-12 pb-8 sm:pb-10 lg:pb-12 shadow-sm text-white">
+      <div className="w-full max-w-container mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
         {/* Left: Double-Bezel Media Frame */}
         <div className="lg:col-span-6 relative">
           <div className="card-double-bezel">
@@ -78,12 +79,12 @@ export default function AboutUs() {
           </div>
 
           {/* Floating Telemetry Badge */}
-          <div className="absolute -bottom-5 left-6 sm:left-8 bg-white/95 backdrop-blur-md rounded-2xl shadow-xl p-4 sm:p-5 flex items-center gap-4 border border-slate-200/80">
-            <div className="w-12 h-12 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-[#285c9a]">
+          <div className="absolute -bottom-5 left-6 sm:left-8 bg-white rounded-2xl shadow-xl p-4 sm:p-5 flex items-center gap-4 border border-white/80">
+            <div className="w-12 h-12 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-[#2b5b9b]">
               <Award size={26} />
             </div>
             <div>
-              <div className="text-2xl sm:text-3xl font-extrabold text-[#285c9a] font-mono tracking-tight">
+              <div className="text-2xl sm:text-3xl font-extrabold text-[#2b5b9b] font-mono tracking-tight">
                 <CountUp end={5} suffix="+" started={isVisible} />
               </div>
               <div className="text-xs text-slate-600 font-medium">
@@ -95,32 +96,31 @@ export default function AboutUs() {
 
         {/* Right: Content & Core Pillars */}
         <div className="lg:col-span-6 space-y-6">
-          <div className="space-y-3">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-[#285c9a] font-mono text-xs font-semibold uppercase tracking-wider">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#285c9a]" />
-              <span>Năng Lực & Uy Tín Doanh Nghiệp</span>
-            </div>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#0d1f35] tracking-tight leading-tight">
+          <div>
+            <SectionBadge variant="dark" className="mb-3.5">
+              Năng Lực & Uy Tín Doanh Nghiệp
+            </SectionBadge>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-tight">
               Hải Phát – Nâng Tầm Không Gian Sống Việt
             </h2>
           </div>
 
-          <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-            Được thành lập với sứ mệnh định hình chuẩn mực an toàn và thẩm mỹ cơ điện, <b>Thang Máy Hải Phát</b> cung cấp giải pháp lắp đặt, hiện đại hóa và bảo trì toàn diện. Mọi chi tiết kỹ thuật đều được đo kiểm nghiêm ngặt trước khi bàn giao.
+          <p className="text-blue-100/90 text-sm sm:text-base leading-relaxed">
+            Được thành lập với sứ mệnh định hình chuẩn mực an toàn và thẩm mỹ cơ điện, <b className="text-white font-semibold">Thang Máy Hải Phát</b> cung cấp giải pháp lắp đặt, hiện đại hóa và bảo trì toàn diện. Mọi chi tiết kỹ thuật đều được đo kiểm nghiêm ngặt trước khi bàn giao.
           </p>
 
           <div className="flex flex-wrap gap-2.5">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-50 text-blue-700 text-xs font-semibold border border-blue-100">
-              <ShieldCheck size={14} className="text-[#285c9a]" />
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/10 text-white text-xs font-semibold border border-white/20 backdrop-blur-sm">
+              <ShieldCheck size={14} className="text-cyan-300" />
               Chứng chỉ CO/CQ 100%
             </span>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 text-xs font-semibold border border-slate-200">
-              <Building2 size={14} className="text-slate-600" />
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/10 text-white text-xs font-semibold border border-white/20 backdrop-blur-sm">
+              <Building2 size={14} className="text-cyan-300" />
               Linh kiện chính hãng Fuji & Montanari
             </span>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 py-2 border-y border-slate-100">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 py-2 border-y border-white/15">
             {[
               'Tư vấn giải pháp may đo chuẩn kiến trúc',
               'Thi công đúng tiến độ cam kết trong hợp đồng',
@@ -128,8 +128,8 @@ export default function AboutUs() {
               'Đội ngũ kỹ sư chính hãng đào tạo chuyên sâu'
             ].map((item, index) => (
               <div key={index} className="flex items-start gap-2.5">
-                <CheckCircle2 className="w-4 h-4 text-[#285c9a] shrink-0 mt-0.5" />
-                <span className="text-slate-700 text-xs sm:text-sm font-medium leading-snug">{item}</span>
+                <CheckCircle2 className="w-4 h-4 text-cyan-300 shrink-0 mt-0.5" />
+                <span className="text-white text-xs sm:text-sm font-medium leading-snug">{item}</span>
               </div>
             ))}
           </div>
@@ -137,7 +137,7 @@ export default function AboutUs() {
           <div className="pt-1">
             <Link
               href="/ve-chung-toi"
-              className="group inline-flex items-center gap-2 bg-[#285c9a] hover:bg-[#1e4a80] text-white px-6 py-3 rounded-xl text-sm font-semibold transition-all duration-300 shadow-md shadow-[#285c9a]/20 hover:shadow-lg active:scale-[0.98]"
+              className="group inline-flex items-center gap-2 bg-white hover:bg-blue-50 text-[#2b5b9b] px-6 py-3 rounded-xl text-sm font-bold transition-all duration-300 shadow-lg shadow-black/15 hover:shadow-xl active:scale-[0.98]"
             >
               <span>Tìm hiểu về Hải Phát</span>
               <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />

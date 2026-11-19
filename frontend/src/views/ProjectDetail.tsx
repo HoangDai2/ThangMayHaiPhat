@@ -130,7 +130,7 @@ function ProjectDetail() {
       />
 
       {/* Main Container */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Quick Mechanical Telemetry Bar */}
         <div className="bg-white rounded-2xl border border-slate-200/80 p-5 sm:p-6 mb-12 shadow-sm">
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 divide-y sm:divide-y-0 sm:divide-x divide-slate-100">
@@ -559,7 +559,7 @@ function ProjectsList() {
       />
 
       {/* Main Container */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Category Filters */}
         <div className="flex flex-wrap gap-2 mb-10">
           {categories.map((cat) => (

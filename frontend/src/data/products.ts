@@ -28,11 +28,11 @@ export interface Product {
 export const products: Product[] = [
   {
     id: '5a0c4a0a-aa1f-4ad6-a564-eec5e2a4121e',
-    title: 'Thang Máy Xây',
-    subtitle: 'Hiệu suất cao cho tòa nhà văn phòng và chung cư',
+    title: 'Thang máy hố xây gia đình',
+    subtitle: 'Giải pháp tối ưu cho nhà phố, biệt thự và công trình nhiều tầng',
     icon: 'building',
     image: 'https://lfwsvizmqinwbarxhddr.supabase.co/storage/v1/object/public/images/1786435936672-mrkll2obexe.png',
-    shortDescription: 'Giải pháp lý tưởng cho tòa nhà, văn phòng, bệnh viện, khách sạn. Tải trọng lớn, vận hành êm ái, đáp ứng tiêu chuẩn QCVN và EN 81.',
+    shortDescription: 'Hải Phát lắp thang máy hố xây tải 350–650 kg, cabin gia công theo kích thước hố thật của từng nhà.',
     fullDescription: `Thang máy hố xây Hải Phát là giải pháp vận chuyển tối ưu cho các công trình xây mới, nhà phố, biệt thự và các công trình thương mại với giếng thang đổ cột bê tông và tường gạch kiên cố. Kết cấu bền bỉ trọn đời, tối ưu hóa kích thước cabin lớn nhất trong lòng hố, vận hành êm ái và an toàn tuyệt đối.`,
     features: [
       'Tốc độ vận hành đa dạng',
@@ -51,12 +51,12 @@ export const products: Product[] = [
       'https://lfwsvizmqinwbarxhddr.supabase.co/storage/v1/object/public/images/1786435970972-h23t68qhoee.png',
     ],
     specifications: [
+      { label: 'Số tầng tối đa', value: '9 tầng' },
       { label: 'Tải trọng', value: '350 - 650 kg' },
-      { label: 'Kích thước cabin', value: '1.100 - 1.200 mm' },
+      { label: 'Kích thước cabin', value: 'Hố từ 1300×1300 mm' },
       { label: 'Công suất', value: '1.0 - 1.5 m/s' },
       { label: 'Bảo hành', value: '18 tháng' },
       { label: 'Bảo trì', value: '2 tháng/lần' },
-      { label: 'Số tầng tối đa', value: '15 Tầng' },
     ],
     benefits: [
       'Tăng năng suất vận chuyển',
@@ -77,20 +77,18 @@ export const products: Product[] = [
     faqs: [
       { question: 'Nhà xây mới nên chọn thang máy hố xây khi nào?', answer: 'Thích hợp nhất khi công trình đang làm móng và đổ khung bê tông, giúp tối ưu chi phí khung thép và mở rộng cabin tối đa.' },
       { question: 'Hố PIT thang xây cần sâu bao nhiêu?', answer: 'Hố PIT tiêu chuẩn từ 600mm đến 1.200mm tùy theo tải trọng và tốc độ thiết kế.' },
-      { question: 'Chi phí thang máy hố xây như thế nào?', answer: 'Giá khởi điểm từ 275 - 290 triệu đồng cho nhà 2-3 tầng, là phương án kinh tế nhất trong các dòng thang máy.' },
+      { question: 'Chi phí thang máy hố xây như thế nào?', answer: 'Giá khởi điểm từ 290 triệu đồng cho nhà 3 tầng, cabin inox tiêu chuẩn.' },
     ],
     relatedProjects: ['landmark-office', 'vinmec-times-city'],
   },
   {
     id: 'f4920e71-6a1e-4ca7-a50d-6efd7a5dadda',
-    title: 'Thang Máy Khung Thép Vách Kính',
-    subtitle: 'Giải pháp thang máy cao cấp cho không gian sống',
+    title: 'Thang máy khung thép vách kính',
+    subtitle: 'Đón trọn ánh sáng tự nhiên qua giếng trời, thẩm mỹ sang trọng',
     icon: 'home',
     image: 'https://lfwsvizmqinwbarxhddr.supabase.co/storage/v1/object/public/images/1786423677456-x93ehnbq5h.png',
-    shortDescription: 'Thiết kế sang trọng, tối ưu không gian. Phù hợp với nhà phố, biệt thự với cabin kính toàn phần hoặc inox mờ cao cấp.',
-    fullDescription: `Thang máy khung thép vách kính Hải Phát là sự kết hợp hoàn mỹ giữa kỹ thuật cơ khí chính xác và nghệ thuật kiến trúc hiện đại, nâng tầm đẳng cấp không gian sống cho gia chủ. Kết cấu khung thép định hình chịu lực cao kết hợp 4 mặt kính cường lực an toàn trong suốt mở ra tầm nhìn Panorama 360 độ thoáng đãng, tận dụng tối đa ánh sáng tự nhiên từ giếng trời để ngôi nhà luôn ngập tràn sinh khí. Cabin được cá nhân hóa linh hoạt theo phong cách nội thất riêng biệt: từ kính màu trà sang trọng, inox sọc nhuyễn mạ PVD vàng ánh kim cho đến sàn đá hoa cương cao cấp.
-
-Trang bị công nghệ động cơ không hộp số đồng bộ nam châm vĩnh cửu cùng hệ biến tần điều khiển thông minh, thang vận hành êm ái vượt trội với độ ồn dưới 45dB và tiết kiệm đến 40% điện năng tiêu thụ. Giải pháp hố PIT tiêu chuẩn chỉ từ 600mm không chạm vào móng bè hay hệ thống ngầm, cùng công nghệ lắp dựng khung thép module bu-lông sạch sẽ chỉ từ 5–7 ngày, giúp tối ưu diện tích và không làm gián đoạn sinh hoạt của gia đình. Hệ thống an toàn đa tầng chuẩn Châu Âu (cứu hộ tự động ARD khi mất điện, mành cảm quang chống kẹt cửa) mang lại sự an tâm tuyệt đối cho mọi thế hệ thành viên.`,
+    shortDescription: 'Thang máy kính hố thép định hình, cabin 4 mặt kính cường lực đón trọn ánh sáng tự nhiên qua giếng trời.',
+    fullDescription: `Thang máy khung thép vách kính Hải Phát là sự kết hợp hoàn mỹ giữa kỹ thuật cơ khí chính xác và nghệ thuật kiến trúc hiện đại, nâng tầm đẳng cấp không gian sống cho gia chủ. Kết cấu khung thép định hình chịu lực cao kết hợp 4 mặt kính cường lực an toàn trong suốt mở ra tầm nhìn Panorama 360 độ thoáng đãng.`,
     features: [
       'Cabin kính cường lực cao cấp',
       'Cửa mở tự động êm ái',
@@ -109,10 +107,10 @@ Trang bị công nghệ động cơ không hộp số đồng bộ nam châm vĩ
     specifications: [
       { label: 'Số tầng tối đa', value: '6 tầng' },
       { label: 'Tải trọng', value: '350 - 650 kg' },
-      { label: 'Kích thước cabin', value: '900 - 1000 mm' },
-      { label: 'Công suất', value: '1.0 - 1.5 m/s' },
+      { label: 'Đặc tính', value: 'Kính an toàn 2 lớp' },
+      { label: 'Vị trí lắp', value: 'Trong nhà & giếng trời' },
+      { label: 'Thời gian lắp', value: 'Lắp đặt 5–7 ngày' },
       { label: 'Bảo hành', value: '18 tháng' },
-      { label: 'Bảo trì', value: '2 tháng/lần' },
     ],
     benefits: [
       'Tăng giá trị bất động sản lên 15-20%',
@@ -133,8 +131,139 @@ Trang bị công nghệ động cơ không hộp số đồng bộ nam châm vĩ
     faqs: [
       { question: 'Nhà đang ở cải tạo có lắp được thang máy kính không?', answer: 'Hoàn toàn được. Hố PIT chỉ cần sâu từ 600mm nên không đụng chạm đến móng bè chống thấm của nhà.' },
       { question: 'Lắp giữa lòng cầu thang bộ có bị bí không?', answer: 'Không, kính cường lực 4 mặt trong suốt đón trọn ánh sáng tự nhiên từ trên nóc nhà xuống các tầng.' },
-      { question: 'Giá thang khung thép vách kính từ bao nhiêu?', answer: 'Giá trọn gói từ 380 triệu đồng cho nhà 2 tầng bao gồm khung thép, vách kính cường lực và thiết bị.' },
+      { question: 'Giá thang khung thép vách kính từ bao nhiêu?', answer: 'Giá trọn gói từ 380 triệu đồng cho nhà 2 tầng bao gồm khung thép định hình và vách kính.' },
     ],
     relatedProjects: ['villa-ecopark', 'house-thao-dien'],
+  },
+  {
+    id: '0857710f-a18b-474c-a736-9ff60cf39642',
+    title: 'Thang máy không hố pit (thang máy mini)',
+    subtitle: 'Hố PIT siêu nông từ 200mm – dòng thang cứu cánh cho nhà cải tạo',
+    icon: 'home',
+    image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1000&q=80',
+    shortDescription: 'Thang máy không hố pit – còn gọi là thang máy nhỏ gọn – là dòng thang cứu cánh cho nhà cải tạo đang ở.',
+    fullDescription: 'Thang máy gia đình Homelift mini Hải Phát được thiết kế chuyên biệt cho các công trình nhà ở gia đình, biệt thự, nhà phố với hố pit chỉ từ 200mm, không cần đào móng bè.',
+    features: [
+      'Không cần phòng máy cồng kềnh',
+      'Hố PIT siêu nông chỉ từ 200mm',
+      'Động cơ Gearless tiết kiệm 40% điện',
+      'Vận hành siêu êm ái < 45dB',
+    ],
+    gallery: [
+      'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1000&q=80',
+    ],
+    specifications: [
+      { label: 'Hố PIT', value: 'Hố pit chỉ từ 200 mm' },
+      { label: 'Hiện trạng', value: 'Nhà đã hoàn thiện' },
+      { label: 'Nguồn điện', value: 'Điện 1 pha 220V' },
+      { label: 'Tải trọng', value: '250kg - 450kg (3 - 6 người)' },
+    ],
+    benefits: [
+      'Tăng giá trị bất động sản',
+      'Thuận tiện di chuyển cho người lớn tuổi',
+      'An toàn tuyệt đối chuẩn Châu Âu',
+    ],
+    process: [],
+    faqs: [
+      { question: 'Giá thang máy mini bao nhiêu?', answer: 'Giá thang homelift mini không hố pit khởi điểm từ 320 triệu đồng.' },
+    ],
+    relatedProjects: [],
+  },
+  {
+    id: '9534651f-b83f-49c0-8cb2-6efea1f0017e',
+    title: 'Thang máy tải khách & tải hàng công nghiệp',
+    subtitle: 'Tải trọng lớn cho nhà xưởng, showroom, văn phòng và khách sạn',
+    icon: 'building',
+    image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1000&q=80',
+    shortDescription: 'Giải pháp di chuyển chuyên nghiệp, tải trọng lớn cho nhà xưởng, showroom, văn phòng và khách sạn.',
+    fullDescription: 'Dòng thang máy tải khách và hàng hóa tiêu chuẩn quốc tế dành cho cao ốc, văn phòng, nhà xưởng công nghiệp.',
+    features: [
+      'Tốc độ cao từ 1.0m/s đến 2.5m/s',
+      'Hệ điều khiển vi xử lý 32-bit thông minh',
+      'Tiết kiệm năng lượng chuẩn A+++',
+    ],
+    gallery: [
+      'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1000&q=80',
+    ],
+    specifications: [
+      { label: 'Tải trọng', value: 'Tải 500 - 3.000kg' },
+      { label: 'Lưu lượng', value: 'Lưu thông lớn' },
+      { label: 'Tiêu chuẩn', value: 'Tiêu chuẩn quốc tế' },
+    ],
+    benefits: [
+      'Tối ưu thời gian chờ đợi',
+      'Tiết kiệm chi phí bảo trì lâu dài',
+    ],
+    process: [],
+    faqs: [
+      { question: 'Giá thang máy tải khách công nghiệp bao nhiêu?', answer: 'Chi phí thang máy tải khách & hàng công nghiệp từ 320 triệu đồng.' },
+    ],
+    relatedProjects: [],
+  },
+  {
+    id: 'a5e0fdd9-d5f4-448f-b74b-b01034da3ec6',
+    title: 'Thang máy kính quan sát Panorama',
+    subtitle: 'Nâng tầm đẳng cấp kiến trúc không gian mở 360 độ',
+    icon: 'eye',
+    image: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1000&q=80',
+    shortDescription: 'Thiết kế 4 mặt kính cường lực trong suốt, mang lại trải nghiệm ngắm nhìn toàn cảnh độc đáo.',
+    fullDescription: 'Thang máy kính Panorama là sự kết hợp hoàn hảo giữa công nghệ hiện đại và nghệ thuật kiến trúc. Cabin kính trong suốt mang lại cảm giác thông thoáng, tận dụng tối đa ánh sáng tự nhiên.',
+    features: [
+      'Kính an toàn 2 lớp cường lực',
+      'Khung hợp kim nhôm Anode hoặc Inox gương vàng',
+      'Đèn LED trần đổi màu ambient',
+      'View 360 độ toàn cảnh',
+    ],
+    gallery: [
+      'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1000&q=80',
+    ],
+    specifications: [
+      { label: 'Tải trọng', value: '300kg - 630kg' },
+      { label: 'Tốc độ', value: '0.5m/s - 1.0m/s' },
+      { label: 'Loại kính', value: 'Kính dán an toàn 10.38mm' },
+    ],
+    benefits: [
+      'Tạo điểm nhấn thị giác đẳng cấp',
+      'Không gian thoáng đãng không bị bí bách',
+    ],
+    process: [],
+    faqs: [
+      { question: 'Giá thang máy kính Panorama bao nhiêu?', answer: 'Giá thang máy kính Panorama từ 380 triệu đồng.' },
+    ],
+    relatedProjects: [],
+  },
+  {
+    id: 'cf54fb82-40b2-4800-a9d9-8b43c3fa6aa0',
+    title: 'Thang máy quan sát ngoài trời',
+    subtitle: 'Thang máy kính toàn cảnh cho kiến trúc nổi bật',
+    icon: 'eye',
+    image: 'https://lfwsvizmqinwbarxhddr.supabase.co/storage/v1/object/public/images/1786420808857-lsr5o68sgjc.jpg',
+    shortDescription: 'Thang máy kính toàn cảnh lắp ngoài công trình, mang lại điểm nhấn kiến trúc độc đáo và trải nghiệm thị giác ấn tượng cho người sử dụng.',
+    fullDescription: 'Thang máy quan sát Hải Phát được thiết kế với cabin kính toàn cảnh, lắp đặt bên ngoài các công trình cao tầng như khách sạn, trung tâm thương mại, tòa nhà văn phòng và các công trình biểu tượng.',
+    features: [
+      'Cabin kính cường lực toàn cảnh 360°',
+      'Kính an toàn đa lớp dày 12mm+',
+      'Hệ thống chiếu sáng LED trang trí',
+      'Đối trọng ẩn không cản tầm nhìn',
+      'Vận hành êm ái, chống rung',
+    ],
+    gallery: [
+      'https://lfwsvizmqinwbarxhddr.supabase.co/storage/v1/object/public/images/1786421642006-aokmt4tkt19.jpg',
+    ],
+    specifications: [
+      { label: 'Số tầng tối đa', value: '9 tầng' },
+      { label: 'Tải trọng', value: '350 - 650 kg' },
+      { label: 'Kính cabin', value: 'Kính cường lực 10 - 12 mm' },
+      { label: 'Bảo hành', value: '18 tháng' },
+    ],
+    benefits: [
+      'Tăng giá trị thẩm mỹ công trình',
+      'Điểm nhấn kiến trúc độc đáo',
+    ],
+    process: [],
+    faqs: [
+      { question: 'Giá thang máy quan sát ngoài trời bao nhiêu?', answer: 'Giá thang máy quan sát ngoài trời từ 360 triệu đồng.' },
+    ],
+    relatedProjects: ['sheraton-da-nang', 'landmark-office'],
   },
 ];

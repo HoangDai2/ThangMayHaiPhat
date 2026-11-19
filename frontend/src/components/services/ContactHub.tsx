@@ -90,7 +90,7 @@ export function ContactHub() {
 
   return (
     <section id="tu-van-bao-gia" className="py-20 md:py-28 bg-slate-50 border-b border-slate-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="max-w-3xl mb-14">
           <div className="inline-flex items-center gap-2 text-[#285c9a] font-mono text-xs uppercase tracking-widest font-semibold mb-3">
@@ -124,7 +124,7 @@ export function ContactHub() {
                     </div>
                     <div>
                       <div className="text-xs font-mono uppercase tracking-wider text-slate-400">Đường Dây Nóng Kỹ Thuật & Cứu Hộ</div>
-                      <div className="text-lg font-bold text-white tracking-tight">0326 629 971</div>
+                      <div className="text-lg font-bold text-white tracking-tight">0987.603.588</div>
                     </div>
                   </div>
                   {/* Pulsing online badge */}
@@ -139,7 +139,7 @@ export function ContactHub() {
                 </p>
 
                 <a
-                  href="tel:0326629971"
+                  href="tel:0987603588"
                   className="group w-full inline-flex items-center justify-between px-4 py-3 rounded-xl bg-[#285c9a] hover:bg-[#1e4a80] text-white text-xs sm:text-sm font-semibold transition-all duration-200 active:scale-[0.98]"
                 >
                   <span>Bấm Gọi Cứu Hộ / Kỹ Sư Ngay</span>

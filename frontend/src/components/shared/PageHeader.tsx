@@ -31,7 +31,7 @@ export default function PageHeader({
       <div className="absolute -top-24 left-1/4 w-96 h-96 bg-[#285c9a]/30 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute -bottom-20 right-1/4 w-80 h-80 bg-[#1e4a80]/40 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Breadcrumb Navigation & Technical Telemetry Pill */}
         <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
           <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-slate-400">

@@ -3,3 +3,13 @@ vendor
 .git
 .gitignore
 storage/*.key
+storage/logs/*.log
+storage/framework/cache/data/*
+storage/framework/views/*
+storage/framework/sessions/*
+bootstrap/cache/*.php
+!bootstrap/cache/.gitignore
+.phpunit.cache
+.vscode
+.idea
+node_modules

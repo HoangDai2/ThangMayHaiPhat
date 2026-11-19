@@ -16,7 +16,7 @@ import { DEFAULT_BANNERS, BannerSlide } from '../data/banners';
 import Link from 'next/link';
 import AboutUs from './AboutUs';
 import QuickQuoteWidget from './QuickQuoteWidget';
-import PricingOverview from './PricingOverview';
+import FeaturedElevators from './FeaturedElevators';
 import { useQuickQuote } from '../context/QuickQuoteContext';
 
 export default function Hero() {
@@ -56,9 +56,10 @@ export default function Hero() {
   return (
     <section
       id="home"
+      data-reveal-skip="true"
       className="w-full bg-[#f8fafc] bg-grid-light border-b border-slate-200/60 overflow-hidden lg:pt-28 relative"
     >
-      <div className="w-full lg:max-w-7xl lg:mx-auto lg:px-8">
+      <div className="w-full lg:max-w-container lg:mx-auto lg:px-8">
         {/*
           RESPONSIVE STRATEGY:
           - Mobile (< lg): Retains original slider (100dvh full-bleed at top, order-1)
@@ -122,8 +123,7 @@ export default function Hero() {
                         {/* Content Area - Vertically Centered in Screen */}
                         <div className="relative z-10 space-y-3.5 sm:space-y-4 my-auto w-full max-w-xl">
                           {slide.subtitle && (
-                            <div className="inline-flex items-center gap-2 text-cyan-300 text-xs font-bold tracking-wider uppercase bg-cyan-950/70 backdrop-blur-md border border-cyan-400/35 px-3 py-1 rounded-full shadow-sm">
-                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+                            <div className="inline-flex items-center text-cyan-300 text-xs font-bold tracking-wider uppercase bg-cyan-950/70 backdrop-blur-md border border-cyan-400/35 px-3 py-1 rounded-full shadow-sm">
                               <span className="truncate max-w-[280px] sm:max-w-none">{slide.subtitle}</span>
                             </div>
                           )}
@@ -237,8 +237,7 @@ export default function Hero() {
             {/* Top: Standard Badge & Headline */}
             <div className="space-y-3 sm:space-y-3.5">
               {/* Engineering Standard Badge */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50/90 border border-blue-200/80 text-[#1E5AA8] font-mono text-xs font-semibold uppercase tracking-wider w-fit shadow-2xs">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <div className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-blue-50/90 border border-blue-200/80 text-[#1E5AA8] font-mono text-xs font-semibold uppercase tracking-wider w-fit shadow-2xs">
                 <span>Tiêu chuẩn Châu Âu EN 81 // ISO 9001:2015</span>
               </div>
 
@@ -359,10 +358,10 @@ export default function Hero() {
         <AboutUs />
       </div>
 
-      {/* Pricing Overview Section (Bảng giá tham khảo 2026) */}
-      <div className="w-full lg:max-w-7xl lg:mx-auto lg:px-8">
-        <div className="mt-4 sm:mt-6 lg:mt-8 px-4 sm:px-6 lg:px-0 pb-6 sm:pb-8 lg:pb-8">
-          <PricingOverview />
+      {/* Featured Elevators Section (Sản phẩm thang máy nổi bật) */}
+      <div className="w-full lg:max-w-container lg:mx-auto lg:px-8">
+        <div className="mt-4 sm:mt-6 lg:mt-8 px-2 sm:px-4 lg:px-0 pb-6 sm:pb-8 lg:pb-8">
+          <FeaturedElevators />
         </div>
       </div>
     </section>

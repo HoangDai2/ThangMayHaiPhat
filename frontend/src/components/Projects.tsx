@@ -20,7 +20,7 @@ export default function Projects() {
 
   return (
     <section id="projects" className="pt-8 sm:pt-12 lg:pt-12 pb-12 sm:pb-16 lg:pb-16 bg-white border-b border-slate-200/60">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <SectionHeader
           badge="Hồ Sơ Năng Lực"
@@ -56,7 +56,7 @@ export default function Projects() {
         </div>
 
         {/* Project Cards Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div data-reveal-stagger="true" className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {filtered.slice(0, 6).map((project) => (
             <Link
               key={project.id}
