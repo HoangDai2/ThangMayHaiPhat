@@ -63,7 +63,7 @@ class UploadController extends Controller
                 $files = Storage::disk('public')->allFiles($folder);
                 foreach ($files as $file) {
                     $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
-                    if (!in_array($ext, ['jpg', 'jpeg', 'png', 'webp', 'gif', 'svg'])) continue;
+                    if (!in_array($ext, ['jpg', 'jpeg', 'png', 'webp', 'gif', 'svg', 'avif', 'bmp'])) continue;
                     $url = asset('storage/' . $file);
                     $imagesMap[$url] = [
                         'id' => md5($url),
@@ -165,7 +165,7 @@ class UploadController extends Controller
                 foreach ($files as $file) {
                     if ($file === '.' || $file === '..') continue;
                     $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
-                    if (!in_array($ext, ['jpg', 'jpeg', 'png', 'webp', 'svg', 'gif'])) continue;
+                    if (!in_array($ext, ['jpg', 'jpeg', 'png', 'webp', 'svg', 'gif', 'avif', 'bmp'])) continue;
                     $url = '/' . $file;
                     $fullPath = $frontendPublic . DIRECTORY_SEPARATOR . $file;
                     if (!isset($imagesMap[$url])) {
@@ -203,13 +203,32 @@ class UploadController extends Controller
     // Upload an image
     public function store(Request $request)
     {
+        if (!$request->hasFile('file')) {
+            return response()->json([
+                'message' => 'Không tìm thấy tập tin ảnh tải lên. Vui lòng kiểm tra dung lượng ảnh (tối đa 30MB).'
+            ], 422);
+        }
+
         $request->validate([
-            'file' => 'required|file|image|mimes:jpeg,png,jpg,webp,svg,gif|max:10240', // max 10MB strictly images
+            'file' => 'required|file|image|mimes:jpeg,png,jpg,webp,svg,gif,avif,bmp|max:30720', // max 30MB
             'folder' => 'nullable|string|regex:/^[a-zA-Z0-9_\-]+$/'
+        ], [
+            'file.required' => 'Vui lòng chọn tập tin ảnh.',
+            'file.file' => 'Tập tin tải lên không hợp lệ.',
+            'file.image' => 'Tập tin phải là một hình ảnh.',
+            'file.mimes' => 'Hình ảnh chỉ hỗ trợ các định dạng: JPEG, PNG, JPG, WEBP, SVG, GIF, AVIF, BMP.',
+            'file.max' => 'Dung lượng hình ảnh không được vượt quá 30MB.',
         ]);
 
+        $uploadedFile = $request->file('file');
+        if (!$uploadedFile->isValid()) {
+            return response()->json([
+                'message' => 'Lỗi tải lên tập tin: ' . $uploadedFile->getErrorMessage()
+            ], 422);
+        }
+
         $folder = preg_replace('/[^a-zA-Z0-9_\-]/', '', $request->input('folder', 'uploads')) ?: 'uploads';
-        $path = $request->file('file')->store($folder, 'public');
+        $path = $uploadedFile->store($folder, 'public');
 
         return response()->json([
             'url' => asset('storage/' . $path),

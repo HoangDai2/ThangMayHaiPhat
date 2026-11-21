@@ -99,9 +99,10 @@ export default function AdminImages() {
         });
       }
       await fetchImages();
-    } catch (e) {
+    } catch (e: any) {
       console.error('Lỗi tải ảnh:', e);
-      alert('Tải ảnh lên thất bại');
+      const errMsg = e.response?.data?.errors?.file?.[0] || e.response?.data?.message || 'Tải ảnh lên thất bại. Vui lòng kiểm tra lại kích thước ảnh.';
+      alert(errMsg);
     }
     setUploading(false);
   };
@@ -270,7 +271,7 @@ export default function AdminImages() {
               Kéo thả hoặc nhấp vào đây để tải lên nhiều hình ảnh cùng lúc
             </p>
             <p className="text-slate-400 text-xs mt-1">
-              Hỗ trợ định dạng JPG, PNG, WEBP, GIF, SVG (Tối đa 10MB/file)
+              Hỗ trợ định dạng JPG, PNG, WEBP, GIF, SVG, AVIF, BMP (Tối đa 30MB/file)
             </p>
             <input
               type="file"

@@ -84,9 +84,10 @@ export default function ImagePickerModal({
         }
       }
       await fetchImages();
-    } catch (err) {
-      console.error(err);
-      alert('Tải ảnh thất bại');
+    } catch (err: any) {
+      console.error('Lỗi tải ảnh:', err);
+      const errMsg = err.response?.data?.errors?.file?.[0] || err.response?.data?.message || 'Tải ảnh thất bại. Vui lòng kiểm tra lại kích thước ảnh.';
+      alert(errMsg);
     } finally {
       setUploading(false);
     }

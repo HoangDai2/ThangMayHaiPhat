@@ -32,9 +32,10 @@ export default function ImageUpload({ value, onChange, label = 'Hình ảnh' }: 
         const fullUrl = url.startsWith('http') || url.startsWith('/') ? url : `${process.env.NEXT_PUBLIC_BACKEND_URL}${url}`;
         onChange(fullUrl);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Upload failed', error);
-      alert('Tải ảnh thất bại');
+      const errMsg = error.response?.data?.errors?.file?.[0] || error.response?.data?.message || 'Tải ảnh thất bại. Vui lòng kiểm tra lại kích thước ảnh.';
+      alert(errMsg);
     } finally {
       setUploading(false);
     }

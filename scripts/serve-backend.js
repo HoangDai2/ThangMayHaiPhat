@@ -7,7 +7,13 @@ const laragonPhp83 = 'C:\\laragon\\bin\\php\\php-8.3.32-Win32-vs16-x64\\php.exe'
 const phpBin = fs.existsSync(laragonPhp83) ? laragonPhp83 : 'php';
 const backendDir = path.resolve(__dirname, '..', 'backend');
 
-const child = spawn(phpBin, ['artisan', 'serve'], {
+const child = spawn(phpBin, [
+  '-d', 'upload_max_filesize=64M',
+  '-d', 'post_max_size=64M',
+  '-d', 'memory_limit=512M',
+  'artisan',
+  'serve'
+], {
   cwd: backendDir,
   stdio: 'inherit',
   shell: true,
